@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const RealStories = () => {
   return (
-    <section className="my-25">
+    <section className="my-5 lg:my-20">
       <div className="gap-10 md:gap-15 lg:gap-25 max-w-[90%] mx-auto flex flex-col">
         {/* Header */}
         <div className="relative flex flex-col lg:flex-row justify-between gap-10">

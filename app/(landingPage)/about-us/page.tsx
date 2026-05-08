@@ -30,7 +30,7 @@ const AboutUsPage = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"
+            className="absolute inset-0 bg-linear-to-t from-black/40 via-black/20 to-transparent"
           />
 
           <div className="flex flex-col gap-4 lg:gap-20">

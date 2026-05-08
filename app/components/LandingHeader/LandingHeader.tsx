@@ -55,8 +55,8 @@ const LandingNavBar = () => {
                 className="absolute inset-0"
               >
                 <Image
-                  width={42}
-                  height={42}
+                  width={40}
+                  height={40}
                   src="/icons/close-icon.svg"
                   alt="close icon"
                 />
@@ -71,8 +71,8 @@ const LandingNavBar = () => {
                 className="absolute inset-0"
               >
                 <Image
-                  width={42}
-                  height={42}
+                  width={40}
+                  height={40}
                   src="/icons/menu-icon.svg"
                   alt="menu icon"
                 />

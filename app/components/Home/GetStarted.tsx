@@ -68,7 +68,7 @@ const GetStarted = () => {
             </h3>
 
             <p className="font-semibold text-white text-[20px] lg:text-[22px] xl:text-[25px]">
-              How to get started?s
+              How to get started?
             </p>
 
             <ul className="max-w-full lg:max-w-xl flex flex-col gap-5">

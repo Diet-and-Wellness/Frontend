@@ -22,7 +22,7 @@ const toolsList = [
   },
   {
     isFree: true,
-    toolIconSrc: "/icons/calCalc.svg",
+    toolIconSrc: "/icons/CalCalc.svg",
     toolName: "Calorie Calculate",
     toolDesc:
       "Calculate your body mass according to important factors, such as height and weight.",

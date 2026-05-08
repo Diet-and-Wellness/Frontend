@@ -3,14 +3,14 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-type tabType = { label: string, href: string };
+type tabType = { label: string; href: string };
 
-const NavList = ({ tabs }: { tabs: tabType[]  }) => {
+const NavList = ({ tabs }: { tabs: tabType[] }) => {
   const pathname = usePathname();
 
   return (
     <div
-      className={`hidden xl:flex-row xl:flex xl:justify-between xl:items-center gap-5`}
+      className={`min-w-[72.5%] hidden xl:flex-row xl:flex xl:justify-between xl:items-center gap-3`}
     >
       <ul
         className="

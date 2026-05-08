@@ -147,6 +147,16 @@ const BlogPage = () => {
           <Blog type="full" />
         </div>
       </div>
+
+      <button className="place-self-center mt-20 px-12 py-3 flex flex-row gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532]">
+        <p className="text-[#E99532] text-[20px] font-semibold">Show More</p>
+        <Image
+          alt="plus icon"
+          src={"/icons/plus-orange.svg"}
+          width={28}
+          height={28}
+        />
+      </button>
     </section>
   );
 };
