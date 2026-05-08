@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,14 +14,14 @@ const Blog = ({ type }: { type: string }) => {
       className={`${type === "full" ? "w-full flex-col md:flex-row" : "w-full md:max-w-110 flex-col"} rounded-4xl border border-[#EDEDED] overflow-hidden flex hover:shadow-lg transition-shadow duration-100`}
     >
       <div
-        className={`${type === "full" ? "min-h-50" : "w-auto"} overflow-hidden`}
+        className={`${type === "full" ? "min-h-40" : "w-auto"} overflow-hidden`}
       >
         <Image
           width={1000}
           height={10}
           src="/images/blog-img.webp"
           alt="blog image"
-          className="w-full h-full object-cover object-center hover:scale-107 transition-transform duration-300"
+          className={`${type === "full" ? "min-w-full h-full" : "w-full h-full"} object-cover object-center hover:scale-107 transition-transform duration-300`}
         />
       </div>
 

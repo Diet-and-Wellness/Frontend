@@ -36,12 +36,12 @@ const GetStarted = () => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
-          className="self-center md:self-end max-w-75 lg:max-w-100 xl:max-w-124.5"
+          className="self-center md:self-end max-w-75 lg:max-w-100 xl:max-w-120"
         >
           <Image
             src={"/images/man.webp"}
             alt="man img"
-            width={498}
+            width={4000}
             height={715}
             className="w-full"
           />
