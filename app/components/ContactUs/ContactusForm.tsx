@@ -35,7 +35,7 @@ const ContactusForm = () => {
           hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 },
         }}
-        className="font-extrabold text-4xl lg:text-5xl"
+        className="font-extrabold text-3xl md:text-4xl lg:text-5xl"
       >
         Contact Us
       </motion.h3>

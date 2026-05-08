@@ -54,7 +54,7 @@ const SigninForm = () => {
       {/* Title */}
       <motion.h3
         variants={item}
-        className="font-extrabold text-4xl lg:text-5xl"
+        className="font-extrabold text-3xl md:text-4xl lg:text-5xl"
       >
         Log in
       </motion.h3>

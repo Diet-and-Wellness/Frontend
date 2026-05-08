@@ -52,7 +52,7 @@ const SignupForm = () => {
       {/* Title */}
       <motion.h3
         variants={item}
-        className="font-extrabold text-4xl lg:text-5xl"
+        className="font-extrabold text-3xl md:text-4xl lg:text-5xl"
       >
         Create a New Account
       </motion.h3>
