@@ -137,7 +137,7 @@ const RealStories = () => {
             whileHover={{ y: -10 }} // subtle parallax feel
           >
             <Image
-              src="/images/ScreenShot.png"
+              src="/images/ScreenShot.webp"
               alt="Screenshot"
               width={260}
               height={500}

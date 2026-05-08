@@ -19,7 +19,7 @@ const Blog = ({ type }: { type: string }) => {
         <Image
           width={1000}
           height={10}
-          src="/images/blog-img.png"
+          src="/images/blog-img.webp"
           alt="blog image"
           className="w-full h-full object-cover object-center hover:scale-107 transition-transform duration-300"
         />

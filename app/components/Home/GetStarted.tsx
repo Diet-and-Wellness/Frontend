@@ -39,7 +39,7 @@ const GetStarted = () => {
           className="self-center md:self-end max-w-75 lg:max-w-100 xl:max-w-124.5"
         >
           <Image
-            src={"/images/man.png"}
+            src={"/images/man.webp"}
             alt="man img"
             width={498}
             height={715}

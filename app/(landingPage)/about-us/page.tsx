@@ -17,7 +17,7 @@ const AboutUsPage = () => {
             className="absolute inset-0"
           >
             <Image
-              src="/images/aboutImg.png"
+              src="/images/aboutImg.webp"
               alt="About background"
               fill
               priority

@@ -3,7 +3,7 @@ import Image from "next/image";
 const BlogDetails = () => {
   return (
     <section className="min-h-screen min-w-full">
-      <div className="mt-20 md:mt-30 overflow-hidden bg-[url('/images/blog-img.png')] bg-no-repeat bg-center bg-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl" />
+      <div className="mt-20 md:mt-30 overflow-hidden bg-[url('/images/blog-img.webp')] bg-no-repeat bg-center bg-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl" />
       <div className="flex flex-col gap-7.5 max-w-[90%] mx-auto p-10 lg:p-15">
         <div className="flex flex-row gap-5 items-center">
           <p className="text-[#3E7228] text-[20px] md:text-[22px] lg:text-[24px] font-medium">

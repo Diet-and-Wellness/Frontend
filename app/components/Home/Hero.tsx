@@ -19,12 +19,12 @@ const Hero = () => {
     >
       <ImageComparison className="aspect-13/10 w-full" enableHover>
         <ImageComparisonImage
-          src="/images/fit.png"
+          src="/images/fit.webp"
           alt="After"
           position="left"
         />
         <ImageComparisonImage
-          src="/images/fat.png"
+          src="/images/fat.webp"
           alt="Before"
           position="right"
         />
@@ -63,7 +63,7 @@ const Hero = () => {
           className="bg-[#F8DEBF] rounded-3xl p-5 max-w-75 flex flex-col gap-5 shadow-lg"
         >
           <Image
-            src="/images/cardHeader.png"
+            src="/images/cardHeader.webp"
             alt="Card Header"
             width={233}
             height={88}

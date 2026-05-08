@@ -18,7 +18,7 @@ const Review = () => {
       </p>
       <div className="flex flex-row gap-4 items-center">
         <Image
-          src="/images/profileImg.png"
+          src="/images/profileImg.webp"
           alt="profile img"
           width={60}
           height={60}

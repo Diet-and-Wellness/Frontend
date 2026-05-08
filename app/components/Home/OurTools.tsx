@@ -53,7 +53,7 @@ const OurTools = () => {
       bg-contain
       lg:bg-contain
       md:bg-size-[100%]
-      bg-none md:bg-[url('/images/dietBgImg.png')]"
+      bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
       <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-25">
         {/* Header */}
