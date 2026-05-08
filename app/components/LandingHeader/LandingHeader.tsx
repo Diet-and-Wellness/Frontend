@@ -37,7 +37,7 @@ const LandingNavBar = () => {
 
   return (
     <nav className="fixed top-0 z-50 w-full backdrop-blur-xl">
-      <div className="mx-auto flex w-[90%] items-center justify-between py-2 lg:py-3">
+      <div className="mx-auto flex w-[90%] items-center justify-between py-2">
         <Logo href={"/"} />
         <NavList tabs={tabs} />
         <button
