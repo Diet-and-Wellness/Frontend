@@ -124,7 +124,7 @@ const BlogPage = () => {
       </motion.div>
 
       <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-        <h4 className="text-[#3E7228] text-[28px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+        <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
           Featured Blogs
         </h4>
         <div className="grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
@@ -138,7 +138,7 @@ const BlogPage = () => {
       </div>
 
       <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-        <h4 className="text-[#3E7228] text-[28px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+        <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
           All Blogs
         </h4>
         <div className="flex flex-col justify-between gap-10">
@@ -148,13 +148,16 @@ const BlogPage = () => {
         </div>
       </div>
 
-      <button className="place-self-center mt-20 px-12 py-3 flex flex-row gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532]">
-        <p className="text-[#E99532] text-[20px] font-semibold">Show More</p>
+      <button className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 md:px-10 lg:px-12 py-2 lg:py-3 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532]">
+        <p className="text-[#E99532] text-[16px] md:text-[18px] lg:text-[20px] font-semibold">
+          Show More
+        </p>
         <Image
           alt="plus icon"
           src={"/icons/plus-orange.svg"}
           width={28}
           height={28}
+          className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
         />
       </button>
     </section>

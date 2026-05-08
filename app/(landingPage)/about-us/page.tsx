@@ -59,7 +59,7 @@ const AboutUsPage = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={{
             hidden: {},
             visible: {
@@ -68,7 +68,7 @@ const AboutUsPage = () => {
               },
             },
           }}
-          className="flex flex-col items-start gap-3 lg:gap-5 p-6 lg:p-12 max-w-5xl"
+          className="flex flex-col items-start gap-3 lg:gap-5 p-3 md:p-5 lg:p-10 max-w-5xl"
         >
           <motion.p
             initial={{ opacity: 0, x: -40 }}
@@ -89,14 +89,14 @@ const AboutUsPage = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="text-[16px] lg:text-xl"
           >
-            At Diet & Wellness, we believe that nutrition is not just a diet for weights
-            loss, but a lifestyle that helps people live with better health and
-            more energy. Our idea started from the belief that every person is
-            unique, and therefore there is no single diet that fits everyone. We
-            focus on fully understanding each client’s situation by learning
-            about their lifestyle, eating habits, and medical history, then
-            creating a personalized nutrition plan that matches their needs and
-            goals.
+            At Diet & Wellness, we believe that nutrition is not just a diet for
+            weights loss, but a lifestyle that helps people live with better
+            health and more energy. Our idea started from the belief that every
+            person is unique, and therefore there is no single diet that fits
+            everyone. We focus on fully understanding each client’s situation by
+            learning about their lifestyle, eating habits, and medical history,
+            then creating a personalized nutrition plan that matches their needs
+            and goals.
           </motion.p>
 
           {/* List */}
@@ -128,9 +128,9 @@ const AboutUsPage = () => {
             }}
             className="text-[16px] lg:text-xl font-light"
           >
-            At Diet & Wellness, we don’t believe in quick fixes or strict diets. Instead,
-            we focus on gradual, lasting changes that help individuals reach
-            their goals and maintain them.
+            At Diet & Wellness, we don’t believe in quick fixes or strict diets.
+            Instead, we focus on gradual, lasting changes that help individuals
+            reach their goals and maintain them.
           </motion.p>
 
           {/* Paragraph 3 */}
@@ -154,13 +154,11 @@ const AboutUsPage = () => {
             whileTap={{ scale: 0.98 }}
             whileHover={{ background: "#3a6b26" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full sm:w-80 mt-10 py-3 text-[14px] lg:text-[18px] rounded-4xl text-white font-medium bg-[#3a6b26e0] cursor-pointer"
+            className="w-full sm:w-80 mt-5 py-3 text-[16px] lg:text-[20px] rounded-4xl text-white font-medium bg-[#3a6b26e0] cursor-pointer"
           >
             Get Started Now
           </motion.button>
         </motion.div>
-        {/* <div >
-        </div> */}
       </div>
     </section>
   );

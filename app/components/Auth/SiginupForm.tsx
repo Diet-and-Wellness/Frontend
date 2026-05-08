@@ -47,7 +47,7 @@ const SignupForm = () => {
       whileInView="visible"
       viewport={{ once: true, margin: "-40px" }}
       variants={container}
-      className="w-full p-6 lg:p-10 flex flex-col gap-6"
+      className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
       {/* Title */}
       <motion.h3

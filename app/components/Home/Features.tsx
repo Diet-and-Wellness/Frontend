@@ -57,7 +57,7 @@ const Features = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const cards = gsap.utils.toArray<HTMLElement>(".stacking-card");
-    const spacer = 40;
+    const spacer = 30;
 
     cards.forEach((card, index) => {
       ScrollTrigger.create({
@@ -94,7 +94,7 @@ const Features = () => {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 1, ease: "easeInOut" }}
         className="mt-20 max-w-xl lg:max-w-2xl mx-auto text-center px-10 lg:px-4"
       >
@@ -149,8 +149,8 @@ const FeatureCard = ({ feature }: { feature: featurePropType }) => {
     <div
       className={`stacking-card
         relative
-        max-w-6xl
-        p-7.5
+        max-w-7xl
+        p-5
         md:p-12
         lg:p-15
         mx-auto

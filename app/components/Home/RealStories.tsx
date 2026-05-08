@@ -30,7 +30,7 @@ const RealStories = () => {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 0.8, y: 0 }}
-            viewport={{ once: true, amount: 0.6 }}
+            viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 1, ease: "easeInOut" }}
             className="absolute right-0 top-0 pointer-events-none"
           >
@@ -65,7 +65,7 @@ const RealStories = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
+                viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
                 <Image

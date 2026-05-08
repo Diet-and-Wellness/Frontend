@@ -36,7 +36,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
           className="flex flex-col gap-3"
         >
@@ -58,7 +58,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 1 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
           className="bg-[#F8DEBF] rounded-3xl p-5 max-w-75 flex flex-col gap-5 shadow-lg"
         >
