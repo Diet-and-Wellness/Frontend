@@ -64,7 +64,7 @@ const OurTools = () => {
           transition={{ duration: 0.7, ease: "easeInOut" }}
           className="max-w-2xl flex flex-col gap-4 md:gap-6"
         >
-          <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#E99532] leading-tight">
+          <p className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#E99532] leading-tight">
             Empowering You On the Journey On Wellness
           </p>
 
