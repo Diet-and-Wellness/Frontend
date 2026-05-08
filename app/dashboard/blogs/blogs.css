@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@layer components {
+  .articleWrapper {
+    @apply bg-green-400 w-full text-center p-6;
+  }
+}

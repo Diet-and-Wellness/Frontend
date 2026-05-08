@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ------------------------------
+   Global Reset
+------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ------------------------------
+   Base Document
+------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------
+   Media
+------------------------------ */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ------------------------------
+   Links
+------------------------------ */
+
+a,
+Link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ------------------------------
+   Lists
+------------------------------ */
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ------------------------------
+   Next.js Root
+------------------------------ */
+
+#__next {
+  isolation: isolate;
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* for horizontal scroll */
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #3a6b26a8;
+  border-radius: 10px;
+}
+
+/* Thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3A6B26;
+}
+
+@theme {
+  /* light */
+  --color-primary: theme(--color-indigo-700);
+  --color-secondary: theme(--color-pink-600);
+  --color-backgrnd: theme(--color-white);
+  --color-bordercolor: theme(--color-gray-200);
+  --color-btn-txt-color: theme(--color-white);
+  --color-primary-hover: theme(--color-indigo-800);
+  --color-secondary-hover: theme(--color-pink-800);
+  --color-title: theme(--color-black);
+  --color-txt: theme(--color-gray-600);
+  --color-card-backgrnd: theme(--color-white);
+  /* dark */
+  --color-primary-dark: theme(--color-indigo-600);
+  --color-secondary-dark: theme(--color-pink-400);
+  --color-backgrnd-dark: theme(--color-gray-900);
+  --color-bordercolor-dark: theme(--color-gray-700);
+  --color-btn-txt-color-dark: theme(--color-gray-950);
+  --color-title-dark: theme(--color-white);
+  --color-txt-dark: theme(--color-gray-300);
+  --color-card-backgrnd-dark: theme(--color-gray-800);
+}
+
+@layer components {
+  .main-container {
+    @apply flex flex-row bg-backgrnd dark:bg-backgrnd-dark h-screen gap-10 justify-center items-center;
+  }
+  .card {
+    @apply bg-card-backgrnd dark:bg-card-backgrnd-dark p-4 max-w-100 border-2 border-bordercolor dark:border-bordercolor-dark rounded-2xl flex flex-col gap-4 overflow-hidden;
+  }
+  .card-img {
+    @apply w-full rounded-xl hover:rotate-5 transition duration-300;
+  }
+  .card-title {
+    @apply text-4xl text-title dark:text-title-dark font-bold;
+  }
+  .card-desc {
+    @apply text-[18px] font-light text-txt dark:text-txt-dark;
+  }
+  .btns-container {
+    @apply flex flex-row gap-5;
+  }
+  .btn {
+    @apply w-full px-6 py-3 rounded-xl text-btn-txt-color dark:text-btn-txt-color-dark font-semibold text-xl cursor-pointer active:scale-95 transition duration-500;
+  }
+  .btnone {
+    @apply bg-primary dark:bg-primary-dark hover:bg-primary-hover;
+  }
+  .btntwo {
+    @apply bg-secondary hover:bg-secondary-hover;
+  }
+}

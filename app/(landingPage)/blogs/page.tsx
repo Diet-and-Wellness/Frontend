@@ -1,0 +1,154 @@
+"use client";
+import Blog from "@/app/components/Blogs/Blog";
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.18,
+    },
+  },
+};
+
+const leftSide = {
+  hidden: {
+    opacity: 0,
+    x: -40,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+const imageVariant = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+    x: 40,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
+const textVariant = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+const BlogPage = () => {
+  return (
+    <section className="mb-20">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+        className="
+        mt-20 md:mt-30
+        max-w-[92.5%] mx-auto
+        bg-[#FDF4EB]
+        rounded-4xl
+        p-7 md:p-15
+        grid grid-cols-1 lg:grid-cols-2
+        gap-0 lg:gap-5
+        justify-center items-center
+        overflow-hidden
+      "
+      >
+        {/* Left Side */}
+        <motion.div variants={leftSide} className="max-w-lg">
+          <motion.h3
+            variants={textVariant}
+            className="
+            text-[#D2862D]
+            text-[40px] md:text-[60px] lg:text-[80px]
+            font-bold
+            mb-2 lg:mb-5
+          "
+          >
+            Our Blogs
+          </motion.h3>
+
+          <motion.p
+            variants={textVariant}
+            className="
+            text-[#234016]
+            text-[26px] md:text-[30px] lg:text-[38px]
+            font-normal
+            leading-8.5 md:leading-10 lg:leading-12
+          "
+          >
+            Explore expert tips, nutrition advice, and wellness insights to help
+            you build healthier habits and feel your best.
+          </motion.p>
+        </motion.div>
+
+        {/* Image */}
+        <motion.div variants={imageVariant} className="place-self-center">
+          <Image
+            width={626}
+            height={10}
+            src="/icons/blogs-hero-decorative-img.svg"
+            alt="Blogs hero section decorative image"
+            className="
+            h-75 w-130
+            md:h-100 md:w-140
+            lg:h-100 lg:w-156.5
+          "
+          />
+        </motion.div>
+      </motion.div>
+
+      <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
+        <h4 className="text-[#3E7228] text-[28px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+          Featured Blogs
+        </h4>
+        <div className="grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
+          <Blog type="featured" />
+          <Blog type="featured" />
+          <Blog type="featured" />
+          <Blog type="featured" />
+          <Blog type="featured" />
+          <Blog type="featured" />
+        </div>
+      </div>
+
+      <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
+        <h4 className="text-[#3E7228] text-[28px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+          All Blogs
+        </h4>
+        <div className="flex flex-col justify-between gap-10">
+          <Blog type="full" />
+          <Blog type="full" />
+          <Blog type="full" />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BlogPage;

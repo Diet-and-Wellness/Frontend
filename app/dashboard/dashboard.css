@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@layer components {
+  .navContainer {
+    @apply w-full bg-green-900;
+  }
+  .listStyle {
+    @apply flex flex-row justify-between p-6;
+  }
+}
