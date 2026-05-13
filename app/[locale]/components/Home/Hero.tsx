@@ -38,12 +38,12 @@ const Hero = () => {
         {windowWidth <= 550 ? (
           <ImageComparison className="w-full h-full" enableHover>
             <ImageComparisonImage
-              src="/images/Fit_Small.webp"
+              src="/images/fit-small.webp"
               alt="After"
               position="left"
             />
             <ImageComparisonImage
-              src="/images/Fat_Small.webp"
+              src="/images/fat-small.webp"
               alt="Before"
               position="right"
             />
