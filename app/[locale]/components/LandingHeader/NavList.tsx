@@ -51,7 +51,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
         ))}
       </ul>
 
-      <div className="flex flex-row justify-center items-center gap-5">
+      <div className="flex flex-row justify-center items-center gap-3">
         <div className="relative">
           <button
             onClick={toggleLanguageOptions}
