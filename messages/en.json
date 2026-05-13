@@ -1,0 +1,202 @@
+{
+  "hero": {
+    "clientsTrustUs": "Clients that trust us",
+    "viewFeedback": "View Feedback",
+    "getToKnowMoreAboutYourBody": "Get to know more about your body..",
+    "viewBlogs": "View Blogs"
+  },
+  "tools": {
+    "empoweringYouOnTheJourneyOnWellness": "Empowering You On the Journey On Wellness",
+    "startWithOurFreeCalculators": "Start with our free calculators to get a baseline, or dive deep with our premium analysis.",
+    "tryOurTools": "Try Our Tools",
+    "bmiCalculator": {
+      "name": "Body Mass Index (BMI) Calculator",
+      "description": "Calculate your body mass according to important factors, such as height and weight."
+    },
+    "perfectWeightCalculator": {
+      "name": "Perfect Weight Calculator",
+      "description": "Calculate your body mass according to important factors, such as height and weight."
+    },
+    "calorieCalculator": {
+      "name": "Calorie Calculate",
+      "description": "Calculate your body mass according to important factors, such as height and weight."
+    },
+    "nutritionAnalysis": {
+      "name": "Nutrition Analysis",
+      "description": "Calculate your body mass according to important factors, such as height and weight."
+    },
+    "tryNow": "Try Now",
+    "free": "FREE",
+    "premium": "Premium"
+  },
+  "stories": {
+    "realResultsRealStories": "Real results. Real stories.",
+    "hearFromRealClients": "Hear from real clients who transformed their bodies with us, improved their relationship with food, and embraced a healthier, more balanced lifestyle that truly",
+    "realStoriesFromPeople": "These are real stories from people who booked sessions with our nutrition specialists and experienced life-changing transformations.",
+    "beOneOfThemBookYourSession": "Be one of them — book your session with a nutrition expert today!",
+    "bookWithASpecialist": "Book with a Specialist"
+  },
+  "features": {
+    "exploreOurFeatures": "Explore Our Features",
+    "healthGuidanceDescription": "Find practical tips, expert advice, and easy guidance to help you improve your diet and live a healthier life.",
+    "healthAssessment": {
+      "title": "Health Assessment",
+      "points": [
+        "We carefully review your data to understand your body and needs.",
+        "This includes your lifestyle, food preferences, and health details.",
+        "So we can identify your exact nutritional requirements."
+      ]
+    },
+    "personalizedPlan": {
+      "title": "Personalized Plan",
+      "points": [
+        "Get a meal plan tailored specifically for you within 24 hours.",
+        "Based on your health condition, lifestyle, and preferences.",
+        "Designed to be easy to follow and fit your daily routine."
+      ]
+    },
+    "ongoingSupport": {
+      "title": "Ongoing Support",
+      "points": [
+        "We continuously track your progress and body changes.",
+        "Your plan is adjusted whenever needed to keep you on track.",
+        "With ongoing guidance and support throughout your journey."
+      ]
+    }
+  },
+  "getStarted": {
+    "theOnlyThingYouWillLoseIsWeight": "The Only Thing You’ll Lose is Weight",
+    "howToGetStarted": "How to get started?",
+    "getStart": "Get Started",
+    "steps": {
+      "fillAssessmentForm": {
+        "title": "Fill the Assessment Form",
+        "desc": "Complete a quick form to help us understand your lifestyle, preferences, and health."
+      },
+      "getPersonalizedPlan": {
+        "title": "Get Your Personalized Plan",
+        "desc": "Receive a meal plan tailored to your routine and food preferences within 24 hours."
+      },
+      "followAndStayConsistent": {
+        "title": "Follow & Stay Consistent",
+        "desc": "Start your plan easily with a routine that fits your day, so you can stay consistent."
+      }
+    }
+  },
+  "navList": {
+    "links": {
+      "home": "Home",
+      "aboutUs": "About Us",
+      "blogs": "Blogs",
+      "contactUs": "Contact Us",
+      "pricing": "Pricing"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Diet & Wellness All rights reserved",
+    "footerMessage": "The proper footer at the proper time can help protect you. We assist you in moving everybody forward.",
+    "tools": "Tools",
+    "quickLinks": "Quick Links",
+    "stayConnected": "Stay Connected",
+    "newsletterDescription": "Subscribe to our newsletter and unlock a world of exclusive benefits. Be the first to know about our latest nutrition tips and recipes, special promotions, and exciting updates."
+  },
+  "brand": {
+    "brandName": "Diet & Wellness",
+    "diet": "Diet &",
+    "wellness": "Wellness"
+  },
+  "placeholders": {
+    "enterYourEmail": "Enter your email",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "message": "Message",
+    "leaveUsAMessage": "Leave us a message...",
+    "sendMessage": "Send Message"
+  },
+  "aboutUs": {
+    "enjoyableLiving": "Enjoyable Living",
+    "startsWithBalancedNutrition": "Starts With Balanced Nutrition",
+    "whatYouShouldKnowAboutDietAndWellness": "What you should know about Diet & Wellness",
+    "aboutDietAndWellness": "At Diet & Wellness, we believe that nutrition is not just a diet for weight loss, but a lifestyle that helps people live with better health and more energy. Our idea started from the belief that every person is unique, and therefore there is no single diet that fits everyone. We focus on fully understanding each client’s situation by learning about their lifestyle, eating habits, and medical history, then creating a personalized nutrition plan that matches their needs and goals.",
+    "weHelpOurClientsTo": "We help our clients to:",
+    "clientBenefits": [
+      "Lose or gain weight in a healthy way",
+      "Improve daily eating habits",
+      "Support digestive health",
+      "Manage certain nutrition-related health conditions",
+      "Build a sustainable, healthy lifestyle"
+    ],
+    "gradualChangesDescription": "At Diet & Wellness, we don’t believe in quick fixes or strict diets. Instead, we focus on gradual, lasting changes that help individuals reach their goals and maintain them.",
+    "ourGoal": "Our goal is simple, to be a partner in our clients’ journey toward a healthier, more balanced life.",
+    "getStartedNow": "Get Started Now"
+  },
+  "blogs": {
+    "ourBlogs": "Our Blogs",
+    "blogsDescription": "Explore expert tips, nutrition advice, and wellness insights to help you build healthier habits and feel your best.",
+    "featuredBlogs": "Featured Blogs",
+    "allBlogs": "All Blogs",
+    "showMore": "Show More",
+    "date": "5 Apr, 2027",
+    "readTime": "7 min Read",
+    "blogTitle": "Blog Title",
+    "waznyAbout": "At WAZNY, we believe that nutrition is not just a diet for weight loss, but a lifestyle that helps people live with better health and more energy. Our idea started from the belief that",
+    "readMore": "Read More"
+  },
+  "contactUs": {
+    "reviewText": "Great experience with the diet program! It was easy to follow, fit well into my routine, and helped me see positive results quickly. The meals were satisfying, and the support throughout was amazing. Highly recommend!",
+    "reviewerName": "Omar Khaled",
+    "reviewerAge": "23 Years",
+    "contactUs": "Contact Us",
+    "contactDescription": "Please reach out to us and we will get back to you at the speed of light."
+  },
+  "pricing": {
+    "transparentAnd": "Transparent and",
+    "affordablePricing": "Affordable Pricing",
+    "pricingDescription": "Flexible plans designed around you and your goals, your lifestyle, and your journey to healthier living.",
+    "basicPackage": {
+      "packageType": "Basic Package",
+      "benefits": [
+        "A diet plan suitable for your goal",
+        "Recipes that help you feel full and control hunger",
+        "Weekly follow-up to review your progress",
+        "WhatsApp support twice a week"
+      ],
+      "planNote": "This package is suitable if you need guidance and organization, but the main execution will be on you."
+    },
+    "standardPackage": {
+      "packageType": "Standard Package",
+      "benefits": [
+        "Personalized diet plan",
+        "Practical recipe booklet to make adherence easier",
+        "Cardio exercises suitable for your level",
+        "Organized follow-up to minimize confusion",
+        "Continuous adjustments based on your body’s response",
+        "WhatsApp support 4 times a week"
+      ],
+      "planNote": "Most of our clients choose this package because it gives enough support to help you continue without feeling alone."
+    },
+    "premiumPackage": {
+      "packageType": "Premium Package",
+      "benefits": [
+        "All features of the Standard package",
+        "Closer follow-up and faster adjustments",
+        "Daily WhatsApp support"
+      ],
+      "planNote": "If you like having daily support during the execution and want closer guidance."
+    },
+    "days": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "wednesday": "Wednesday",
+      "everyDay": "Every day of the week"
+    },
+    "daysWord": "Days:",
+    "subscriptionDuration": "Subscription duration: ",
+    "month": "month",
+    "hours": "hours",
+    "egpPerMonth": "EGP / month",
+    "mostPopularPlan": "MOST POPULAR PLAN",
+    "responseTimePerDay": "Response time per day: "
+  }
+}
