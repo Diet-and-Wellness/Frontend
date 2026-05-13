@@ -6,7 +6,7 @@ const Logo = ({ href }: { href: string }) => {
   const t = useTranslations();
 
   return (
-    <Link href={href} className="flex flex-row items-center gap-2 lg:gap-3">
+    <Link href={href} className="flex flex-row items-center gap-1 lg:gap-2">
       <Image
         src="/icons/logo.svg"
         alt="logo"

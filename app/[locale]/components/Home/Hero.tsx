@@ -7,40 +7,75 @@ import {
 } from "@/components/motion-primitives/image-comparison";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+const useWindowSize = () => {
+  const [width, setWidth] = useState<number>(0);
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return width;
+};
 
 const Hero = () => {
   const t = useTranslations();
 
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1, ease: "easeInOut" }}
-      className="relative mx-auto aspect-15.5/10 overflow-hidden max-w-full mt-15"
-    >
-      <ImageComparison className="aspect-13/10 w-full" enableHover>
-        <ImageComparisonImage
-          src="/images/fit.webp"
-          alt="After"
-          position="left"
-        />
-        <ImageComparisonImage
-          src="/images/fat.webp"
-          alt="Before"
-          position="right"
-        />
-        <ImageComparisonSlider className="w-0.5 bg-white/30 backdrop-blur-xs" />
-      </ImageComparison>
+  const windowWidth = useWindowSize();
 
-      <div className="pointer-events-none hidden lg:flex flex-row justify-between items-center w-[90%] mx-auto absolute left-1/2 -translate-x-1/2 bottom-20">
+  return (
+    <section className="relative">
+      <motion.div
+        initial={{ opacity: 0, y: 25 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5/10 mt-0" : "aspect-15.5/10 mt-15"}`}
+      >
+        {windowWidth <= 550 ? (
+          <ImageComparison className="w-full h-full" enableHover>
+            <ImageComparisonImage
+              src="/images/fit_small.webp"
+              alt="After"
+              position="left"
+            />
+            <ImageComparisonImage
+              src="/images/fat_small.webp"
+              alt="Before"
+              position="right"
+            />
+            <ImageComparisonSlider className="w-0.5 bg-white/30 backdrop-blur-xs" />
+          </ImageComparison>
+        ) : (
+          <ImageComparison className="aspect-13/10 w-full" enableHover>
+            <ImageComparisonImage
+              src="/images/fit.webp"
+              alt="After"
+              position="left"
+            />
+            <ImageComparisonImage
+              src="/images/fat.webp"
+              alt="Before"
+              position="right"
+            />
+            <ImageComparisonSlider className="w-0.5 bg-white/30 backdrop-blur-xs" />
+          </ImageComparison>
+        )}
+      </motion.div>
+
+      <div
+        className={`pointer-events-none flex flex-col gap-10 md:flex-row justify-between items-center w-[90%] mx-auto ${windowWidth <= 1000 ? "mt-10" : "absolute place-self-center bottom-20"}`}
+      >
         {/* Left content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-3 w-full md:w-fit"
         >
           <p className="text-5xl font-extrabold text-[#E99532]">1k+</p>
 
@@ -62,7 +97,7 @@ const Hero = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
-          className="bg-[#F8DEBF] rounded-3xl p-5 max-w-75 flex flex-col gap-5 shadow-lg"
+          className="bg-[#F8DEBF] rounded-3xl p-5 w-full md:max-w-75 flex flex-col gap-5 shadow-lg"
         >
           <Image
             src="/images/cardHeader.webp"
@@ -84,7 +119,7 @@ const Hero = () => {
           </motion.button>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
