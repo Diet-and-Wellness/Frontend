@@ -33,7 +33,7 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeInOut" }}
-        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5.5/10 mt-0" : "aspect-15.5/10 mt-15"}`}
+        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5.5/10 mt-5" : "aspect-15.5/10 mt-15"}`}
       >
         {windowWidth <= 550 ? (
           <ImageComparison className="w-full h-full" enableHover>
