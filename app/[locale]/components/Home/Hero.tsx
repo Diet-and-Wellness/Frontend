@@ -33,7 +33,7 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeInOut" }}
-        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5/10 mt-0" : "aspect-15.5/10 mt-15"}`}
+        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-6/10 mt-0" : "aspect-15.5/10 mt-15"}`}
       >
         {windowWidth <= 550 ? (
           <ImageComparison className="w-full h-full" enableHover>
@@ -77,15 +77,17 @@ const Hero = () => {
           transition={{ duration: 0.6, ease: "easeInOut" }}
           className="flex flex-col gap-3 w-full md:w-fit"
         >
-          <p className="text-5xl font-extrabold text-[#E99532]">1k+</p>
+          <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#E99532]">
+            1k+
+          </p>
 
-          <p className="text-[#B2B2B2] text-2xl tracking-wider font-bold">
+          <p className="text-[#B2B2B2] xl lg:text-2xl tracking-wider font-bold">
             {t("hero.clientsTrustUs")}
           </p>
 
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="pointer-events-auto px-10 py-2 border-2 border-[#E99532] rounded-full text-[#E99532] font-bold text-xl hover:bg-[#E99532] hover:text-white transition-all duration-300 cursor-pointer"
+            className="pointer-events-auto px-10 py-2 border-2 border-[#E99532] rounded-full text-[#E99532] font-bold text-lg lg:text-xl hover:bg-[#E99532] hover:text-white transition-all duration-300 cursor-pointer"
           >
             {t("hero.viewFeedback")}
           </motion.button>
@@ -107,13 +109,13 @@ const Hero = () => {
             className="rounded-xl w-full"
           />
 
-          <p className="text-[16px] font-medium">
+          <p className="text-[14px] md:text-[16px] font-medium">
             {t("hero.getToKnowMoreAboutYourBody")}
           </p>
 
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="pointer-events-auto px-10 py-2 rounded-full text-white font-bold text-[16px] bg-[#E99532] hover:bg-[#c76a00] transition-all duration-300 cursor-pointer"
+            className="pointer-events-auto px-10 py-2 rounded-full text-white font-bold text-[14px] md:text-[16px] bg-[#E99532] hover:bg-[#c76a00] transition-all duration-300 cursor-pointer"
           >
             {t("hero.viewBlogs")}
           </motion.button>
