@@ -12,11 +12,11 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
 
   return (
     <motion.div
-      initial={{ x: "100%" }} 
+      initial={{ x: "100%" }}
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-15 flex flex-col justify-evenly items-center"
+      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-evenly items-center"
     >
       <ul className="flex flex-col items-center self-center gap-5">
         {tabs.map((tab) => (
