@@ -52,11 +52,12 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
       </ul>
 
       <div className="flex flex-row justify-center items-center gap-3">
-        <div className="relative">
-          <button
-            onClick={toggleLanguageOptions}
-            className="rounded-4xl px-5 py-2 shadow-[0_0_7px_0px_rgba(0,0,0,0.2)] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200"
-          >
+        <div
+          onMouseEnter={toggleLanguageOptions}
+          onMouseLeave={toggleLanguageOptions}
+          className="relative"
+        >
+          <div className="rounded-4xl px-5 py-2 shadow-[0_0_7px_0px_rgba(0,0,0,0.2)] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200">
             <Image
               width={24}
               height={24}
@@ -64,7 +65,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
               alt="langauge change icon"
             />
             <span className="text-[20px] font-bold text-[#1B3212]">{"En"}</span>
-          </button>
+          </div>
 
           <AnimatePresence>
             {showLanguageOptions && (
