@@ -53,7 +53,7 @@ const RealStories = () => {
           bg-center bg-cover bg-no-repeat
           bg-[#C8DCBF]
           rounded-3xl md:rounded-[60px]
-          px-8 py-12 md:p-12
+          px-8 pt-12 pb-3 md:p-12
           flex flex-col-reverse md:flex-row
           justify-between
           items-center md:items-start
