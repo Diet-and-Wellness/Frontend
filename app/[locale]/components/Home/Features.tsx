@@ -86,7 +86,7 @@ const Features = () => {
       {/* Cards */}
       <div className="relative mt-20 px-5 md:px-7.5">
         {featuresList.map((feature, index) => {
-          const targetScale = 1 - (featuresList.length - index) * 0.02;
+          const targetScale = 1 - (featuresList.length - index) * 0.03;
           return (
             <FeatureCard
               key={index}
@@ -175,7 +175,7 @@ const FeatureCard = ({
             {feature.title}
           </h3>
 
-          <ul className="flex flex-col gap-3 md:gap-5 lg:gap-8">
+          <ul className="flex flex-col gap-4 md:gap-5 lg:gap-8">
             {feature.points.map((point, index) => (
               <li key={index} className="flex flex-row gap-3 items-start">
                 <Image
@@ -212,7 +212,7 @@ const FeatureCard = ({
             className={`
               md:absolute
               z-20
-              h-50
+              h-40
               w-auto
               md:h-auto
               transform-gpu
