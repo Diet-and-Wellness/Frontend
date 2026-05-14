@@ -35,7 +35,7 @@ const Features = () => {
       img: "/images/HelpAndSupport.webp",
       checkPointIcon: "/icons/checkpoint_white.svg",
       imgStyle:
-        "md:w-50 md:right-0 md:-bottom-30 lg:w-70 lg:right-0 lg:-bottom-40",
+        "md:w-50 md:right-0 md:-bottom-30 lg:w-80 lg:right-0 lg:-bottom-40",
       bgStyle: "bg-[#3A6B26]",
       textStyle: "text-white",
     },
@@ -147,7 +147,7 @@ const FeatureCard = ({
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${index * 15}px)`,
+          top: `calc(-5vh + ${index * 25}px)`,
           willChange: "transform",
         }}
         className={`
