@@ -34,9 +34,9 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-evenly items-center overflow-scroll"
+      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-center items-center gap-7.5 overflow-scroll"
     >
-      <ul className="flex flex-col items-center self-center gap-5">
+      <ul className="flex flex-col items-center self-center gap-3">
         {tabs.map((tab) => (
           <Tab
             key={tab.href}
