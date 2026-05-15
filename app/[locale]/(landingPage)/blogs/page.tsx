@@ -150,7 +150,7 @@ const BlogPage = () => {
         </div>
       </div>
 
-      <button className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 md:px-10 lg:px-12 py-2 lg:py-3 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532]">
+      <button className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 md:px-10 lg:px-12 py-2 lg:py-3 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200">
         <p className="text-[#E99532] text-[16px] md:text-[18px] lg:text-[20px] font-semibold">
           {t("blogs.showMore")}
         </p>

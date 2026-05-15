@@ -2,13 +2,31 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getCleanPathname } from "../../utils/getCleanPathname";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 type tabType = { label: string; href: string };
 
 const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
-  const pathname = getCleanPathname(usePathname());
+  const router = useRouter();
+
+  const pathnameWithLang = usePathname();
+
+  const t = useTranslations();
+
+  const pathname = getCleanPathname(pathnameWithLang);
+
+  const isArabic = pathnameWithLang.startsWith("/ar");
+
+  const handleLanguageSwitch = () => {
+    if (isArabic) {
+      router.replace(pathnameWithLang.replace("/ar", "/en"));
+    } else {
+      router.replace(pathnameWithLang.replace("/en", "/ar"));
+    }
+  };
 
   return (
     <motion.div
@@ -16,7 +34,7 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-evenly items-center"
+      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-evenly items-center overflow-scroll"
     >
       <ul className="flex flex-col items-center self-center gap-5">
         {tabs.map((tab) => (
@@ -28,6 +46,22 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
           />
         ))}
       </ul>
+
+      <button
+        onClick={handleLanguageSwitch}
+        className="rounded-4xl px-5 py-2 shadow-[0_0_7px_0px_rgba(0,0,0,0.2)] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200"
+      >
+        <Image
+          width={24}
+          height={24}
+          src="/icons/grommet-icons-language.svg"
+          alt="langauge change icon"
+        />
+        <span className="text-[20px] font-bold text-[#1B3212]">
+          {isArabic ? "En" : "ع"}
+        </span>
+      </button>
+
       <Link
         href={"/signin"}
         className="
@@ -36,7 +70,7 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
             transition-all duration-300 active:scale-95"
       >
         <span className="text-xl font-semibold text-[#E88B60] transition-colors duration-300">
-          Get Started
+          {t("getStarted.getStart")}
         </span>
       </Link>
     </motion.div>

@@ -14,7 +14,7 @@ const Blog = ({ type }: { type: string }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       viewport={{ once: true, amount: 0.25 }}
-      className={`${type === "full" ? "w-full flex-col md:flex-row" : "w-full md:max-w-110 flex-col"} rounded-4xl border border-[#EDEDED] overflow-hidden flex hover:shadow-lg transition-shadow duration-100`}
+      className={`${type === "full" ? "w-full flex-col md:flex-row" : "w-full md:max-w-110 flex-col"} rounded-4xl border border-[#EDEDED] overflow-hidden flex hover:shadow-lg transition-shadow duration-200`}
     >
       <div
         className={`${type === "full" ? "min-h-40" : "w-auto"} overflow-hidden`}
