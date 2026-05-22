@@ -6,9 +6,9 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 
 const Features = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
   const t = useTranslations("features");
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const featuresList = [
     {
@@ -52,7 +52,7 @@ const Features = () => {
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 1 }}
         className="mt-20 max-w-xl lg:max-w-2xl mx-auto text-center px-10 lg:px-4"
       >
@@ -84,7 +84,7 @@ const Features = () => {
       </motion.div>
 
       {/* Cards */}
-      <div className="relative mt-20 px-5 md:px-7.5">
+      <div className="relative px-5 md:px-7.5">
         {featuresList.map((feature, index) => {
           const targetScale = 1 - (featuresList.length - index) * 0.03;
           return (
@@ -135,7 +135,7 @@ const FeatureCard = ({
     offset: ["start end", "start start"],
   });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.4, 1]);
 
   const scale = useTransform(progress, range, [1, targetScale]);
 
