@@ -12,9 +12,9 @@ const Logo = ({ href }: { href: string }) => {
         alt="logo"
         width={45}
         height={45}
-        className="w-11 h-auto md:w-14 lg:w-16"
+        className="w-11 h-auto md:w-13 lg:w-14"
       />
-      <p className="text-[#e99532] text-[20px] lg:text-[26px] font-bold">
+      <p className="text-[#e99532] text-[20px] lg:text-[24px] font-bold">
         {t("brand.diet")}{" "}
         <span className="text-[#4D8E32]">{t("brand.wellness")}</span>
       </p>
