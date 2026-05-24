@@ -1,0 +1,93 @@
+"use client";
+
+const RecentUser = ({
+  userType,
+  userData,
+}: {
+  userType: string;
+  userData: {
+    userName: string;
+    userNameAppr: string;
+    specialty?: string;
+    clientsCount?: number;
+    userEmail?: string;
+    userState?: string;
+  };
+}) => {
+  return (
+    <div className="p-3 border border-[#E1E7EF] bg-[#FFFEFD] rounded-2xl flex flex-row justify-between items-center">
+      <div className="flex flex-row gap-4 items-start">
+        <div className="size-10 rounded-full bg-[#FCEFE0] flex justify-center items-center">
+          <span className="text-[#E99532] text-[16px] font-light">
+            {userData.userNameAppr}
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <h3 className="text-black text-[20px] font-medium">
+            {userData.userName}
+          </h3>
+
+          <p className="text-[#4F4F4F] text-[16px] font-light">
+            {userType === "specialist"
+              ? userData.specialty
+              : userData.userEmail}
+          </p>
+
+          {userType === "specialist" && (
+            <p className="text-black text-[16px] font-light">
+              Current Clients: {userData.clientsCount}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {userType === "specialist" && (
+        <SpecialistState userState={userData.userState} />
+      )}
+    </div>
+  );
+};
+
+const SpecialistState = ({ userState }: { userState: string | undefined }) => {
+  const states = {
+    active: {
+      bg: "#E4FFF6",
+      text: "#00AE41",
+    },
+    inactive: {
+      bg: "#DC262633",
+      text: "#DC2626",
+    },
+    pending: {
+      bg: "#FCEFE0",
+      text: "#E99532",
+    },
+    full: {
+      bg: "#D5E6FF",
+      text: "#0066FF",
+    },
+  };
+
+  const currentState = states[userState as keyof typeof states];
+
+  return (
+    <div
+      style={{
+        background: currentState.bg,
+      }}
+      className={`min-w-25 py-1.5 rounded-full flex justify-center items-center`}
+    >
+      <span
+        style={{
+          color: currentState.text,
+        }}
+        className={`text-[14px] font-semibold`}
+      >
+        {userState}
+      </span>
+    </div>
+  );
+};
+
+export default RecentUser;
