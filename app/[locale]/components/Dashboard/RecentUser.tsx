@@ -44,7 +44,9 @@ const RecentUser = ({
         </div>
       </div>
 
-      {userType === "specialist" && <StateComp state={userData.userState} />}
+      {userType === "specialist" && userData.userState && (
+        <StateComp state={userData.userState} />
+      )}
     </div>
   );
 };
