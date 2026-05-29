@@ -4,7 +4,7 @@ import {
   ImageComparison,
   ImageComparisonImage,
   ImageComparisonSlider,
-} from "@/components/motion-primitives/image-comparison";
+} from "@/app/[locale]/components/Home/ImageComparison";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";

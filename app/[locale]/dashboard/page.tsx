@@ -62,11 +62,11 @@ const DashboardIndex = () => {
   return (
     <section className="w-full">
       <div className="mb-7.5">
-        <h2 className="text-black text-[22px] md:text-[26px] lg:text-[30px] font-bold mb-2 md:mb-3">
+        <h2 className="text-black text-3xl mb-2 font-bold">
           Dashboard
         </h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
-          Welcome back, Admin. Here's an overview of Diet and Wellness.
+          Welcome back, Admin. Here&apos;s an overview of Diet and Wellness.
         </p>
       </div>
 

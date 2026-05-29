@@ -1,5 +1,7 @@
 "use client";
 
+import StateComp from "./StateComp";
+
 const RecentUser = ({
   userType,
   userData,
@@ -42,50 +44,7 @@ const RecentUser = ({
         </div>
       </div>
 
-      {userType === "specialist" && (
-        <SpecialistState userState={userData.userState} />
-      )}
-    </div>
-  );
-};
-
-const SpecialistState = ({ userState }: { userState: string | undefined }) => {
-  const states = {
-    active: {
-      bg: "#E4FFF6",
-      text: "#00AE41",
-    },
-    inactive: {
-      bg: "#DC262633",
-      text: "#DC2626",
-    },
-    pending: {
-      bg: "#FCEFE0",
-      text: "#E99532",
-    },
-    full: {
-      bg: "#D5E6FF",
-      text: "#0066FF",
-    },
-  };
-
-  const currentState = states[userState as keyof typeof states];
-
-  return (
-    <div
-      style={{
-        background: currentState.bg,
-      }}
-      className={`min-w-25 py-1.5 rounded-full flex justify-center items-center`}
-    >
-      <span
-        style={{
-          color: currentState.text,
-        }}
-        className={`text-[14px] font-semibold`}
-      >
-        {userState}
-      </span>
+      {userType === "specialist" && <StateComp state={userData.userState} />}
     </div>
   );
 };
