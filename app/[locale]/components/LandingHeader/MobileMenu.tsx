@@ -9,7 +9,13 @@ import Image from "next/image";
 
 type tabType = { label: string; href: string };
 
-const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
+const MobileMenu = ({
+  tabs,
+  setIsMenuVisible,
+}: {
+  tabs: tabType[];
+  setIsMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const router = useRouter();
 
   const pathnameWithLang = usePathname();
@@ -28,6 +34,11 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
     }
   };
 
+  const closeMenu = () => {
+    setIsMenuVisible(false);
+    console.log("close")
+  };
+
   return (
     <motion.div
       initial={{ x: "100%" }}
@@ -43,6 +54,7 @@ const MobileMenu = ({ tabs }: { tabs: tabType[] }) => {
             label={tab.label}
             href={tab.href}
             isActive={pathname === tab.href}
+            closeMenu={closeMenu}
           />
         ))}
       </ul>
@@ -81,13 +93,15 @@ const Tab = ({
   label,
   href,
   isActive,
+  closeMenu,
 }: {
   label: string;
   href: string;
   isActive: boolean;
+  closeMenu: () => void;
 }) => {
   return (
-    <Link href={href} className="rounded-full">
+    <Link href={href} onClick={closeMenu} className="rounded-full">
       <li
         className={`rounded-full cursor-pointer px-20 py-3 text-[20px] font-semibold text-[#3a6b26]
            transition-all duration-300 ease-in-out

@@ -137,7 +137,7 @@ const CustomerRow = ({ customer }: { customer: (typeof CUSTOMERS)[0] }) => {
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       {/* Name */}
-      <td className="whitespace-nowrap px-6 py-4">
+      <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
             <span className="text-[13px] font-medium text-[#E99532]">
@@ -146,40 +146,46 @@ const CustomerRow = ({ customer }: { customer: (typeof CUSTOMERS)[0] }) => {
           </div>
           <span className="text-black">{customer.name}</span>
         </div>
-      </td>
+      </TableCell>
 
       <TableCell>{customer.email}</TableCell>
 
-      <TableCell>{customer.phone}</TableCell>
+      <TableCell>
+        <p className="text-center">{customer.phone}</p>
+      </TableCell>
 
-      <TableCell>{customer.weight}</TableCell>
+      <TableCell>
+        <p className="text-center">{customer.weight}</p>
+      </TableCell>
 
-      <TableCell>{customer.height}</TableCell>
+      <TableCell>
+        <p className="text-center">{customer.height}</p>
+      </TableCell>
 
       {/* Subscription */}
-      <td className="px-6 py-4">
+      <TableCell>
         <StateComp state={customer.subscription} />
-      </td>
+      </TableCell>
 
       {/* Answers */}
-      <td className="whitespace-nowrap px-6 py-4">
+      <TableCell>
         <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
           <div className="min-w-6">
             <ViewLinkIcon className="text-[#E99532]" />
           </div>
           <span>View Answers</span>
         </button>
-      </td>
+      </TableCell>
 
       {/* Specialist */}
-      <td className="px-6 py-4">
+      <TableCell>
         <button className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2.5 cursor-pointer">
           <span className="whitespace-nowrap text-sm text-[#A4A4A4]">
             Select Specialist
           </span>
           <ChevronDownIcon />
         </button>
-      </td>
+      </TableCell>
     </tr>
   );
 };

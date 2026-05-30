@@ -1,10 +1,20 @@
-const TrashIcon = ({ className }: { className: string }) => {
+type TrashIconProps = {
+  className?: string;
+  width?: number;
+  height?: number;
+};
+
+const TrashIcon = ({
+  className = "",
+  width = 24,
+  height = 24,
+}: TrashIconProps) => {
   return (
-    <div className={`w-6 ${className}`}>
+    <div className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        width={width}
+        height={height}
         viewBox="0 0 24 24"
         fill="none"
       >

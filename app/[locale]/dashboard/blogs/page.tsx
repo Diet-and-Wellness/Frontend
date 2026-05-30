@@ -1,12 +1,26 @@
+import DashBlog from "../../components/Dashboard/DashBlog";
+import PlusIcon from "../../components/icons/PlusIcon";
+
 const BlogsPage = () => {
   return (
-    <section className="w-full flex flex-col gap-10">
-      <div className="flex-1 min-h-50 bg-blue-400"></div>
-      <div className="w-full min-h-50 bg-blue-500"></div>
-      <div className="w-full min-h-50 bg-blue-600"></div>
-      <div className="w-full min-h-50 bg-blue-700"></div>
-      <div className="w-full min-h-50 bg-blue-800"></div>
-      <div className="w-full min-h-50 bg-blue-900"></div>
+    <section className="flex w-full flex-col gap-10">
+      <div className="flex justify-between items-start">
+        <div>
+          <h2 className="mb-2 text-3xl font-bold">Content & Blogs</h2>
+          <p className="text-xl font-light text-[#4F4F4F]">
+            Manage wellness articles and content.
+          </p>
+        </div>
+        <button className="px-5 py-2 rounded-xl bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex gap-2">
+          <PlusIcon className="text-white" />
+          <p className="text-[#FFFEFD] text-[18px] font-medium">Add Blog</p>
+        </button>
+      </div>
+      <div className="grid grid-cols-3 gap-5">
+        <DashBlog />
+        <DashBlog />
+        <DashBlog />
+      </div>
     </section>
   );
 };

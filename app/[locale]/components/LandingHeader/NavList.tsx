@@ -57,7 +57,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
           onMouseLeave={toggleLanguageOptions}
           className="relative"
         >
-          <div className="rounded-4xl px-5 py-2 shadow-[0_0_7px_0px_rgba(0,0,0,0.2)] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200">
+          <div className="rounded-4xl px-5 py-2 border-2 border-[#e1e7ef79] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200">
             <Image
               width={24}
               height={24}

@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
@@ -28,12 +27,6 @@ const LandingNavBar = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMenuVisible]);
-
-  const pathname = usePathname();
-
-  useEffect(() => {
-    setIsMenuVisible(false);
-  }, [pathname]);
 
   const menuToggle = () => setIsMenuVisible((value) => !value);
 
@@ -84,7 +77,7 @@ const LandingNavBar = () => {
         </button>
       </div>
       <AnimatePresence>
-        {isMenuVisible && <MobileMenu tabs={tabs} />}
+        {isMenuVisible && <MobileMenu setIsMenuVisible={setIsMenuVisible} tabs={tabs} />}
       </AnimatePresence>
     </nav>
   );
