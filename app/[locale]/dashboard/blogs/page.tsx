@@ -11,7 +11,7 @@ const BlogsPage = () => {
             Manage wellness articles and content.
           </p>
         </div>
-        <button className="px-5 py-2 rounded-xl bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex gap-2">
+        <button className="px-7.5 py-3 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex gap-2">
           <PlusIcon className="text-white" />
           <p className="text-[#FFFEFD] text-[18px] font-medium">Add Blog</p>
         </button>

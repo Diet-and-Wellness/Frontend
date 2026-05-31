@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { easeInOut, motion } from "framer-motion";
 
 import DashboardIcon from "../icons/DashboardIcon";
 import CustomersIcon from "../icons/CustomersIcon";
@@ -11,8 +12,15 @@ import FeedbackIcon from "../icons/FeedbackIcon";
 import SettingsIcon from "../icons/SettingsIcon";
 import LogoutIcon from "../icons/LogoutIcon";
 import { usePathname } from "@/i18n/navigation";
+import Collapse from "../icons/Collapse";
 
-const SideBar = () => {
+const SideBar = ({
+  collapsed,
+  toggleCollapse,
+}: {
+  collapsed: boolean;
+  toggleCollapse: () => void;
+}) => {
   const pathname = usePathname();
 
   const sidebarList = [
@@ -94,7 +102,28 @@ const SideBar = () => {
   ];
 
   return (
-    <aside className="fixed left-0 bottom-0 top-12.5 md:top-14.5 lg:top-15.5 bg-[#FFFEFD] px-5 pt-7.5 pb-2.5 w-64 overflow-y-scroll hide-scrollbar">
+    <motion.aside
+      animate={{
+        width: collapsed ? 100 : 256,
+      }}
+      transition={{
+        duration: 0.25,
+        ease: easeInOut,
+      }}
+      className="
+      fixed left-0 bottom-0 top-12.5 md:top-14.5 lg:top-15.5
+      bg-[#FFFEFD]
+      px-5 pt-12 pb-2.5
+      overflow-y-scroll hide-scrollbar
+    "
+    >
+      <div
+        onClick={toggleCollapse}
+        className="absolute z-50 right-5 top-5 cursor-pointer"
+      >
+        <Collapse className="text-[gray]" />
+      </div>
+
       <nav>
         <ul className="flex flex-col gap-2.5">
           {sidebarList.map((item, index) => (
@@ -122,7 +151,7 @@ const SideBar = () => {
           </ul>
         </div>
       </nav>
-    </aside>
+    </motion.aside>
   );
 };
 
@@ -165,19 +194,19 @@ const SideBarItem = ({
           `}
         />
 
-        {icon}
+        <div className="min-w-6">{icon}</div>
 
-        <p
-          className={`
+        <div className="overflow-hidden whitespace-nowrap">
+          <p
+            className={`
             text-[16px]
             ${isActive ? "font-extrabold" : "font-medium"}
-            transition-all
-            duration-200
             group-hover:font-extrabold
-        `}
-        >
-          {label}
-        </p>
+          `}
+          >
+            {label}
+          </p>
+        </div>
       </div>
     </Link>
   );
