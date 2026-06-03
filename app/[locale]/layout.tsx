@@ -26,7 +26,7 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function ({ children, params }: Props) {
+export default async function IndexLayout ({ children, params }: Props) {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {

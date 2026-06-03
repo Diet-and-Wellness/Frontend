@@ -13,6 +13,7 @@ import SettingsIcon from "../icons/SettingsIcon";
 import LogoutIcon from "../icons/LogoutIcon";
 import { usePathname } from "@/i18n/navigation";
 import Collapse from "../icons/Collapse";
+import Image from "next/image";
 
 const SideBar = ({
   collapsed,
@@ -111,20 +112,55 @@ const SideBar = ({
         ease: easeInOut,
       }}
       className="
-      fixed left-0 bottom-0 top-12.5 md:top-14.5 lg:top-15.5
+      fixed left-0 bottom-0 top-0
       bg-[#FFFEFD]
-      px-5 pt-12 pb-2.5
       overflow-y-scroll hide-scrollbar
+      border-r border-[#e1e7ef88]
     "
     >
-      <div
-        onClick={toggleCollapse}
-        className="absolute z-50 right-5 top-5 cursor-pointer"
-      >
-        <Collapse className="text-[gray]" />
+      <div className={"flex items-center justify-center px-5 py-3 max-h-17"}>
+        {collapsed ? (
+          <div
+            onClick={toggleCollapse}
+            className="group relative size-12 cursor-pointer rounded-full hover:bg-gray-100"
+          >
+            <Image
+              src="/icons/logo.svg"
+              alt="logo"
+              width={50}
+              height={50}
+              className="
+              absolute inset-0 m-auto
+              transition-all duration-200
+              group-hover:opacity-0
+              group-hover:scale-75
+            "
+            />
+            <Collapse
+              className="
+              absolute place-self-center top-3.5 m-auto
+              text-gray-500
+              opacity-0 scale-75
+              transition-all duration-200
+              group-hover:opacity-100
+              group-hover:scale-100
+            "
+            />
+          </div>
+        ) : (
+          <div className="w-full flex justify-between items-center">
+            <Image src="/icons/logo.svg" alt="logo" width={50} height={50} />
+            <div
+              onClick={toggleCollapse}
+              className="size-12 rounded-full flex justify-center items-center cursor-pointer hover:bg-gray-100"
+            >
+              <Collapse className="text-gray-500" />
+            </div>
+          </div>
+        )}
       </div>
 
-      <nav>
+      <nav className="px-5 py-2.5">
         <ul className="flex flex-col gap-2.5">
           {sidebarList.map((item, index) => (
             <SideBarItem

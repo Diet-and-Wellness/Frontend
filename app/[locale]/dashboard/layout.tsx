@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="relative flex flex-col min-h-screen bg-[#F9F9F9]">
-      <DashboardHeader />
+      <SideBar collapsed={collapsed} toggleCollapse={toggleCollapse} />
       <motion.div
         animate={{
           marginLeft: collapsed ? 100 : 256,
@@ -25,9 +25,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         }}
         className="mt-12.5 md:mt-14.5 lg:mt-15.5 p-5 md:p-7.5 flex flex-1"
       >
+        <DashboardHeader collapsed={collapsed} />
         {children}
       </motion.div>
-      <SideBar collapsed={collapsed} toggleCollapse={toggleCollapse} />
     </div>
   );
 };
