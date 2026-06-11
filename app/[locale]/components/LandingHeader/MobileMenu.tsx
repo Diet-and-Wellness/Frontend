@@ -26,6 +26,11 @@ const MobileMenu = ({
 
   const isArabic = pathnameWithLang.startsWith("/ar");
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   const handleLanguageSwitch = () => {
     if (isArabic) {
       router.replace(pathnameWithLang.replace("/ar", "/en"));
@@ -53,7 +58,7 @@ const MobileMenu = ({
             key={tab.href}
             label={tab.label}
             href={tab.href}
-            isActive={pathname === tab.href}
+            isActive={isActive(tab.href)}
             closeMenu={closeMenu}
           />
         ))}

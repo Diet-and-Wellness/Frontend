@@ -19,8 +19,6 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
 
   const pathname = getCleanPathname(pathnameWithLang);
 
-  console.log(pathname);
-
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
