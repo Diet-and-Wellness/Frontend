@@ -48,7 +48,7 @@ const BlogDetails = () => {
             </div>
           </div>
 
-          <h5 className="text-[28px] md:text-[32px] lg:text-[38px] font-semibold leading-9">
+          <h5 className="text-[24px] md:text-[32px] font-semibold leading-9">
             {blog.title}
           </h5>
 
