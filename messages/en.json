@@ -192,10 +192,10 @@
       "everyDay": "Every day of the week"
     },
     "daysWord": "Days:",
+    "day": "day",
     "subscriptionDuration": "Subscription duration: ",
     "month": "month",
     "hours": "hours",
-    "egpPerMonth": "EGP / month",
     "mostPopularPlan": "MOST POPULAR PLAN",
     "responseTimePerDay": "Response time per day: "
   }

@@ -1,6 +1,11 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
 import StateComp from "../../components/Dashboard/StateComp";
 import SearchIcon from "../../components/icons/SearchIcon";
 import ViewLinkIcon from "../../components/icons/ViewLinkIcon";
+import { profileApi } from "../../api/endpoints/profile.api";
+import { UserDTO } from "../../api/types/profile.types";
 
 const TABLE_HEADERS = [
   "Name",
@@ -13,60 +18,22 @@ const TABLE_HEADERS = [
   "Assign To Specialist",
 ];
 
-const CUSTOMERS = [
-  {
-    id: 1,
-    name: "Ahmed Khalil",
-    initials: "AK",
-    email: "ahmed@gmail.com",
-    phone: "+20 100 000 0000",
-    weight: "92 KG",
-    height: "183 CM",
-    subscription: "Trial",
-  },
-  {
-    id: 2,
-    name: "Hassan Mahmoud",
-    initials: "HM",
-    email: "hassan@gmail.com",
-    phone: "+20 100 000 0000",
-    weight: "92 KG",
-    height: "183 CM",
-    subscription: "Basic",
-  },
-  {
-    id: 3,
-    name: "Hassan Mahmoud",
-    initials: "HM",
-    email: "hassan@gmail.com",
-    phone: "+20 100 000 0000",
-    weight: "92 KG",
-    height: "183 CM",
-    subscription: "Premium",
-  },
-  {
-    id: 4,
-    name: "Hassan Mahmoud",
-    initials: "HM",
-    email: "hassan@gmail.com",
-    phone: "+20 100 000 0000",
-    weight: "92 KG",
-    height: "183 CM",
-    subscription: "Trial",
-  },
-  {
-    id: 5,
-    name: "Hassan Mahmoud",
-    initials: "HM",
-    email: "hassan@gmail.com",
-    phone: "+20 100 000 0000",
-    weight: "92 KG",
-    height: "183 CM",
-    subscription: "Basic",
-  },
-];
-
 const CustomersPage = () => {
+  const getCustomers = async (): Promise<UserDTO[]> => {
+    const { data } = await profileApi.searchProfiles({
+      role: "customer",
+      page: 1,
+      limit: 20,
+    });
+
+    return data?.data ?? [];
+  };
+
+  const { data: customers, isLoading } = useQuery({
+    queryKey: ["customers"],
+    queryFn: getCustomers,
+  });
+
   return (
     <section className="flex w-full flex-col gap-5">
       {/* Header */}
@@ -85,28 +52,30 @@ const CustomersPage = () => {
       </div>
 
       {/* Table */}
-      <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
-        <table className="min-w-full divide-y divide-[#E1E7EF]">
-          <thead className="bg-[#FCFCFC]">
-            <tr>
-              {TABLE_HEADERS.map((header) => (
-                <th
-                  key={header}
-                  className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
+      {isLoading || (
+        <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
+          <table className="min-w-full divide-y divide-[#E1E7EF]">
+            <thead className="bg-[#FCFCFC]">
+              <tr>
+                {TABLE_HEADERS.map((header) => (
+                  <th
+                    key={header}
+                    className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
-          <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
-            {CUSTOMERS.map((customer) => (
-              <CustomerRow key={customer.id} customer={customer} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+              {customers?.map((customer) => (
+                <CustomerRow key={customer.id} customer={customer} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </section>
   );
 };
@@ -133,7 +102,7 @@ const FilterButton = ({ label }: { label: string }) => {
   );
 };
 
-const CustomerRow = ({ customer }: { customer: (typeof CUSTOMERS)[0] }) => {
+const CustomerRow = ({ customer }: { customer: UserDTO }) => {
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       {/* Name */}
@@ -141,10 +110,10 @@ const CustomerRow = ({ customer }: { customer: (typeof CUSTOMERS)[0] }) => {
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
             <span className="text-[13px] font-medium text-[#E99532]">
-              {customer.initials}
+              {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
-          <span className="text-black">{customer.name}</span>
+          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
         </div>
       </TableCell>
 
@@ -155,16 +124,16 @@ const CustomerRow = ({ customer }: { customer: (typeof CUSTOMERS)[0] }) => {
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.weight}</p>
+        <p className="text-center">{customer.weightBefore ?? "-"}</p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.height}</p>
+        <p className="text-center">{customer.weightAfter ?? "-"}</p>
       </TableCell>
 
       {/* Subscription */}
       <TableCell>
-        <StateComp state={customer.subscription} />
+        <StateComp state={customer.subscription.status} />
       </TableCell>
 
       {/* Answers */}

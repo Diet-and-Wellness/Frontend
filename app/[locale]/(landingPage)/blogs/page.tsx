@@ -1,8 +1,11 @@
 "use client";
-import Blog from "../../components/Blogs/Blog";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { blogsApi } from "../../api/endpoints/blogs.api";
+import { useQuery } from "@tanstack/react-query";
+import { BlogResponse } from "../../api/types/blogs.types";
+import Blog from "../../components/Blogs/Blog";
 
 const container = {
   hidden: {},
@@ -62,6 +65,16 @@ const textVariant = {
 
 const BlogPage = () => {
   const t = useTranslations();
+
+  const getAllBlogs = async () => {
+    const { data } = await blogsApi.getAllPublishedBlogs({});
+    return data?.data ?? [];
+  };
+
+  const { data: blogs, isLoading } = useQuery({
+    queryKey: ["landingBlogs"],
+    queryFn: getAllBlogs,
+  });
 
   return (
     <section className="mb-20">
@@ -125,43 +138,36 @@ const BlogPage = () => {
         </motion.div>
       </motion.div>
 
-      <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-        <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
-          {t("blogs.featuredBlogs")}
-        </h4>
-        <div className="grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
-          <Blog type="featured" />
-          <Blog type="featured" />
-          <Blog type="featured" />
-          <Blog type="featured" />
-          <Blog type="featured" />
-          <Blog type="featured" />
+      {isLoading || (
+        <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
+          <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+            {t("blogs.featuredBlogs")}
+          </h4>
+          <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
+            {blogs?.map((blog: BlogResponse) => (
+              <Blog key={blog.id} type="landing" blog={blog} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-        <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
-          {t("blogs.allBlogs")}
-        </h4>
-        <div className="flex flex-col justify-between gap-10">
-          <Blog type="full" />
-          <Blog type="full" />
-          <Blog type="full" />
-        </div>
-      </div>
-
-      <button className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 md:px-10 lg:px-12 py-2 lg:py-3 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200">
-        <p className="text-[#E99532] text-[16px] md:text-[18px] lg:text-[20px] font-semibold">
-          {t("blogs.showMore")}
-        </p>
-        <Image
-          alt="plus icon"
-          src={"/icons/plus-orange.svg"}
-          width={28}
-          height={28}
-          className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
-        />
-      </button>
+      {isLoading || (
+        <button
+          onClick={getAllBlogs}
+          className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2 lg:py-2.5 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200"
+        >
+          <p className="text-[#E99532] text-[16px] md:text-[18px] font-semibold">
+            {t("blogs.showMore")}
+          </p>
+          <Image
+            alt="plus icon"
+            src={"/icons/plus-orange.svg"}
+            width={24}
+            height={24}
+            className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
+          />
+        </button>
+      )}
     </section>
   );
 };

@@ -3,23 +3,13 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SubscriptionPlanResponse } from "../../api/types/subscription.types";
 
-type planProp = {
-  packageType: string;
-  isMostPopular: boolean;
-  duration: number;
-  price: number;
-  benefits: string[];
-  days: string[];
-  responseTime: number;
-  planNote: string;
+type PricePlanProps = {
+  plan: SubscriptionPlanResponse;
 };
 
-type pricingPlanProps = {
-  plan: planProp;
-};
-
-const PricePlan = ({ plan }: pricingPlanProps) => {
+const PricePlan = ({ plan }: PricePlanProps) => {
   const t = useTranslations();
 
   return (
@@ -34,10 +24,10 @@ const PricePlan = ({ plan }: pricingPlanProps) => {
       className={`
         w-full max-w-sm
         rounded-3xl bg-[#E99532]
-        ${plan.isMostPopular ? "p-1 shadow-xl" : ""}
+        ${plan.mostPopular ? "p-1 shadow-xl" : ""}
       `}
     >
-      {plan.isMostPopular && (
+      {plan.mostPopular && (
         <p className="py-2 text-center text-xs sm:text-sm font-medium tracking-wide text-white">
           {t("pricing.mostPopularPlan")}
         </p>
@@ -48,18 +38,18 @@ const PricePlan = ({ plan }: pricingPlanProps) => {
           flex flex-col gap-4 sm:gap-5
           rounded-3xl bg-white
           p-5 sm:p-6
-          ${!plan.isMostPopular ? "shadow-xl" : ""}
+          ${!plan.mostPopular ? "shadow-xl" : ""}
         `}
       >
         {/* Header */}
         <div>
           <h3 className="text-lg sm:text-xl font-bold text-black">
-            {plan.packageType}
+            {plan.displayName}
           </h3>
 
           <p className="mt-1 text-xs sm:text-sm text-[#4F4F4F]">
-            {t("pricing.subscriptionDuration")} {plan.duration}{" "}
-            {t("pricing.month")}
+            {t("pricing.subscriptionDuration")} {plan.durationInDays}{" "}
+            {t("pricing.day")}
           </p>
         </div>
 
@@ -69,15 +59,17 @@ const PricePlan = ({ plan }: pricingPlanProps) => {
             {plan.price}
           </span>
           <span className="pb-1 text-sm sm:text-base font-medium text-[#4F4F4F]">
-            {t("pricing.egpPerMonth")}
+            {plan.currency}
+            {" / "}
+            {t("pricing.month")}
           </span>
         </p>
 
         {/* Benefits */}
         <BenefitsList
-          benefitList={plan.benefits}
-          days={plan.days}
-          respTime={plan.responseTime}
+          benefitList={plan.features}
+          days={plan.activeDays}
+          respTime={plan.responseTimeInHours}
         />
 
         {/* Note */}
@@ -97,7 +89,7 @@ const PricePlan = ({ plan }: pricingPlanProps) => {
             transition-all duration-300
             active:scale-98
             ${
-              plan.isMostPopular
+              plan.mostPopular
                 ? "bg-[#E99532] hover:bg-[#d88524]"
                 : "bg-[#4D8E32] hover:bg-[#387b1b]"
             }
@@ -116,41 +108,40 @@ type BenefitsListProps = {
   respTime: number;
 };
 
-const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
-  const ListItem = ({
-    icon,
-    children,
-  }: {
-    icon: string;
-    children: React.ReactNode;
-  }) => (
-    <li className="flex items-start gap-2 sm:gap-3">
-      <Image
-        src={icon}
-        alt=""
-        width={18}
-        height={18}
-        className="min-w-5 sm:min-w-6"
-      />
-      <p className="text-sm sm:text-base leading-5 sm:leading-6 text-black">
-        {children}
-      </p>
-    </li>
-  );
+const ListItem = ({
+  icon,
+  children,
+}: {
+  icon: string;
+  children: React.ReactNode;
+}) => (
+  <li className="flex items-start gap-2 sm:gap-3">
+    <Image
+      src={icon}
+      alt=""
+      width={18}
+      height={18}
+      className="min-w-5 sm:min-w-6"
+    />
+    <p className="text-sm sm:text-base leading-5 sm:leading-6 text-black">
+      {children}
+    </p>
+  </li>
+);
 
+const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
   const t = useTranslations("pricing");
 
   return (
     <ul className="flex flex-col  gap-3">
-      {benefitList.map((benefit) => (
+      {benefitList?.map((benefit) => (
         <ListItem key={benefit} icon="/icons/Badge.svg">
           {benefit}
         </ListItem>
       ))}
 
       <ListItem icon="/icons/date.svg">
-        <span className="font-medium">{t("daysWord")}</span>
-        {days.join(" — ")}
+        <span className="font-medium">{t("daysWord")}</span> {days?.join(" — ")}
       </ListItem>
 
       <ListItem icon="/icons/clock.svg">

@@ -10,7 +10,7 @@ const Switch = () => {
     <motion.button
       onClick={() => setActive((p) => !p)}
       animate={{
-        backgroundColor: active ? "#DC2626" : "#A4A4A4",
+        backgroundColor: active ? "#E99532" : "#A4A4A4",
       }}
       transition={{ duration: 0.4 }}
       className="flex w-12 cursor-pointer rounded-full p-1"

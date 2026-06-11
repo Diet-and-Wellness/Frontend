@@ -192,10 +192,10 @@
       "everyDay": "كل أيام الأسبوع"
     },
     "daysWord": "الأيام:",
+    "day": "يوم",
     "subscriptionDuration": "مدة الاشتراك: ",
     "month": "شهر",
     "hours": "ساعة",
-    "egpPerMonth": "جنيه / شهر",
     "mostPopularPlan": "الباقة الأكثر طلبًا",
     "responseTimePerDay": "مدة الاستجابة يوميًا: "
   }

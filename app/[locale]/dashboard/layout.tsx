@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           duration: 0.25,
           ease: "easeInOut",
         }}
-        className="mt-12.5 md:mt-14.5 lg:mt-15.5 p-5 md:p-7.5 flex flex-1"
+        className="mt-12.5 md:mt-14.5 lg:mt-15.5 px-5 py-7.5 md:px-7.5 flex flex-1"
       >
         <DashboardHeader collapsed={collapsed} />
         {children}

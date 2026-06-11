@@ -1,70 +1,102 @@
 "use client";
 
 import Image from "next/image";
+import DateIcon from "../icons/Date";
+import PenIcon from "../icons/Pen";
+import TrashIcon from "../icons/TrashIcon";
+import { BlogResponse } from "../../api/types/blogs.types";
+import { formatDate } from "../../utils/formateDate";
+import { blogsApi } from "../../api/endpoints/blogs.api";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-const Blog = ({ type }: { type: string }) => {
+const Blog = ({ type, blog }: { type: string; blog: BlogResponse }) => {
   const t = useTranslations();
 
+  const queryClient = useQueryClient();
+
+  const deleteBlog = async () => {
+    // Open modal to confirm deletion process
+    await blogsApi.deleteBlog(blog.id);
+    queryClient.invalidateQueries({ queryKey: ["publishedBlogs"] });
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      viewport={{ once: true, amount: 0.25 }}
-      className={`${type === "full" ? "w-full flex-col md:flex-row" : "w-full md:max-w-110 flex-col"} rounded-4xl border border-[#EDEDED] overflow-hidden flex hover:shadow-lg transition-shadow duration-200`}
-    >
-      <div
-        className={`${type === "full" ? "min-h-40" : "w-auto"} overflow-hidden`}
-      >
+    <div className="flex max-w-full h-fit flex-col overflow-hidden rounded-4xl border border-[#EDEDED] transition-shadow duration-200 hover:shadow-lg bg-[#FFFEFD]">
+      <div className="overflow-hidden w-full">
         <Image
-          width={1000}
-          height={10}
+          width={400}
+          height={60}
           src="/images/blog-img.webp"
           alt="blog image"
-          className={`${type === "full" ? "min-w-full h-full" : "w-full h-full"} object-cover object-center hover:scale-107 transition-transform duration-300`}
+          className="h-full w-full object-cover object-center transition-transform duration-300 hover:scale-105"
         />
       </div>
 
-      <div className="p-5 lg:p-7.5 flex flex-col items-start gap-3">
-        <div className="flex flex-row gap-5 items-center">
-          <p className="text-[#3E7228] text-[16px] md:text-[18px] lg:text-[20px] font-medium">
-            {t("blogs.date")}
-          </p>
-          <div className="bg-[#E99532] rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
-            <Image
-              width={16}
-              height={16}
-              src="/icons/eye.svg"
-              alt="Eye icon"
-              className="h-3 w-3 lg:h-4 lg:w-4"
-            />
-            <p className="text-white font-medium text-[11px] md:text-[12px] lg:text-[13px] leading-3">
-              {t("blogs.readTime")}
+      <div className="flex flex-col items-start gap-2.5 p-5">
+        {type === "landing" && (
+          <div className="flex flex-row gap-5 items-center">
+            <p className="text-[#3E7228] text-[16px] md:text-[18px] font-medium">
+              {formatDate(blog.createdAt)}
             </p>
+            <div className="bg-[#E99532] rounded-lg py-0.75 px-3 flex flex-row justify-center items-center gap-1">
+              <Image
+                width={16}
+                height={16}
+                src="/icons/eye.svg"
+                alt="Eye icon"
+                className="h-3 w-3 lg:h-4 lg:w-4"
+              />
+              <p className="text-white font-medium text-[11px] md:text-[12px] lg:text-[13px] leading-3">
+                {`${blog.estimatedReadTime} min`}
+              </p>
+            </div>
           </div>
-        </div>
+        )}
 
-        <h5 className="text-[24px] md:text-[28px] lg:text-[32px] font-semibold">
-          {t("blogs.blogTitle")}
+        <h5 className="line-clamp-1 text-[16px] font-semibold md:text-[18px] lg:text-[20px]">
+          {blog.title}
         </h5>
 
-        <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px]">
-          {t("blogs.waznyAbout")}
+        <p className="line-clamp-3 text-[12px] text-[#4F4F4F] md:text-[14px] lg:text-[16px]">
+          {blog.description}
         </p>
 
-        <Link
-          href={"/blogs/re58v4dk7I"}
-          className="group hover:bg-[#2E551E] transition-colors duration-400 mt-3 py-2 px-8 lg:px-10 rounded-4xl border-2 border-[#2E551E]"
-        >
-          <span className="text-[#2E551E] font-bold text-center text-[16px] md:text-[18px] lg:text-[20px] group-hover:text-white transition-colors duration-400">
-            {t("blogs.readMore")}
-          </span>
-        </Link>
+        {type === "landing" && (
+          <Link
+            href={`/blogs/${blog.slug}`}
+            className="group hover:bg-[#2E551E] transition-colors duration-400 mt-2 py-2 px-6 lg:px-8 rounded-full border-2 border-[#2E551E]"
+          >
+            <span className="text-[#2E551E] font-bold text-center text-[14px] md:text-[18px] group-hover:text-white transition-colors duration-400">
+              {t("blogs.readMore")}
+            </span>
+          </Link>
+        )}
       </div>
-    </motion.div>
+
+      {type === "dashboard" && (
+        <div className="flex justify-between items-center px-5 py-3 border-t border-t-[#E1E7EF]">
+          <div className="flex gap-3 items-center">
+            <DateIcon className="text-[#4F4F4F]" />
+            <p className="text-[#4F4F4F] text-[15px]">
+              {formatDate(blog.createdAt)}
+            </p>
+          </div>
+          <div className="flex gap-1 items-center">
+            <button className="size-10 rounded-full flex justify-center items-center hover:bg-gray-200 cursor-pointer">
+              <PenIcon className="text-[#4F4F4F]" />
+            </button>
+            <button
+              onClick={deleteBlog}
+              className="size-10 rounded-full flex justify-center items-center hover:bg-red-100 cursor-pointer"
+            >
+              <TrashIcon className="text-[#DC2626]" />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ const AboutUsPage = () => {
           <motion.div
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <Image
@@ -41,7 +41,7 @@ const AboutUsPage = () => {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               className="relative z-10 text-xl sm:text-2xl lg:text-5xl text-white text-center"
             >
               {t("aboutUs.enjoyableLiving")}
@@ -50,7 +50,7 @@ const AboutUsPage = () => {
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.7, ease: "easeInOut" }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
               className="relative z-10 text-2xl sm:text-3xl lg:text-6xl leading-10 font-bold text-white text-center"
             >
               {t("aboutUs.startsWithBalancedNutrition")}
@@ -62,7 +62,7 @@ const AboutUsPage = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true }}
           variants={{
             hidden: {},
             visible: {

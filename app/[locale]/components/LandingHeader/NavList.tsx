@@ -6,28 +6,36 @@ import { getCleanPathname } from "../../utils/getCleanPathname";
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type tabType = { label: string; href: string };
 
 const NavList = ({ tabs }: { tabs: tabType[] }) => {
   const router = useRouter();
   const pathnameWithLang = usePathname();
+  const locale = useLocale();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const t = useTranslations();
 
   const pathname = getCleanPathname(pathnameWithLang);
 
+  console.log(pathname);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
+
   const toggleLanguageOptions = () => setShowLanguageOptions((value) => !value);
 
   const switchToEnglish = () => {
-    const isArabic = pathnameWithLang.startsWith("/ar");
+    const isArabic = locale === "ar";
     if (isArabic) router.replace(pathnameWithLang.replace("/ar", "/en"));
     toggleLanguageOptions();
   };
 
   const switchToArabic = () => {
-    const isEnglish = pathnameWithLang.startsWith("/en");
+    const isEnglish = locale === "en";
     if (isEnglish) router.replace(pathnameWithLang.replace("/en", "/ar"));
     toggleLanguageOptions();
   };
@@ -46,7 +54,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
             key={tab.href}
             label={tab.label}
             href={tab.href}
-            isActive={pathname === tab.href}
+            isActive={isActive(tab.href)}
           />
         ))}
       </ul>
@@ -78,16 +86,16 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
                 <button
                   onClick={switchToEnglish}
                   className={`min-w-40 p-1.5 text-center rounded-lg text-[20px] font-medium
-                    ${pathnameWithLang.startsWith("/en") ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
-                    ${pathnameWithLang.startsWith("/ar") && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
+                    ${locale === "en" ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
+                    ${locale === "ar" && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
                 >
                   English
                 </button>
                 <button
                   onClick={switchToArabic}
                   className={`min-w-40 p-1.5 text-center rounded-lg text-[20px] font-bold 
-                    ${pathnameWithLang.startsWith("/ar") ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
-                    ${pathnameWithLang.startsWith("/en") && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
+                    ${locale === "ar" ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
+                    ${locale === "en" && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
                 >
                   العربية
                 </button>

@@ -28,6 +28,10 @@ const StateComp = ({ state = "inactive" }: { state: string }) => {
       bg: "#7C3AED33",
       text: "#7C3AED",
     },
+    expired: {
+      bg: "#FCEFE0",
+      text: "#E99532",
+    },
   };
 
   const lowercaseState = state.toLowerCase();

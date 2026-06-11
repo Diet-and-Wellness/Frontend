@@ -5,6 +5,8 @@ import { routing } from "@/i18n/routing";
 
 import type { Metadata } from "next";
 
+import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
+
 import { Roboto } from "next/font/google";
 
 import "./globals.css";
@@ -26,7 +28,7 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function IndexLayout ({ children, params }: Props) {
+export default async function IndexLayout({ children, params }: Props) {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
@@ -36,15 +38,17 @@ export default async function IndexLayout ({ children, params }: Props) {
   setRequestLocale(locale);
 
   const messages = await getMessages();
-  
+
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" dir={direction}>
       <body className={`${roboto.className}`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <ReactQueryProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

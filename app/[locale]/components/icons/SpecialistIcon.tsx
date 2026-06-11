@@ -9,8 +9,8 @@ const SpecialistIcon = ({
     <span className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="23"
-        height="26"
+        width="24"
+        height="24"
         viewBox="0 0 23 26"
         fill="none"
       >

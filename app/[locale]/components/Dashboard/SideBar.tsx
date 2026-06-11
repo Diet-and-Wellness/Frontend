@@ -35,15 +35,6 @@ const SideBar = ({
       href: "/dashboard",
     },
     {
-      label: "Customers",
-      icon: (
-        <CustomersIcon
-          className={`${pathname === "/dashboard/customers" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/customers",
-    },
-    {
       label: "Specialists",
       icon: (
         <SpecialistsIcon
@@ -51,6 +42,15 @@ const SideBar = ({
         />
       ),
       href: "/dashboard/specialists",
+    },
+    {
+      label: "Customers",
+      icon: (
+        <CustomersIcon
+          className={`${pathname === "/dashboard/customers" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+        />
+      ),
+      href: "/dashboard/customers",
     },
     {
       label: "Content & Blogs",

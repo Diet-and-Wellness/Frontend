@@ -2,134 +2,154 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { authApi } from "../../api/endpoints/auth.api";
+import Error from "../Public/Error";
+import Label from "../Public/Label";
+import Spinner from "../Public/LoadingSpinner";
 
-const container = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.14,
-      delayChildren: 0.1,
-    },
-  },
-};
-
-const item = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.45,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
-};
-
-const itemButton = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut" as const,
-    },
-  },
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
 };
 
 const SignupForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    console.log("FORM DATA:", data);
+    await authApi.signup(data);
+  };
+
+  const inputClassName =
+    "outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
-      variants={container}
+    <motion.form
+      initial={{
+        y: 40,
+        opacity: 0,
+      }}
+      animate={{
+        y: 0,
+        opacity: 1,
+      }}
+      transition={{ duration: 0.6 }}
+      onSubmit={handleSubmit(onSubmit)}
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
       {/* Title */}
-      <motion.h3
-        variants={item}
-        className="font-extrabold text-3xl md:text-4xl lg:text-5xl"
-      >
+      <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl">
         Create a New Account
-      </motion.h3>
+      </h3>
 
-      {/* Full Name */}
-      <motion.div variants={item} className="flex flex-col gap-2">
-        <label className="font-medium text-[16px]">
-          Full Name <span className="text-red-500">*</span>
-        </label>
+      {/* First Name */}
+      <div className="flex flex-col gap-2">
+        <Label text={"First Name"} isRequired={true} />
 
         <input
-          type="text"
-          placeholder="Full Name"
-          className="outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition"
+          {...register("firstName", { required: "First name is required" })}
+          placeholder="First Name"
+          className={inputClassName}
         />
-      </motion.div>
+
+        {errors.firstName && <Error msg={errors.firstName.message} />}
+      </div>
+
+      {/* Last Name */}
+      <div className="flex flex-col gap-2">
+        <Label text={"Last Name"} isRequired={true} />
+
+        <input
+          {...register("lastName", { required: "Last name is required" })}
+          placeholder="Last Name"
+          className={inputClassName}
+        />
+
+        {errors.lastName && <Error msg={errors.lastName.message} />}
+      </div>
 
       {/* Email */}
-      <motion.div variants={item} className="flex flex-col gap-2">
-        <label className="font-medium text-[16px]">
-          Email <span className="text-red-500">*</span>
-        </label>
+      <div className="flex flex-col gap-2">
+        <Label text={"Email"} isRequired={true} />
 
         <input
           type="email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Invalid email",
+            },
+          })}
           placeholder="you@company.com"
-          className="outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition"
+          className={inputClassName}
         />
-      </motion.div>
+
+        {errors.email && <Error msg={errors.email.message} />}
+      </div>
 
       {/* Phone */}
-      <motion.div variants={item} className="flex flex-col gap-2">
-        <label className="font-medium text-[16px]">
-          Phone number <span className="text-red-500">*</span>
-        </label>
+      <div className="flex flex-col gap-2">
+        <Label text={"Phone Number"} isRequired={true} />
 
         <input
-          type="tel"
+          {...register("phone", {
+            required: "Phone is required",
+          })}
           placeholder="+1 (555) 000-0000"
-          className="outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition"
+          className={inputClassName}
         />
-      </motion.div>
+
+        {errors.phone && <Error msg={errors.phone.message} />}
+      </div>
 
       {/* Password */}
-      <motion.div variants={item} className="flex flex-col gap-2">
-        <label className="font-medium text-[16px]">
-          Password <span className="text-red-500">*</span>
-        </label>
+      <div className="flex flex-col gap-2">
+        <Label text={"Password"} isRequired={true} />
 
         <input
           type="password"
+          {...register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Minimum 6 characters",
+            },
+          })}
           placeholder="Enter your password"
-          className="outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition"
+          className={inputClassName}
         />
-      </motion.div>
+
+        {errors.password && <Error msg={errors.password.message} />}
+      </div>
 
       {/* Button */}
-      <motion.button
-        variants={itemButton}
-        className="mt-4 bg-[#E99532] text-white text-[18px] rounded-4xl py-3 font-medium hover:opacity-90 transition will-change-transform cursor-pointer"
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="mt-4 bg-[#E99532] text-white text-[18px] font-medium rounded-4xl h-13 cursor-pointer flex justify-center items-center"
       >
-        Sign Up
-      </motion.button>
+        {isSubmitting ? <Spinner /> : "Sign Up"}
+      </button>
 
       {/* Footer */}
-      <motion.div
-        variants={item}
-        className="flex flex-row gap-3 justify-center items-center"
-      >
-        <p className="font-medium text-[16px]">Have an Account ?</p>
+      <div className="flex gap-3 justify-center">
+        <p className="font-medium text-[16px]">Don’t Have an Account ?</p>
         <Link href={"/signin"}>
           <span className="text-[#4D8E32] text-[16px] font-semibold underline transition">
             Log in
           </span>
         </Link>
-      </motion.div>
-    </motion.div>
+      </div>
+    </motion.form>
   );
 };
 

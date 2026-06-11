@@ -1,5 +1,5 @@
 'use client';
-import { cn } from '@/lib/utils';
+import { cn } from '@/app/[locale]/lib/utils';
 import { useState, createContext, useContext } from 'react';
 import {
   motion,

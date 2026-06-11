@@ -29,10 +29,10 @@ const Hero = () => {
   return (
     <section className="relative">
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
         className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5.5/10 mt-5" : "aspect-15.5/10 mt-15"}`}
       >
         {windowWidth <= 550 ? (

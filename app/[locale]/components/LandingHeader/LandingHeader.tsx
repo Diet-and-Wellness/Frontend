@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 
 const LandingNavBar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   const t = useTranslations("");
 
   const tabs = [
@@ -77,7 +78,9 @@ const LandingNavBar = () => {
         </button>
       </div>
       <AnimatePresence>
-        {isMenuVisible && <MobileMenu setIsMenuVisible={setIsMenuVisible} tabs={tabs} />}
+        {isMenuVisible && (
+          <MobileMenu setIsMenuVisible={setIsMenuVisible} tabs={tabs} />
+        )}
       </AnimatePresence>
     </nav>
   );

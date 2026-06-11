@@ -1,91 +1,126 @@
 "use client";
 
-import RecentUser from "../components/Dashboard/RecentUser";
+import Link from "next/link";
 import StatCard from "../components/Dashboard/StatCard";
 import SpecialistIcon from "../components/icons/SpecialistIcon";
+import { profileApi } from "../api/endpoints/profile.api";
+import { SpecialistDTO, UserDTO } from "../api/types/profile.types";
+import { useQuery } from "@tanstack/react-query";
+import RecentSpecialist from "../components/Dashboard/RecentSpecialist";
+import RecentCustomer from "../components/Dashboard/RecentCustomer";
+import CustomersIcon from "../components/icons/CustomersIcon";
+import SpecialistsIcon from "../components/icons/SpecialistsIcon";
+import BlogsIcon from "../components/icons/BlogsIcon";
+import StatArrow from "../components/icons/StatArrow";
+
+type RecentUsersListProps =
+  | {
+      usersListType: "specialists";
+      usersList: SpecialistDTO[];
+    }
+  | {
+      usersListType: "clients";
+      usersList: UserDTO[];
+    };
 
 const DashboardIndex = () => {
-  const specialistsList = [
-    {
-      userName: "Dr. Sarah Mansour",
-      userNameAppr: "SM",
-      specialty: "Clinical Nutritionist",
-      clientsCount: 14,
-      userState: "active",
-    },
-    {
-      userName: "Coach Ahmed Hassan",
-      userNameAppr: "AH",
-      specialty: "Strength & Conditioning",
-      clientsCount: 10,
-      userState: "inactive",
-    },
-    {
-      userName: "Dr. Laila Soliman",
-      userNameAppr: "LS",
-      specialty: "Behavioral Psychologist",
-      clientsCount: 0,
-      userState: "pending",
-    },
-    {
-      userName: "Dr. Mahmoud Fawzy",
-      userNameAppr: "MF",
-      specialty: "Physical Therapist",
-      clientsCount: 25,
-      userState: "full",
-    },
-  ];
+  const getRecentCustomers = async (): Promise<UserDTO[]> => {
+    const { data } = await profileApi.searchProfiles({
+      role: "customer",
+      page: 1,
+      limit: 5,
+    });
 
-  const clientsList = [
-    {
-      userName: "Sarah Al-Rashid",
-      userNameAppr: "SA",
-      userEmail: "sarah@example.com",
-    },
-    {
-      userName: "Omar Hassan",
-      userNameAppr: "OH",
-      userEmail: "omar@example.com",
-    },
-    {
-      userName: "Layla Mohammed",
-      userNameAppr: "LM",
-      userEmail: "layla@example.com",
-    },
-    {
-      userName: "Ahmed Khalil",
-      userNameAppr: "AK",
-      userEmail: "ahmed@example.com",
-    },
-  ];
+    return data?.data ?? [];
+  };
+
+  const { data: recentCustomers } = useQuery({
+    queryKey: ["recentCustomers"],
+    queryFn: getRecentCustomers,
+  });
+
+  const getRecentSpecialists = async (): Promise<SpecialistDTO[]> => {
+    const { data } = await profileApi.searchProfiles({
+      role: "specialist",
+      page: 1,
+      limit: 5,
+    });
+    return data?.data ?? [];
+  };
+
+  const { data: recentSpecialists } = useQuery({
+    queryKey: ["recentSpecialists"],
+    queryFn: getRecentSpecialists,
+  });
+
+  const getDashboardStat = async () => {
+    const { data } = await profileApi.getAdminDashboard();
+    console.log(data);
+    return data ?? {};
+  };
+
+  const { data: dashboardStat } = useQuery({
+    queryKey: ["dashboardStat"],
+    queryFn: getDashboardStat,
+  });
 
   return (
     <section className="w-full">
       <div className="mb-7.5">
-        <h2 className="text-black text-3xl mb-2 font-bold">
-          Dashboard
-        </h2>
+        <h2 className="text-black text-3xl mb-2 font-bold">Dashboard</h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
           Welcome back, Admin. Here&apos;s an overview of Diet and Wellness.
         </p>
       </div>
 
       <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {[1, 2, 3, 4].map((item) => {
-          return (
-            <div key={item}>
-              <StatCard />
-            </div>
-          );
-        })}
+        <StatCard
+          arrowIcon={"/icons/green-up-arrow.svg"}
+          statIcon={
+            <CustomersIcon className="text-[#E99532]" strokeWidth={"1.67"} />
+          }
+          progress={`${dashboardStat?.clients?.thisMonth ?? 0}%`}
+          statNumber={dashboardStat?.clients?.total ?? 0}
+          statType={"Total Clients"}
+        />
+        <StatCard
+          arrowIcon={"/icons/green-up-arrow.svg"}
+          statIcon={
+            <SpecialistsIcon className="text-[#E99532]" strokeWidth={"1.67"} />
+          }
+          progress={`${dashboardStat?.specialists?.thisMonth ?? 0}%`}
+          statNumber={dashboardStat?.specialists?.active ?? 0}
+          statType={"Active Specialist"}
+        />
+        <StatCard
+          arrowIcon={"/icons/green-up-arrow.svg"}
+          statIcon={
+            <BlogsIcon className="text-[#E99532]" strokeWidth={"1.67"} />
+          }
+          progress={`${dashboardStat?.articles?.thisMonth ?? 0}%`}
+          statNumber={dashboardStat?.articles?.total ?? 0}
+          statType={"Published Articles"}
+        />
+        <StatCard
+          arrowIcon={"/icons/green-up-arrow.svg"}
+          statIcon={
+            <StatArrow className="text-[#E99532]" strokeWidth={"1.67"} />
+          }
+          progress={`${dashboardStat?.subscriptions.thisMonth ?? 0}%`}
+          statNumber={dashboardStat?.subscriptions?.active ?? 0}
+          statType={"Active Subscriptions "}
+        />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-7.5 xl:gap-15 mt-7.5">
         <RecentUsersList
-          usersListType="specialist"
-          usersList={specialistsList}
+          usersListType="specialists"
+          usersList={recentSpecialists ?? []}
         />
-        <RecentUsersList usersListType="clients" usersList={clientsList} />
+        <RecentUsersList
+          usersListType="clients"
+          usersList={recentCustomers ?? []}
+        />
       </div>
     </section>
   );
@@ -94,35 +129,41 @@ const DashboardIndex = () => {
 const RecentUsersList = ({
   usersListType,
   usersList,
-}: {
-  usersListType: string;
-  usersList: {
-    userName: string;
-    userNameAppr: string;
-    specialty?: string;
-    clientsCount?: number;
-    userEmail?: string;
-    userState?: string;
-  }[];
-}) => {
+}: RecentUsersListProps) => {
   return (
     <div className="flex flex-col gap-5 p-5 bg-[#FFFEFD] rounded-2xl border border-[#E1E7EF] self-start">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-3 items-center">
-          <SpecialistIcon className="text-[#E99532]" />
+          {usersListType === "specialists" ? (
+            <SpecialistIcon className="text-[#E99532]" strokeWidth="1.67" />
+          ) : (
+            <CustomersIcon className="text-[#E99532]" strokeWidth="1.67" />
+          )}
           <p className="text-black text-[20px] font-extrabold">
-            Recent Specialists
+            {usersListType === "specialists"
+              ? "Recent Specialists"
+              : "Recent Customers"}
           </p>
         </div>
-        <a href="">
+        <Link
+          href={
+            usersListType === "specialists"
+              ? "dashboard/specialists"
+              : "dashboard/customers"
+          }
+        >
           <span className="text-[#E99532] text-[16px] font-medium underline">
             View All
           </span>
-        </a>
+        </Link>
       </div>
-      {usersList.map((user, index) => (
-        <RecentUser key={index} userData={user} userType={usersListType} />
-      ))}
+      {usersListType === "specialists"
+        ? usersList.map((user) => (
+            <RecentSpecialist key={user.id} specialist={user} />
+          ))
+        : usersList.map((user) => (
+            <RecentCustomer key={user.id} customer={user} />
+          ))}
     </div>
   );
 };

@@ -8,93 +8,39 @@ import TrashIcon from "../../components/icons/TrashIcon";
 import MenuIcon from "../../components/icons/MenuIcon";
 import Switch from "../../components/Dashboard/Switch";
 import PlusIcon from "../../components/icons/PlusIcon";
-
-const SPECIALISTS = [
-  {
-    id: 1,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Pending",
-  },
-  {
-    id: 2,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-  {
-    id: 5,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-  {
-    id: 6,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-  {
-    id: 7,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-  {
-    id: 8,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-  {
-    id: 9,
-    name: "Ahmed Khalil",
-    specialty: "Nutrition",
-    email: "amina@wazn.com",
-    phone: "+20 100 000 0000",
-    noOfClients: 1,
-    status: "Inactive",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { profileApi } from "../../api/endpoints/profile.api";
+import { SpecialistDTO } from "../../api/types/profile.types";
 
 const SpecialistsPage = () => {
-  const [openedMenuId, setOpenedMenuId] = useState<number | null>(null);
+  const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
+
+  const getSpecialists = async (): Promise<SpecialistDTO[]> => {
+    const { data } = await profileApi.searchProfiles({
+      role: "specialist",
+      limit: 10,
+      page: 1,
+    });
+    return data?.data ?? [];
+  };
+
+  const { data: specialists, isLoading } = useQuery({
+    queryKey: ["specialists"],
+    queryFn: getSpecialists,
+  });
+
+  const createNewSpecialist = async () => {
+    // await profileApi.createSpecialist({
+    //   firstName: "James",
+    //   lastName: "Thompson",
+    //   email: "james.thompson@example.com",
+    //   phone: "01067890123",
+    //   password: "StrongPassword123!",
+    //   specialization: "Clinical Dietetics",
+    //   experienceYears: 10,
+    // });
+    // await profileApi.activateSpecialist("6a07754af243e2830490e704");
+  };
 
   return (
     <section className="flex w-full flex-col gap-10">
@@ -106,55 +52,60 @@ const SpecialistsPage = () => {
             Manage your team of wellness specialists.
           </p>
         </div>
-        <button className="px-7.5 py-3 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex gap-2">
+        <button
+          onClick={createNewSpecialist}
+          className="px-5 py-2.5 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex"
+        >
           <PlusIcon className="text-white" />
-          <p className="text-[#FFFEFD] text-[18px] font-medium">
+          <p className="text-[#FFFEFD] text-[16px] font-medium">
             Add Specialist
           </p>
         </button>
       </div>
 
       {/* Table */}
-      <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
-        <table className="min-w-full divide-y divide-[#E1E7EF]">
-          <thead className="bg-[#FCFCFC]">
-            <tr>
-              <TableHeaderCell>Name</TableHeaderCell>
+      {isLoading || (
+        <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
+          <table className="min-w-full divide-y divide-[#E1E7EF]">
+            <thead className="bg-[#FCFCFC]">
+              <tr>
+                <TableHeaderCell>Name</TableHeaderCell>
 
-              <TableHeaderCell>Specialty</TableHeaderCell>
+                <TableHeaderCell>Specialty</TableHeaderCell>
 
-              <TableHeaderCell>Email</TableHeaderCell>
+                <TableHeaderCell>Email</TableHeaderCell>
 
-              <TableHeaderCell>
-                <p className="text-center">Phone</p>
-              </TableHeaderCell>
+                <TableHeaderCell>
+                  <p className="text-center">Phone</p>
+                </TableHeaderCell>
 
-              <TableHeaderCell>
-                <p className="text-center">No. of Clients</p>
-              </TableHeaderCell>
+                <TableHeaderCell>
+                  <p className="text-center">No. of Clients</p>
+                </TableHeaderCell>
 
-              <TableHeaderCell>
-                <p className="text-center">Status</p>
-              </TableHeaderCell>
+                <TableHeaderCell>
+                  <p className="text-center">Status</p>
+                </TableHeaderCell>
 
-              <TableHeaderCell>
-                <p className="text-center">Actions</p>
-              </TableHeaderCell>
-            </tr>
-          </thead>
+                <TableHeaderCell>
+                  <p className="text-center">Actions</p>
+                </TableHeaderCell>
+              </tr>
+            </thead>
 
-          <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
-            {SPECIALISTS.map((specialist) => (
-              <SpecialistRow
-                key={specialist.id}
-                specialist={specialist}
-                openedMenuId={openedMenuId}
-                setOpenedMenuId={setOpenedMenuId}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+              {specialists?.map((specialist) => (
+                <SpecialistRow
+                  key={specialist.id}
+                  specialist={specialist}
+                  openedMenuId={openedMenuId}
+                  setOpenedMenuId={setOpenedMenuId}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </section>
   );
 };
@@ -164,9 +115,9 @@ const SpecialistRow = ({
   openedMenuId,
   setOpenedMenuId,
 }: {
-  specialist: (typeof SPECIALISTS)[0];
-  openedMenuId: number | null;
-  setOpenedMenuId: React.Dispatch<React.SetStateAction<number | null>>;
+  specialist: SpecialistDTO;
+  openedMenuId: string | null;
+  setOpenedMenuId: React.Dispatch<React.SetStateAction<string | null>>;
 }) => {
   const isOpened = openedMenuId === specialist.id;
 
@@ -177,10 +128,10 @@ const SpecialistRow = ({
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       <TableCell>
-        <span className="text-black">{specialist.name}</span>
+        <span className="text-black">{`${specialist.firstName} ${specialist.lastName}`}</span>
       </TableCell>
 
-      <TableCell>{specialist.specialty}</TableCell>
+      <TableCell>{specialist.specialistInfo.specialization}</TableCell>
 
       <TableCell>{specialist.email}</TableCell>
 
@@ -189,11 +140,11 @@ const SpecialistRow = ({
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{specialist.noOfClients}</p>
+        <p className="text-center">{specialist.assignedCustomersCount}</p>
       </TableCell>
 
       <TableCell>
-        <StateComp state={specialist.status} />
+        <StateComp state={specialist.specialistInfo.status} />
       </TableCell>
 
       <TableCell className="relative">
