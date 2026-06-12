@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import StateComp from "../../components/Dashboard/StateComp";
-import Dots from "../../components/icons/Dots";
+import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
+import Dots from "@/app/[locale]/components/icons/Dots";
 import { AnimatePresence, motion } from "framer-motion";
-import TrashIcon from "../../components/icons/TrashIcon";
-import MenuIcon from "../../components/icons/MenuIcon";
-import Switch from "../../components/Dashboard/Switch";
-import PlusIcon from "../../components/icons/PlusIcon";
+import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
+import MenuIcon from "@/app/[locale]/components/icons/MenuIcon";
+import Switch from "@/app/[locale]/components/Dashboard/Switch";
+import PlusIcon from "@/app/[locale]/components/icons/PlusIcon";
 import { useQuery } from "@tanstack/react-query";
-import { profileApi } from "../../api/endpoints/profile.api";
-import { SpecialistDTO } from "../../api/types/profile.types";
+import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
+import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 const SpecialistsPage = () => {
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
@@ -64,7 +65,11 @@ const SpecialistsPage = () => {
       </div>
 
       {/* Table */}
-      {isLoading || (
+      {isLoading ? (
+        <div className="place-self-center my-25">
+          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+        </div>
+      ) : (
         <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
           <table className="min-w-full divide-y divide-[#E1E7EF]">
             <thead className="bg-[#FCFCFC]">

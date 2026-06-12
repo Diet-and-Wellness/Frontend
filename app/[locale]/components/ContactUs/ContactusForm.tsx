@@ -9,6 +9,7 @@ import Label from "../Public/Label";
 import Error from "../Public/Error";
 import Spinner from "../Public/LoadingSpinner";
 import { contactusApi } from "../../api/endpoints/contactus.api";
+import { redirect } from "next/navigation";
 
 type FormData = {
   name: string;
@@ -40,8 +41,8 @@ const ContactusForm = () => {
   };
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-    await contactusApi.sendMessage(data);
+    const res = await contactusApi.sendMessage(data);
+    if (res?.status === 200) redirect("/");
   };
 
   return (

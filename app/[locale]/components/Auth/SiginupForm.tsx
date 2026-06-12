@@ -24,7 +24,6 @@ const SignupForm = () => {
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    console.log("FORM DATA:", data);
     await authApi.signup(data);
   };
 

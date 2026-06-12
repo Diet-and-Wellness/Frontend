@@ -4,22 +4,14 @@ import { motion } from "framer-motion";
 
 import PricePlan from "../../components/Pricing/PricePlan";
 import { useTranslations } from "next-intl";
-import { subscriptionApi } from "../../api/endpoints/subscription.api";
-import { useQuery } from "@tanstack/react-query";
 import { SubscriptionPlanResponse } from "../../api/types/subscription.types";
+import Spinner from "../../components/Public/LoadingSpinner";
+import { useSubscriptionPlans } from "../../hooks/useSubscriptionPlans";
 
 const PricingPage = () => {
   const t = useTranslations("pricing");
 
-  const getAllPricingPlan = async () => {
-    const { data } = await subscriptionApi.getAllSubscriptions();
-    return data?.data ?? [];
-  };
-
-  const { data: pricingPlans, isLoading } = useQuery({
-    queryKey: ["pricingPlans"],
-    queryFn: getAllPricingPlan,
-  });
+  const { data: pricingPlans, isLoading } = useSubscriptionPlans();
 
   return (
     <section
@@ -65,12 +57,16 @@ const PricingPage = () => {
       </div>
 
       {/* Cards */}
-      {isLoading || (
+      {isLoading ? (
+        <div className="place-self-center my-25">
+          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+        </div>
+      ) : (
         <ul
           className="
-        w-full max-w-7xl
-        flex flex-wrap justify-center gap-6 items-center
-      "
+            w-full max-w-7xl
+            flex flex-wrap justify-center gap-6 items-center
+          "
         >
           {pricingPlans?.map((plan: SubscriptionPlanResponse) => (
             <PricePlan key={plan.id} plan={plan} />

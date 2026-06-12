@@ -6,6 +6,7 @@ import { blogsApi } from "../../api/endpoints/blogs.api";
 import { useQuery } from "@tanstack/react-query";
 import { BlogResponse } from "../../api/types/blogs.types";
 import Blog from "../../components/Blogs/Blog";
+import Spinner from "../../components/Public/LoadingSpinner";
 
 const container = {
   hidden: {},
@@ -138,7 +139,11 @@ const BlogPage = () => {
         </motion.div>
       </motion.div>
 
-      {isLoading || (
+      {isLoading ? (
+        <div className="place-self-center my-25">
+          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+        </div>
+      ) : (
         <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
           <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
             {t("blogs.featuredBlogs")}

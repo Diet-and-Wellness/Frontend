@@ -41,7 +41,6 @@ const MobileMenu = ({
 
   const closeMenu = () => {
     setIsMenuVisible(false);
-    console.log("close");
   };
 
   return (

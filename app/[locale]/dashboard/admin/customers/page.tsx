@@ -1,11 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import StateComp from "../../components/Dashboard/StateComp";
-import SearchIcon from "../../components/icons/SearchIcon";
-import ViewLinkIcon from "../../components/icons/ViewLinkIcon";
-import { profileApi } from "../../api/endpoints/profile.api";
-import { UserDTO } from "../../api/types/profile.types";
+import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
+import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
+import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
+import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
+import { UserDTO } from "@/app/[locale]/api/types/profile.types";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 const TABLE_HEADERS = [
   "Name",
@@ -52,7 +53,11 @@ const CustomersPage = () => {
       </div>
 
       {/* Table */}
-      {isLoading || (
+      {isLoading ? (
+        <div className="place-self-center my-25">
+          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+        </div>
+      ) : (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
           <table className="min-w-full divide-y divide-[#E1E7EF]">
             <thead className="bg-[#FCFCFC]">

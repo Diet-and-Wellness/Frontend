@@ -7,6 +7,8 @@ import { authApi } from "../../api/endpoints/auth.api";
 import Error from "../Public/Error";
 import Label from "../Public/Label";
 import Spinner from "../Public/LoadingSpinner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -14,17 +16,37 @@ type FormData = {
 };
 
 const SigninForm = () => {
+  const router = useRouter();
+
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
-    console.log("FORM DATA:", data);
-    const res = await authApi.login(data);
-    console.log('result ===> ', res);
+  const onSubmit = (formData: FormData) => {
+    loginMutation.mutate(formData);
   };
+
+  const loginMutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const { data } = await authApi.login(formData);
+      return data?.data ?? {};
+    },
+
+    onSuccess: (me) => {
+      queryClient.setQueryData(["me"], me);
+      if (me.role === "admin") {
+        router.replace("/dashboard/admin");
+      } else if (me.role === "specialist") {
+        router.replace("/dashboard/specialist");
+      } else {
+        router.replace("/");
+      }
+    },
+  });
 
   const inputClassName =
     "outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
@@ -91,10 +113,10 @@ const SigninForm = () => {
       {/* Button */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={loginMutation.isPending}
         className="mt-4 bg-[#E99532] text-white text-[18px] font-medium rounded-4xl h-13 cursor-pointer flex justify-center items-center"
       >
-        {isSubmitting ? <Spinner /> : "Log in"}
+        {loginMutation.isPending ? <Spinner spinnerSize={30} /> : "Log in"}
       </button>
 
       {/* Footer */}

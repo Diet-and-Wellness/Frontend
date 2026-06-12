@@ -1,17 +1,17 @@
 "use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { blogsApi } from "../../api/endpoints/blogs.api";
-import Blog from "../../components/Blogs/Blog";
-import PlusIcon from "../../components/icons/PlusIcon";
-import { BlogResponse } from "../../api/types/blogs.types";
+import { blogsApi } from "@/app/[locale]/api/endpoints/blogs.api";
+import Blog from "@/app/[locale]/components/Blogs/Blog";
+import PlusIcon from "@/app/[locale]/components/icons/PlusIcon";
+import { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 const BlogsPage = () => {
   const queryClient = useQueryClient();
 
   const getPublishedBlogs = async () => {
     const { data } = await blogsApi.getAllBlogs();
-    console.log("blogs ==> ", data?.data);
     return data?.data ?? [];
   };
 
@@ -55,7 +55,11 @@ const BlogsPage = () => {
         </button>
       </div>
 
-      {isLoading || (
+      {isLoading ? (
+        <div className="place-self-center my-25">
+          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+        </div>
+      ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-">
           {blogs?.map((blog: BlogResponse) => (
             <Blog key={blog.id} type="dashboard" blog={blog} />

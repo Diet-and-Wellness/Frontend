@@ -49,7 +49,7 @@ const Blog = ({ type, blog }: { type: string; blog: BlogResponse }) => {
                 className="h-3 w-3 lg:h-4 lg:w-4"
               />
               <p className="text-white font-medium text-[11px] md:text-[12px] lg:text-[13px] leading-3">
-                {`${blog.estimatedReadTime} min`}
+                {`${blog.estimatedReadTime} min Read`}
               </p>
             </div>
           </div>

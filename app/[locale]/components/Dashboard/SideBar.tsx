@@ -18,92 +18,130 @@ import Image from "next/image";
 const SideBar = ({
   collapsed,
   toggleCollapse,
+  role,
 }: {
   collapsed: boolean;
   toggleCollapse: () => void;
+  role: "admin" | "specialist";
 }) => {
   const pathname = usePathname();
 
-  const sidebarList = [
-    {
-      label: "Dashboard",
-      icon: (
-        <DashboardIcon
-          className={`${pathname === "/dashboard" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard",
-    },
-    {
-      label: "Specialists",
-      icon: (
-        <SpecialistsIcon
-          className={`${pathname === "/dashboard/specialists" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/specialists",
-    },
-    {
-      label: "Customers",
-      icon: (
-        <CustomersIcon
-          className={`${pathname === "/dashboard/customers" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/customers",
-    },
-    {
-      label: "Content & Blogs",
-      icon: (
-        <BlogsIcon
-          className={`${pathname === "/dashboard/blogs" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/blogs",
-    },
-    {
-      label: "Recipes",
-      icon: (
-        <RecipesIcon
-          className={`${pathname === "/dashboard/recipes" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/recipes",
-    },
-    {
-      label: "Feedback",
-      icon: (
-        <FeedbackIcon
-          className={`${pathname === "/dashboard/feedback" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/feedback",
-    },
-  ];
+  const sidebarList =
+    role === "admin"
+      ? [
+          {
+            label: "Dashboard",
+            icon: (
+              <DashboardIcon
+                className={`${pathname === "/dashboard/admin" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin",
+          },
+          {
+            label: "Specialists",
+            icon: (
+              <SpecialistsIcon
+                className={`${pathname === "/dashboard/admin/specialists" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/specialists",
+          },
+          {
+            label: "Customers",
+            icon: (
+              <CustomersIcon
+                className={`${pathname === "/dashboard/admin/customers" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/customers",
+          },
+          {
+            label: "Content & Blogs",
+            icon: (
+              <BlogsIcon
+                className={`${pathname === "/dashboard/admin/blogs" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/blogs",
+          },
+          {
+            label: "Recipes",
+            icon: (
+              <RecipesIcon
+                className={`${pathname === "/dashboard/admin/recipes" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/recipes",
+          },
+          {
+            label: "Feedback",
+            icon: (
+              <FeedbackIcon
+                className={`${pathname === "/dashboard/admin/feedback" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/feedback",
+          },
+        ]
+      : [
+          {
+            label: "Dashboard",
+            icon: (
+              <DashboardIcon
+                className={`${pathname === "/dashboard/specialist" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/specialist",
+          },
+          {
+            label: "Profile",
+            icon: (
+              <CustomersIcon
+                className={`${pathname === "/dashboard/specialist/profile" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/specialist/profile",
+          },
+        ];
 
-  const generalList = [
-    {
-      label: "Settings",
-      icon: (
-        <SettingsIcon
-          className={`${pathname === "/dashboard/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/settings",
-    },
-    {
-      label: "Logout",
-      icon: (
-        <LogoutIcon
-          className={`${pathname === "/dashboard/logout" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-        />
-      ),
-      href: "/dashboard/logout",
-    },
-  ];
+  const generalList =
+    role === "admin"
+      ? [
+          {
+            label: "Settings",
+            icon: (
+              <SettingsIcon
+                className={`${pathname === "/dashboard/admin/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/settings",
+          },
+          {
+            label: "Logout",
+            icon: (
+              <LogoutIcon
+                className={`${pathname === "/dashboard/admin/logout" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/logout",
+          },
+        ]
+      : [
+          {
+            label: "Logout",
+            icon: (
+              <LogoutIcon
+                className={`${pathname === "/dashboard/specialist/logout" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/specialist/logout",
+          },
+        ];
 
   return (
     <motion.aside
+      initial={false}
       animate={{
         width: collapsed ? 100 : 256,
       }}

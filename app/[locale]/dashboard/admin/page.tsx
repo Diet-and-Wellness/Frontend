@@ -1,17 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import StatCard from "../components/Dashboard/StatCard";
-import SpecialistIcon from "../components/icons/SpecialistIcon";
-import { profileApi } from "../api/endpoints/profile.api";
-import { SpecialistDTO, UserDTO } from "../api/types/profile.types";
+import StatCard from "../../components/Dashboard/StatCard";
+import SpecialistIcon from "../../components/icons/SpecialistIcon";
+import { profileApi } from "../../api/endpoints/profile.api";
+import { SpecialistDTO, UserDTO } from "../../api/types/profile.types";
 import { useQuery } from "@tanstack/react-query";
-import RecentSpecialist from "../components/Dashboard/RecentSpecialist";
-import RecentCustomer from "../components/Dashboard/RecentCustomer";
-import CustomersIcon from "../components/icons/CustomersIcon";
-import SpecialistsIcon from "../components/icons/SpecialistsIcon";
-import BlogsIcon from "../components/icons/BlogsIcon";
-import StatArrow from "../components/icons/StatArrow";
+import RecentSpecialist from "../../components/Dashboard/RecentSpecialist";
+import RecentCustomer from "../../components/Dashboard/RecentCustomer";
+import CustomersIcon from "../../components/icons/CustomersIcon";
+import SpecialistsIcon from "../../components/icons/SpecialistsIcon";
+import BlogsIcon from "../../components/icons/BlogsIcon";
+import StatArrow from "../../components/icons/StatArrow";
 
 type RecentUsersListProps =
   | {
@@ -23,7 +23,7 @@ type RecentUsersListProps =
       usersList: UserDTO[];
     };
 
-const DashboardIndex = () => {
+const AdminDashboardIndex = () => {
   const getRecentCustomers = async (): Promise<UserDTO[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
@@ -34,10 +34,12 @@ const DashboardIndex = () => {
     return data?.data ?? [];
   };
 
-  const { data: recentCustomers } = useQuery({
-    queryKey: ["recentCustomers"],
-    queryFn: getRecentCustomers,
-  });
+  const { data: recentCustomers, isLoading: recentCustomersLoading } = useQuery(
+    {
+      queryKey: ["recentCustomers"],
+      queryFn: getRecentCustomers,
+    },
+  );
 
   const getRecentSpecialists = async (): Promise<SpecialistDTO[]> => {
     const { data } = await profileApi.searchProfiles({
@@ -48,14 +50,14 @@ const DashboardIndex = () => {
     return data?.data ?? [];
   };
 
-  const { data: recentSpecialists } = useQuery({
-    queryKey: ["recentSpecialists"],
-    queryFn: getRecentSpecialists,
-  });
+  const { data: recentSpecialists, isLoading: recentSpecialistsLoading } =
+    useQuery({
+      queryKey: ["recentSpecialists"],
+      queryFn: getRecentSpecialists,
+    });
 
   const getDashboardStat = async () => {
     const { data } = await profileApi.getAdminDashboard();
-    console.log(data);
     return data ?? {};
   };
 
@@ -113,14 +115,18 @@ const DashboardIndex = () => {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-7.5 xl:gap-15 mt-7.5">
-        <RecentUsersList
-          usersListType="specialists"
-          usersList={recentSpecialists ?? []}
-        />
-        <RecentUsersList
-          usersListType="clients"
-          usersList={recentCustomers ?? []}
-        />
+        {recentSpecialistsLoading || (
+          <RecentUsersList
+            usersListType="specialists"
+            usersList={recentSpecialists ?? []}
+          />
+        )}
+        {recentCustomersLoading || (
+          <RecentUsersList
+            usersListType="clients"
+            usersList={recentCustomers ?? []}
+          />
+        )}
       </div>
     </section>
   );
@@ -148,8 +154,8 @@ const RecentUsersList = ({
         <Link
           href={
             usersListType === "specialists"
-              ? "dashboard/specialists"
-              : "dashboard/customers"
+              ? "admin/specialists"
+              : "admin/customers"
           }
         >
           <span className="text-[#E99532] text-[16px] font-medium underline">
@@ -168,4 +174,4 @@ const RecentUsersList = ({
   );
 };
 
-export default DashboardIndex;
+export default AdminDashboardIndex;
