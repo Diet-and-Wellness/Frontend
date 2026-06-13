@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import { useMe } from "../../hooks/useMe";
 
 type tabType = { label: string; href: string };
 
@@ -16,6 +17,10 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
   const locale = useLocale();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const t = useTranslations();
+
+  const { data: me } = useMe();
+
+  console.log(me);
 
   const pathname = getCleanPathname(pathnameWithLang);
 
@@ -79,7 +84,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
                 initial={{ opacity: 0, top: 50 }}
                 animate={{ opacity: 1, top: 70 }}
                 exit={{ opacity: 0, top: 50 }}
-                className={`p-3 rounded-2xl bg-white flex flex-col gap-2 absolute shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]`}
+                className={`p-3 rounded-xl bg-white flex flex-col gap-2 absolute shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
               >
                 <button
                   onClick={switchToEnglish}

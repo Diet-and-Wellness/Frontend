@@ -23,8 +23,8 @@ const CustomersPage = () => {
   const getCustomers = async (): Promise<UserDTO[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 1,
-      limit: 20,
+      page: 2,
+      limit: 30,
     });
 
     return data?.data ?? [];
@@ -54,7 +54,7 @@ const CustomersPage = () => {
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-25">
+        <div className="place-self-center my-50">
           <Spinner spinnerSize={50} borderColor="#4D8E32" />
         </div>
       ) : (

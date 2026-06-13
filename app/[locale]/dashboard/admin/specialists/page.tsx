@@ -12,14 +12,17 @@ import { useQuery } from "@tanstack/react-query";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import CreateSpecialistModal from "@/app/[locale]/components/Modals/CreateSpecialistModal";
 
 const SpecialistsPage = () => {
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
+  const [showCreateSpecialistModal, setShowCreateSpecialistModal] =
+    useState<boolean>(false);
 
   const getSpecialists = async (): Promise<SpecialistDTO[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "specialist",
-      limit: 10,
+      limit: 20,
       page: 1,
     });
     return data?.data ?? [];
@@ -30,21 +33,17 @@ const SpecialistsPage = () => {
     queryFn: getSpecialists,
   });
 
-  const createNewSpecialist = async () => {
-    // await profileApi.createSpecialist({
-    //   firstName: "James",
-    //   lastName: "Thompson",
-    //   email: "james.thompson@example.com",
-    //   phone: "01067890123",
-    //   password: "StrongPassword123!",
-    //   specialization: "Clinical Dietetics",
-    //   experienceYears: 10,
-    // });
-    // await profileApi.activateSpecialist("6a07754af243e2830490e704");
-  };
-
   return (
     <section className="flex w-full flex-col gap-10">
+      <AnimatePresence mode="wait">
+        {showCreateSpecialistModal && (
+          <CreateSpecialistModal
+            key="create-specialist-modal"
+            closeModal={() => setShowCreateSpecialistModal(false)}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div className="flex justify-between items-start">
         <div>
@@ -54,7 +53,7 @@ const SpecialistsPage = () => {
           </p>
         </div>
         <button
-          onClick={createNewSpecialist}
+          onClick={() => setShowCreateSpecialistModal(true)}
           className="px-5 py-2.5 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex"
         >
           <PlusIcon className="text-white" />
@@ -66,7 +65,7 @@ const SpecialistsPage = () => {
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-25">
+        <div className="place-self-center my-50">
           <Spinner spinnerSize={50} borderColor="#4D8E32" />
         </div>
       ) : (

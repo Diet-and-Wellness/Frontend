@@ -112,7 +112,11 @@
     "phoneNumber": "Phone number",
     "message": "Message",
     "leaveUsAMessage": "Leave us a message...",
-    "sendMessage": "Send Message"
+    "sendMessage": "Send Message",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "password": "Password",
+    "expYears": "Experience Years"
   },
   "aboutUs": {
     "enjoyableLiving": "Enjoyable Living",
@@ -140,7 +144,7 @@
     "date": "5 Apr, 2027",
     "readTime": "7 min Read",
     "blogTitle": "Blog Title",
-    "waznyAbout": "At WAZNY, we believe that nutrition is not just a diet for weight loss, but a lifestyle that helps people live with better health and more energy. Our idea started from the belief that",
+    "about": "At Diet and Wellness, we believe that nutrition is not just a diet for weight loss, but a lifestyle that helps people live with better health and more energy. Our idea started from the belief that",
     "readMore": "Read More"
   },
   "contactUs": {

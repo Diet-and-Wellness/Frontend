@@ -10,7 +10,6 @@ import BlogsIcon from "../icons/BlogsIcon";
 import RecipesIcon from "../icons/RecipesIcon";
 import FeedbackIcon from "../icons/FeedbackIcon";
 import SettingsIcon from "../icons/SettingsIcon";
-import LogoutIcon from "../icons/LogoutIcon";
 import { usePathname } from "@/i18n/navigation";
 import Collapse from "../icons/Collapse";
 import Image from "next/image";
@@ -83,6 +82,15 @@ const SideBar = ({
             ),
             href: "/dashboard/admin/feedback",
           },
+          {
+            label: "Settings",
+            icon: (
+              <SettingsIcon
+                className={`${pathname === "/dashboard/admin/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+              />
+            ),
+            href: "/dashboard/admin/settings",
+          },
         ]
       : [
           {
@@ -97,45 +105,11 @@ const SideBar = ({
           {
             label: "Profile",
             icon: (
-              <CustomersIcon
+              <SettingsIcon
                 className={`${pathname === "/dashboard/specialist/profile" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
               />
             ),
             href: "/dashboard/specialist/profile",
-          },
-        ];
-
-  const generalList =
-    role === "admin"
-      ? [
-          {
-            label: "Settings",
-            icon: (
-              <SettingsIcon
-                className={`${pathname === "/dashboard/admin/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-              />
-            ),
-            href: "/dashboard/admin/settings",
-          },
-          {
-            label: "Logout",
-            icon: (
-              <LogoutIcon
-                className={`${pathname === "/dashboard/admin/logout" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-              />
-            ),
-            href: "/dashboard/admin/logout",
-          },
-        ]
-      : [
-          {
-            label: "Logout",
-            icon: (
-              <LogoutIcon
-                className={`${pathname === "/dashboard/specialist/logout" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-              />
-            ),
-            href: "/dashboard/specialist/logout",
           },
         ];
 
@@ -210,20 +184,6 @@ const SideBar = ({
             />
           ))}
         </ul>
-        <div className="mt-7.5">
-          <p className="my-3 text-[16px] font-medium">General</p>
-          <ul className="flex flex-col gap-2.5">
-            {generalList.map((item, index) => (
-              <SideBarItem
-                key={index}
-                label={item.label}
-                icon={item.icon}
-                href={item.href}
-                isActive={pathname === item.href}
-              />
-            ))}
-          </ul>
-        </div>
       </nav>
     </motion.aside>
   );

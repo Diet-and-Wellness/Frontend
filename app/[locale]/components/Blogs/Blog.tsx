@@ -30,7 +30,7 @@ const Blog = ({ type, blog }: { type: string; blog: BlogResponse }) => {
           height={60}
           src="/images/blog-img.webp"
           alt="blog image"
-          className="h-full w-full object-cover object-center transition-transform duration-300 hover:scale-105"
+          className="h-full w-full object-cover object-center transition-transform duration-300 scale-105 hover:scale-110"
         />
       </div>
 

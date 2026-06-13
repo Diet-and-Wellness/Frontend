@@ -12,6 +12,7 @@ import CustomersIcon from "../../components/icons/CustomersIcon";
 import SpecialistsIcon from "../../components/icons/SpecialistsIcon";
 import BlogsIcon from "../../components/icons/BlogsIcon";
 import StatArrow from "../../components/icons/StatArrow";
+import { useMe } from "../../hooks/useMe";
 
 type RecentUsersListProps =
   | {
@@ -24,6 +25,10 @@ type RecentUsersListProps =
     };
 
 const AdminDashboardIndex = () => {
+  const data = useMe();
+
+  const me = data?.data ?? {};
+
   const getRecentCustomers = async (): Promise<UserDTO[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
@@ -71,7 +76,7 @@ const AdminDashboardIndex = () => {
       <div className="mb-7.5">
         <h2 className="text-black text-3xl mb-2 font-bold">Dashboard</h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
-          Welcome back, Admin. Here&apos;s an overview of Diet and Wellness.
+          Welcome back, {me.firstName}. Here&apos;s an overview of Diet and Wellness.
         </p>
       </div>
 

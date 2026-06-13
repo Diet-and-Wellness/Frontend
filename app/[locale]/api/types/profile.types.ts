@@ -1,6 +1,4 @@
-export interface UserId {
-  id: string;
-}
+export type UserId = string;
 
 export type SpecialistId = string;
 
@@ -8,6 +6,11 @@ export interface UpdateMyProfileRequest {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
+  specialistInfo: {
+    specialization?: string;
+    status?: string;
+  };
 }
 
 export interface SearchProfilesRequest {
@@ -23,7 +26,7 @@ export interface CreateSpecialistRequest {
   phone: string;
   password: string;
   specialization: string;
-  experienceYears: number;
+  experienceYears?: number;
 }
 
 export interface AssignCustomersToSpecialist {
@@ -42,8 +45,10 @@ export type UserDTO = {
   createdAt: string;
   updatedAt: string;
   specialist: string | null;
+  height?: number;
   weightBefore?: number;
   weightAfter?: number;
+  rating?: string;
 
   subscription: {
     id: string;

@@ -8,6 +8,7 @@ import {
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const useWindowSize = () => {
   const [width, setWidth] = useState<number>(0);
@@ -25,6 +26,8 @@ const Hero = () => {
   const t = useTranslations();
 
   const windowWidth = useWindowSize();
+
+  const router = useRouter();
 
   return (
     <section className="relative">
@@ -114,6 +117,7 @@ const Hero = () => {
           </p>
 
           <motion.button
+            onClick={() => router.push("/blogs")}
             whileTap={{ scale: 0.95 }}
             className="pointer-events-auto px-10 py-2 rounded-full text-white font-bold text-[14px] md:text-[16px] bg-[#E99532] hover:bg-[#c76a00] transition-all duration-300 cursor-pointer"
           >

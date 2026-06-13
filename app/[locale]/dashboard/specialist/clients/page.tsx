@@ -54,7 +54,7 @@ const ClientsPage = () => {
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-25">
+        <div className="place-self-center my-50">
           <Spinner spinnerSize={50} borderColor="#4D8E32" />
         </div>
       ) : (

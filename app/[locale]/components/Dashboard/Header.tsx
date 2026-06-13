@@ -3,15 +3,36 @@
 import ArrowDownIcon from "../icons/ArrowDownIcon";
 // import NotificationIcon from "../icons/NotificationIcon";
 import SearchIcon from "../icons/SearchIcon";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useMe } from "../../hooks/useMe";
+import LogoutIcon from "../icons/LogoutIcon";
+import { useState } from "react";
+import { authApi } from "../../api/endpoints/auth.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
+  const [showMenu, setShowMenu] = useState(false);
+
   const data = useMe();
 
   const me = data?.data ?? {};
 
-  console.log("me object ===> ", me);
+  const queryClient = useQueryClient();
+
+  const router = useRouter();
+
+  const logoutMutation = useMutation({
+    mutationFn: () => authApi.logout(),
+    onSuccess: () => {
+      queryClient.clear();
+      router.replace("/");
+    },
+  });
+
+  const logout = () => {
+    logoutMutation.mutate();
+  };
 
   return (
     <motion.header
@@ -41,8 +62,12 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
             2
           </div>
         </button> */}
-        <button className="bg-[#EDEDED] rounded-xl px-3 py-1.5 flex flex-row gap-3 items-center cursor-pointer border border-[#e1e7ef88]">
-          <div className="size-8 bg-[#4D8E32] rounded-full flex justify-center items-center">
+        <button
+          onClick={() => setShowMenu((prev) => !prev)}
+          className="bg-[#EDEDED] rounded-4xl px-2 py-2 flex flex-row gap-3 items-center cursor-pointer border border-[#e1e7ef88]"
+        >
+          <div className="size-9 bg-[#E99532] border-2 border-[#4D8E32] rounded-full flex justify-center items-center relative">
+            <div className="size-3 bg-[#4D8E32] absolute rounded-full -top-1 -right-0.5"></div>
             <span className="text-[#FFFEFD] text-[13px] font-bold">
               {me?.firstName?.at(0)}
               {me?.lastName?.at(0)}
@@ -51,9 +76,29 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
           <span className="text-black text-[16px] font-medium">
             {me?.firstName}
           </span>
-          <ArrowDownIcon className="text-[#4F4F4F]" />
+          <ArrowDownIcon className="text-[#4F4F4F] mx-2" />
         </button>
       </div>
+
+      <AnimatePresence>
+        {showMenu && (
+          <motion.div
+            initial={{ opacity: 0, top: 50 }}
+            animate={{ opacity: 1, top: 70 }}
+            exit={{ opacity: 0, top: 50 }}
+            className={`p-2 rounded-lg bg-white flex flex-col gap-2 absolute right-7.5 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
+          >
+            <button
+              disabled={logoutMutation.isPending}
+              onClick={logout}
+              className={`min-w-40 p-2 text-center rounded-lg flex items-center gap-3 cursor-pointer hover:bg-red-100 transition-colors duration-150`}
+            >
+              <LogoutIcon className="text-[#DC2626]" />
+              <p className="text-[18px] text-[#DC2626]">Logout</p>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };
