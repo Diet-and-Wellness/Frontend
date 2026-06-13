@@ -23,7 +23,7 @@ const CustomersPage = () => {
   const getCustomers = async (): Promise<UserDTO[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 2,
+      page: 1,
       limit: 30,
     });
 
