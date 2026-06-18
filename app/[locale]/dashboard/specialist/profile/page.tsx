@@ -11,9 +11,7 @@ import { useForm } from "react-hook-form";
 type FormData = {
   firstName: string;
   lastName: string;
-  email: string;
   phone: string;
-  speciality: string;
 };
 
 const ProfilePage = () => {
@@ -35,15 +33,8 @@ const ProfilePage = () => {
 
   const updateProfileMutation = useMutation({
     mutationFn: async (formData: FormData) => {
-      await profileApi.updateMyProfile({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        specialistInfo: {
-          specialization: formData.speciality,
-        },
-      });
+      console.log("Specialist form data =====> ", formData);
+      await profileApi.updateMyProfile(formData);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({
@@ -117,10 +108,8 @@ const ProfilePage = () => {
             readOnly
             placeholder={"Email"}
             value={me.email}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
-            {...register("email", { required: "Email is required" })}
+            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] bg-gray-100"
           />
-          {errors.email && <Error msg={errors.email.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
@@ -131,11 +120,9 @@ const ProfilePage = () => {
             readOnly
             id="speciality"
             placeholder={"Speciality"}
-            defaultValue={me.specialistInfo.specialization}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
-            {...register("speciality", { required: "Speciality is required" })}
+            value={me.specialistInfo.specialization}
+            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] bg-gray-100"
           />
-          {errors.speciality && <Error msg={errors.speciality.message} />}
         </div>
 
         <button

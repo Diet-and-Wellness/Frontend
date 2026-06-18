@@ -4,7 +4,7 @@ import Link from "next/link";
 import StatCard from "../../components/Dashboard/StatCard";
 import SpecialistIcon from "../../components/icons/SpecialistIcon";
 import { profileApi } from "../../api/endpoints/profile.api";
-import { SpecialistDTO, UserDTO } from "../../api/types/profile.types";
+import { SpecialistDTO, Customer } from "../../api/types/profile.types";
 import { useQuery } from "@tanstack/react-query";
 import RecentSpecialist from "../../components/Dashboard/RecentSpecialist";
 import RecentCustomer from "../../components/Dashboard/RecentCustomer";
@@ -21,7 +21,7 @@ type RecentUsersListProps =
     }
   | {
       usersListType: "clients";
-      usersList: UserDTO[];
+      usersList: Customer[];
     };
 
 const AdminDashboardIndex = () => {
@@ -29,7 +29,7 @@ const AdminDashboardIndex = () => {
 
   const me = data?.data ?? {};
 
-  const getRecentCustomers = async (): Promise<UserDTO[]> => {
+  const getRecentCustomers = async (): Promise<Customer[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page: 1,
@@ -76,7 +76,8 @@ const AdminDashboardIndex = () => {
       <div className="mb-7.5">
         <h2 className="text-black text-3xl mb-2 font-bold">Dashboard</h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
-          Welcome back, {me.firstName}. Here&apos;s an overview of Diet and Wellness.
+          Welcome back, {me.firstName}. Here&apos;s an overview of Diet and
+          Wellness.
         </p>
       </div>
 

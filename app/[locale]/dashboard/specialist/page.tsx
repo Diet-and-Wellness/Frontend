@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { UserDTO } from "../../api/types/profile.types";
+import { Customer } from "../../api/types/profile.types";
 import AddNoteIcon from "../../components/icons/AddNoteIcon";
 import { useMe } from "../../hooks/useMe";
 import { profileApi } from "../../api/endpoints/profile.api";
@@ -19,7 +19,7 @@ const TABLE_HEADERS = [
 const SpecialistDashboardIndex = () => {
   const { data: me } = useMe();
 
-  const getCustomers = async (): Promise<UserDTO[]> => {
+  const getCustomers = async (): Promise<Customer[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page: 1,
@@ -99,7 +99,7 @@ const AddNoteBtn = () => {
   );
 };
 
-const CustomerRow = ({ customer }: { customer: UserDTO }) => {
+const CustomerRow = ({ customer }: { customer: Customer }) => {
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       <TableCell>
@@ -120,11 +120,11 @@ const CustomerRow = ({ customer }: { customer: UserDTO }) => {
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.weightBefore ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.height ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
       </TableCell>
 
       <TableCell>

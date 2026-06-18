@@ -1,10 +1,18 @@
-const CloseIcon = ({ className }: { className: string }) => {
+const CloseIcon = ({
+  className,
+  width = "20",
+  height = "20",
+}: {
+  className: string;
+  width?: string;
+  height?: string;
+}) => {
   return (
     <div className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
+        width={width}
+        height={height}
         viewBox="0 0 17 17"
         fill="none"
       >

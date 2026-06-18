@@ -7,7 +7,7 @@ import DashboardIcon from "../icons/DashboardIcon";
 import CustomersIcon from "../icons/CustomersIcon";
 import SpecialistsIcon from "../icons/SpecialistsIcon";
 import BlogsIcon from "../icons/BlogsIcon";
-import RecipesIcon from "../icons/RecipesIcon";
+// import RecipesIcon from "../icons/RecipesIcon";
 import FeedbackIcon from "../icons/FeedbackIcon";
 import SettingsIcon from "../icons/SettingsIcon";
 import { usePathname } from "@/i18n/navigation";
@@ -64,15 +64,15 @@ const SideBar = ({
             ),
             href: "/dashboard/admin/blogs",
           },
-          {
-            label: "Recipes",
-            icon: (
-              <RecipesIcon
-                className={`${pathname === "/dashboard/admin/recipes" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
-              />
-            ),
-            href: "/dashboard/admin/recipes",
-          },
+          // {
+          //   label: "Recipes",
+          //   icon: (
+          //     <RecipesIcon
+          //       className={`${pathname === "/dashboard/admin/recipes" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+          //     />
+          //   ),
+          //   href: "/dashboard/admin/recipes",
+          // },
           {
             label: "Feedback",
             icon: (

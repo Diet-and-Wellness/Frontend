@@ -3,12 +3,31 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const Switch = () => {
-  const [active, setActive] = useState(false);
+const Switch = ({
+  isOn,
+  activate,
+  deactivate,
+}: {
+  isOn: boolean;
+  activate: () => void;
+  deactivate: () => void;
+}) => {
+  const [active, setActive] = useState(isOn);
+
+  const toggle = () => {
+    if (active) {
+      setActive(false);
+      deactivate();
+    } else {
+      setActive(true);
+      activate();
+    }
+  };
 
   return (
     <motion.button
-      onClick={() => setActive((p) => !p)}
+      initial={false}
+      onClick={toggle}
       animate={{
         backgroundColor: active ? "#E99532" : "#A4A4A4",
       }}
@@ -16,6 +35,7 @@ const Switch = () => {
       className="flex w-12 cursor-pointer rounded-full p-1"
     >
       <motion.div
+        initial={false}
         animate={{
           x: active ? 20 : 0,
         }}

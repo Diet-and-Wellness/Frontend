@@ -7,23 +7,62 @@ import TrashIcon from "../icons/TrashIcon";
 import { BlogResponse } from "../../api/types/blogs.types";
 import { formatDate } from "../../utils/formateDate";
 import { blogsApi } from "../../api/endpoints/blogs.api";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import AlertModal from "../Modals/AlertModal";
+import { AnimatePresence } from "framer-motion";
+import TrashIllustrator from "../icons/TrashIllustrator";
 
 const Blog = ({ type, blog }: { type: string; blog: BlogResponse }) => {
   const t = useTranslations();
 
+  const [showConfirmBlogDeletionModal, setShowConfirmBlogDeletionModal] =
+    useState(false);
+
   const queryClient = useQueryClient();
 
   const deleteBlog = async () => {
-    // Open modal to confirm deletion process
-    await blogsApi.deleteBlog(blog.id);
-    queryClient.invalidateQueries({ queryKey: ["publishedBlogs"] });
+    deleteBlogMutation.mutate();
   };
+
+  const showDeleteBlogModal = () => {
+    setShowConfirmBlogDeletionModal(true);
+  };
+
+  const closeDeleteBlogModal = () => {
+    setShowConfirmBlogDeletionModal(false);
+  };
+
+  const deleteBlogMutation = useMutation({
+    mutationFn: async () => {
+      await blogsApi.deleteBlog(blog.id);
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["publishedBlogs"] }),
+        queryClient.invalidateQueries({ queryKey: ["dashboardStat"] }),
+      ]);
+    },
+  });
 
   return (
     <div className="flex max-w-full h-fit flex-col overflow-hidden rounded-4xl border border-[#EDEDED] transition-shadow duration-200 hover:shadow-lg bg-[#FFFEFD]">
+      <AnimatePresence mode="wait">
+        {showConfirmBlogDeletionModal && (
+          <AlertModal
+            key="delete-blog-modal"
+            illustrator={<TrashIllustrator />}
+            note={"Are you sure you want to delete this blog"}
+            confirmBtnTitle={"Yes, delete"}
+            confirm={deleteBlog}
+            closeModal={closeDeleteBlogModal}
+            pending={deleteBlogMutation.isPending}
+          />
+        )}
+      </AnimatePresence>
+
       <div className="overflow-hidden w-full">
         <Image
           width={400}
@@ -88,7 +127,7 @@ const Blog = ({ type, blog }: { type: string; blog: BlogResponse }) => {
               <PenIcon className="text-[#4F4F4F]" />
             </button>
             <button
-              onClick={deleteBlog}
+              onClick={showDeleteBlogModal}
               className="size-10 rounded-full flex justify-center items-center hover:bg-red-100 cursor-pointer"
             >
               <TrashIcon className="text-[#DC2626]" />

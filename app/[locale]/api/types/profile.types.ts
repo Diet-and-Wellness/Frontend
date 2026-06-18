@@ -6,11 +6,6 @@ export interface UpdateMyProfileRequest {
   firstName: string;
   lastName: string;
   phone: string;
-  email: string;
-  specialistInfo: {
-    specialization?: string;
-    status?: string;
-  };
 }
 
 export interface SearchProfilesRequest {
@@ -33,7 +28,7 @@ export interface AssignCustomersToSpecialist {
   customerIds: string[];
 }
 
-export type UserDTO = {
+export type Customer = {
   id: string;
   firstName: string;
   lastName: string;
@@ -44,33 +39,30 @@ export type UserDTO = {
   lastSeen: string;
   createdAt: string;
   updatedAt: string;
-  specialist: string | null;
-  height?: number;
-  weightBefore?: number;
-  weightAfter?: number;
-  rating?: string;
+  specialist?: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    id: string;
+  };
+
+  profile: {
+    currentWeight: number;
+    weightHistory: number[];
+    age: number;
+    gender: string;
+    height: number;
+    location: string;
+    maritalStatus: string;
+  };
 
   subscription: {
-    id: string;
-    user: string;
-    status: string;
-    startDate: string;
-    expiryDate: string;
+    name: string;
+    displayName: string;
+    price: number;
+    durationInDays: number;
+    active: boolean;
     subscriptionCount: number;
-    currentOrder: string | null;
-    isAutoRenewalEnabled: boolean;
-    createdAt: string;
-    updatedAt: string;
-    lastRenewalDate: string;
-
-    subscription: {
-      id: string;
-      name: string;
-      displayName: string;
-      price: number;
-      durationInDays: number;
-      description: string;
-    };
   };
 };
 

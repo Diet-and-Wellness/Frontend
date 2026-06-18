@@ -1,8 +1,8 @@
 "use client";
 
-import { UserDTO } from "../../api/types/profile.types";
+import { Customer } from "../../api/types/profile.types";
 
-const RecentCustomer = ({ customer }: { customer: UserDTO }) => {
+const RecentCustomer = ({ customer }: { customer: Customer }) => {
   return (
     <div className="p-3 border border-[#E1E7EF] bg-[#FFFEFD] rounded-2xl flex flex-row justify-between items-center">
       <div className="flex flex-row gap-4 items-start">

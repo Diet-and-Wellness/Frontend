@@ -41,26 +41,29 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
         experienceYears: formData.experienceYears,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["specialists"] });
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["specialists"] }),
+        queryClient.invalidateQueries({ queryKey: ["dashboardStat"] }),
+        queryClient.invalidateQueries({ queryKey: ["recentSpecialists"] }),
+      ]);
       closeModal();
     },
   });
 
   return (
-    <div className="rounded-2xl p-7.5 border border-[#E1E7EF] bg-[#fffdfd] min-w-130">
-      <div className="flex justify-end">
+    <div className="rounded-2xl p-7.5 bg-[#fffdfd] min-w-130">
+      <div className="flex justify-between items-center mb-5">
+        <h4 className="text-[24px] font-semibold text-center">
+          Add Specialist
+        </h4>
         <button
           onClick={closeModal}
           className="hover:bg-gray-100 transition-colors duration-150 p-3 rounded-full cursor-pointer place-self-end"
         >
-          <CloseIcon className="text-gray-700" />
+          <CloseIcon className="text-gray-600" height="18" width="18" />
         </button>
       </div>
-
-      <h4 className="text-[24px] font-semibold text-center mb-2.5">
-        Add Specialist
-      </h4>
 
       <form
         onSubmit={handleSubmit(createSpecialist)}

@@ -1,18 +1,22 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
-import { UserDTO } from "@/app/[locale]/api/types/profile.types";
+import { Customer } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import AssignSpecialistModal from "@/app/[locale]/components/Modals/AssignSpecialistModal";
+import { useState } from "react";
+import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
+import { AnimatePresence } from "framer-motion";
 
 const TABLE_HEADERS = [
   "Name",
   "Email",
   "Phone",
-  "Weight Before",
+  "Weight (kg)",
   "Height (cm)",
   "Subscription",
   "Link To Answers",
@@ -20,7 +24,19 @@ const TABLE_HEADERS = [
 ];
 
 const CustomersPage = () => {
-  const getCustomers = async (): Promise<UserDTO[]> => {
+  const queryClient = useQueryClient();
+
+  const [showAssignSpecialistModal, setShowAssignSpecialistModal] =
+    useState<boolean>(false);
+  const [assignmentData, setAssignmentData] = useState<{
+    customerId: string | null;
+    currentSpecialistId: string | undefined;
+  }>({
+    customerId: "",
+    currentSpecialistId: "",
+  });
+
+  const getCustomers = async (): Promise<Customer[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page: 1,
@@ -35,8 +51,70 @@ const CustomersPage = () => {
     queryFn: getCustomers,
   });
 
+  const closeAssignSpecialistModalHandler = () => {
+    setAssignmentData({
+      customerId: null,
+      currentSpecialistId: undefined,
+    });
+    setShowAssignSpecialistModal(false);
+  };
+
+  const showAssignSpecialistModalHandler = (
+    customerId: string,
+    specialistId: string | undefined,
+  ) => {
+    setAssignmentData({
+      customerId: customerId,
+      currentSpecialistId: specialistId,
+    });
+    setShowAssignSpecialistModal(true);
+  };
+
+  const handleAssignSpecialist = (specialistId: string) => {
+    assignSpecialistMutation.mutate({
+      specialistId: specialistId,
+      customerId: assignmentData.customerId,
+    });
+  };
+
+  const assignSpecialistMutation = useMutation({
+    mutationFn: async ({
+      specialistId,
+      customerId,
+    }: {
+      specialistId: string;
+      customerId: string | null;
+    }) => {
+      await profileApi.assignCustomersToSpecialist(specialistId, {
+        customerIds: [customerId ?? ""],
+      });
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["specialists"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["customers"],
+        }),
+      ]);
+      closeAssignSpecialistModalHandler();
+    },
+  });
+
   return (
     <section className="flex w-full flex-col gap-5">
+      <AnimatePresence mode="wait">
+        {showAssignSpecialistModal && (
+          <AssignSpecialistModal
+            onClose={closeAssignSpecialistModalHandler}
+            onSelect={(specId) => handleAssignSpecialist(specId)}
+            pending={assignSpecialistMutation.isPending}
+            assignmentData={assignmentData}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div>
         <h2 className="mb-2 text-3xl font-bold">Customers</h2>
@@ -75,13 +153,96 @@ const CustomersPage = () => {
 
             <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
               {customers?.map((customer) => (
-                <CustomerRow key={customer.id} customer={customer} />
+                <CustomerRow
+                  key={customer.id}
+                  customer={customer}
+                  assignSpecialistHandler={() =>
+                    showAssignSpecialistModalHandler(
+                      customer.id,
+                      customer.specialist?.id,
+                    )
+                  }
+                />
               ))}
             </tbody>
           </table>
         </div>
       )}
     </section>
+  );
+};
+
+const CustomerRow = ({
+  customer,
+  assignSpecialistHandler,
+}: {
+  customer: Customer;
+  assignSpecialistHandler: () => void;
+}) => {
+  return (
+    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
+      {/* Name */}
+      <TableCell>
+        <div className="flex items-center gap-3">
+          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
+            <span className="text-[13px] font-medium text-[#E99532]">
+              {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
+            </span>
+          </div>
+          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
+        </div>
+      </TableCell>
+
+      <TableCell>{customer.email}</TableCell>
+
+      <TableCell>
+        <p className="text-center">{customer?.phone}</p>
+      </TableCell>
+
+      <TableCell>
+        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
+      </TableCell>
+
+      <TableCell>
+        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
+      </TableCell>
+
+      {/* Subscription */}
+      <TableCell>
+        <StateComp
+          state={customer?.subscription?.active ? "active" : "inactive"}
+        />
+      </TableCell>
+
+      {/* Answers */}
+      <TableCell>
+        <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
+          <div className="min-w-6">
+            <ViewLinkIcon className="text-[#E99532]" />
+          </div>
+          <span>View Answers</span>
+        </button>
+      </TableCell>
+
+      {/* Specialist */}
+      <TableCell>
+        <button
+          onClick={assignSpecialistHandler}
+          className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-[#E1E7EF] bg-[#fffdfe] px-5 py-2.5 cursor-pointer"
+        >
+          {customer.specialist ? (
+            <span className="">
+              {customer.specialist.firstName} {customer.specialist.lastName}
+            </span>
+          ) : (
+            <span className="whitespace-nowrap text-sm text-[#A4A4A4]">
+              Select Specialist
+            </span>
+          )}
+          <ChevronDownIcon />
+        </button>
+      </TableCell>
+    </tr>
   );
 };
 
@@ -107,80 +268,8 @@ const FilterButton = ({ label }: { label: string }) => {
   );
 };
 
-const CustomerRow = ({ customer }: { customer: UserDTO }) => {
-  return (
-    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
-      {/* Name */}
-      <TableCell>
-        <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="text-[13px] font-medium text-[#E99532]">
-              {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
-            </span>
-          </div>
-          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
-        </div>
-      </TableCell>
-
-      <TableCell>{customer.email}</TableCell>
-
-      <TableCell>
-        <p className="text-center">{customer.phone}</p>
-      </TableCell>
-
-      <TableCell>
-        <p className="text-center">{customer.weightBefore ?? "-"}</p>
-      </TableCell>
-
-      <TableCell>
-        <p className="text-center">{customer.weightAfter ?? "-"}</p>
-      </TableCell>
-
-      {/* Subscription */}
-      <TableCell>
-        <StateComp state={customer.subscription.status} />
-      </TableCell>
-
-      {/* Answers */}
-      <TableCell>
-        <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
-          <div className="min-w-6">
-            <ViewLinkIcon className="text-[#E99532]" />
-          </div>
-          <span>View Answers</span>
-        </button>
-      </TableCell>
-
-      {/* Specialist */}
-      <TableCell>
-        <button className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2.5 cursor-pointer">
-          <span className="whitespace-nowrap text-sm text-[#A4A4A4]">
-            Select Specialist
-          </span>
-          <ChevronDownIcon />
-        </button>
-      </TableCell>
-    </tr>
-  );
-};
-
 const TableCell = ({ children }: { children: React.ReactNode }) => {
   return <td className="whitespace-nowrap px-6 py-4">{children}</td>;
-};
-
-const ChevronDownIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="size-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
 };
 
 export default CustomersPage;

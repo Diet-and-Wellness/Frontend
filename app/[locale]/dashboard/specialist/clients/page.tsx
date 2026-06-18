@@ -5,8 +5,9 @@ import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
-import { UserDTO } from "@/app/[locale]/api/types/profile.types";
+import { Customer } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 
 const TABLE_HEADERS = [
   "Name",
@@ -20,7 +21,7 @@ const TABLE_HEADERS = [
 ];
 
 const ClientsPage = () => {
-  const getCustomers = async (): Promise<UserDTO[]> => {
+  const getCustomers = async (): Promise<Customer[]> => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page: 1,
@@ -107,7 +108,7 @@ const FilterButton = ({ label }: { label: string }) => {
   );
 };
 
-const CustomerRow = ({ customer }: { customer: UserDTO }) => {
+const CustomerRow = ({ customer }: { customer: Customer }) => {
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       {/* Name */}
@@ -129,16 +130,18 @@ const CustomerRow = ({ customer }: { customer: UserDTO }) => {
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.weightBefore ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer.weightAfter ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
       </TableCell>
 
       {/* Subscription */}
       <TableCell>
-        <StateComp state={customer.subscription.status} />
+        <StateComp
+          state={customer?.subscription?.active ? "active" : "inactive"}
+        />
       </TableCell>
 
       {/* Answers */}
@@ -166,21 +169,6 @@ const CustomerRow = ({ customer }: { customer: UserDTO }) => {
 
 const TableCell = ({ children }: { children: React.ReactNode }) => {
   return <td className="whitespace-nowrap px-6 py-4">{children}</td>;
-};
-
-const ChevronDownIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="size-4"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
 };
 
 export default ClientsPage;

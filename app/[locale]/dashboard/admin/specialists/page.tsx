@@ -8,16 +8,101 @@ import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
 import MenuIcon from "@/app/[locale]/components/icons/MenuIcon";
 import Switch from "@/app/[locale]/components/Dashboard/Switch";
 import PlusIcon from "@/app/[locale]/components/icons/PlusIcon";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import CreateSpecialistModal from "@/app/[locale]/components/Modals/CreateSpecialistModal";
+import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
+import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 
 const SpecialistsPage = () => {
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
   const [showCreateSpecialistModal, setShowCreateSpecialistModal] =
     useState<boolean>(false);
+  const [specialistDeletion, setSpecialistDeletion] = useState<{
+    showAlertModal: boolean;
+    specialistId: string | null;
+  }>({
+    showAlertModal: false,
+    specialistId: null,
+  });
+
+  const queryClient = useQueryClient();
+
+  const openAlertModal = (specialistId: string) => {
+    setSpecialistDeletion({
+      specialistId: specialistId,
+      showAlertModal: true,
+    });
+  };
+
+  const closeAlertModal = () => {
+    setSpecialistDeletion({
+      specialistId: null,
+      showAlertModal: false,
+    });
+  };
+
+  const confirmSpecialistDeletion = () => {
+    deleteSpecialistMutation.mutate();
+  };
+
+  const deleteSpecialistMutation = useMutation({
+    mutationFn: async () => {
+      await profileApi.deleteProfile(specialistDeletion.specialistId ?? "");
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["specialists"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["dashboardStat"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["recentSpecialists"],
+        }),
+      ]);
+      closeAlertModal();
+    },
+  });
+
+  const validateCache = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({
+        queryKey: ["specialists"],
+      }),
+      queryClient.invalidateQueries({
+        queryKey: ["dashboardStat"],
+      }),
+      queryClient.invalidateQueries({
+        queryKey: ["recentSpecialists"],
+      }),
+    ]);
+  };
+
+  const activate = (specialistId: string) => {
+    statusActivationMutation.mutate(specialistId);
+  };
+
+  const deactivate = (specialistId: string) => {
+    statusDeactivationMutation.mutate(specialistId);
+  };
+
+  const statusActivationMutation = useMutation({
+    mutationFn: async (specialistId: string) => {
+      await profileApi.activateSpecialist(specialistId);
+    },
+    onSuccess: () => validateCache(),
+  });
+
+  const statusDeactivationMutation = useMutation({
+    mutationFn: async (specialistId: string) => {
+      await profileApi.deactivateSpecialist(specialistId);
+    },
+    onSuccess: () => validateCache(),
+  });
 
   const getSpecialists = async (): Promise<SpecialistDTO[]> => {
     const { data } = await profileApi.searchProfiles({
@@ -40,6 +125,20 @@ const SpecialistsPage = () => {
           <CreateSpecialistModal
             key="create-specialist-modal"
             closeModal={() => setShowCreateSpecialistModal(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {specialistDeletion.showAlertModal && (
+          <AlertModal
+            illustrator={<TrashIllustrator />}
+            key="delete-specialist-modal"
+            note={"Are you sure you want to delete this Specialist ?"}
+            confirmBtnTitle={"Yes I’m Sure"}
+            confirm={confirmSpecialistDeletion}
+            closeModal={closeAlertModal}
+            pending={deleteSpecialistMutation.isPending}
           />
         )}
       </AnimatePresence>
@@ -104,6 +203,9 @@ const SpecialistsPage = () => {
                   specialist={specialist}
                   openedMenuId={openedMenuId}
                   setOpenedMenuId={setOpenedMenuId}
+                  openAlertModal={() => openAlertModal(specialist.id)}
+                  activate={() => activate(specialist.id)}
+                  deactivate={() => deactivate(specialist.id)}
                 />
               ))}
             </tbody>
@@ -118,10 +220,16 @@ const SpecialistRow = ({
   specialist,
   openedMenuId,
   setOpenedMenuId,
+  openAlertModal,
+  activate,
+  deactivate,
 }: {
   specialist: SpecialistDTO;
   openedMenuId: string | null;
   setOpenedMenuId: React.Dispatch<React.SetStateAction<string | null>>;
+  openAlertModal: () => void;
+  activate: () => void;
+  deactivate: () => void;
 }) => {
   const isOpened = openedMenuId === specialist.id;
 
@@ -173,7 +281,10 @@ const SpecialistRow = ({
                     View client list
                   </p>
                 </button>
-                <button className="w-full flex items-center gap-2.5 cursor-pointer">
+                <button
+                  onClick={openAlertModal}
+                  className="w-full flex items-center gap-2.5 cursor-pointer"
+                >
                   <TrashIcon className="text-[#DC2626]" />
                   <p className="text-[#DC2626] text-[16px] font-light">
                     Delete Specialist
@@ -181,8 +292,12 @@ const SpecialistRow = ({
                 </button>
               </div>
               <div className="flex items-center gap-3 border-t border-t-[#E1E7EF] p-3.5">
-                <Switch />
-                <span>Deactivate Specialist</span>
+                <Switch
+                  isOn={specialist.specialistInfo.status === "active"}
+                  activate={activate}
+                  deactivate={deactivate}
+                />
+                <span>Activate Specialist</span>
               </div>
             </motion.div>
           )}
