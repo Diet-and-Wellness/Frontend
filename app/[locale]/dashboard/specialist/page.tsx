@@ -41,14 +41,15 @@ const SpecialistDashboardIndex = () => {
           <h3 className="font-bold text-[30px]">
             Dr. {`${me.firstName} ${me.lastName}`}
           </h3>
-          <div className="px-5 py-2.5 rounded-2xl bg-[#FCEFE0]">
+          <div className="px-4 py-2 rounded-2xl bg-[#FCEFE0]">
             <p className="text-[#E99532] text-[16px] font-semibold">
               {`${me.assignedCustomersCount}`} Total Clients
             </p>
           </div>
         </div>
         <p className="text-[#65758B] text-[20px]">
-          Welcome back, Dr. {me.firstName}. Here&apos;s an overview of Diet and Wellness.
+          Welcome back, Dr. {me.firstName}. Here&apos;s an overview of Diet and
+          Wellness.
         </p>
       </div>
 
@@ -120,11 +121,15 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
+        <p className="text-center">
+          {customer?.profile?.currentWeight
+            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+            : "—"}
+        </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
       </TableCell>
 
       <TableCell>

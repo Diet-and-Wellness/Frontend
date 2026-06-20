@@ -16,7 +16,7 @@ const TABLE_HEADERS = [
   "Name",
   "Email",
   "Phone",
-  "Weight (kg)",
+  "Weight Progress (kg)",
   "Height (cm)",
   "Subscription",
   "Link To Answers",
@@ -200,11 +200,15 @@ const CustomerRow = ({
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
+        <p className="text-center">
+          {customer?.profile?.currentWeight
+            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+            : "—"}
+        </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
       </TableCell>
 
       {/* Subscription */}

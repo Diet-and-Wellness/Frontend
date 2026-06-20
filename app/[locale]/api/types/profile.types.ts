@@ -5,13 +5,15 @@ export type SpecialistId = string;
 export interface UpdateMyProfileRequest {
   firstName: string;
   lastName: string;
-  phone: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface SearchProfilesRequest {
   role: string;
   page: number;
   limit: number;
+  assignedSpecialistId?: string;
 }
 
 export interface CreateSpecialistRequest {
@@ -48,7 +50,7 @@ export type Customer = {
 
   profile: {
     currentWeight: number;
-    weightHistory: number[];
+    weightHistory: { weight: number; date: string; note: string }[];
     age: number;
     gender: string;
     height: number;

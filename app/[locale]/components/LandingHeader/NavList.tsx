@@ -20,6 +20,43 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
 
   const { data: me } = useMe();
 
+  const getCTA = () => {
+    if (!me) {
+      return {
+        href: "/signin",
+        label: t("getStarted.getStart"),
+      };
+    }
+
+    switch (me.role) {
+      case "customer":
+        return {
+          href: "/#our-tools",
+          label: "Our Tools",
+        };
+
+      case "specialist":
+        return {
+          href: "/dashboard/specialist",
+          label: "Dashboard",
+        };
+
+      case "admin":
+        return {
+          href: "/dashboard/admin",
+          label: "Dashboard",
+        };
+
+      default:
+        return {
+          href: "/signin",
+          label: t("getStarted.getStart"),
+        };
+    }
+  };
+
+  const cta = getCTA();
+
   console.log(me);
 
   const pathname = getCleanPathname(pathnameWithLang);
@@ -41,6 +78,17 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
     const isEnglish = locale === "en";
     if (isEnglish) router.replace(pathnameWithLang.replace("/en", "/ar"));
     toggleLanguageOptions();
+  };
+
+  const handleCustomerTools = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/") {
+      e.preventDefault();
+
+      document.getElementById("our-tools")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   return (
@@ -108,14 +156,16 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
         </div>
 
         <Link
-          href={"/signin"}
+          href={cta.href}
+          onClick={me?.role === "customer" ? handleCustomerTools : undefined}
+          scroll
           className="
           group border-2 border-[#3a6b26] px-8 py-2 cursor-pointer
           hover:bg-[#3a6b26] lg:flex self-center rounded-full
           transition-all duration-300 active:scale-95"
         >
           <span className="text-xl font-semibold text-[#3a6b26] group-hover:text-white transition-colors duration-300">
-            {t("getStarted.getStart")}
+            {cta.label}
           </span>
         </Link>
       </div>

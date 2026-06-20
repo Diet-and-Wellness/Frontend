@@ -36,15 +36,19 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin",
+            isActive: pathname === "/dashboard/admin",
           },
           {
             label: "Specialists",
             icon: (
               <SpecialistsIcon
-                className={`${pathname === "/dashboard/admin/specialists" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/specialists" || pathname.startsWith("/dashboard/admin/specialists/") ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/specialists",
+            isActive:
+              pathname === "/dashboard/admin/specialists" ||
+              pathname.startsWith("/dashboard/admin/specialists/"),
           },
           {
             label: "Customers",
@@ -54,6 +58,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin/customers",
+            isActive: pathname === "/dashboard/admin/customers",
           },
           {
             label: "Content & Blogs",
@@ -63,6 +68,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin/blogs",
+            isActive: pathname === "/dashboard/admin/blogs",
           },
           // {
           //   label: "Recipes",
@@ -72,6 +78,7 @@ const SideBar = ({
           //     />
           //   ),
           //   href: "/dashboard/admin/recipes",
+          //   isActive: pathname === "/dashboard/admin/recipes",
           // },
           {
             label: "Feedback",
@@ -81,6 +88,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin/feedback",
+            isActive: pathname === "/dashboard/admin/feedback",
           },
           {
             label: "Settings",
@@ -90,6 +98,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin/settings",
+            isActive: pathname === "/dashboard/admin/settings",
           },
         ]
       : [
@@ -101,6 +110,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/specialist",
+            isActive: pathname === "/dashboard/specialist",
           },
           {
             label: "Profile",
@@ -110,6 +120,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/specialist/profile",
+            isActive: pathname === "/dashboard/specialist/profile",
           },
         ];
 
@@ -180,7 +191,7 @@ const SideBar = ({
               label={item.label}
               icon={item.icon}
               href={item.href}
-              isActive={pathname === item.href}
+              isActive={item.isActive}
             />
           ))}
         </ul>

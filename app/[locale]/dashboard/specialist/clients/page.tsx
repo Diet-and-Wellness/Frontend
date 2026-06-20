@@ -130,11 +130,15 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.currentWeight ?? "-"}</p>
+        <p className="text-center">
+          {customer?.profile?.currentWeight
+            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+            : "—"}
+        </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "-"}</p>
+        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
       </TableCell>
 
       {/* Subscription */}

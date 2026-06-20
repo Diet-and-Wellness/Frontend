@@ -15,6 +15,7 @@ import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import CreateSpecialistModal from "@/app/[locale]/components/Modals/CreateSpecialistModal";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
+import Link from "next/link";
 
 const SpecialistsPage = () => {
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
@@ -275,12 +276,15 @@ const SpecialistRow = ({
               className="border border-[#E1E7EF] rounded-2xl bg-white absolute shadow-[0_2px_10px_0px_#00000026] z-20 top-15 right-8"
             >
               <div className="p-3.5 flex flex-col gap-3.5">
-                <button className="w-full flex items-center gap-2.5 cursor-pointer">
+                <Link
+                  href={`/dashboard/admin/specialists/${specialist.id}/clients`}
+                  className="w-full flex items-center gap-2.5 cursor-pointer"
+                >
                   <MenuIcon className="text-black" />
                   <p className="text-black text-[16px] font-light">
                     View client list
                   </p>
-                </button>
+                </Link>
                 <button
                   onClick={openAlertModal}
                   className="w-full flex items-center gap-2.5 cursor-pointer"

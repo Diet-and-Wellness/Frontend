@@ -7,10 +7,14 @@ const Switch = ({
   isOn,
   activate,
   deactivate,
+  activeBgColor,
+  deactiveBgColor,
 }: {
   isOn: boolean;
   activate: () => void;
   deactivate: () => void;
+  activeBgColor?: string;
+  deactiveBgColor?: string;
 }) => {
   const [active, setActive] = useState(isOn);
 
@@ -24,12 +28,15 @@ const Switch = ({
     }
   };
 
+  const bgColorActive = activeBgColor ? activeBgColor : "#E99532";
+  const bgColorDeactive = deactiveBgColor ? deactiveBgColor : "#A4A4A4";
+
   return (
     <motion.button
       initial={false}
       onClick={toggle}
       animate={{
-        backgroundColor: active ? "#E99532" : "#A4A4A4",
+        backgroundColor: active ? bgColorActive : bgColorDeactive,
       }}
       transition={{ duration: 0.4 }}
       className="flex w-12 cursor-pointer rounded-full p-1"

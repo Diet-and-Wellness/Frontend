@@ -15,7 +15,13 @@ export const feedbackApi = {
     });
   },
   createFeedback: (data: Feedback) => {
-    return apiClient.post("feedbacks/", data);
+    const formData = new FormData();
+
+    formData.append("attachment", data.attachment);
+    formData.append("theme", data.theme);
+    formData.append("crop", data.crop);
+
+    return apiClient.post("feedbacks/", formData);
   },
   getAllFeedbacks: (params: GetAllFeedbacksRequest) => {
     return apiClient.get("/feedbacks/admin", {
@@ -39,5 +45,4 @@ export const feedbackApi = {
   reorderFeedback: (data: ReorderFeedbackRequest) => {
     return apiClient.patch("/feedbacks/admin/reorder", data);
   },
-  
 };

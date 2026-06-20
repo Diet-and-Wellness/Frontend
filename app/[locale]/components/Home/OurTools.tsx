@@ -4,10 +4,9 @@ import { motion } from "framer-motion";
 import Tool from "./Tool";
 import { useTranslations } from "next-intl";
 
-
 const OurTools = () => {
   const t = useTranslations();
-  
+
   const toolsList = [
     {
       isFree: true,
@@ -38,9 +37,10 @@ const OurTools = () => {
       href: "/",
     },
   ];
-  
+
   return (
     <motion.section
+      id="our-tools"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
