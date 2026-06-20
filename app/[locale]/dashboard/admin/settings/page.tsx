@@ -222,8 +222,6 @@ const SecurityComp = () => {
 
   const queryClient = useQueryClient();
 
-  const { data: me } = useMe();
-
   const saveChanges = async (formData: ChangePasswordType) => {
     changePasswordMutation.mutate(formData);
   };

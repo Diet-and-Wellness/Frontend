@@ -26,6 +26,26 @@ type DeleteModalState = {
 
 const MAX_FEEDBACKS_COUNT = 6;
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 25, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
 const FeedbackManagementPage = () => {
   const queryClient = useQueryClient();
 
@@ -36,13 +56,8 @@ const FeedbackManagementPage = () => {
 
   const [isFeedbackModalVisible, setIsFeedbackModalVisible] = useState(false);
 
-  const showAddFeedbackModal = () => {
-    setIsFeedbackModalVisible(true);
-  };
-
-  const hideAddFeedbackModal = () => {
-    setIsFeedbackModalVisible(false);
-  };
+  const showAddFeedbackModal = () => setIsFeedbackModalVisible(true);
+  const hideAddFeedbackModal = () => setIsFeedbackModalVisible(false);
 
   const getFeedbacks = async (): Promise<FeedbackResponse[]> => {
     const { data } = await feedbackApi.getAllFeedbacks({ page: 1, limit: 20 });
@@ -65,17 +80,11 @@ const FeedbackManagementPage = () => {
   });
 
   const openDeleteModal = (id: string) => {
-    setDeleteModalState({
-      isOpen: true,
-      selectedFeedbackId: id,
-    });
+    setDeleteModalState({ isOpen: true, selectedFeedbackId: id });
   };
 
   const closeDeleteModal = () => {
-    setDeleteModalState({
-      isOpen: false,
-      selectedFeedbackId: "",
-    });
+    setDeleteModalState({ isOpen: false, selectedFeedbackId: "" });
   };
 
   const uploadMutation = useMutation({
@@ -91,11 +100,20 @@ const FeedbackManagementPage = () => {
   return (
     <>
       {isLoading ? (
-        <div className="place-self-center mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="place-self-center mx-auto"
+        >
           <Spinner borderColor="#4D8E32" spinnerSize={60} />
-        </div>
+        </motion.div>
       ) : (
-        <section className="w-full flex flex-col gap-10">
+        <motion.section
+          initial="hidden"
+          animate="show"
+          variants={containerVariants}
+          className="w-full flex flex-col gap-10"
+        >
           <AnimatePresence>
             {deleteModalState.isOpen && (
               <AlertModal
@@ -122,48 +140,71 @@ const FeedbackManagementPage = () => {
             )}
           </AnimatePresence>
 
-          <div className="flex justify-between">
+          <motion.div variants={itemVariants} className="flex justify-between">
             <div>
               <h2 className="mb-4 text-3xl font-bold">Feedback Management</h2>
               <p className="text-xl font-light text-[#4F4F4F]">
                 Manage WhatsApp client reviews for the main landing page.
               </p>
             </div>
-            <div className="">
+
+            <div>
               <p className="px-7.5 text-[20px] font-medium">
                 {feedbackList.length} / {MAX_FEEDBACKS_COUNT} Slots
               </p>
-              <div className="h-2 w-full bg-[#FCEFE0] rounded-full mt-2.5">
-                <div
-                  className={`h-full rounded-full bg-[#E99532]`}
-                  style={{
+
+              <div className="h-2 w-full bg-[#FCEFE0] rounded-full mt-2.5 overflow-hidden">
+                <motion.div
+                  className="h-full bg-[#E99532]"
+                  initial={{ width: 0 }}
+                  animate={{
                     width: `${(feedbackList.length / MAX_FEEDBACKS_COUNT) * 100}%`,
                   }}
-                ></div>
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {feedbackList.length ? (
-            <div className="flex flex-wrap gap-5">
-              {feedbackList.length === MAX_FEEDBACKS_COUNT || (
-                <AddFeedbackCard
-                  remainingSlots={MAX_FEEDBACKS_COUNT - feedbackList.length}
-                  handleClick={showAddFeedbackModal}
-                />
+            <motion.div
+              variants={containerVariants}
+              className="flex flex-wrap gap-5"
+            >
+              {feedbackList.length !== MAX_FEEDBACKS_COUNT && (
+                <motion.div variants={itemVariants}>
+                  <AddFeedbackCard
+                    remainingSlots={MAX_FEEDBACKS_COUNT - feedbackList.length}
+                    handleClick={showAddFeedbackModal}
+                  />
+                </motion.div>
               )}
-              {feedbackList.map((feedback) => (
-                <FeedbackCard
-                  key={feedback.id}
-                  feedback={feedback}
-                  onDelete={() => openDeleteModal(feedback.id)}
-                />
-              ))}
-            </div>
+
+              <AnimatePresence>
+                {feedbackList.map((feedback) => (
+                  <motion.div
+                    key={feedback.id}
+                    layout
+                    variants={itemVariants}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                  >
+                    <FeedbackCard
+                      feedback={feedback}
+                      onDelete={() => openDeleteModal(feedback.id)}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
           ) : (
-            <EmptyFeedbackState handleClick={showAddFeedbackModal} />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <EmptyFeedbackState handleClick={showAddFeedbackModal} />
+            </motion.div>
           )}
-        </section>
+        </motion.section>
       )}
     </>
   );
@@ -171,26 +212,42 @@ const FeedbackManagementPage = () => {
 
 export default FeedbackManagementPage;
 
-type FeedbackCardProps = {
+const FeedbackCard = ({
+  feedback,
+  onDelete,
+}: {
   feedback: FeedbackResponse;
   onDelete: () => void;
-};
+}) => {
+  const queryClient = useQueryClient();
 
-const FeedbackCard = ({ feedback, onDelete }: FeedbackCardProps) => {
   const feedbackShownStatusMutation = useMutation({
     mutationFn: async () => {
-      await feedbackApi.updateFeedbackStatus(feedback.id, { isHidden: false });
+      await feedbackApi.updateFeedbackStatus(feedback.id, {
+        isHidden: false,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
     },
   });
 
   const feedbackHiddenStatusMutation = useMutation({
     mutationFn: async () => {
-      await feedbackApi.updateFeedbackStatus(feedback.id, { isHidden: true });
+      await feedbackApi.updateFeedbackStatus(feedback.id, {
+        isHidden: true,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
     },
   });
 
   return (
-    <div className="rounded-2xl overflow-hidden max-w-75 max-h-95 relative bg-white">
+    <motion.div
+      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      className="rounded-2xl overflow-hidden max-w-75 max-h-95 relative bg-white"
+    >
       <div className="relative">
         <Image
           src={feedback.attachmentUrl ?? ""}
@@ -205,12 +262,13 @@ const FeedbackCard = ({ feedback, onDelete }: FeedbackCardProps) => {
           whileHover={{ opacity: 1 }}
           className="absolute inset-0 bg-black/70 flex justify-center"
         >
-          <button
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={onDelete}
             className="size-14 rounded-full bg-[#ffe7e7] flex justify-center items-center mt-30 cursor-pointer"
           >
             <TrashIcon className="text-[#DC2626]" />
-          </button>
+          </motion.button>
         </motion.div>
       </div>
 
@@ -235,23 +293,25 @@ const FeedbackCard = ({ feedback, onDelete }: FeedbackCardProps) => {
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const Tag = ({ label }: { label: string }) => {
   return (
-    <div
-      className={`px-5 rounded-full border w-fit ${"bg-[#FCEFE0] border-[#E99532]"}`}
-    >
+    <motion.div className="px-5 rounded-full border w-fit bg-[#FCEFE0] border-[#E99532]">
       <p className="text-[#4F4F4F] text-[16px]">{label}</p>
-    </div>
+    </motion.div>
   );
 };
 
 const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-2.5 max-w-120 mx-auto mt-5 p-10 border border-[#E1E7EF] rounded-2xl">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex flex-col justify-center items-center gap-2.5 max-w-120 mx-auto mt-5 p-10 border border-[#E1E7EF] rounded-2xl"
+    >
       <div className="size-30 rounded-full bg-[#FDF4EB] flex justify-center items-center">
         <CameraIcon />
       </div>
@@ -264,13 +324,14 @@ const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
         Upload up to 6 WhatsApp reviews to showcase your success.
       </p>
 
-      <button
+      <motion.button
+        whileTap={{ scale: 0.97 }}
         onClick={handleClick}
         className="w-full mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer"
       >
         Add Feedback
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 };
 
@@ -282,9 +343,9 @@ const AddFeedbackCard = ({
   handleClick: () => void;
 }) => {
   return (
-    <button
-      onClick={handleClick}
+    <motion.button
       className="rounded-2xl overflow-hidden w-75 h-95 p-5 border-2 border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-2.5 cursor-pointer"
+      onClick={handleClick}
     >
       <div className="size-17.5 flex justify-center items-center bg-white rounded-full border-2 border-dashed border-[#4F4F4F]">
         <PulseIcon />
@@ -295,6 +356,6 @@ const AddFeedbackCard = ({
       <p className="text-[#4F4F4F] text-[16px]">
         {remainingSlots} slots remaining
       </p>
-    </button>
+    </motion.button>
   );
 };

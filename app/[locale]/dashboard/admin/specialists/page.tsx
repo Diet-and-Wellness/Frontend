@@ -166,7 +166,7 @@ const SpecialistsPage = () => {
       {/* Table */}
       {isLoading ? (
         <div className="place-self-center my-50">
-          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+          <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
       ) : (
         <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">

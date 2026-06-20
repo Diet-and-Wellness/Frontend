@@ -18,7 +18,7 @@ const BlogDetails = () => {
       <div className="mt-20 md:mt-30 overflow-hidden bg-[url('/images/blog-img.webp')] bg-no-repeat bg-center bg-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl" />
       {isLoading ? (
         <div className="place-self-center my-25">
-          <Spinner spinnerSize={50} borderColor="#4D8E32" />
+          <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
       ) : (
         <div className="flex flex-col gap-7.5 max-w-[90%] mx-auto px-2.5 py-10 lg:p-10">

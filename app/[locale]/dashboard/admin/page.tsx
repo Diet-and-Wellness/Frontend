@@ -13,6 +13,7 @@ import SpecialistsIcon from "../../components/icons/SpecialistsIcon";
 import BlogsIcon from "../../components/icons/BlogsIcon";
 import StatArrow from "../../components/icons/StatArrow";
 import { useMe } from "../../hooks/useMe";
+import { motion } from "framer-motion";
 
 type RecentUsersListProps =
   | {
@@ -24,10 +25,34 @@ type RecentUsersListProps =
       usersList: Customer[];
     };
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
 const AdminDashboardIndex = () => {
   const data = useMe();
-
   const me = data?.data ?? {};
+
+  const calcProgress = (part?: number, total?: number) => {
+    if (!part || !total) return "0%";
+    return `${Math.floor((part / total) * 100)}%`;
+  };
 
   const getRecentCustomers = async (): Promise<Customer[]> => {
     const { data } = await profileApi.searchProfiles({
@@ -52,6 +77,7 @@ const AdminDashboardIndex = () => {
       page: 1,
       limit: 5,
     });
+
     return data?.data ?? [];
   };
 
@@ -71,70 +97,100 @@ const AdminDashboardIndex = () => {
     queryFn: getDashboardStat,
   });
 
+  const stats = [
+    {
+      statType: "Total Clients",
+      statNumber: dashboardStat?.clients?.total ?? 0,
+      progress: calcProgress(
+        dashboardStat?.clients?.thisMonth,
+        dashboardStat?.clients?.total,
+      ),
+      icon: <CustomersIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+    },
+    {
+      statType: "Active Specialist",
+      statNumber: dashboardStat?.specialists?.active ?? 0,
+      progress: calcProgress(
+        dashboardStat?.specialists?.activeThisMonth,
+        dashboardStat?.specialists?.active,
+      ),
+      icon: <SpecialistsIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+    },
+    {
+      statType: "Published Articles",
+      statNumber: dashboardStat?.articles?.active ?? 0,
+      progress: calcProgress(
+        dashboardStat?.articles?.activeThisMonth,
+        dashboardStat?.articles?.active,
+      ),
+      icon: <BlogsIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+    },
+    {
+      statType: "Active Subscriptions",
+      statNumber: dashboardStat?.subscriptions?.active ?? 0,
+      progress: calcProgress(
+        dashboardStat?.subscriptions?.activeThisMonth,
+        dashboardStat?.subscriptions?.active,
+      ),
+      icon: <StatArrow className="text-[#E99532]" strokeWidth={"1.67"} />,
+    },
+  ];
+
   return (
-    <section className="w-full">
-      <div className="mb-7.5">
+    <motion.section
+      initial="hidden"
+      animate="show"
+      variants={container}
+      className="w-full"
+    >
+      <motion.div variants={item} className="mb-7.5">
         <h2 className="text-black text-3xl mb-2 font-bold">Dashboard</h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
           Welcome back, {me.firstName}. Here&apos;s an overview of Diet and
           Wellness.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        <StatCard
-          arrowIcon={"/icons/green-up-arrow.svg"}
-          statIcon={
-            <CustomersIcon className="text-[#E99532]" strokeWidth={"1.67"} />
-          }
-          progress={`${dashboardStat?.clients?.thisMonth ?? 0}%`}
-          statNumber={dashboardStat?.clients?.total ?? 0}
-          statType={"Total Clients"}
-        />
-        <StatCard
-          arrowIcon={"/icons/green-up-arrow.svg"}
-          statIcon={
-            <SpecialistsIcon className="text-[#E99532]" strokeWidth={"1.67"} />
-          }
-          progress={`${dashboardStat?.specialists?.thisMonth ?? 0}%`}
-          statNumber={dashboardStat?.specialists?.active ?? 0}
-          statType={"Active Specialist"}
-        />
-        <StatCard
-          arrowIcon={"/icons/green-up-arrow.svg"}
-          statIcon={
-            <BlogsIcon className="text-[#E99532]" strokeWidth={"1.67"} />
-          }
-          progress={`${dashboardStat?.articles?.thisMonth ?? 0}%`}
-          statNumber={dashboardStat?.articles?.total ?? 0}
-          statType={"Published Articles"}
-        />
-        <StatCard
-          arrowIcon={"/icons/green-up-arrow.svg"}
-          statIcon={
-            <StatArrow className="text-[#E99532]" strokeWidth={"1.67"} />
-          }
-          progress={`${dashboardStat?.subscriptions.thisMonth ?? 0}%`}
-          statNumber={dashboardStat?.subscriptions?.active ?? 0}
-          statType={"Active Subscriptions "}
-        />
-      </div>
+      <motion.div
+        variants={container}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+      >
+        {stats.map((stat) => (
+          <motion.div key={stat.statType} variants={item}>
+            <StatCard
+              arrowIcon="/icons/green-up-arrow.svg"
+              statIcon={stat.icon}
+              progress={stat.progress}
+              statNumber={stat.statNumber}
+              statType={stat.statType}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-7.5 xl:gap-15 mt-7.5">
+      <motion.div
+        variants={container}
+        className="grid grid-cols-1 xl:grid-cols-2 gap-7.5 xl:gap-15 mt-7.5"
+      >
         {recentSpecialistsLoading || (
-          <RecentUsersList
-            usersListType="specialists"
-            usersList={recentSpecialists ?? []}
-          />
+          <motion.div variants={item}>
+            <RecentUsersList
+              usersListType="specialists"
+              usersList={recentSpecialists ?? []}
+            />
+          </motion.div>
         )}
+
         {recentCustomersLoading || (
-          <RecentUsersList
-            usersListType="clients"
-            usersList={recentCustomers ?? []}
-          />
+          <motion.div variants={item}>
+            <RecentUsersList
+              usersListType="clients"
+              usersList={recentCustomers ?? []}
+            />
+          </motion.div>
         )}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 
@@ -157,6 +213,7 @@ const RecentUsersList = ({
               : "Recent Customers"}
           </p>
         </div>
+
         <Link
           href={
             usersListType === "specialists"
@@ -169,13 +226,25 @@ const RecentUsersList = ({
           </span>
         </Link>
       </div>
-      {usersListType === "specialists"
-        ? usersList.map((user) => (
-            <RecentSpecialist key={user.id} specialist={user} />
-          ))
-        : usersList.map((user) => (
-            <RecentCustomer key={user.id} customer={user} />
-          ))}
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col gap-3"
+      >
+        {usersListType === "specialists"
+          ? usersList.map((user) => (
+              <motion.div key={user.id} variants={item}>
+                <RecentSpecialist specialist={user} />
+              </motion.div>
+            ))
+          : usersList.map((user) => (
+              <motion.div key={user.id} variants={item}>
+                <RecentCustomer customer={user} />
+              </motion.div>
+            ))}
+      </motion.div>
     </div>
   );
 };

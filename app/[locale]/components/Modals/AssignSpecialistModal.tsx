@@ -101,7 +101,7 @@ const AssignSpecialistModal = ({
 
         {isLoading ? (
           <div className="flex justify-center items-center py-20">
-            <Spinner spinnerSize={50} borderColor="#4D8E32" />
+            <Spinner spinnerSize={60} borderColor="#4D8E32" />
           </div>
         ) : (
           <div className="px-5 py-2.5 flex flex-col justify-start gap-3 overflow-auto">
