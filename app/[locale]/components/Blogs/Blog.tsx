@@ -16,7 +16,7 @@ const Blog = ({
 }: {
   type: string;
   blog: BlogResponse;
-  showDeleteBlogModal: () => void;
+  showDeleteBlogModal?: () => void;
 }) => {
   const t = useTranslations();
 
