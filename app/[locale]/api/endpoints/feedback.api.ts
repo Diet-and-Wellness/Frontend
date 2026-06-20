@@ -17,9 +17,15 @@ export const feedbackApi = {
   createFeedback: (data: Feedback) => {
     const formData = new FormData();
 
-    formData.append("attachment", data.attachment);
     formData.append("theme", data.theme);
-    formData.append("crop", data.crop);
+
+    if (data.attachment) {
+      formData.append("attachment", data.attachment);
+    }
+
+    if (data.crop) {
+      formData.append("crop", data.crop);
+    }
 
     return apiClient.post("feedbacks/", formData);
   },
