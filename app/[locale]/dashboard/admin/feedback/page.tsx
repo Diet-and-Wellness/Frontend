@@ -249,13 +249,14 @@ const FeedbackCard = ({
       className="rounded-2xl overflow-hidden max-w-75 max-h-95 relative bg-white"
     >
       <div className="relative">
-        <Image
-          src={feedback.attachmentUrl ?? ""}
-          alt="feedback"
-          width={300}
-          height={600}
-          className="w-full min-h-95 object-cover object-top"
-        />
+        <div className="relative w-75 h-95 overflow-hidden">
+          <Image
+            src={feedback.attachmentUrl ?? ""}
+            alt="feedback"
+            fill
+            className="object-cover object-top"
+          />
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
