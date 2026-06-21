@@ -153,9 +153,11 @@ const FeedbackManagementPage = () => {
                 {feedbackList.length} / {MAX_FEEDBACKS_COUNT} Slots
               </p>
 
-              <div className="h-2 w-full bg-[#FCEFE0] rounded-full mt-2.5 overflow-hidden">
+              <div
+                className={`h-2 w-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-[#FCEFE0]" : "bg-[#E4EEE0]"} rounded-full mt-2.5 overflow-hidden`}
+              >
                 <motion.div
-                  className="h-full bg-[#E99532]"
+                  className={`h-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-[#E99532]" : "bg-[#4D8E32]"} rounded-full`}
                   initial={{ width: 0 }}
                   animate={{
                     width: `${(feedbackList.length / MAX_FEEDBACKS_COUNT) * 100}%`,
@@ -169,9 +171,9 @@ const FeedbackManagementPage = () => {
           {feedbackList.length ? (
             <motion.div
               variants={containerVariants}
-              className="flex flex-wrap gap-5"
+              className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"
             >
-              {feedbackList.length !== MAX_FEEDBACKS_COUNT && (
+              {feedbackList.length < MAX_FEEDBACKS_COUNT && (
                 <motion.div variants={itemVariants}>
                   <AddFeedbackCard
                     remainingSlots={MAX_FEEDBACKS_COUNT - feedbackList.length}
@@ -246,10 +248,10 @@ const FeedbackCard = ({
   return (
     <motion.div
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="rounded-2xl overflow-hidden max-w-75 max-h-95 relative bg-white"
+      className="rounded-2xl overflow-hidden max-h-110 relative bg-white"
     >
       <div className="relative">
-        <div className="relative w-75 h-95 overflow-hidden">
+        <div className="relative w-full h-110 overflow-hidden">
           <Image
             src={feedback.attachmentUrl ?? ""}
             alt="feedback"
@@ -266,7 +268,7 @@ const FeedbackCard = ({
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={onDelete}
-            className="size-14 rounded-full bg-[#ffe7e7] flex justify-center items-center mt-30 cursor-pointer"
+            className="size-14 rounded-full bg-[#ffe7e7] flex justify-center items-center mt-40 cursor-pointer"
           >
             <TrashIcon className="text-[#DC2626]" />
           </motion.button>
@@ -309,8 +311,9 @@ const Tag = ({ label }: { label: string }) => {
 const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       className="flex flex-col justify-center items-center gap-2.5 max-w-120 mx-auto mt-5 p-10 border border-[#E1E7EF] rounded-2xl"
     >
       <div className="size-30 rounded-full bg-[#FDF4EB] flex justify-center items-center">
@@ -345,7 +348,7 @@ const AddFeedbackCard = ({
 }) => {
   return (
     <motion.button
-      className="rounded-2xl overflow-hidden w-75 h-95 p-5 border-2 border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-2.5 cursor-pointer"
+      className="rounded-2xl overflow-hidden w-full h-110 p-5 border-2 border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-2.5 cursor-pointer"
       onClick={handleClick}
     >
       <div className="size-17.5 flex justify-center items-center bg-white rounded-full border-2 border-dashed border-[#4F4F4F]">

@@ -12,19 +12,41 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
 const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <section className="w-full">
-      <div className="flex flex-col gap-2">
+    <motion.section
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="w-full"
+    >
+      <motion.div variants={item} className="flex flex-col gap-2">
         <h3 className="font-bold text-[30px]">Settings</h3>
         <p className="text-[#4F4F4F] text-[20px]">
           Manage your admin profile and account security .
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex gap-10 mt-7.5">
+      <motion.div variants={item} className="flex gap-10 mt-7.5">
         <Tab
           label="Profile"
           isActive={activeTab === "profile"}
@@ -35,7 +57,7 @@ const SettingsPage = () => {
           isActive={activeTab === "security"}
           onClick={() => setActiveTab("security")}
         />
-      </div>
+      </motion.div>
 
       <AnimatePresence mode="wait">
         {activeTab === "profile" ? (
@@ -44,7 +66,7 @@ const SettingsPage = () => {
           <SecurityComp key="security" />
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 };
 
@@ -136,7 +158,7 @@ const ProfileComp = () => {
       exit="exit"
       className="w-full"
     >
-      <form
+      <motion.form
         onSubmit={handleSubmit(saveChanges)}
         className="border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD] max-w-160 my-10 p-7.5 flex flex-col gap-7.5"
       >
@@ -193,7 +215,7 @@ const ProfileComp = () => {
             <p className="">Save Changes</p>
           )}
         </button>
-      </form>
+      </motion.form>
     </motion.div>
   );
 };

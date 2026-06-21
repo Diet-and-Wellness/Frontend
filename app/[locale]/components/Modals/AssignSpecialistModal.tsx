@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 
 import ModalWrapper from "../Public/ModalWrapper";
 import Spinner from "../Public/LoadingSpinner";
@@ -8,6 +9,27 @@ import { SpecialistDTO } from "../../api/types/profile.types";
 import { profileApi } from "../../api/endpoints/profile.api";
 import SearchIcon from "../icons/SearchIcon";
 import CloseIcon from "../icons/CloseIcon";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 5 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      ease: "easeInOut",
+    },
+  },
+} as const;
 
 const AssignSpecialistModal = ({
   onClose,
@@ -104,10 +126,15 @@ const AssignSpecialistModal = ({
             <Spinner spinnerSize={60} borderColor="#4D8E32" />
           </div>
         ) : (
-          <div className="px-5 py-2.5 flex flex-col justify-start gap-3 overflow-auto">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="px-5 py-2.5 flex flex-col justify-start gap-3 overflow-auto"
+          >
             {filteredSpecialists.length > 0 ? (
               filteredSpecialists.map((specialist) => (
-                <SpecialistComp
+                <SpecialistCard
                   key={specialist.id}
                   firstName={specialist.firstName}
                   lastName={specialist.lastName}
@@ -120,7 +147,7 @@ const AssignSpecialistModal = ({
                 No specialists found.
               </div>
             )}
-          </div>
+          </motion.div>
         )}
 
         <div className="p-5">
@@ -141,21 +168,22 @@ const AssignSpecialistModal = ({
   );
 };
 
-type SpecialistCompProps = {
+type SpecialistCardProps = {
   firstName: string;
   lastName: string;
   isSelected: boolean;
   onClick: () => void;
 };
 
-const SpecialistComp = ({
+const SpecialistCard = ({
   firstName,
   lastName,
   isSelected,
   onClick,
-}: SpecialistCompProps) => {
+}: SpecialistCardProps) => {
   return (
-    <button
+    <motion.button
+      variants={item}
       onClick={onClick}
       className={`ring cursor-pointer py-1.5 px-3 rounded-xl flex items-center gap-3 transition-colors ${
         isSelected
@@ -171,7 +199,7 @@ const SpecialistComp = ({
       <p className="text-[16px] font-medium">
         {firstName} {lastName}
       </p>
-    </button>
+    </motion.button>
   );
 };
 

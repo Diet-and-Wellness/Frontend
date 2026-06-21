@@ -10,7 +10,7 @@ import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import AssignSpecialistModal from "@/app/[locale]/components/Modals/AssignSpecialistModal";
 import { useState } from "react";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const TABLE_HEADERS = [
   "Name",
@@ -22,6 +22,34 @@ const TABLE_HEADERS = [
   "Link To Answers",
   "Assign To Specialist",
 ];
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
+const tableContainer = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
 
 const CustomersPage = () => {
   const queryClient = useQueryClient();
@@ -103,7 +131,12 @@ const CustomersPage = () => {
   });
 
   return (
-    <section className="flex w-full flex-col gap-5">
+    <motion.section
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="flex w-full flex-col gap-5"
+    >
       <AnimatePresence mode="wait">
         {showAssignSpecialistModal && (
           <AssignSpecialistModal
@@ -116,28 +149,31 @@ const CustomersPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div>
+      <motion.div variants={item}>
         <h2 className="mb-2 text-3xl font-bold">Customers</h2>
         <p className="text-xl font-light text-[#4F4F4F]">
           Manage and view all client profiles.
         </p>
-      </div>
+      </motion.div>
 
       {/* Filters */}
-      <div className="flex items-center gap-5">
+      <motion.div variants={item} className="flex items-center gap-5">
         <SearchInput />
         <FilterButton label="All Statuses" />
         <FilterButton label="All Plans" />
-      </div>
+      </motion.div>
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-50">
+        <div className="place-self-center my-auto">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
       ) : (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
-          <table className="min-w-full divide-y divide-[#E1E7EF]">
+          <motion.table
+            variants={container}
+            className="min-w-full divide-y divide-[#E1E7EF]"
+          >
             <thead className="bg-[#FCFCFC]">
               <tr>
                 {TABLE_HEADERS.map((header) => (
@@ -151,7 +187,10 @@ const CustomersPage = () => {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+            <motion.tbody
+              variants={tableContainer}
+              className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
+            >
               {customers?.map((customer) => (
                 <CustomerRow
                   key={customer.id}
@@ -164,11 +203,11 @@ const CustomersPage = () => {
                   }
                 />
               ))}
-            </tbody>
-          </table>
+            </motion.tbody>
+          </motion.table>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 
@@ -180,7 +219,11 @@ const CustomerRow = ({
   assignSpecialistHandler: () => void;
 }) => {
   return (
-    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
+    <motion.tr
+      layout
+      variants={item}
+      className="text-base font-light text-[#4F4F4F] transition-colors"
+    >
       {/* Name */}
       <TableCell>
         <div className="flex items-center gap-3">
@@ -246,7 +289,7 @@ const CustomerRow = ({
           <ChevronDownIcon />
         </button>
       </TableCell>
-    </tr>
+    </motion.tr>
   );
 };
 

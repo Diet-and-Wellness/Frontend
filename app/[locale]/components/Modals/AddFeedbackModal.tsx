@@ -196,7 +196,7 @@ const AddFeedbackModal = ({
               attachment: attachment,
             })
           }
-          className={`w-full mt-5 px-7.5 min-h-12.5 rounded-2xl text-white font-semibold text-lg flex justify-center items-center ${pending || attachment === null ? "cursor-not-allowed bg-[#ffc481]" : "cursor-pointer bg-[#E99532]"} `}
+          className={`w-full mt-5 px-7.5 min-h-12.5 rounded-full text-white font-semibold text-lg flex justify-center items-center ${pending || attachment === null ? "cursor-not-allowed bg-[#ffc481]" : "cursor-pointer bg-[#E99532]"} `}
         >
           {pending ? (
             <Spinner spinnerSize={30} />

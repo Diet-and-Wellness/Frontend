@@ -17,6 +17,35 @@ import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Link from "next/link";
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
+const tableContainer = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+} as const;
+
 const SpecialistsPage = () => {
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
   const [showCreateSpecialistModal, setShowCreateSpecialistModal] =
@@ -120,7 +149,12 @@ const SpecialistsPage = () => {
   });
 
   return (
-    <section className="flex w-full flex-col gap-10">
+    <motion.section
+      initial="hidden"
+      animate="show"
+      variants={container}
+      className="flex w-full flex-col gap-10"
+    >
       <AnimatePresence mode="wait">
         {showCreateSpecialistModal && (
           <CreateSpecialistModal
@@ -145,7 +179,7 @@ const SpecialistsPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="flex justify-between items-start">
+      <motion.div variants={item} className="flex justify-between items-start">
         <div>
           <h2 className="mb-2 text-3xl font-bold">Specialists</h2>
           <p className="text-xl font-light text-[#4F4F4F]">
@@ -161,16 +195,19 @@ const SpecialistsPage = () => {
             Add Specialist
           </p>
         </button>
-      </div>
+      </motion.div>
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-50">
+        <div className="place-self-center my-auto">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
       ) : (
         <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
-          <table className="min-w-full divide-y divide-[#E1E7EF]">
+          <motion.table
+            variants={container}
+            className="min-w-full divide-y divide-[#E1E7EF]"
+          >
             <thead className="bg-[#FCFCFC]">
               <tr>
                 <TableHeaderCell>Name</TableHeaderCell>
@@ -197,7 +234,10 @@ const SpecialistsPage = () => {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+            <motion.tbody
+              variants={tableContainer}
+              className="divide-y divide-[#E1E7EF] bg-[#fffdfe]"
+            >
               {specialists?.map((specialist) => (
                 <SpecialistRow
                   key={specialist.id}
@@ -209,11 +249,11 @@ const SpecialistsPage = () => {
                   deactivate={() => deactivate(specialist.id)}
                 />
               ))}
-            </tbody>
-          </table>
+            </motion.tbody>
+          </motion.table>
         </div>
       )}
-    </section>
+    </motion.section>
   );
 };
 
@@ -239,7 +279,11 @@ const SpecialistRow = ({
   };
 
   return (
-    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
+    <motion.tr
+      layout
+      variants={item}
+      className="text-base font-light text-[#4F4F4F] transition-colors"
+    >
       <TableCell>
         <span className="text-black">{`${specialist.firstName} ${specialist.lastName}`}</span>
       </TableCell>
@@ -307,7 +351,7 @@ const SpecialistRow = ({
           )}
         </AnimatePresence>
       </TableCell>
-    </tr>
+    </motion.tr>
   );
 };
 

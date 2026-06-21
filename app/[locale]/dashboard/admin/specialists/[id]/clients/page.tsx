@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
 import LeftArrowIcon from "@/app/[locale]/components/icons/LeftArrowIcon";
+import { motion } from "framer-motion";
 
 const TABLE_HEADERS = [
   "Name",
@@ -17,6 +18,34 @@ const TABLE_HEADERS = [
   "Height (cm)",
   "Note",
 ];
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  },
+} as const;
+
+const tableContainer = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
 
 const SpecialistClientsPage = () => {
   const params = useParams();
@@ -58,12 +87,20 @@ const SpecialistClientsPage = () => {
   return (
     <>
       {isSpecialistInfoLoading || isSpecialistClientsLoading ? (
-        <div className="place-self-center w-full flex justify-center">
+        <div className="place-self-center mx-auto my-auto">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
       ) : (
-        <div className="w-full">
-          <div className="flex justify-between items-start">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="w-full"
+        >
+          <motion.div
+            variants={item}
+            className="flex justify-between items-start"
+          >
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 items-center">
                 <p className="text-[#A4A4A4] text-[20px]">Specialists</p>
@@ -90,7 +127,7 @@ const SpecialistClientsPage = () => {
               <LeftArrowIcon />
               <p className="text-[16px] font-semibold">Back to Specialists</p>
             </button>
-          </div>
+          </motion.div>
 
           <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
             <table className="min-w-full divide-y divide-[#E1E7EF]">
@@ -107,14 +144,17 @@ const SpecialistClientsPage = () => {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+              <motion.tbody
+                variants={tableContainer}
+                className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
+              >
                 {customers?.map((customer) => (
                   <CustomerRow key={customer.id} customer={customer} />
                 ))}
-              </tbody>
+              </motion.tbody>
             </table>
           </div>
-        </div>
+        </motion.div>
       )}
     </>
   );
@@ -136,7 +176,11 @@ const AddNoteBtn = () => {
 
 const CustomerRow = ({ customer }: { customer: Customer }) => {
   return (
-    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
+    <motion.tr
+      layout
+      variants={item}
+      className="text-base font-light text-[#4F4F4F] transition-colors"
+    >
       <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
@@ -169,6 +213,6 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       <TableCell>
         <AddNoteBtn />
       </TableCell>
-    </tr>
+    </motion.tr>
   );
 };
