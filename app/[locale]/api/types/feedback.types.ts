@@ -26,7 +26,7 @@ export interface FeedbackResponse {
   rating: number;
   user: FeedbackUser;
   isHidden: boolean;
-  attachmentUrl: string | null;
+  attachmentUrl: string;
   order: number;
   theme: string;
   crop: string;

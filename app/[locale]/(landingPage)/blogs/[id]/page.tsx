@@ -13,9 +13,20 @@ const BlogDetails = () => {
 
   const { data: blog, isLoading } = useBlog(slug);
 
+  console.log("blog details ===> ", blog);
+
   return (
     <section className="min-h-screen min-w-full">
-      <div className="mt-20 md:mt-30 overflow-hidden bg-[url('/images/blog-img.webp')] bg-no-repeat bg-center bg-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl" />
+      {blog && (
+        <Image
+          alt=""
+          src={blog?.imageUrl}
+          width={1000}
+          height={10000}
+          className={`mt-20 md:mt-30 bg-no-repeat w-[90%] max-h-80 bg-center object-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl`}
+        />
+      )}
+
       {isLoading ? (
         <div className="place-self-center my-25">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
@@ -26,6 +37,7 @@ const BlogDetails = () => {
             <p className="text-[#3E7228] text-[20px] md:text-[22px] lg:text-[24px] font-medium">
               {formatDate(blog.createdAt)}
             </p>
+
             <div className="bg-[#E99532] rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
               <Image
                 width={20}
@@ -34,6 +46,7 @@ const BlogDetails = () => {
                 alt="Eye icon"
                 className="h-4 w-4 lg:h-5 lg:w-5"
               />
+
               <p className="text-white font-medium text-[14px] md:text-[15px] lg:text-[16px] leading-3">
                 {`${blog.estimatedReadTime} min Read`}
               </p>
@@ -44,11 +57,11 @@ const BlogDetails = () => {
             {blog.title}
           </h5>
 
-          <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px]">
+          <p className="text-[#4F4F4F] max-w-6xl text-[18px] md:text-[20px] lg:text-[22px] font-medium">
             {blog.description}
           </p>
 
-          <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px]">
+          <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px] whitespace-pre-wrap">
             {blog.content}
           </p>
         </div>

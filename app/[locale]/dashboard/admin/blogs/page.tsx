@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import { useState } from "react";
+import Link from "next/link";
 
 const container = {
   hidden: { opacity: 0 },
@@ -90,23 +91,6 @@ const BlogsPage = () => {
     queryFn: getPublishedBlogs,
   });
 
-  const postBlog = async () => {
-    await blogsApi.createNewBlog({
-      title: "The Benefits of Meal Planning for a Healthier Life",
-      description:
-        "Meal planning is a simple yet powerful habit that helps you make healthier food choices, save time, and reduce unnecessary stress during busy weeks. With a little preparation, you can stay consistent with your nutrition goals.",
-      content:
-        "Planning your meals ahead of time can significantly improve your eating habits and overall lifestyle. By deciding what to eat in advance, you reduce the temptation to rely on unhealthy fast food or skip meals altogether. Meal planning also helps you manage portion sizes, stick to a balanced diet, and minimize food waste. Preparing ingredients or meals in batches can save valuable time during the week while making healthy eating more convenient and sustainable. Whether your goal is weight management, better energy levels, or improved wellness, creating a weekly meal plan is a practical step toward long-term success.",
-      category: "6a13f7d2083e8a7fa5a3936e",
-      tags: ["meal-planning", "nutrition", "healthy-living", "diet"],
-      estimatedReadTime: 5,
-      language: "en",
-      imageUrl: null,
-    });
-
-    queryClient.invalidateQueries({ queryKey: ["publishedBlogs"] });
-  };
-
   return (
     <motion.section
       initial="hidden"
@@ -130,19 +114,19 @@ const BlogsPage = () => {
 
       <motion.div variants={item} className="flex justify-between items-start">
         <div>
-          <h2 className="mb-2 text-3xl font-bold">Content & Blogs</h2>
+          <h2 className="mb-4 text-3xl font-bold">Content & Blogs</h2>
           <p className="text-xl font-light text-[#4F4F4F]">
-            Manage wellness articles and content.
+            Manage wellness blogs and content.
           </p>
         </div>
 
-        <button
-          onClick={postBlog}
+        <Link
+          href={"/dashboard/admin/blogs/new-blog"}
           className="px-5 py-2.5 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex"
         >
           <PlusIcon className="text-white" />
           <p className="text-[#FFFEFD] text-[16px] font-medium">Add Blog</p>
-        </button>
+        </Link>
       </motion.div>
 
       {isLoading ? (

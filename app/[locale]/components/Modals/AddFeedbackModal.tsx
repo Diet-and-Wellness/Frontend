@@ -45,7 +45,7 @@ const AddFeedbackModal = ({
     };
   }, [previewUrl]);
 
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     accept: {
       "image/png": [],
       "image/jpeg": [],
@@ -132,7 +132,7 @@ const AddFeedbackModal = ({
 
         <div
           {...getRootProps()}
-          className="mt-2.5 p-5 rounded-2xl border border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-3"
+          className={`mt-2.5 p-5 rounded-2xl border border-dashed ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} border-[#4F4F4F] flex flex-col justify-center items-center gap-3`}
         >
           <input {...getInputProps()} />
 

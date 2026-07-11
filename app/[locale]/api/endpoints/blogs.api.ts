@@ -5,7 +5,6 @@ import type {
   UpdateBlogStatusRequest,
   CategoryId,
   Slug,
-  BlogRequest,
 } from "../types/blogs.types";
 
 export const blogsApi = {
@@ -23,14 +22,14 @@ export const blogsApi = {
   getBlogsById: (blogId: BlogId) => {
     return apiClient.get(`/articles/${blogId}`);
   },
-  createNewBlog: (data: BlogRequest) => {
+  createNewBlog: (data: FormData) => {
     return apiClient.post("/articles/admin", data);
   },
   getAllBlogs: () => {
     return apiClient.get("/articles/admin?status=all");
   },
-  updateBlog: (blogId: BlogId) => {
-    return apiClient.put(`/articles/admin/${blogId}`);
+  updateBlog: (blogId: BlogId, data: FormData) => {
+    return apiClient.put(`/articles/admin/${blogId}`, data);
   },
   deleteBlog: (blogId: BlogId) => {
     return apiClient.delete(`/articles/admin/${blogId}`);

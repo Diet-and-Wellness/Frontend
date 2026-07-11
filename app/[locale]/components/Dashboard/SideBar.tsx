@@ -68,7 +68,7 @@ const SideBar = ({
               />
             ),
             href: "/dashboard/admin/blogs",
-            isActive: pathname === "/dashboard/admin/blogs",
+            isActive: pathname.startsWith("/dashboard/admin/blogs"),
           },
           // {
           //   label: "Recipes",

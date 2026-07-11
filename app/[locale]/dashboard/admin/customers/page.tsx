@@ -150,7 +150,7 @@ const CustomersPage = () => {
 
       {/* Header */}
       <motion.div variants={item}>
-        <h2 className="mb-2 text-3xl font-bold">Customers</h2>
+        <h2 className="mb-4 text-3xl font-bold">Customers</h2>
         <p className="text-xl font-light text-[#4F4F4F]">
           Manage and view all client profiles.
         </p>

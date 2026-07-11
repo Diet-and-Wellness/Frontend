@@ -39,7 +39,7 @@ export interface BlogResponse {
   viewCount: number;
   estimatedReadTime: number;
 
-  imageUrl: string | null;
+  imageUrl: string;
   slug: string;
 
   createdAt: string;
@@ -50,11 +50,11 @@ export interface BlogRequest {
   title: string;
   description: string;
   content: string;
-  language: string;
-  category: string;
-  tags: string[];
-  estimatedReadTime: number;
-  imageUrl: string | null;
+  language?: string;
+  category?: string;
+  tags?: string[];
+  estimatedReadTime?: number;
+  imageUrl: File;
 }
 
 export interface UpdateBlogStatusRequest {

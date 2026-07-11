@@ -26,9 +26,9 @@ const Blog = ({
         <Image
           width={400}
           height={60}
-          src="/images/blog-img.webp"
+          src={blog.imageUrl}
           alt="blog image"
-          className="h-full w-full object-cover object-center transition-transform duration-300 scale-105 hover:scale-110"
+          className="max-h-55 w-full object-cover object-top transition-transform duration-300 scale-105 hover:scale-110"
         />
       </div>
 
@@ -82,9 +82,12 @@ const Blog = ({
             </p>
           </div>
           <div className="flex gap-1 items-center">
-            <button className="size-10 rounded-full flex justify-center items-center hover:bg-gray-200 cursor-pointer">
+            <Link
+              href={`/dashboard/admin/blogs/${blog.id}/edit-blog`}
+              className="size-10 rounded-full flex justify-center items-center hover:bg-gray-200 cursor-pointer"
+            >
               <PenIcon className="text-[#4F4F4F]" />
-            </button>
+            </Link>
             <button
               onClick={showDeleteBlogModal}
               className="size-10 rounded-full flex justify-center items-center hover:bg-red-100 cursor-pointer"

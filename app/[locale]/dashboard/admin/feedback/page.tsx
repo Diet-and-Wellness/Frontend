@@ -248,12 +248,12 @@ const FeedbackCard = ({
   return (
     <motion.div
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="rounded-2xl overflow-hidden max-h-110 relative bg-white"
+      className="rounded-2xl overflow-hidden max-h-110 relative bg-white border border-[#E1E7EF]"
     >
       <div className="relative">
         <div className="relative w-full h-110 overflow-hidden">
           <Image
-            src={feedback.attachmentUrl ?? ""}
+            src={feedback.attachmentUrl}
             alt="feedback"
             fill
             className="object-cover object-top"
@@ -275,7 +275,7 @@ const FeedbackCard = ({
         </motion.div>
       </div>
 
-      <div className="flex flex-col gap-3 bg-white absolute bottom-0 left-0 right-0 p-3.5 rounded-2xl border border-[#E1E7EF]">
+      <div className="flex flex-col gap-3 bg-white absolute bottom-0 left-0 right-0 p-3.5 rounded-t-2xl">
         <div className="flex gap-2.5">
           <Tag label={feedback.crop} />
           <Tag label={feedback.theme} />

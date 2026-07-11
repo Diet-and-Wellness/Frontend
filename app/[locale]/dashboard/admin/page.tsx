@@ -145,7 +145,7 @@ const AdminDashboardIndex = () => {
       className="w-full"
     >
       <motion.div variants={item} className="mb-7.5">
-        <h2 className="text-black text-3xl mb-2 font-bold">Dashboard</h2>
+        <h2 className="text-black text-3xl mb-4 font-bold">Dashboard</h2>
         <p className="text-[#4F4F4F] text-[16px] md:text-[18px] lg:text-[20px] font-light">
           Welcome back, {me.firstName}. Here&apos;s an overview of Diet and
           Wellness.
