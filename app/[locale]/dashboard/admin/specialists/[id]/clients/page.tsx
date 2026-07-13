@@ -9,6 +9,7 @@ import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
 import LeftArrowIcon from "@/app/[locale]/components/icons/LeftArrowIcon";
 import { motion } from "framer-motion";
+import EmptyComp from "@/app/[locale]/components/Public/Empty";
 
 const TABLE_HEADERS = [
   "Name",
@@ -129,31 +130,38 @@ const SpecialistClientsPage = () => {
             </button>
           </motion.div>
 
-          <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
-            <table className="min-w-full divide-y divide-[#E1E7EF]">
-              <thead className="bg-[#FCFCFC]">
-                <tr>
-                  {TABLE_HEADERS.map((header) => (
-                    <th
-                      key={header}
-                      className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
-                    >
-                      {header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+          {(customers?.length ?? 0) > 0 ? (
+            <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
+              <table className="min-w-full divide-y divide-[#E1E7EF]">
+                <thead className="bg-[#FCFCFC]">
+                  <tr>
+                    {TABLE_HEADERS.map((header) => (
+                      <th
+                        key={header}
+                        className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
 
-              <motion.tbody
-                variants={tableContainer}
-                className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
-              >
-                {customers?.map((customer) => (
-                  <CustomerRow key={customer.id} customer={customer} />
-                ))}
-              </motion.tbody>
-            </table>
-          </div>
+                <motion.tbody
+                  variants={tableContainer}
+                  className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
+                >
+                  {customers?.map((customer) => (
+                    <CustomerRow key={customer.id} customer={customer} />
+                  ))}
+                </motion.tbody>
+              </table>
+            </div>
+          ) : (
+            <EmptyComp
+              title="No Assigned Clients Yet"
+              description="Assigned clients will appear here once they have been assigned."
+            />
+          )}
         </motion.div>
       )}
     </>

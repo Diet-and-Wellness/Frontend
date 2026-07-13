@@ -11,6 +11,7 @@ import AssignSpecialistModal from "@/app/[locale]/components/Modals/AssignSpecia
 import { useState } from "react";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 import { AnimatePresence, motion } from "framer-motion";
+import EmptyComp from "@/app/[locale]/components/Public/Empty";
 
 const TABLE_HEADERS = [
   "Name",
@@ -168,7 +169,7 @@ const CustomersPage = () => {
         <div className="place-self-center my-auto">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
-      ) : (
+      ) : (customers?.length ?? 0) > 0 ? (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
           <motion.table
             variants={container}
@@ -206,6 +207,11 @@ const CustomersPage = () => {
             </motion.tbody>
           </motion.table>
         </div>
+      ) : (
+        <EmptyComp
+          title="No Customers Yet"
+          description="Customers will appear here once they join."
+        />
       )}
     </motion.section>
   );

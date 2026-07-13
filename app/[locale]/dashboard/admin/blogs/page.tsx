@@ -11,6 +11,7 @@ import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import { useState } from "react";
 import Link from "next/link";
+import EmptyComp from "@/app/[locale]/components/Public/Empty";
 
 const container = {
   hidden: { opacity: 0 },
@@ -137,7 +138,7 @@ const BlogsPage = () => {
         >
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </motion.div>
-      ) : (
+      ) : blogs.length > 0 ? (
         <motion.div
           layout
           variants={container}
@@ -162,6 +163,11 @@ const BlogsPage = () => {
             </motion.div>
           ))}
         </motion.div>
+      ) : (
+        <EmptyComp
+          title="No Blogs Yet"
+          description="Your blogs will appear here once they have been created."
+        />
       )}
     </motion.section>
   );

@@ -16,6 +16,7 @@ import CreateSpecialistModal from "@/app/[locale]/components/Modals/CreateSpecia
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Link from "next/link";
+import EmptyComp from "@/app/[locale]/components/Public/Empty";
 
 const container = {
   hidden: { opacity: 0 },
@@ -202,7 +203,7 @@ const SpecialistsPage = () => {
         <div className="place-self-center my-auto">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
-      ) : (
+      ) : (specialists?.length ?? 0) > 0 ? (
         <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
           <motion.table
             variants={container}
@@ -252,6 +253,11 @@ const SpecialistsPage = () => {
             </motion.tbody>
           </motion.table>
         </div>
+      ) : (
+        <EmptyComp
+          title="No Specialists Yet"
+          description="Specialists will appear here once they have been added."
+        />
       )}
     </motion.section>
   );

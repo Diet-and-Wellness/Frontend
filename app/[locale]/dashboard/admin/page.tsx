@@ -14,6 +14,7 @@ import BlogsIcon from "../../components/icons/BlogsIcon";
 import StatArrow from "../../components/icons/StatArrow";
 import { useMe } from "../../hooks/useMe";
 import { motion } from "framer-motion";
+import EmptyComp from "../../components/Public/Empty";
 
 type RecentUsersListProps =
   | {
@@ -234,17 +235,31 @@ const RecentUsersList = ({
         animate="show"
         className="flex flex-col gap-3"
       >
-        {usersListType === "specialists"
-          ? usersList.map((user) => (
+        {usersListType === "specialists" ? (
+          usersList.length > 0 ? (
+            usersList.map((user) => (
               <motion.div key={user.id} variants={item}>
                 <RecentSpecialist specialist={user} />
               </motion.div>
             ))
-          : usersList.map((user) => (
-              <motion.div key={user.id} variants={item}>
-                <RecentCustomer customer={user} />
-              </motion.div>
-            ))}
+          ) : (
+            <EmptyComp
+              title="No Specialists Yet"
+              description="Your specialists will appear here once they have been added."
+            />
+          )
+        ) : usersList.length > 0 ? (
+          usersList.map((user) => (
+            <motion.div key={user.id} variants={item}>
+              <RecentCustomer customer={user} />
+            </motion.div>
+          ))
+        ) : (
+          <EmptyComp
+            title="No Clients Yet"
+            description="Clients will appear here once they join."
+          />
+        )}
       </motion.div>
     </div>
   );
