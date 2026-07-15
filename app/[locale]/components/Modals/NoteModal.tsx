@@ -12,23 +12,24 @@ import { useMe } from "../../hooks/useMe";
 import { AnimatePresence } from "framer-motion";
 import AlertModal from "./AlertModal";
 import TrashIllustrator from "../icons/TrashIllustrator";
+import Spinner from "../Public/LoadingSpinner";
 
 const NoteModal = ({
   customerId,
-  currentNote,
   noteId,
+  currentNote,
   onClose,
 }: {
   customerId: string;
-  currentNote: string;
-  noteId: string;
+  noteId: string | null;
+  currentNote: string | null;
   onClose: () => void;
 }) => {
   const queryClient = useQueryClient();
 
   const { data: me } = useMe();
 
-  const [note, setNote] = useState(currentNote);
+  const [note, setNote] = useState(currentNote ?? "");
   const [mode, setMode] = useState(!!currentNote ? "view" : "edit");
   const [showAlertModal, setShowAlertModal] = useState(false);
 
@@ -63,14 +64,14 @@ const NoteModal = ({
     mutationFn: async () => {
       console.log(noteId);
       console.log(note);
-      await notesApi.updateNote(noteId, note);
+      await notesApi.updateNote(noteId ?? "", note);
     },
     onSuccess: validateCustomersList,
   });
 
   const deleteNoteMutation = useMutation({
     mutationFn: async () => {
-      await notesApi.deleteNote(noteId);
+      await notesApi.deleteNote(noteId ?? "");
     },
     onSuccess: validateCustomersList,
   });
@@ -78,6 +79,14 @@ const NoteModal = ({
   const noteChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNote(e.target.value);
   };
+
+  const saveBtnDisabled =
+    note.length === 0 ||
+    editNoteMutation.isPending ||
+    createNoteMutation.isPending ||
+    note === currentNote;
+
+  const isLoading = editNoteMutation.isPending || createNoteMutation.isPending;
 
   return (
     <ModalWrapper>
@@ -99,6 +108,7 @@ const NoteModal = ({
         <div className="flex justify-between items-center">
           <p className="text-[18px] font-medium text-gray-900">Note</p>
           <button
+            disabled={isLoading}
             onClick={onClose}
             className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
           >
@@ -122,12 +132,19 @@ const NoteModal = ({
         <div className="flex justify-between items-center mt-2.5">
           <div className="w-full flex justify-between items-center">
             <div className="flex gap-2.5">
-              <button
-                onClick={() => setShowAlertModal(true)}
-                className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-red-50"
-              >
-                <TrashIcon width={22} height={22} className="text-[#DC2626]" />
-              </button>
+              {!!currentNote && (
+                <button
+                  disabled={isLoading}
+                  onClick={() => setShowAlertModal(true)}
+                  className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-red-50"
+                >
+                  <TrashIcon
+                    width={22}
+                    height={22}
+                    className="text-[#DC2626]"
+                  />
+                </button>
+              )}
               {mode === "view" && (
                 <button
                   onClick={() => setMode("edit")}
@@ -139,11 +156,20 @@ const NoteModal = ({
             </div>
             {mode == "edit" && (
               <button
-                onClick={currentNote ? updateNoteHandler : addNoteHandler}
-                className="px-5 h-10 rounded-full flex justify-center items-center gap-4 cursor-pointer bg-[#4e8e321a] transition-colors duration-150"
+                disabled={saveBtnDisabled}
+                onClick={!!currentNote ? updateNoteHandler : addNoteHandler}
+                className={`px-5 h-10 rounded-full flex justify-center items-center gap-4 ${isLoading || saveBtnDisabled ? "bg-gray-300 text-gray-500" : ""} ${saveBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"} bg-[#4e8e321a] transition-colors duration-150`}
               >
-                <p className="text-[16px] font-medium">Save</p>
-                <SendIcon />
+                {isLoading ? (
+                  <Spinner spinnerSize={25} />
+                ) : (
+                  <div className="flex items-center gap-2.5">
+                    <p className="text-[16px] font-medium">Save</p>
+                    <SendIcon
+                      className={`${saveBtnDisabled ? "text-gray-500" : "text-[#4D8E32]"}`}
+                    />
+                  </div>
+                )}
               </button>
             )}
           </div>

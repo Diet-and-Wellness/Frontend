@@ -12,6 +12,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import UpdateWeightModal from "../../components/Modals/UpdateWeightModal";
 import PenIcon from "../../components/icons/Pen";
+import NoteIcon from "../../components/icons/NoteIcon";
 
 const TABLE_HEADERS = [
   "Name",
@@ -265,13 +266,17 @@ const CustomerRow = ({
           onClick={() =>
             onClickAddNote(
               customer.id,
-              customer.lastNote.content,
+              customer.lastNote?.content,
               customer.lastNote?.id,
             )
           }
           className="flex items-center gap-3 px-4 py-2 rounded-full cursor-pointer border border-[#E1E7EF]"
         >
-          <AddNoteIcon className="text-black" />
+          {!!customer.lastNote ? (
+            <NoteIcon />
+          ) : (
+            <AddNoteIcon className="text-black" />
+          )}
           <p className="text-[16px] text-black">
             {customer.lastNote?.content ? "View" : "Add"} Note
           </p>
