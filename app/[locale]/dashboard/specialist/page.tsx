@@ -273,11 +273,11 @@ const CustomerRow = ({
           className="flex items-center gap-3 px-4 py-2 rounded-full cursor-pointer border border-[#E1E7EF]"
         >
           {!!customer.lastNote ? (
-            <NoteIcon />
+            <NoteIcon className="text-[#4F4F4F]" />
           ) : (
-            <AddNoteIcon className="text-black" />
+            <AddNoteIcon className="text-[#4F4F4F]" />
           )}
-          <p className="text-[16px] text-black">
+          <p className="text-[16px] text-[]">
             {customer.lastNote?.content ? "View" : "Add"} Note
           </p>
         </button>

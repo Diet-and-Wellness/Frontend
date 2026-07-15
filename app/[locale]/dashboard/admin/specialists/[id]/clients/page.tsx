@@ -8,15 +8,20 @@ import { useParams, useRouter } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
 import LeftArrowIcon from "@/app/[locale]/components/icons/LeftArrowIcon";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
+import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
+import ViewNoteModal from "@/app/[locale]/components/Modals/ViewNoteModal";
+import { useState } from "react";
+import { Note } from "@/app/[locale]/api/types/notes.types";
 
 const TABLE_HEADERS = [
   "Name",
   "Email",
   "Phone",
-  "Weight Progress",
+  "Weight Progress (kg)",
   "Height (cm)",
+  "Link To Answers",
   "Note",
 ];
 
@@ -53,6 +58,9 @@ const SpecialistClientsPage = () => {
 
   const router = useRouter();
 
+  const [note, setNote] = useState<Note | null>(null);
+  const [isNoteModalVisible, setIsNoteModalVisible] = useState(false);
+
   const specialistId = params.id as string;
 
   const getSpecialistProfile = async () => {
@@ -85,6 +93,16 @@ const SpecialistClientsPage = () => {
     router.replace("/dashboard/admin/specialists");
   };
 
+  const openNoteModalHandler = (note: Note) => {
+    setNote(note);
+    setIsNoteModalVisible(true);
+  };
+
+  const closeNoteModalHandler = () => {
+    setIsNoteModalVisible(false);
+    setNote(null);
+  };
+
   return (
     <>
       {isSpecialistInfoLoading || isSpecialistClientsLoading ? (
@@ -98,6 +116,12 @@ const SpecialistClientsPage = () => {
           animate="show"
           className="w-full"
         >
+          <AnimatePresence mode="wait">
+            {isNoteModalVisible && (
+              <ViewNoteModal note={note} onClose={closeNoteModalHandler} />
+            )}
+          </AnimatePresence>
+
           <motion.div
             variants={item}
             className="flex justify-between items-start"
@@ -151,7 +175,11 @@ const SpecialistClientsPage = () => {
                   className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
                 >
                   {customers?.map((customer) => (
-                    <CustomerRow key={customer.id} customer={customer} />
+                    <CustomerRow
+                      key={customer.id}
+                      customer={customer}
+                      onViewNote={(note: Note) => openNoteModalHandler(note)}
+                    />
                   ))}
                 </motion.tbody>
               </table>
@@ -174,15 +202,13 @@ const TableCell = ({ children }: { children: React.ReactNode }) => {
   return <td className="whitespace-nowrap px-6 py-4">{children}</td>;
 };
 
-const AddNoteBtn = () => {
-  return (
-    <button className="cursor-pointer">
-      <NoteIcon />
-    </button>
-  );
-};
-
-const CustomerRow = ({ customer }: { customer: Customer }) => {
+const CustomerRow = ({
+  customer,
+  onViewNote,
+}: {
+  customer: Customer;
+  onViewNote: (note: Note) => void;
+}) => {
   return (
     <motion.tr
       layout
@@ -209,17 +235,36 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       <TableCell>
         <p className="text-center">
           {customer.weight.start?.weight
-            ? `${customer.weight.start.weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+            ? `${customer.weight.start.weight} kg ${" "}${" — "}${" "} ${customer.profile.currentWeight} kg`
             : "—"}
         </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
+        <p className="text-center">
+          {customer?.profile?.height ? `${customer.profile.height} cm` : "—"}
+        </p>
       </TableCell>
 
       <TableCell>
-        <AddNoteBtn />
+        <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
+          <div className="min-w-6">
+            <ViewLinkIcon className="text-[#E99532]" />
+          </div>
+          <span>View Answers</span>
+        </button>
+      </TableCell>
+
+      <TableCell>
+        <button
+          disabled={!!!customer.lastNote}
+          onClick={() => onViewNote(customer.lastNote)}
+          className={`${!!customer.lastNote ? "cursor-pointer" : "cursor-not-allowed"}`}
+        >
+          <NoteIcon
+            className={`${!!customer.lastNote ? "text-[#4F4F4F]" : "text-gray-300"}`}
+          />
+        </button>
       </TableCell>
     </motion.tr>
   );
