@@ -15,9 +15,9 @@ const AddNoteIcon = ({ className }: { className: string }) => {
         <path
           d="M6.75 7.25H9.75M9.75 7.25H12.75M9.75 7.25V4.25M9.75 7.25V10.25"
           stroke="black"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>
