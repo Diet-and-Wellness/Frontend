@@ -28,7 +28,7 @@ const Blog = ({
           height={60}
           src={blog.imageUrl}
           alt="blog image"
-          className="max-h-55 w-full object-cover object-top transition-transform duration-300 scale-105 hover:scale-110"
+          className="max-h-65 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
         />
       </div>
 

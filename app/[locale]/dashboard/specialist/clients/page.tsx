@@ -131,8 +131,8 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
 
       <TableCell>
         <p className="text-center">
-          {customer?.profile?.currentWeight
-            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+          {customer.weight.start?.weight
+            ? `${customer.weight.start.weight} ${" "}${" — "}${" "} ${customer.weight.current.weight}`
             : "—"}
         </p>
       </TableCell>

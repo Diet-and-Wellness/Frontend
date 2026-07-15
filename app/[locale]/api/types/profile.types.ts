@@ -30,6 +30,23 @@ export interface AssignCustomersToSpecialist {
   customerIds: string[];
 }
 
+export interface Note {
+  content: string;
+  customer: string;
+  writer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
+    id: string;
+  };
+  attachments: string[];
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
+
 export type Customer = {
   id: string;
   firstName: string;
@@ -57,6 +74,19 @@ export type Customer = {
     location: string;
     maritalStatus: string;
   };
+
+  weight: {
+    current: {
+      weight: number;
+      date: string;
+    };
+    start: {
+      weight: number;
+      date: string;
+    };
+  };
+
+  lastNote: Note;
 
   subscription: {
     name: string;

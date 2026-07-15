@@ -113,12 +113,12 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
             initial={{ opacity: 0, top: 50 }}
             animate={{ opacity: 1, top: 70 }}
             exit={{ opacity: 0, top: 50 }}
-            className={`p-2 border border-[#E1E7EF] rounded-lg bg-white flex flex-col gap-2 absolute right-7.5 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
+            className={`p-2 border border-[#E1E7EF] rounded-lg bg-[#FFFEFD] flex flex-col gap-2 absolute right-7.5 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
           >
             <button
               disabled={logoutMutation.isPending}
               onClick={showLogoutModalHandler}
-              className={`min-w-40 p-2 text-center flex items-center gap-3 cursor-pointer hover:bg-red-50 transition-colors duration-150`}
+              className={`min-w-40 p-2 text-center flex items-center gap-3 cursor-pointer hover:bg-gray-100 transition-colors duration-150 rounded-lg`}
             >
               <LogoutIcon className="text-[#DC2626]" />
               <p className="text-[18px] text-[#DC2626]">Logout</p>

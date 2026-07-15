@@ -6,6 +6,12 @@ import AddNoteIcon from "../../components/icons/AddNoteIcon";
 import { useMe } from "../../hooks/useMe";
 import { profileApi } from "../../api/endpoints/profile.api";
 import Spinner from "../../components/Public/LoadingSpinner";
+import EmptyComp from "../../components/Public/Empty";
+import NoteModal from "../../components/Modals/NoteModal";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import UpdateWeightModal from "../../components/Modals/UpdateWeightModal";
+import PenIcon from "../../components/icons/Pen";
 
 const TABLE_HEADERS = [
   "Name",
@@ -17,6 +23,22 @@ const TABLE_HEADERS = [
 ];
 
 const SpecialistDashboardIndex = () => {
+  const [noteModal, setNoteModal] = useState({
+    isVisible: false,
+    customerId: "",
+    note: "",
+    noteId: "",
+  });
+
+  const [updateWeightModal, setUpdateWeightModal] = useState({
+    isVisible: false,
+    customerId: "",
+    startWeight: 0,
+    currentWeight: 0,
+    firstName: "",
+    lastName: "",
+  });
+
   const { data: me } = useMe();
 
   const getCustomers = async (): Promise<Customer[]> => {
@@ -34,8 +56,85 @@ const SpecialistDashboardIndex = () => {
     queryFn: getCustomers,
   });
 
+  const openNoteModal = (customerId: string, note: string, noteId: string) => {
+    setNoteModal({
+      isVisible: true,
+      customerId: customerId,
+      note: note,
+      noteId: noteId,
+    });
+  };
+
+  const closeNoteModal = () => {
+    setNoteModal({
+      isVisible: false,
+      customerId: "",
+      note: "",
+      noteId: "",
+    });
+  };
+
+  const openUpdateWeightModal = ({
+    customerId,
+    startWeight,
+    currentWeight,
+    firstName,
+    lastName,
+  }: {
+    customerId: string;
+    startWeight: number;
+    currentWeight: number;
+    firstName: string;
+    lastName: string;
+  }) => {
+    setUpdateWeightModal({
+      isVisible: true,
+      customerId: customerId,
+      startWeight: startWeight,
+      currentWeight: currentWeight,
+      firstName: firstName,
+      lastName: lastName,
+    });
+  };
+
+  const closeUpdateWeightModal = () => {
+    setUpdateWeightModal({
+      isVisible: false,
+      customerId: "",
+      startWeight: 0,
+      currentWeight: 0,
+      firstName: "",
+      lastName: "",
+    });
+  };
+
   return (
     <div className="w-full">
+      <AnimatePresence mode="wait">
+        {noteModal.isVisible && (
+          <NoteModal
+            key={noteModal.customerId}
+            customerId={noteModal.customerId}
+            currentNote={noteModal.note}
+            noteId={noteModal.noteId}
+            onClose={closeNoteModal}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {updateWeightModal.isVisible && (
+          <UpdateWeightModal
+            key={updateWeightModal.customerId}
+            customerId={updateWeightModal.customerId}
+            startWeight={updateWeightModal.startWeight}
+            currentWeight={updateWeightModal.currentWeight}
+            name={`${updateWeightModal.firstName} ${updateWeightModal.lastName}`}
+            onClose={closeUpdateWeightModal}
+          />
+        )}
+      </AnimatePresence>
+
       <div className="flex flex-col gap-4">
         <div className="flex gap-5 items-center">
           <h3 className="font-bold text-[30px]">
@@ -57,7 +156,7 @@ const SpecialistDashboardIndex = () => {
         <div className="place-self-center my-50">
           <Spinner spinnerSize={60} borderColor="#4D8E32" />
         </div>
-      ) : (
+      ) : (customers?.length ?? 0) > 0 ? (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
           <table className="min-w-full divide-y divide-[#E1E7EF]">
             <thead className="bg-[#FCFCFC]">
@@ -75,11 +174,33 @@ const SpecialistDashboardIndex = () => {
 
             <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
               {customers?.map((customer) => (
-                <CustomerRow key={customer.id} customer={customer} />
+                <CustomerRow
+                  key={customer.id}
+                  customer={customer}
+                  onClickAddNote={(
+                    customerId: string,
+                    note: string,
+                    noteId: string,
+                  ) => openNoteModal(customerId, note, noteId)}
+                  onClickUpdateWeight={() => {
+                    openUpdateWeightModal({
+                      customerId: customer.id,
+                      startWeight: customer.weight.start?.weight,
+                      currentWeight: customer.weight.current?.weight,
+                      firstName: customer.firstName,
+                      lastName: customer.lastName,
+                    });
+                  }}
+                />
               ))}
             </tbody>
           </table>
         </div>
+      ) : (
+        <EmptyComp
+          title="No Clients Yet"
+          description="Once clients have been assigned, they will appear here."
+        />
       )}
     </div>
   );
@@ -91,16 +212,15 @@ const TableCell = ({ children }: { children: React.ReactNode }) => {
   return <td className="whitespace-nowrap px-6 py-4">{children}</td>;
 };
 
-const AddNoteBtn = () => {
-  return (
-    <button className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl cursor-pointer border border-[#E1E7EF]">
-      <AddNoteIcon className="text-black" />
-      <p className="text-[16px] text-black">Add Note</p>
-    </button>
-  );
-};
-
-const CustomerRow = ({ customer }: { customer: Customer }) => {
+const CustomerRow = ({
+  customer,
+  onClickAddNote,
+  onClickUpdateWeight,
+}: {
+  customer: Customer;
+  onClickAddNote: (customerId: string, note: string, noteId: string) => void;
+  onClickUpdateWeight: (customerId: string) => void;
+}) => {
   return (
     <tr className="text-base font-light text-[#4F4F4F] transition-colors">
       <TableCell>
@@ -121,19 +241,41 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       </TableCell>
 
       <TableCell>
+        <button
+          onClick={() => onClickUpdateWeight(customer.id)}
+          className="flex justify-center items-center gap-2.5 cursor-pointer w-full"
+        >
+          <p className="text-center">
+            {customer.weight.start?.weight
+              ? `${customer.weight.start.weight} kg ${" "}${" — "}${" "} ${customer.weight.current.weight} kg`
+              : "—"}
+          </p>
+          <PenIcon className="text-[#A4A4A4]" />
+        </button>
+      </TableCell>
+
+      <TableCell>
         <p className="text-center">
-          {customer?.profile?.currentWeight
-            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
-            : "—"}
+          {customer?.profile?.height ? `${customer.profile.height} cm` : "—"}
         </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
-      </TableCell>
-
-      <TableCell>
-        <AddNoteBtn />
+        <button
+          onClick={() =>
+            onClickAddNote(
+              customer.id,
+              customer.lastNote.content,
+              customer.lastNote?.id,
+            )
+          }
+          className="flex items-center gap-3 px-4 py-2 rounded-full cursor-pointer border border-[#E1E7EF]"
+        >
+          <AddNoteIcon className="text-black" />
+          <p className="text-[16px] text-black">
+            {customer.lastNote?.content ? "View" : "Add"} Note
+          </p>
+        </button>
       </TableCell>
     </tr>
   );

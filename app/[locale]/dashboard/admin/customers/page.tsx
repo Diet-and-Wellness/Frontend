@@ -250,14 +250,16 @@ const CustomerRow = ({
 
       <TableCell>
         <p className="text-center">
-          {customer?.profile?.currentWeight
-            ? `${customer.profile.weightHistory[0].weight} ${" "}${" — "}${" "} ${customer.profile.currentWeight}`
+          {customer.weight.start?.weight
+            ? `${customer.weight.start.weight} kg ${" "}${" — "}${" "} ${customer.weight.current.weight} kg`
             : "—"}
         </p>
       </TableCell>
 
       <TableCell>
-        <p className="text-center">{customer?.profile?.height ?? "—"}</p>
+        <p className="text-center">
+          {customer?.profile?.height ? `${customer.profile.height} cm` : "—"}
+        </p>
       </TableCell>
 
       {/* Subscription */}

@@ -47,4 +47,7 @@ export const profileApi = {
   getAdminDashboard: () => {
     return apiClient.get("/profile/admin/dashboard");
   },
+  updateWeight: (customerId: string, weight: number) => {
+    return apiClient.patch(`/profile/${customerId}/weight`, { weight });
+  },
 };
