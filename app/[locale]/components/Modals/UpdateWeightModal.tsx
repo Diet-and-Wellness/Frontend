@@ -82,7 +82,7 @@ const UpdateWeightModal = ({
 
         <div className="flex justify-between px-3.5 py-2.5 bg-[#EDEDED] border border-[#E1E7EF] rounded-xl">
           <p className="text-[16px]">Starting Weight</p>
-          <p className="text-[16px] font-semibold">{startWeight} Kg</p>
+          <p className="text-[16px] font-semibold">{startWeight ?? 0} Kg</p>
         </div>
 
         <div className="flex flex-col gap-3">
