@@ -25,3 +25,8 @@ export interface Note {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface NoteRequest {
+  customer_id: string;
+  content: string;
+}

@@ -2,11 +2,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { blogsApi } from "../../api/endpoints/blogs.api";
-import { useQuery } from "@tanstack/react-query";
 import { BlogResponse } from "../../api/types/blogs.types";
 import Blog from "../../components/Blogs/Blog";
 import Spinner from "../../components/Public/LoadingSpinner";
+import { useBlogs } from "../../hooks/useBlogs";
 
 const container = {
   hidden: {},
@@ -67,15 +66,7 @@ const textVariant = {
 const BlogPage = () => {
   const t = useTranslations();
 
-  const getAllBlogs = async () => {
-    const { data } = await blogsApi.getAllPublishedBlogs({});
-    return data?.data ?? [];
-  };
-
-  const { data: blogs, isLoading } = useQuery({
-    queryKey: ["landingBlogs"],
-    queryFn: getAllBlogs,
-  });
+  const { data: blogs, isLoading } = useBlogs();
 
   return (
     <section className="mb-20">
@@ -158,7 +149,7 @@ const BlogPage = () => {
 
       {isLoading || (
         <button
-          onClick={getAllBlogs}
+          onClick={() => {}}
           className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2 lg:py-2.5 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200"
         >
           <p className="text-[#E99532] text-[16px] md:text-[18px] font-semibold">

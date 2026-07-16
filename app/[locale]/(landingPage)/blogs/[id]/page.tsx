@@ -6,6 +6,10 @@ import { formatDate } from "@/app/[locale]/utils/formateDate";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useBlog } from "@/app/[locale]/hooks/useBlog";
 import ViewIcon from "@/app/[locale]/components/icons/ViewIcon";
+import { useBlogs } from "@/app/[locale]/hooks/useBlogs";
+import { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
+import Blog from "@/app/[locale]/components/Blogs/Blog";
+import { useMemo } from "react";
 
 const BlogDetails = () => {
   const pathname = usePathname();
@@ -14,7 +18,11 @@ const BlogDetails = () => {
 
   const { data: blog, isLoading } = useBlog(slug);
 
-  console.log("blog details ===> ", blog);
+  const { data: blogs, isLoading: isBlogsLoading } = useBlogs();
+
+  const filteredBlogs = useMemo(() => {
+    return blogs?.filter((blg: BlogResponse) => blg.slug !== slug);
+  }, [blogs, slug]);
 
   return (
     <section className="min-h-screen min-w-full">
@@ -74,6 +82,23 @@ const BlogDetails = () => {
           <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px] whitespace-pre-wrap">
             {blog.content}
           </p>
+
+          {isBlogsLoading ? (
+            <div className="place-self-center my-25">
+              <Spinner spinnerSize={60} borderColor="#4D8E32" />
+            </div>
+          ) : (
+            <div className="mt-10 max-w-full mx-auto">
+              <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[34px] font-medium mb-5 lg:mb-10">
+                You may also like
+              </h4>
+              <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
+                {filteredBlogs?.map((blog: BlogResponse) => (
+                  <Blog key={blog.id} type="landing" blog={blog} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

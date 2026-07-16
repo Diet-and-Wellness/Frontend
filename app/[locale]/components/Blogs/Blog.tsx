@@ -28,7 +28,7 @@ const Blog = ({
           height={60}
           src={blog.imageUrl}
           alt="blog image"
-          className="max-h-65 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
+          className="max-h-60 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
         />
       </div>
 
@@ -66,7 +66,7 @@ const Blog = ({
             href={`/blogs/${blog.slug}`}
             className="group hover:bg-[#2E551E] transition-colors duration-400 mt-2 py-2 px-6 lg:px-8 rounded-full border-2 border-[#2E551E]"
           >
-            <span className="text-[#2E551E] font-bold text-center text-[14px] md:text-[18px] group-hover:text-white transition-colors duration-400">
+            <span className="text-[#2E551E] font-bold text-center text-[14px] md:text-[17px] group-hover:text-white transition-colors duration-400">
               {t("blogs.readMore")}
             </span>
           </Link>

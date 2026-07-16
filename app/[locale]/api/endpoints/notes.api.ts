@@ -1,8 +1,8 @@
 import apiClient from "../client";
-import { lastNoteParams, Note, NoteParams } from "../types/notes.types";
+import { lastNoteParams, NoteParams, NoteRequest } from "../types/notes.types";
 
 export const notesApi = {
-  createNote: (data: Note) => {
+  createNote: (data: NoteRequest) => {
     return apiClient.post("/notes", data);
   },
   getNote: (id: string) => {
