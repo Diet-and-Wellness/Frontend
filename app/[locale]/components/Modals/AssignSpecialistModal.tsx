@@ -158,7 +158,7 @@ const AssignSpecialistModal = ({
               selectedSpecialistId === assignmentData.currentSpecialistId ||
               pending
             }
-            className="w-full min-h-12.5 bg-[#E99532] rounded-2xl text-white font-semibold text-lg cursor-pointer flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full min-h-12 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {pending ? <Spinner spinnerSize={30} /> : "Assign Specialist"}
           </button>
