@@ -113,14 +113,14 @@ const SideBar = ({
             isActive: pathname === "/dashboard/specialist",
           },
           {
-            label: "Profile",
+            label: "Settings",
             icon: (
               <SettingsIcon
-                className={`${pathname === "/dashboard/specialist/profile" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/specialist/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
               />
             ),
-            href: "/dashboard/specialist/profile",
-            isActive: pathname === "/dashboard/specialist/profile",
+            href: "/dashboard/specialist/settings",
+            isActive: pathname === "/dashboard/specialist/settings",
           },
         ];
 

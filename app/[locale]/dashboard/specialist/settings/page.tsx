@@ -1,10 +1,10 @@
 "use client";
 
-import AdminProfileTab from "@/app/[locale]/components/Dashboard/AdminProfileTab";
-import SecurityTab from "@/app/[locale]/components/Dashboard/SecurityTab";
-import Tab from "@/app/[locale]/components/Dashboard/Tab";
 import { AnimatePresence, motion } from "framer-motion";
+import Tab from "@/app/[locale]/components/Dashboard/Tab";
 import { useState } from "react";
+import SecurityTab from "@/app/[locale]/components/Dashboard/SecurityTab";
+import SpecialistProfileTab from "@/app/[locale]/components/Dashboard/SpecialistProfileTab";
 
 const container = {
   hidden: { opacity: 0 },
@@ -36,7 +36,7 @@ const SettingsPage = () => {
       <motion.div variants={item} className="flex flex-col gap-2">
         <h3 className="font-bold text-[30px]">Settings</h3>
         <p className="text-[#4F4F4F] text-[20px]">
-          Manage your admin profile and account security.
+          Manage your profile and account security.
         </p>
       </motion.div>
 
@@ -55,7 +55,7 @@ const SettingsPage = () => {
 
       <AnimatePresence mode="wait">
         {activeTab === "profile" ? (
-          <AdminProfileTab key="profile" />
+          <SpecialistProfileTab key="profile" />
         ) : (
           <SecurityTab key="security" />
         )}
