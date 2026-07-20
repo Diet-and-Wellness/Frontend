@@ -1,7 +1,7 @@
 "use client";
 
 import BlogForm from "@/app/[locale]/components/Blogs/BlogForm";
-import LeftArrowIcon from "@/app/[locale]/components/icons/LeftArrowIcon";
+import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
@@ -53,7 +53,7 @@ const AddNewBlogPage = () => {
           onClick={backToMainBlogsPage}
           className="flex items-center gap-3 px-5 py-2 border border-[#E1E7EF] cursor-pointer rounded-full bg-[#FFFEFD]"
         >
-          <LeftArrowIcon />
+          <ArrowIcon />
           <p className="text-[16px] font-semibold">Back to Blogs</p>
         </button>
       </motion.div>

@@ -1,11 +1,61 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Tool from "./Tool";
 import { useTranslations } from "next-intl";
+import BMI from "../Modals/BMI";
+import { useState } from "react";
+import IBW from "../Modals/IBW";
+import CalCal from "../Modals/CalCal";
+import BeforeStartAssessment from "../Modals/BeforeStartAssessment";
 
 const OurTools = () => {
   const t = useTranslations();
+
+  const [showBmiModal, setShowBmiModal] = useState(false);
+  const [showIbwModal, setShowIbwModal] = useState(false);
+  const [showCalCalModal, setShowCalCalModal] = useState(false);
+  const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
+    useState(false);
+
+  const tryBmiCalc = () => {
+    setShowBmiModal(true);
+  };
+
+  const closeBmiModal = () => {
+    setShowBmiModal(false);
+  };
+
+  const tryPerfectWeightCalc = () => {
+    setShowIbwModal(true);
+  };
+
+  const closeIbwModal = () => {
+    setShowIbwModal(false);
+  };
+
+  const tryCalCal = () => {
+    setShowCalCalModal(true);
+  };
+
+  const closeCalCalModal = () => {
+    setShowCalCalModal(false);
+  };
+
+  const tryFullAssessment = () => {
+    setShowBeforeStartAssessmentModal(true);
+  };
+
+  const closeBeforeAssessmentModal = () => {
+    setShowBeforeStartAssessmentModal(false);
+  };
+
+  const getFullAnalysis = () => {
+    setShowBmiModal(false);
+    setShowIbwModal(false);
+    setShowCalCalModal(false);
+    setShowBeforeStartAssessmentModal(true);
+  };
 
   const toolsList = [
     {
@@ -14,6 +64,7 @@ const OurTools = () => {
       toolName: t("tools.bmiCalculator.name"),
       toolDesc: t("tools.bmiCalculator.description"),
       href: "/",
+      onTry: tryBmiCalc,
     },
     {
       isFree: true,
@@ -21,6 +72,7 @@ const OurTools = () => {
       toolName: t("tools.perfectWeightCalculator.name"),
       toolDesc: t("tools.perfectWeightCalculator.description"),
       href: "/",
+      onTry: tryPerfectWeightCalc,
     },
     {
       isFree: true,
@@ -28,6 +80,7 @@ const OurTools = () => {
       toolName: t("tools.calorieCalculator.name"),
       toolDesc: t("tools.calorieCalculator.description"),
       href: "/",
+      onTry: tryCalCal,
     },
     {
       isFree: false,
@@ -35,6 +88,7 @@ const OurTools = () => {
       toolName: t("tools.nutritionAnalysis.name"),
       toolDesc: t("tools.nutritionAnalysis.description"),
       href: "/",
+      onTry: tryFullAssessment,
     },
   ];
 
@@ -56,6 +110,33 @@ const OurTools = () => {
       bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
       <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-25">
+        <AnimatePresence mode="wait">
+          {showBmiModal && (
+            <BMI onClose={closeBmiModal} onGetFullAnalysis={getFullAnalysis} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {showIbwModal && (
+            <IBW onClose={closeIbwModal} onGetFullAnalysis={getFullAnalysis} />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {showCalCalModal && (
+            <CalCal
+              onClose={closeCalCalModal}
+              onGetFullAnalysis={getFullAnalysis}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {showBeforeStartAssessmentModal && (
+            <BeforeStartAssessment onClose={closeBeforeAssessmentModal} />
+          )}
+        </AnimatePresence>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -97,6 +178,7 @@ const OurTools = () => {
                 toolName={tool.toolName}
                 toolDesc={tool.toolDesc}
                 href={tool.href}
+                onTry={tool.onTry}
               />
             ))}
           </ul>

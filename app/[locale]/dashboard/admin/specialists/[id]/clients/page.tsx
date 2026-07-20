@@ -7,13 +7,13 @@ import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
-import LeftArrowIcon from "@/app/[locale]/components/icons/LeftArrowIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import ViewNoteModal from "@/app/[locale]/components/Modals/ViewNoteModal";
 import { useState } from "react";
 import { Note } from "@/app/[locale]/api/types/notes.types";
+import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 
 const TABLE_HEADERS = [
   "Name",
@@ -149,7 +149,7 @@ const SpecialistClientsPage = () => {
               onClick={backToSpecialistHandler}
               className="flex items-center gap-3 px-5 py-2 border border-[#E1E7EF] cursor-pointer rounded-full bg-[#FFFEFD]"
             >
-              <LeftArrowIcon />
+              <ArrowIcon />
               <p className="text-[16px] font-semibold">Back to Specialists</p>
             </button>
           </motion.div>

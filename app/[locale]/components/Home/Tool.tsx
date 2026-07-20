@@ -10,6 +10,7 @@ type toolPropsType = {
   toolName: string;
   toolDesc: string;
   href: string;
+  onTry: () => void;
 };
 
 const Tool = ({
@@ -18,6 +19,7 @@ const Tool = ({
   toolName,
   toolDesc,
   href,
+  onTry,
 }: toolPropsType) => {
   const t = useTranslations();
 
@@ -91,7 +93,7 @@ const Tool = ({
 
       {/* Button */}
       <button
-        onClick={() => console.log("nav to tool: ", href)}
+        onClick={onTry}
         className={`
             py-2
             border-2 ${isFree ? "border-[#4D8E32]" : "border-[#E99532]"}
