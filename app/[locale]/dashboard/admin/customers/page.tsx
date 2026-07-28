@@ -1,13 +1,13 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
+import StateComp from "../../_components/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { Customer } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
-import AssignSpecialistModal from "@/app/[locale]/components/Modals/AssignSpecialistModal";
+import AssignSpecialistModal from "./_components/AssignSpecialistModal";
 import { useState } from "react";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 import { AnimatePresence, motion } from "framer-motion";

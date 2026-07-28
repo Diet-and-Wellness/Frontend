@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { Customer } from "@/app/[locale]/api/types/profile.types";
+import { Customer, LastNote } from "@/app/[locale]/api/types/profile.types";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useParams, useRouter } from "next/navigation";
@@ -10,9 +10,8 @@ import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
-import ViewNoteModal from "@/app/[locale]/components/Modals/ViewNoteModal";
+import ViewNoteModal from "./_components/ViewNoteModal";
 import { useState } from "react";
-import { Note } from "@/app/[locale]/api/types/notes.types";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 
 const TABLE_HEADERS = [
@@ -58,7 +57,7 @@ const SpecialistClientsPage = () => {
 
   const router = useRouter();
 
-  const [note, setNote] = useState<Note | null>(null);
+  const [note, setNote] = useState<LastNote | null>(null);
   const [isNoteModalVisible, setIsNoteModalVisible] = useState(false);
 
   const specialistId = params.id as string;
@@ -93,7 +92,7 @@ const SpecialistClientsPage = () => {
     router.replace("/dashboard/admin/specialists");
   };
 
-  const openNoteModalHandler = (note: Note) => {
+  const openNoteModalHandler = (note: LastNote) => {
     setNote(note);
     setIsNoteModalVisible(true);
   };
@@ -178,7 +177,9 @@ const SpecialistClientsPage = () => {
                     <CustomerRow
                       key={customer.id}
                       customer={customer}
-                      onViewNote={(note: Note) => openNoteModalHandler(note)}
+                      onViewNote={(note: LastNote) =>
+                        openNoteModalHandler(note)
+                      }
                     />
                   ))}
                 </motion.tbody>
@@ -207,7 +208,7 @@ const CustomerRow = ({
   onViewNote,
 }: {
   customer: Customer;
-  onViewNote: (note: Note) => void;
+  onViewNote: (note: LastNote) => void;
 }) => {
   return (
     <motion.tr

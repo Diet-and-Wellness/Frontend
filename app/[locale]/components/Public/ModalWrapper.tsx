@@ -13,7 +13,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
     >
       {/* scroll container */}
       <motion.div
-        className="max-h-[90vh] w-full flex justify-center p-4 overflow-y-auto"
+        className="max-h-[95vh] w-full flex justify-center p-4 overflow-y-auto"
         initial={{ scale: 0.85, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 10 }}

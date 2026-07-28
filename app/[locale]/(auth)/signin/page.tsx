@@ -1,11 +1,14 @@
 "use client";
 
-import Form from "../../components/Auth/Form";
+import AuthFormLayout from "../_components/AuthFormLayout";
+import SigninForm from "../_components/SigninForm";
 
 const SignIn = () => {
   return (
     <div className="w-full">
-      <Form type={"signin"} />
+      <AuthFormLayout>
+        <SigninForm />
+      </AuthFormLayout>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import PricePlan from "../../components/Pricing/PricePlan";
+import PricePlan from "./_components/PricePlan";
 import { useTranslations } from "next-intl";
 import { SubscriptionPlanResponse } from "../../api/types/subscription.types";
 import Spinner from "../../components/Public/LoadingSpinner";

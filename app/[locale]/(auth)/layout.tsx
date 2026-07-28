@@ -1,6 +1,6 @@
 import React from "react";
-import AuthHeader from "../components/Auth/AuthHeader";
-import AuthFooter from "../components/Auth/AuthFooter";
+import AuthHeader from "./_components/AuthHeader";
+import AuthFooter from "./_components/AuthFooter";
 
 const authLayout = ({ children }: { children: React.ReactNode }) => {
   return (

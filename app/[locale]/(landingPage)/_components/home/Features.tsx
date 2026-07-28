@@ -1,0 +1,229 @@
+"use client";
+
+import Image from "next/image";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { useTranslations } from "next-intl";
+
+const Features = () => {
+  const t = useTranslations("features");
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const featuresList = [
+    {
+      title: t("healthAssessment.title"),
+      points: t.raw("healthAssessment.points"),
+      img: "/images/FreeTools.webp",
+      checkPointIcon: "/icons/checkpoint_green.svg",
+      imgStyle: "md:w-55 md:right-0 md:-top-20 lg:w-90 lg:right-5 lg:-top-30",
+      bgStyle: "bg-[#CBE4C0]",
+      textStyle: "text-[#2E551E]",
+    },
+    {
+      title: t("personalizedPlan.title"),
+      points: t.raw("personalizedPlan.points"),
+      img: "/images/PrivateSpecialist.webp",
+      checkPointIcon: "/icons/checkpoint_white.svg",
+      imgStyle: "md:w-70 md:right-0 md:-top-25 lg:w-120 lg:right-0 lg:-top-30",
+      bgStyle: "bg-[#4D8E32]",
+      textStyle: "text-white",
+    },
+    {
+      title: t("ongoingSupport.title"),
+      points: t.raw("ongoingSupport.points"),
+      img: "/images/HelpAndSupport.webp",
+      checkPointIcon: "/icons/checkpoint_white.svg",
+      imgStyle:
+        "md:w-50 md:right-0 md:-bottom-30 lg:w-80 lg:right-0 lg:-bottom-40",
+      bgStyle: "bg-[#3A6B26]",
+      textStyle: "text-white",
+    },
+  ];
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section ref={containerRef} className="relative">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 1 }}
+        className="mt-20 max-w-xl lg:max-w-2xl mx-auto text-center px-10 lg:px-4"
+      >
+        <h2 className="font-medium text-3xl text-black md:text-5xl lg:text-6xl">
+          {t("exploreOurFeatures")}
+        </h2>
+
+        <p className="text-base md:text-xl mt-5 text-black">
+          {t("healthGuidanceDescription")}
+        </p>
+
+        <motion.div
+          animate={{ y: [0, -15, 0] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="max-w-fit mx-auto mt-7.5"
+        >
+          <Image
+            src="/icons/arrow-down.svg"
+            alt="arrow down"
+            width={84}
+            height={84}
+            className="w-15 h-15 lg:w-18 lg:h-18 xl:w-21 xl:h-21"
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Cards */}
+      <div className="relative px-5 md:px-7.5">
+        {featuresList.map((feature, index) => {
+          const targetScale = 1 - (featuresList.length - index) * 0.03;
+          return (
+            <FeatureCard
+              key={index}
+              feature={feature}
+              index={index}
+              progress={scrollYProgress}
+              range={[index * 0.25, 1]}
+              targetScale={targetScale}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
+type featurePropType = {
+  title: string;
+  points: string[];
+  img: string;
+  imgStyle: string;
+  bgStyle: string;
+  checkPointIcon: string;
+  textStyle: string;
+};
+
+type CardProps = {
+  feature: featurePropType;
+  index: number;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
+};
+
+const FeatureCard = ({
+  feature,
+  index,
+  progress,
+  range,
+  targetScale,
+}: CardProps) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "start start"],
+  });
+
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.4, 1]);
+
+  const scale = useTransform(progress, range, [1, targetScale]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="sticky top-10 h-screen flex items-center justify-center"
+    >
+      <motion.div
+        style={{
+          scale,
+          top: `calc(-5vh + ${index * 25}px)`,
+          willChange: "transform",
+        }}
+        className={`
+          relative
+          origin-top
+          max-w-full
+          md:max-w-7xl
+          p-8 pb-0
+          md:p-12
+          lg:p-15
+          rounded-3xl
+          shadow-2xl
+          w-full
+          h-fit
+          transform-gpu
+          overflow-hidden
+          ${feature.bgStyle}
+        `}
+      >
+        {/* Content */}
+        <div className="flex flex-col gap-7 lg:gap-10 max-w-4xl justify-center relative z-10">
+          <h3
+            className={`text-2xl md:text-3xl lg:text-[45px] xl:text-[60px] font-bold ${feature.textStyle}`}
+          >
+            {feature.title}
+          </h3>
+
+          <ul className="flex flex-col gap-4 md:gap-5 lg:gap-8">
+            {feature.points.map((point, index) => (
+              <li key={index} className="flex flex-row gap-3 items-start">
+                <Image
+                  src={feature.checkPointIcon}
+                  alt="feature"
+                  width={700}
+                  height={600}
+                  className="w-5 h-7 lg:w-6 lg:h-7 xl:w-9.5 xl:h-8"
+                />
+
+                <p
+                  className={`text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] font-medium ${feature.textStyle}`}
+                >
+                  {point}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Image */}
+        <motion.div
+          style={{
+            scale: imageScale,
+            willChange: "transform",
+          }}
+          className="w-full relative place-self-center md:absolute md:inset-0 pointer-events-none"
+        >
+          <Image
+            src={feature.img}
+            alt="feature"
+            width={400}
+            height={200}
+            className={`
+              md:absolute
+              z-20
+              h-40
+              w-auto
+              md:h-auto
+              transform-gpu
+              place-self-end
+              ${feature.imgStyle}
+            `}
+          />
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Features;

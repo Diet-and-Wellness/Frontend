@@ -1,8 +1,8 @@
-import Features from "../components/Home/Features";
-import GetStarted from "../components/Home/GetStarted";
-import Hero from "../components/Home/Hero";
-import OurTools from "../components/Home/OurTools";
-import RealStories from "../components/Home/RealStories";
+import Features from "./_components/home/Features";
+import GetStarted from "./_components/home/GetStarted";
+import Hero from "./_components/home/Hero";
+import OurTools from "./_components/home/OurTools";
+import RealStories from "./_components/home/RealStories";
 
 const landingHome = () => {
   return (

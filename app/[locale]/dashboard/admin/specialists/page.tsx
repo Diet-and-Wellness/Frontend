@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
+import StateComp from "../../_components/StateComp";
 import Dots from "@/app/[locale]/components/icons/Dots";
 import { AnimatePresence, motion } from "framer-motion";
 import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
 import MenuIcon from "@/app/[locale]/components/icons/MenuIcon";
-import Switch from "@/app/[locale]/components/Dashboard/Switch";
+import Switch from "../../_components/Switch";
 import PlusIcon from "@/app/[locale]/components/icons/PlusIcon";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
-import CreateSpecialistModal from "@/app/[locale]/components/Modals/CreateSpecialistModal";
+import CreateSpecialistModal from "./_components/CreateSpecialistModal";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Link from "next/link";

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import DashboardHeader from "../components/Dashboard/Header";
-import SideBar from "../components/Dashboard/SideBar";
+import DashboardHeader from "./_components/Header";
+import SideBar from "./_components/SideBar";
 import { motion } from "framer-motion";
 import { useMe } from "../hooks/useMe";
 import { getCleanPathname } from "../utils/getCleanPathname";

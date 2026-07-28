@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import StatCard from "../../components/Dashboard/StatCard";
+import StatCard from "./_components/StatCard";
 import SpecialistIcon from "../../components/icons/SpecialistIcon";
 import { profileApi } from "../../api/endpoints/profile.api";
 import { SpecialistDTO, Customer } from "../../api/types/profile.types";
 import { useQuery } from "@tanstack/react-query";
-import RecentSpecialist from "../../components/Dashboard/RecentSpecialist";
-import RecentCustomer from "../../components/Dashboard/RecentCustomer";
+import RecentSpecialist from "./_components/RecentSpecialist";
+import RecentCustomer from "./_components/RecentCustomer";
 import CustomersIcon from "../../components/icons/CustomersIcon";
 import SpecialistsIcon from "../../components/icons/SpecialistsIcon";
 import BlogsIcon from "../../components/icons/BlogsIcon";

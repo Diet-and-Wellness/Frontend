@@ -1,15 +1,22 @@
 import GainIcon from "../icons/GainIcon";
 import LossIcon from "../icons/LossIcon";
 import MaintenanceIcon from "../icons/MaintenanceIcon";
+import { motion } from "framer-motion";
 
 type CaloriesCardType = "maintenance" | "loss" | "gain";
 
 const CaloriesCard = ({
   type,
   calories,
+  isActive,
+  clickable,
+  onClick,
 }: {
   type: CaloriesCardType;
   calories: number;
+  isActive?: boolean;
+  clickable?: boolean;
+  onClick?: () => void;
 }) => {
   const caloriesCardData = {
     maintenance: {
@@ -30,7 +37,7 @@ const CaloriesCard = ({
     },
     gain: {
       cardName: "Muscle Gain",
-      target: "−0.5 kg/week",
+      target: "+0.5 kg/week",
       note: "500 kcal surplus for healthy weight gain",
       caloriesColor: "#E99532",
       cardBackground: "#FDF4EB",
@@ -42,7 +49,11 @@ const CaloriesCard = ({
     caloriesCardData[type];
 
   return (
-    <div className="max-w-60 p-5 rounded-2xl border border-[#EDEDED] flex flex-col gap-3.5">
+    <button
+      disabled={!clickable}
+      onClick={onClick}
+      className={`w-full h-full p-5 rounded-4xl ring ${isActive ? "ring-2 ring-[#4D8E32]" : "ring-[#EDEDED]"} flex flex-col justify-between gap-3.5 ${clickable ? "cursor-pointer" : ""} transition-all duration-150`}
+    >
       <div className="flex justify-between items-center">
         <div
           className={`size-12 rounded-full flex justify-center items-center`}
@@ -58,19 +69,34 @@ const CaloriesCard = ({
       </div>
 
       <div className="flex justify-between items-baseline">
-        <p className="text-[38px] font-bold" style={{ color: caloriesColor }}>
+        <motion.p
+          key={calories}
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.25,
+          }}
+          className="text-[38px] font-bold"
+          style={{ color: caloriesColor }}
+        >
           {calories}
-        </p>
+        </motion.p>
         <p className="text-[16px] text-[#4F4F4F]">kcal/day</p>
       </div>
 
       <p
-        className="rounded-2xl w-full px-5 py-3.5 text-[#4F4F4F] text-[14px]"
+        className="text-left rounded-2xl w-full px-6 py-3.5 text-[#4F4F4F] text-[15px]"
         style={{ backgroundColor: cardBackground }}
       >
         {note}
       </p>
-    </div>
+    </button>
   );
 };
 

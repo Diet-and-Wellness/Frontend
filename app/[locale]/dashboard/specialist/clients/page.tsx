@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import StateComp from "@/app/[locale]/components/Dashboard/StateComp";
+import StateComp from "@/app/[locale]/dashboard/_components/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";

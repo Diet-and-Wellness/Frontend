@@ -16,16 +16,17 @@ const ActivityLevelCard = ({
 }) => {
   const getActivityLevelIcon = () => {
     switch (level) {
-      case "light":
+      case "Low":
         return <LowActivityIcon />;
-      case "moderate":
+      case "Moderate":
         return <MediumActivityIcon />;
-      case "active":
+      case "High":
         return <HighActivityIcon />;
-      case "very active":
+      case "Extreme":
         return <VeryHighActivityIcon />;
     }
   };
+
   return (
     <button
       onClick={selectActivityLevelHandler}

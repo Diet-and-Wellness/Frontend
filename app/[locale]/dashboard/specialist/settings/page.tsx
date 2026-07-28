@@ -1,10 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Tab from "@/app/[locale]/components/Dashboard/Tab";
+import Tab from "@/app/[locale]/dashboard/_components/settings/Tab";
 import { useState } from "react";
-import SecurityTab from "@/app/[locale]/components/Dashboard/SecurityTab";
-import SpecialistProfileTab from "@/app/[locale]/components/Dashboard/SpecialistProfileTab";
+import SecurityTab from "@/app/[locale]/dashboard/_components/settings/SecurityTab";
+import SpecialistProfileTab from "./_components/SpecialistProfileTab";
 
 const container = {
   hidden: { opacity: 0 },

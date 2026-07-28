@@ -1,6 +1,6 @@
 "use client";
 
-import BlogForm from "@/app/[locale]/components/Blogs/BlogForm";
+import BlogForm from "../_components/BlogForm";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { motion } from "framer-motion";

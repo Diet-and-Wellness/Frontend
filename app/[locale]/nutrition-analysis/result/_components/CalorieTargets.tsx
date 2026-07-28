@@ -1,0 +1,79 @@
+import { AnimatePresence, motion } from "framer-motion";
+import type { CalorieCalculatorResult, MacroResult } from "@/app/[locale]/api/types/assessment.types";
+import CaloriesCard from "@/app/[locale]/components/Public/CaloriesCard";
+import MacrosCard from "./MacrosCard";
+
+export type MacroGoal = "maintenance" | "fatloss" | "musclegain";
+
+type CalorieTargetsProps = {
+  calories: CalorieCalculatorResult | null;
+  macros: MacroResult | null;
+  activeGoal: MacroGoal;
+  onGoalChange: (goal: MacroGoal) => void;
+};
+
+const goalByCardType = {
+  maintenance: "maintenance",
+  loss: "fatloss",
+  gain: "musclegain",
+} as const;
+
+export default function CalorieTargets({
+  calories,
+  macros,
+  activeGoal,
+  onGoalChange,
+}: CalorieTargetsProps) {
+  const cards = [
+    { type: "maintenance", calories: calories?.maintenanceCalories ?? 0 },
+    { type: "loss", calories: calories?.fatLossCalories ?? 0 },
+    { type: "gain", calories: calories?.muscleGainCalories ?? 0 },
+  ] as const;
+
+  return (
+    <div className="flex flex-col gap-7.5">
+      <div>
+        <p className="text-[25px] font-bold mb-1.5">Daily Calorie Targets</p>
+        <p className="text-[#4F4F4F] text-[16px]">Choose the goal that fits you today.</p>
+      </div>
+
+      <div className="grid grid-cols-3 gap-10">
+        {cards.map((card) => {
+          const goal = goalByCardType[card.type];
+
+          return (
+            <motion.div
+              key={card.type}
+              layout
+              whileTap={{ scale: 0.98 }}
+              animate={{ scale: activeGoal === goal ? 1.02 : 1 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+            >
+              <CaloriesCard
+                type={card.type}
+                calories={card.calories}
+                clickable
+                isActive={activeGoal === goal}
+                onClick={() => onGoalChange(goal)}
+              />
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <AnimatePresence mode="wait">
+        {macros && (
+          <motion.div
+            key={activeGoal}
+            initial={{ opacity: 0, y: 25, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.97 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+          >
+            <MacrosCard macros={macros} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}

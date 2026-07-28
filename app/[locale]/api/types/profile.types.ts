@@ -3,10 +3,20 @@ export type UserId = string;
 export type SpecialistId = string;
 
 export interface UpdateMyProfileRequest {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   phone?: string;
   email?: string;
+
+  profile?: {
+    currentWeight?: number;
+    height?: number;
+    age?: number;
+    gender?: "male" | "female";
+    maritalStatus?: "single" | "married" | "divorced" | "widowed";
+    location?: string;
+    activityLevel?: "low" | "moderate" | "high" | "extreme";
+  };
 }
 
 export interface SearchProfilesRequest {
@@ -47,57 +57,6 @@ export interface Note {
   id: string;
 }
 
-export type Customer = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  role: string;
-  avatarUrl: string | null;
-  lastSeen: string;
-  createdAt: string;
-  updatedAt: string;
-  specialist?: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    id: string;
-  };
-
-  profile: {
-    currentWeight: number;
-    weightHistory: { weight: number; date: string; note: string }[];
-    age: number;
-    gender: string;
-    height: number;
-    location: string;
-    maritalStatus: string;
-  };
-
-  weight: {
-    current: {
-      weight: number;
-      date: string;
-    };
-    start: {
-      weight: number;
-      date: string;
-    };
-  };
-
-  lastNote: Note;
-
-  subscription: {
-    name: string;
-    displayName: string;
-    price: number;
-    durationInDays: number;
-    active: boolean;
-    subscriptionCount: number;
-  };
-};
-
 export type SpecialistStatus = "active" | "inactive";
 
 export type SpecialistSpecialization =
@@ -126,3 +85,89 @@ export type SpecialistDTO = {
   createdAt: string;
   updatedAt: string;
 };
+
+export interface Customer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  role: "customer";
+  lastSeen: string;
+  avatarUrl: string | null;
+  assessment: string;
+  createdAt: string;
+  updatedAt: string;
+
+  specialist: Specialist;
+  profile: Profile;
+  weight: WeightSummary;
+  lastNote: LastNote;
+  subscription: Subscription;
+}
+
+export interface Specialist {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface Profile {
+  currentWeight: number;
+  weightHistory: WeightHistory[];
+  height?: number;
+  age?: number;
+  gender?: "male" | "female";
+  maritalStatus?: "single" | "married" | "divorced" | "widowed";
+  location?: string;
+  activityLevel?: "low" | "moderate" | "high" | "extreme";
+}
+
+export interface WeightHistory {
+  weight: number;
+  date: string;
+  note: string | null;
+}
+
+export interface WeightSummary {
+  current: WeightEntry;
+  start: WeightEntry;
+}
+
+export interface WeightEntry {
+  weight: number;
+  date: string;
+}
+
+export interface LastNote {
+  id: string;
+  content: string;
+  customer: string;
+  writer: NoteWriter;
+  attachments?: Attachment[];
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface NoteWriter {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: "specialist";
+}
+
+export interface Attachment {
+  url: string;
+}
+
+export interface Subscription {
+  name: string;
+  displayName: string;
+  price: number;
+  durationInDays: number;
+  active: boolean;
+  subscriptionCount: number;
+}

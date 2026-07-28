@@ -1,7 +1,7 @@
 "use client";
 
 import { blogsApi } from "@/app/[locale]/api/endpoints/blogs.api";
-import BlogForm from "@/app/[locale]/components/Blogs/BlogForm";
+import BlogForm from "../../_components/BlogForm";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { useQuery } from "@tanstack/react-query";

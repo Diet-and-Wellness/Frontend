@@ -5,7 +5,7 @@ import {
   Feedback,
   FeedbackResponse,
 } from "@/app/[locale]/api/types/feedback.types";
-import Switch from "@/app/[locale]/components/Dashboard/Switch";
+import Switch from "../../_components/Switch";
 import CameraIcon from "@/app/[locale]/components/icons/CameraIcon";
 import EyeIcon from "@/app/[locale]/components/icons/EyeIcon";
 import PulseIcon from "@/app/[locale]/components/icons/PulseIcon";
@@ -16,7 +16,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
-import AddFeedbackModal from "@/app/[locale]/components/Modals/AddFeedbackModal";
+import AddFeedbackModal from "./_components/AddFeedbackModal";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 type DeleteModalState = {

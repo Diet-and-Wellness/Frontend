@@ -1,9 +1,9 @@
 "use client";
 
-import Form from "../../components/Auth/Form";
+import ContactUsLayout from "./_components/ContactUsLayout";
 
 const ContactUsPage = () => {
-  return <Form type={"contactus"} />;
+  return <ContactUsLayout />;
 };
 
 export default ContactUsPage;

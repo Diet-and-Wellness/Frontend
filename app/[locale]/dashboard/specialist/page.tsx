@@ -7,10 +7,10 @@ import { useMe } from "../../hooks/useMe";
 import { profileApi } from "../../api/endpoints/profile.api";
 import Spinner from "../../components/Public/LoadingSpinner";
 import EmptyComp from "../../components/Public/Empty";
-import NoteModal from "../../components/Modals/NoteModal";
+import NoteModal from "./_components/NoteModal";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import UpdateWeightModal from "../../components/Modals/UpdateWeightModal";
+import UpdateWeightModal from "./_components/UpdateWeightModal";
 import PenIcon from "../../components/icons/Pen";
 import NoteIcon from "../../components/icons/NoteIcon";
 

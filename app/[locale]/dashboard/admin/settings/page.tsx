@@ -1,8 +1,8 @@
 "use client";
 
-import AdminProfileTab from "@/app/[locale]/components/Dashboard/AdminProfileTab";
-import SecurityTab from "@/app/[locale]/components/Dashboard/SecurityTab";
-import Tab from "@/app/[locale]/components/Dashboard/Tab";
+import AdminProfileTab from "./_components/AdminProfileTab";
+import SecurityTab from "../../_components/settings/SecurityTab";
+import Tab from "../../_components/settings/Tab";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 

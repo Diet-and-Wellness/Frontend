@@ -22,7 +22,7 @@ export const authApi = {
     return apiClient.post("auth/verify-otp", data);
   },
   refreshToken: () => {
-    apiClient.post("/auth/refresh-token");
+    return apiClient.post("/auth/refresh-token");
   },
   forgetPassword: (data: ForgetPasswordRequest) => {
     return apiClient.post("auth/forgot-password", data);
