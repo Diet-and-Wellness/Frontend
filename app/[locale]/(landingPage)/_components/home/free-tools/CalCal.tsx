@@ -147,7 +147,11 @@ const CalCalForm = ({
       exit="exit"
       className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
     >
-      <ToolModalHeader toolName={t("calorieTitle")} onClose={onClose} />
+      <ToolModalHeader
+        toolName={t("calorieTitle")}
+        toolIconSrc="/icons/CalCalc.svg"
+        onClose={onClose}
+      />
 
       <div className="flex flex-col gap-4">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
@@ -307,7 +311,11 @@ const CalCalResult = ({
       exit="exit"
       className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 w-full flex-col gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
     >
-      <ToolModalHeader toolName={t("calorieTitle")} onClose={onClose} />
+      <ToolModalHeader
+        toolName={t("calorieTitle")}
+        toolIconSrc="/icons/CalCalc.svg"
+        onClose={onClose}
+      />
 
       <div className="flex justify-center items-center gap-5">
         <div className="p-2.5 bg-[#F2F7F0] rounded-full flex justify-center items-center">

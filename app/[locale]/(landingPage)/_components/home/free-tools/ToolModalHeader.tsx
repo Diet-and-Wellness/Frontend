@@ -3,15 +3,17 @@ import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 
 const ToolModalHeader = ({
   toolName,
+  toolIconSrc,
   onClose,
 }: {
   toolName: string;
+  toolIconSrc: string;
   onClose: () => void;
 }) => {
   return (
     <div className="flex justify-between items-center gap-7.5 w-full">
       <div className="size-12 flex justify-center items-center rounded-2xl bg-[#C8DCBF]">
-        <Image src={"/icons/bmi.svg"} alt="" width={30} height={30} />
+        <Image src={toolIconSrc} alt="" width={30} height={30} />
       </div>
       <p className="type-card-title text-center font-semibold">{toolName}</p>
       <button

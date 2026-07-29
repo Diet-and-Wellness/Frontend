@@ -139,6 +139,7 @@ const BmiForm = ({
     >
       <ToolModalHeader
         toolName={t("bmiTitle")}
+        toolIconSrc="/icons/bmi.svg"
         onClose={onClose}
       />
 
@@ -240,6 +241,7 @@ const BmiResult = ({
     >
       <ToolModalHeader
         toolName={t("bmiTitle")}
+        toolIconSrc="/icons/bmi.svg"
         onClose={onClose}
       />
 

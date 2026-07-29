@@ -133,7 +133,11 @@ const IbwForm = ({
       exit="exit"
       className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
     >
-      <ToolModalHeader toolName={t("idealWeightTitle")} onClose={onClose} />
+      <ToolModalHeader
+        toolName={t("idealWeightTitle")}
+        toolIconSrc="/icons/weightCalc.svg"
+        onClose={onClose}
+      />
 
       <div className="flex flex-col gap-5">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
@@ -244,7 +248,11 @@ const IbwResult = ({
       exit="exit"
       className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col items-center gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
     >
-      <ToolModalHeader toolName={t("idealWeightTitle")} onClose={onClose} />
+      <ToolModalHeader
+        toolName={t("idealWeightTitle")}
+        toolIconSrc="/icons/weightCalc.svg"
+        onClose={onClose}
+      />
 
       <p className="type-body text-[#4F4F4F] font-medium">
         {t("idealWeightRange")}
