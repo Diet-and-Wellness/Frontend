@@ -82,9 +82,7 @@ const Tool = ({
           {toolName}
         </h4>
 
-        <p
-          className="type-body line-clamp-3 font-medium text-[#4F4F4F] group-hover:text-white transition-colors duration-300"
-        >
+        <p className="type-body line-clamp-3 font-medium text-[#4F4F4F] group-hover:text-white transition-colors duration-300">
           {toolDesc}
         </p>
       </div>
@@ -93,7 +91,8 @@ const Tool = ({
       <button
         onClick={onTry}
         className={`
-            py-2
+            py-2.5
+            md:py-3
             border-2 ${isFree ? "border-[#4D8E32]" : "border-[#E99532]"}
             rounded-full
             ${isFree ? "text-[#4D8E32]" : "text-[#E99532]"}
