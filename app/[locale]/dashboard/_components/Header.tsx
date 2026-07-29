@@ -118,7 +118,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
             initial={{ opacity: 0, top: 50 }}
             animate={{ opacity: 1, top: 70 }}
             exit={{ opacity: 0, top: 50 }}
-            className="absolute end-4 flex flex-col gap-2 rounded-lg border border-[#E1E7EF] bg-[#FFFEFD] p-2 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)] sm:end-7.5"
+            className="absolute inset-e-4 flex flex-col gap-2 rounded-lg border border-[#E1E7EF] bg-[#FFFEFD] p-2 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)] sm:end-7.5"
           >
             <button
               disabled={logoutMutation.isPending}

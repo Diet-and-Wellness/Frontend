@@ -386,14 +386,14 @@ export const AnalysisResultSkeleton = () => (
 
       <section className="flex min-h-58 flex-col gap-5 rounded-3xl bg-[#E5E7EB] p-5 sm:rounded-[48px] sm:p-7.5">
         <div className="flex items-center gap-4">
-          <Skeleton className="size-12 rounded-full !bg-[#D1D5DB]" />
-          <Skeleton className="h-6 w-52 !bg-[#D1D5DB]" />
+          <Skeleton className="size-12 rounded-full bg-[#D1D5DB]" />
+          <Skeleton className="h-6 w-52 bg-[#D1D5DB]" />
         </div>
         <div className="flex flex-col gap-2">
-          <Skeleton className="h-5 w-full !bg-[#D1D5DB]" />
-          <Skeleton className="h-5 w-4/5 !bg-[#D1D5DB]" />
+          <Skeleton className="h-5 w-full bg-[#D1D5DB]" />
+          <Skeleton className="h-5 w-4/5 bg-[#D1D5DB]" />
         </div>
-        <Skeleton className="mt-auto h-12 w-full rounded-full !bg-[#F9FAFB] sm:w-48" />
+        <Skeleton className="mt-auto h-12 w-full rounded-full bg-[#F9FAFB] sm:w-48" />
       </section>
     </div>
   </div>

@@ -198,7 +198,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
       </form>
       <div
         {...getRootProps()}
-        className={`order-first w-full rounded-2xl border-2 border-dashed p-5 sm:p-7.5 lg:order-none lg:min-w-100 ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} flex flex-col justify-center items-center gap-3 bg-[#FFFEFD]`}
+        className={`order-first w-full rounded-2xl border-2 border-dashed p-5 sm:p-7.5 lg:order-0 lg:min-w-100 ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} flex flex-col justify-center items-center gap-3 bg-[#FFFEFD]`}
       >
         <input {...getInputProps()} />
 
