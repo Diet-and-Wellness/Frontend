@@ -23,9 +23,8 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: "onChange" });
 
   const queryClient = useQueryClient();
 
@@ -54,18 +53,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
     },
   });
 
-  const formValues = watch();
-  const isFormIncomplete = !(
-    formValues.firstName?.trim() &&
-    formValues.lastName?.trim() &&
-    formValues.email?.trim() &&
-    formValues.phone?.trim() &&
-    formValues.speciality?.trim() &&
-    formValues.password?.trim() &&
-    Number(formValues.experienceYears) >= 0
-  );
-  const isSubmitDisabled =
-    isFormIncomplete || createSpecialistMutation.isPending;
+  const isSubmitDisabled = !isValid || createSpecialistMutation.isPending;
 
   return (
     <div className="flex max-h-[calc(100dvh-1.5rem)] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-[#fffdfd]">

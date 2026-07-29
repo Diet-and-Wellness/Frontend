@@ -13,11 +13,11 @@ const EmptyComp = ({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
-      className="p-5 pb-12.5 place-self-center"
+      className="mx-auto flex w-full max-w-sm flex-col items-center px-5 py-10 text-center sm:max-w-md sm:py-14 lg:max-w-lg lg:py-16"
     >
-      <EmptyIcon />
-      <h4 className="type-card-title mt-7.5 text-center font-bold">{title}</h4>
-      <p className="type-body mt-2.5 text-center text-[#4F4F4F]">
+      <EmptyIcon className="h-auto w-48 max-w-full sm:w-64 md:w-72 lg:w-80" />
+      <h4 className="type-card-title mt-5 text-center font-bold sm:mt-7.5">{title}</h4>
+      <p className="type-body mt-2.5 max-w-md text-center text-[#4F4F4F]">
         {description}
       </p>
     </motion.div>

@@ -1,4 +1,4 @@
-const EmptyIcon = () => {
+const EmptyIcon = ({ className = "" }: { className?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -6,6 +6,7 @@ const EmptyIcon = () => {
       max-height="500"
       viewBox="0 0 391 317"
       fill="none"
+      className={className}
     >
       <mask
         id="mask0_1690_15583"
