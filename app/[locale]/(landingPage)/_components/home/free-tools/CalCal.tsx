@@ -15,6 +15,7 @@ import {
   CalorieCalculatorResult,
   Gender,
 } from "@/app/[locale]/api/types/assessment.types";
+import { useTranslations } from "next-intl";
 
 const pageVariants = {
   hidden: {
@@ -65,7 +66,9 @@ const CalCal = ({
 
   return (
     <ModalWrapper>
-      <div className="min-w-100 flex flex-col gap-5">
+      <div
+        className={`flex flex-col gap-5 ${showResult ? "w-[92vw] md:w-210" : "w-[92vw] md:w-130"}`}
+      >
         <AnimatePresence mode="wait">
           {showResult ? (
             <CalCalResult
@@ -95,6 +98,7 @@ const CalCalForm = ({
   showResultHandler: (calcalResult: CalorieCalculatorResult) => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
   const [gender, setGender] = useState<Gender>("male");
   const [age, setAge] = useState(0);
   const [heightCm, setHeightCm] = useState(0);
@@ -141,27 +145,27 @@ const CalCalForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="bg-[#FFFEFD] p-7.5 rounded-2xl flex flex-col gap-7.5"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
     >
-      <ToolModalHeader toolName="Calorie Calculator" onClose={onClose} />
+      <ToolModalHeader toolName={t("calorieTitle")} onClose={onClose} />
 
       <div className="flex flex-col gap-4">
-        <div className="w-full flex gap-5 justify-between items-center">
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <GenderCard
             selectGenderHandler={() => setGender("male")}
-            gender="Male"
+            gender={t("male")}
             isSelected={gender === "male"}
           />
           <GenderCard
             selectGenderHandler={() => setGender("female")}
-            gender="Female"
+            gender={t("female")}
             isSelected={gender === "female"}
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Age
+          <label htmlFor="" className="type-label font-medium">
+            {t("age")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -175,15 +179,15 @@ const CalCalForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your age"
+              placeholder={t("enterAge")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">year</p>
+            <p className="type-label text-[#4F4F4F]">{t("year")}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Height
+          <label htmlFor="" className="type-label font-medium">
+            {t("height")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -200,15 +204,15 @@ const CalCalForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your height"
+              placeholder={t("enterHeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">cm</p>
+            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Weight
+          <label htmlFor="" className="type-label font-medium">
+            {t("weight")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -225,37 +229,37 @@ const CalCalForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your weight"
+              placeholder={t("enterWeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">kg</p>
+            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
           </div>
         </div>
 
-        <div className="mt-2.5 grid grid-cols-2 gap-5">
+        <div className="mt-2.5 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <ActivityLevelCard
-            level="Low"
-            description="Little or no exercise"
+            level={t("low")}
+            description={t("littleExercise")}
             isSelected={activityLevel === "low"}
             selectActivityLevelHandler={() => setActivityLevel("low")}
           />
 
           <ActivityLevelCard
-            level="Moderate"
-            description="Exercise 1–3 days/week"
+            level={t("moderate")}
+            description={t("exerciseModerate")}
             isSelected={activityLevel === "moderate"}
             selectActivityLevelHandler={() => setActivityLevel("moderate")}
           />
 
           <ActivityLevelCard
-            level="High"
-            description="Exercise 4–6 days/week"
+            level={t("high")}
+            description={t("exerciseHigh")}
             isSelected={activityLevel === "high"}
             selectActivityLevelHandler={() => setActivityLevel("high")}
           />
 
           <ActivityLevelCard
-            level="Extreme"
-            description="Daily intense activity"
+            level={t("extreme")}
+            description={t("intenseActivity")}
             isSelected={activityLevel === "extreme"}
             selectActivityLevelHandler={() => setActivityLevel("extreme")}
           />
@@ -267,8 +271,9 @@ const CalCalForm = ({
         onClick={handleCalculateCalories}
         className={`
             rounded-full
-            h-12
-            text-[16px]
+            min-h-12
+            shrink-0
+            type-control
             font-semibold
             mt-2
             transition-colors 
@@ -276,7 +281,7 @@ const CalCalForm = ({
             }
             `}
       >
-        <p className="">See Result</p>
+        <p className="">{t("seeResult")}</p>
       </button>
     </motion.div>
   );
@@ -293,26 +298,27 @@ const CalCalResult = ({
   onGetFullAnalysis: () => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
   return (
     <motion.div
       variants={pageVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="max-w-210 flex flex-col gap-5 bg-[#FFFEFD] p-7.5 rounded-2xl"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 w-full flex-col gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
     >
-      <ToolModalHeader toolName="Calorie Calculator" onClose={onClose} />
+      <ToolModalHeader toolName={t("calorieTitle")} onClose={onClose} />
 
       <div className="flex justify-center items-center gap-5">
         <div className="p-2.5 bg-[#F2F7F0] rounded-full flex justify-center items-center">
           <BarsIcon />
         </div>
-        <p className="text-[#3E7228] text-[25px] font-medium text-center">
-          Your Daily Calorie Needs
+        <p className="type-card-title text-center font-medium text-[#3E7228]">
+          {t("dailyCalorieNeeds")}
         </p>
       </div>
 
-      <div className="flex justify-between items-center gap-5">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
         <CaloriesCard
           type="maintenance"
           calories={calcalResult?.maintenanceCalories ?? 0}
@@ -327,8 +333,8 @@ const CalCalResult = ({
         />
       </div>
 
-      <p className="text-center px-5 py-3 bg-[#F1F9EF] rounded-xl text-[16px] font-medium text-gray-700">
-        These are estimated values, Actual needs may vary.
+      <p className="type-label rounded-xl bg-[#F1F9EF] px-5 py-3 text-center font-medium text-gray-700">
+        {t("estimatedValues")}
       </p>
 
       <CTA

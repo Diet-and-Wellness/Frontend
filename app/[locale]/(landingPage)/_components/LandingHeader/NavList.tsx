@@ -32,19 +32,19 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
       case "customer":
         return {
           href: "/#our-tools",
-          label: "Our Tools",
+          label: t("tools.tryOurTools"),
         };
 
       case "specialist":
         return {
           href: "/dashboard/specialist",
-          label: "Dashboard",
+          label: t("dashboard.dashboard"),
         };
 
       case "admin":
         return {
           href: "/dashboard/admin",
-          label: "Dashboard",
+          label: t("dashboard.dashboard"),
         };
 
       default:

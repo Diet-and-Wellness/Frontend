@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import SecurityIcon from "@/app/[locale]/components/icons//SecurityIcon";
 import Error from "@/app/[locale]/components/Public/Error";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useTranslations } from "next-intl";
 
 const pageVariants = {
   hidden: {
@@ -39,13 +40,14 @@ type ChangePasswordType = {
 };
 
 const passwordRequirements = [
-  "At least 8 characters long",
-  "Contains uppercase and lowercase letters",
-  "Contains a number",
-  "Contains a special character (e.g.! @ # $ %)",
+  "passwordMinLength",
+  "passwordUpperLower",
+  "passwordNumber",
+  "passwordSpecial",
 ];
 
 const SecurityTab = () => {
+  const t = useTranslations("dashboard");
   const {
     register,
     handleSubmit,
@@ -62,6 +64,7 @@ const SecurityTab = () => {
 
   const changePasswordMutation = useMutation({
     mutationFn: async (formData: ChangePasswordType) => {
+      void formData;
       // await profileApi.updateMyProfile(formData);
     },
     onSuccess: async () => {
@@ -82,33 +85,33 @@ const SecurityTab = () => {
     >
       <form
         onSubmit={handleSubmit(saveChanges)}
-        className="border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD] max-w-160 my-10 p-7.5 flex flex-col gap-7.5"
+        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
       >
-        <p className="text-[20px] font-semibold">Security & Password</p>
+        <p className="type-card-title font-semibold">{t("securityAndPassword")}</p>
 
         <div className="flex gap-5 items-center border-b border-[#E1E7EF] py-5">
-          <div className="size-16 rounded-full flex justify-center items-center bg-[#E4EEE0]">
+          <div className="size-16 rounded-full flex justify-center items-center bg-[#E4EEE0] shrink-0">
             <SecurityIcon />
           </div>
           <div className="flex flex-col gap-1.5">
-            <h4 className="text-[16px] font-bold">Keep Your account secure</h4>
-            <p className="text-[13px] text-[#4F4F4F]">
-              Use strong password and enable 2FA to protect your account.
+            <h4 className="type-label font-bold">{t("keepAccountSecure")}</h4>
+            <p className="type-meta text-[#4F4F4F]">
+              {t("securityDescription")}
             </p>
           </div>
         </div>
 
-        <p className="text-[20px] font-semibold">Change Password</p>
+        <p className="type-card-title font-semibold">{t("changePassword")}</p>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="Current Password" className="text-[16px] w-fit">
-            Current Password
+          <label htmlFor="Current Password" className="type-label w-fit">
+            {t("currentPassword")}
           </label>
           <input
             type="password"
             id="currentPassword"
-            placeholder={"Current Password"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            placeholder={t("currentPassword")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
             {...register("currentPassword", {
               required: "Current password is required",
             })}
@@ -119,14 +122,14 @@ const SecurityTab = () => {
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="New Password" className="text-[16px] w-fit">
-            New Password
+          <label htmlFor="New Password" className="type-label w-fit">
+            {t("newPassword")}
           </label>
           <input
             type="password"
             id="newPassword"
-            placeholder={"New Password"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            placeholder={t("newPassword")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
             {...register("newPassword", {
               required: "New Password is required",
             })}
@@ -135,34 +138,37 @@ const SecurityTab = () => {
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="email" className="text-[16px] w-fit">
-            Confirm New Password
+          <label htmlFor="email" className="type-label w-fit">
+            {t("confirmNewPassword")}
           </label>
           <input
             type="password"
             id="confirmNewPassword"
-            placeholder={"Confirm New Password"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            placeholder={t("confirmNewPassword")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
           />
         </div>
 
         <div className="flex flex-col gap-2.5 bg-[#FDF4EB] p-5 rounded-2xl">
-          <p className="text-[16px] font-medium mb-2.5">
-            Password requirements:
+          <p className="type-label mb-2.5 font-medium">
+            {t("passwordRequirements")}
           </p>
           {passwordRequirements.map((passwordReq, idx) => (
-            <PasswordRequirement key={idx} passwordRequirement={passwordReq} />
+            <PasswordRequirement
+              key={idx}
+              passwordRequirement={t(passwordReq)}
+            />
           ))}
         </div>
 
         <button
           disabled={changePasswordMutation.isPending}
-          className="mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer flex justify-center items-center"
+          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-[#E99532] px-7.5 font-semibold text-white cursor-pointer"
         >
           {changePasswordMutation.isPending ? (
             <Spinner spinnerSize={30} />
           ) : (
-            <p className="">Update Password</p>
+            <p className="">{t("updatePassword")}</p>
           )}
         </button>
       </form>
@@ -178,7 +184,7 @@ const PasswordRequirement = ({
   return (
     <div className="flex gap-3 items-center">
       <CheckIcon />
-      <p className="text-[14px] text-[#4F4F4F]">{passwordRequirement}</p>
+      <p className="type-meta text-[#4F4F4F]">{passwordRequirement}</p>
     </div>
   );
 };

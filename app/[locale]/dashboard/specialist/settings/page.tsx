@@ -5,6 +5,7 @@ import Tab from "@/app/[locale]/dashboard/_components/settings/Tab";
 import { useState } from "react";
 import SecurityTab from "@/app/[locale]/dashboard/_components/settings/SecurityTab";
 import SpecialistProfileTab from "./_components/SpecialistProfileTab";
+import { useTranslations } from "next-intl";
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,6 +25,7 @@ const item = {
 } as const;
 
 const SettingsPage = () => {
+  const t = useTranslations("dashboard");
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
@@ -34,20 +36,20 @@ const SettingsPage = () => {
       className="w-full"
     >
       <motion.div variants={item} className="flex flex-col gap-2">
-        <h3 className="font-bold text-[30px]">Settings</h3>
-        <p className="text-[#4F4F4F] text-[20px]">
-          Manage your profile and account security.
+        <h3 className="type-page-title font-bold">{t("settings")}</h3>
+        <p className="type-body-lg text-[#4F4F4F]">
+          {t("manageProfileSecurity")}
         </p>
       </motion.div>
 
-      <motion.div variants={item} className="flex gap-10 mt-7.5">
+      <motion.div variants={item} className="mt-6 flex gap-4 sm:mt-7.5 sm:gap-10">
         <Tab
-          label="Profile"
+          label={t("profile")}
           isActive={activeTab === "profile"}
           onClick={() => setActiveTab("profile")}
         />
         <Tab
-          label="Security"
+          label={t("security")}
           isActive={activeTab === "security"}
           onClick={() => setActiveTab("security")}
         />

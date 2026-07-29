@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { getCleanPathname } from "@/app/[locale]/utils/getCleanPathname";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 
 type tabType = { label: string; href: string };
@@ -21,6 +21,8 @@ const MobileMenu = ({
   const pathnameWithLang = usePathname();
 
   const t = useTranslations();
+  const locale = useLocale();
+  const slideOffset = locale === "ar" ? "-100%" : "100%";
 
   const pathname = getCleanPathname(pathnameWithLang);
 
@@ -45,11 +47,11 @@ const MobileMenu = ({
 
   return (
     <motion.div
-      initial={{ x: "100%" }}
+      initial={{ x: slideOffset }}
       animate={{ x: 0 }}
-      exit={{ x: "100%" }}
+      exit={{ x: slideOffset }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 pb-20 min-h-screen w-full bg-white absolute inset-0 mt-14.5 md:mt-17 lg:mt-18 flex flex-col justify-center items-center gap-7.5 overflow-scroll"
+      className="-z-10 flex min-h-screen w-full flex-col items-center justify-center gap-7.5 overflow-y-auto bg-white pb-20 absolute inset-0 mt-14.5 md:mt-17 lg:mt-18"
     >
       <ul className="flex flex-col items-center self-center gap-3">
         {tabs.map((tab) => (
@@ -107,7 +109,7 @@ const Tab = ({
   return (
     <Link href={href} onClick={closeMenu} className="rounded-full">
       <li
-        className={`rounded-full cursor-pointer px-20 py-3 text-[20px] font-semibold text-[#3a6b26]
+        className={`rounded-full cursor-pointer px-10 py-3 text-center text-[18px] font-semibold text-[#3a6b26] sm:px-20 sm:text-[20px]
            transition-all duration-300 ease-in-out
            hover:bg-[#3a6b26] hover:text-white
            focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a6b26] focus-visible:ring-offset-2 ${isActive ? "bg-[#3a6b26] text-white shadow-sm" : ""}`}

@@ -7,6 +7,7 @@ import GenderCard from "@/app/[locale]/components/Public/GenderCard";
 import CTA from "./CTAFreeToolsResult";
 import ToolModalHeader from "./ToolModalHeader";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
+import { useTranslations } from "next-intl";
 
 const pageVariants = {
   hidden: {
@@ -69,7 +70,7 @@ const IBW = ({
 
   return (
     <ModalWrapper>
-      <div className="min-w-100 flex flex-col gap-5">
+      <div className="flex w-[min(100%,30rem)] flex-col gap-5">
         <AnimatePresence mode="wait">
           {showResult ? (
             <IbwResult
@@ -94,6 +95,7 @@ const IbwForm = ({
   showResultHandler: (IbwResult: IdealWeightResult) => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
   const [heightCm, setHeightCm] = useState(0);
   const [weightKg, setWeightKg] = useState(0);
   const [gender, setGender] = useState<Gender>("male");
@@ -129,27 +131,27 @@ const IbwForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-7.5 bg-[#FFFEFD] rounded-2xl flex flex-col gap-7.5"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
     >
-      <ToolModalHeader toolName="Perfect Weight Calculator" onClose={onClose} />
+      <ToolModalHeader toolName={t("idealWeightTitle")} onClose={onClose} />
 
       <div className="flex flex-col gap-5">
-        <div className="w-full flex gap-5 justify-between items-center">
+        <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <GenderCard
             selectGenderHandler={() => setGender("male")}
-            gender="Male"
+              gender={t("male")}
             isSelected={gender === "male"}
           />
           <GenderCard
             selectGenderHandler={() => setGender("female")}
-            gender="Female"
+              gender={t("female")}
             isSelected={gender === "female"}
           />
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Height
+          <label htmlFor="" className="type-label font-medium">
+            {t("height")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -166,15 +168,15 @@ const IbwForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your height"
+              placeholder={t("enterHeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">cm</p>
+            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Weight
+          <label htmlFor="" className="type-label font-medium">
+            {t("weight")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -191,9 +193,9 @@ const IbwForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your weight"
+              placeholder={t("enterWeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">kg</p>
+            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
           </div>
         </div>
       </div>
@@ -203,8 +205,9 @@ const IbwForm = ({
         onClick={handleCalculateIBW}
         className={`
             rounded-full
-            h-12
-            text-[16px]
+            min-h-12
+            shrink-0
+            type-control
             font-semibold
             mt-2.5
             transition-colors 
@@ -212,7 +215,7 @@ const IbwForm = ({
             }
             `}
       >
-        <p className="">See Result</p>
+        <p className="">{t("seeResult")}</p>
       </button>
     </motion.div>
   );
@@ -229,39 +232,48 @@ const IbwResult = ({
   onGetFullAnalysis: () => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
+  const status = ibwResult?.status ?? "healthy";
+  const action = ibwResult?.action ?? "Maintaining";
+
   return (
     <motion.div
       variants={pageVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-7.5 bg-[#FFFEFD] rounded-2xl flex flex-col gap-5 items-center"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col items-center gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
     >
-      <ToolModalHeader toolName="Perfect Weight Calculator" onClose={onClose} />
+      <ToolModalHeader toolName={t("idealWeightTitle")} onClose={onClose} />
 
-      <p className="text-[#4F4F4F] text-[18px] font-medium">
-        Ideal Weight Range (IBM)
+      <p className="type-body text-[#4F4F4F] font-medium">
+        {t("idealWeightRange")}
       </p>
 
-      <p className="text-[32px] text-[#4D8E32] font-semibold">
-        {ibwResult?.idealWeightRange.min} — {ibwResult?.idealWeightRange.max} kg
+      <p className="text-3xl font-semibold text-[#4D8E32] sm:text-4xl">
+        {ibwResult?.idealWeightRange.min} — {ibwResult?.idealWeightRange.max}{" "}
+        {t("kg")}
       </p>
 
       <div className="w-full bg-[#EDF4EB] px-7.5 py-4 rounded-2xl border border-[#4D8E32] flex flex-col justify-center items-center gap-1.5">
-        <p className="text-[18px] font-medium">Ideal Weight</p>
-        <p className="text-[#4D8E32] font-bold text-[18px]">
-          {ibwResult?.idealWeight} <span>kg</span>
+        <p className="type-card-title font-medium">{t("idealWeight")}</p>
+        <p className="type-card-title font-bold text-[#4D8E32]">
+          {ibwResult?.idealWeight} <span>{t("kg")}</span>
         </p>
       </div>
 
       <div className="mb-5 w-full bg-[#FDF4EB] px-7.5 py-4 rounded-2xl border border-[#E99532] flex flex-col justify-center items-center gap-1.5">
-        <p className="text-[18px] font-medium text-[#4D8E32]">
-          You’re {ibwResult?.difference} kg {ibwResult?.status} your ideal
-          weight
+        <p className="type-body font-medium text-[#4D8E32]">
+          {t("idealWeightDifference", {
+            difference: ibwResult?.difference ?? 0,
+            position: t(`weightPosition.${status}`),
+          })}
         </p>
-        <p className="font-medium text-[#4F4F4F] text-[16px]">
-          {ibwResult?.action} about {ibwResult?.difference} kg can help you
-          achieve a healthier weight.
+        <p className="type-label font-medium text-[#4F4F4F]">
+          {t("idealWeightRecommendation", {
+            action: t(`weightAction.${action}`),
+            difference: ibwResult?.difference ?? 0,
+          })}
         </p>
       </div>
 

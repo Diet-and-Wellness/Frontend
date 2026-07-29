@@ -16,7 +16,7 @@ const Features = () => {
       points: t.raw("healthAssessment.points"),
       img: "/images/FreeTools.webp",
       checkPointIcon: "/icons/checkpoint_green.svg",
-      imgStyle: "md:w-55 md:right-0 md:-top-20 lg:w-90 lg:right-5 lg:-top-30",
+      imgStyle: "md:w-55 md:end-0 md:-top-20 lg:w-90 lg:end-5 lg:-top-30",
       bgStyle: "bg-[#CBE4C0]",
       textStyle: "text-[#2E551E]",
     },
@@ -25,7 +25,7 @@ const Features = () => {
       points: t.raw("personalizedPlan.points"),
       img: "/images/PrivateSpecialist.webp",
       checkPointIcon: "/icons/checkpoint_white.svg",
-      imgStyle: "md:w-70 md:right-0 md:-top-25 lg:w-120 lg:right-0 lg:-top-30",
+      imgStyle: "md:w-70 md:end-0 md:-top-25 lg:w-120 lg:end-0 lg:-top-30",
       bgStyle: "bg-[#4D8E32]",
       textStyle: "text-white",
     },
@@ -35,7 +35,7 @@ const Features = () => {
       img: "/images/HelpAndSupport.webp",
       checkPointIcon: "/icons/checkpoint_white.svg",
       imgStyle:
-        "md:w-50 md:right-0 md:-bottom-30 lg:w-80 lg:right-0 lg:-bottom-40",
+        "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
       bgStyle: "bg-[#3A6B26]",
       textStyle: "text-white",
     },
@@ -56,11 +56,11 @@ const Features = () => {
         transition={{ duration: 1 }}
         className="mt-20 max-w-xl lg:max-w-2xl mx-auto text-center px-10 lg:px-4"
       >
-        <h2 className="font-medium text-3xl text-black md:text-5xl lg:text-6xl">
+        <h2 className="type-display font-medium text-black">
           {t("exploreOurFeatures")}
         </h2>
 
-        <p className="text-base md:text-xl mt-5 text-black">
+        <p className="type-body-lg mt-5 text-black">
           {t("healthGuidanceDescription")}
         </p>
 
@@ -142,7 +142,7 @@ const FeatureCard = ({
   return (
     <div
       ref={containerRef}
-      className="sticky top-10 h-screen flex items-center justify-center"
+      className="sticky top-10 flex h-screen items-center justify-center"
     >
       <motion.div
         style={{
@@ -155,7 +155,7 @@ const FeatureCard = ({
           origin-top
           max-w-full
           md:max-w-7xl
-          p-8 pb-0
+          p-6 pb-8
           md:p-12
           lg:p-15
           rounded-3xl
@@ -168,9 +168,9 @@ const FeatureCard = ({
         `}
       >
         {/* Content */}
-        <div className="flex flex-col gap-7 lg:gap-10 max-w-4xl justify-center relative z-10">
+        <div className="feature-card-content relative z-10 flex max-w-4xl flex-col justify-center gap-7 md:max-w-[62%] lg:gap-10">
           <h3
-            className={`text-2xl md:text-3xl lg:text-[45px] xl:text-[60px] font-bold ${feature.textStyle}`}
+            className={`type-display font-bold ${feature.textStyle}`}
           >
             {feature.title}
           </h3>
@@ -187,7 +187,7 @@ const FeatureCard = ({
                 />
 
                 <p
-                  className={`text-[17px] md:text-[18px] lg:text-[20px] xl:text-[25px] font-medium ${feature.textStyle}`}
+                  className={`text-base font-medium sm:text-lg lg:text-xl xl:text-[24px] ${feature.textStyle}`}
                 >
                   {point}
                 </p>
@@ -202,7 +202,7 @@ const FeatureCard = ({
             scale: imageScale,
             willChange: "transform",
           }}
-          className="w-full relative place-self-center md:absolute md:inset-0 pointer-events-none"
+          className="pointer-events-none relative mt-5 w-full place-self-center md:absolute md:inset-0 md:mt-0"
         >
           <Image
             src={feature.img}
@@ -210,13 +210,14 @@ const FeatureCard = ({
             width={400}
             height={200}
             className={`
+              mx-auto
               md:absolute
               z-20
-              h-40
+              h-36 sm:h-44
               w-auto
               md:h-auto
               transform-gpu
-              place-self-end
+              md:place-self-end
               ${feature.imgStyle}
             `}
           />

@@ -11,7 +11,7 @@ const AboutUsPage = () => {
     <section className="min-h-screen pt-25 lg:pt-30 pb-15">
       <div className="max-w-[90%] mx-auto flex flex-col gap-3 lg:gap-10">
         {/* HERO */}
-        <div className="relative min-h-80 lg:min-h-180 rounded-[20px] lg:rounded-[40px] overflow-hidden flex flex-col gap-2 justify-center items-center p-10 text-center">
+        <div className="relative flex min-h-80 flex-col items-center justify-center gap-2 overflow-hidden rounded-[20px] p-5 text-center sm:p-8 lg:min-h-180 lg:rounded-[40px] lg:p-10">
           {/* Animated Background */}
           <motion.div
             initial={{ scale: 1.1 }}
@@ -42,7 +42,7 @@ const AboutUsPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="relative z-10 text-xl sm:text-2xl lg:text-5xl text-white text-center"
+              className="relative z-10 text-xl text-center text-white sm:text-2xl lg:text-4xl xl:text-5xl"
             >
               {t("aboutUs.enjoyableLiving")}
             </motion.p>
@@ -51,7 +51,7 @@ const AboutUsPage = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: "easeInOut" }}
-              className="relative z-10 text-2xl sm:text-3xl lg:text-6xl leading-10 font-bold text-white text-center"
+              className="relative z-10 text-3xl font-bold leading-tight text-center text-white sm:text-4xl lg:text-5xl xl:text-6xl"
             >
               {t("aboutUs.startsWithBalancedNutrition")}
             </motion.p>
@@ -78,7 +78,7 @@ const AboutUsPage = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             viewport={{ once: true }}
-            className="text-xl lg:text-3xl font-bold min-w-50"
+            className="type-section-title font-bold"
           >
             {t("aboutUs.whatYouShouldKnowAboutDietAndWellness")}
           </motion.p>
@@ -90,7 +90,7 @@ const AboutUsPage = () => {
               visible: { opacity: 1, y: 0 },
             }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="text-[16px] lg:text-xl"
+            className="type-body"
           >
             {t("aboutUs.aboutDietAndWellness")}
           </motion.p>
@@ -104,10 +104,10 @@ const AboutUsPage = () => {
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="flex flex-col gap-3 mt-3"
           >
-            <h4 className="text-[18px] lg:text-xl font-semibold">
+            <h4 className="type-card-title font-semibold">
               {t("aboutUs.weHelpOurClientsTo")}
             </h4>
-            <ul className="text-[16px] lg:text-xl flex flex-col gap-0.5 lg:gap-1">
+            <ul className="type-body flex flex-col gap-0.5 lg:gap-1">
               {t
                 .raw("aboutUs.clientBenefits")
                 .map((benefit: string, index: number) => (
@@ -122,7 +122,7 @@ const AboutUsPage = () => {
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="text-[16px] lg:text-xl font-light"
+            className="type-body font-light"
           >
             {t("aboutUs.gradualChangesDescription")}
           </motion.p>
@@ -133,7 +133,7 @@ const AboutUsPage = () => {
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 },
             }}
-            className="text-[16px] lg:text-xl font-semibold"
+            className="type-body font-semibold"
           >
             {t("aboutUs.ourGoal")}
           </motion.p>
@@ -147,7 +147,7 @@ const AboutUsPage = () => {
             whileTap={{ scale: 0.98 }}
             whileHover={{ background: "#3a6b26" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="w-full sm:w-80 mt-5 py-3 text-[16px] lg:text-[20px] rounded-4xl text-white font-medium bg-[#3a6b26e0] cursor-pointer"
+            className="type-control mt-5 w-full rounded-4xl bg-[#3a6b26e0] py-3 font-medium text-white cursor-pointer sm:w-80"
           >
             {t("aboutUs.getStartedNow")}
           </motion.button>

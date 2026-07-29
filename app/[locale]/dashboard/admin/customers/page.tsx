@@ -6,23 +6,14 @@ import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { Customer } from "@/app/[locale]/api/types/profile.types";
-import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import AssignSpecialistModal from "./_components/AssignSpecialistModal";
 import { useState } from "react";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
-
-const TABLE_HEADERS = [
-  "Name",
-  "Email",
-  "Phone",
-  "Weight Progress (kg)",
-  "Height (cm)",
-  "Subscription",
-  "Link To Answers",
-  "Assign To Specialist",
-];
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,6 +44,7 @@ const tableContainer = {
 } as const;
 
 const CustomersPage = () => {
+  const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
 
   const [showAssignSpecialistModal, setShowAssignSpecialistModal] =
@@ -151,24 +143,22 @@ const CustomersPage = () => {
 
       {/* Header */}
       <motion.div variants={item}>
-        <h2 className="mb-4 text-3xl font-bold">Customers</h2>
-        <p className="text-xl font-light text-[#4F4F4F]">
-          Manage and view all client profiles.
+        <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("customers")}</h2>
+        <p className="type-body-lg font-light text-[#4F4F4F]">
+          {t("manageCustomers")}
         </p>
       </motion.div>
 
       {/* Filters */}
-      <motion.div variants={item} className="flex items-center gap-5">
+      <motion.div variants={item} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
         <SearchInput />
-        <FilterButton label="All Statuses" />
-        <FilterButton label="All Plans" />
+        <FilterButton label={t("allStatuses")} />
+        <FilterButton label={t("allPlans")} />
       </motion.div>
 
       {/* Table */}
       {isLoading ? (
-        <div className="place-self-center my-auto">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
-        </div>
+        <TableSkeleton columns={8} />
       ) : (customers?.length ?? 0) > 0 ? (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
           <motion.table
@@ -177,12 +167,12 @@ const CustomersPage = () => {
           >
             <thead className="bg-[#FCFCFC]">
               <tr>
-                {TABLE_HEADERS.map((header) => (
+                {["name", "email", "phone", "weightProgress", "heightCm", "subscription", "linkToAnswers", "assignToSpecialist"].map((header) => (
                   <th
                     key={header}
-                    className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
+                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-[#4F4F4F]"
                   >
-                    {header}
+                    {t(header)}
                   </th>
                 ))}
               </tr>
@@ -209,8 +199,8 @@ const CustomersPage = () => {
         </div>
       ) : (
         <EmptyComp
-          title="No Customers Yet"
-          description="Customers will appear here once they join."
+          title={t("noCustomersYet")}
+          description={t("noCustomersDescription")}
         />
       )}
     </motion.section>
@@ -224,17 +214,20 @@ const CustomerRow = ({
   customer: Customer;
   assignSpecialistHandler: () => void;
 }) => {
+  const t = useTranslations("dashboard");
+  const router = useRouter();
+
   return (
     <motion.tr
       layout
       variants={item}
-      className="text-base font-light text-[#4F4F4F] transition-colors"
+      className="type-table font-light text-[#4F4F4F] transition-colors"
     >
       {/* Name */}
       <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="text-[13px] font-medium text-[#E99532]">
+            <span className="type-meta font-medium text-[#E99532]">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
@@ -271,11 +264,14 @@ const CustomerRow = ({
 
       {/* Answers */}
       <TableCell>
-        <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
+        <button
+          onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
+          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+        >
           <div className="min-w-6">
             <ViewLinkIcon className="text-[#E99532]" />
           </div>
-          <span>View Answers</span>
+          <span>{t("viewAnswers")}</span>
         </button>
       </TableCell>
 
@@ -291,7 +287,7 @@ const CustomerRow = ({
             </span>
           ) : (
             <span className="whitespace-nowrap text-sm text-[#A4A4A4]">
-              Select Specialist
+              {t("selectSpecialist")}
             </span>
           )}
           <ChevronDownIcon />
@@ -302,12 +298,13 @@ const CustomerRow = ({
 };
 
 const SearchInput = () => {
+  const t = useTranslations("dashboard");
   return (
-    <div className="flex w-95 items-center gap-3 rounded-xl bg-[#FFFEFD] px-4 py-2.5 border border-[#E1E7EF]">
+    <div className="flex w-full items-center gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-4 py-2.5 sm:w-95">
       <SearchIcon className="text-[#4F4F4F]" />
       <input
         type="text"
-        placeholder="Search clients..."
+        placeholder={t("searchClients")}
         className="w-full outline-none placeholder:text-[#A4A4A4]"
       />
     </div>
@@ -316,7 +313,7 @@ const SearchInput = () => {
 
 const FilterButton = ({ label }: { label: string }) => {
   return (
-    <button className="border border-[#E1E7EF] flex items-center gap-3 rounded-xl bg-[#FFFEFD] px-6 py-2.5 cursor-pointer">
+    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
       <p className="text-base font-light">{label}</p>
       <ChevronDownIcon />
     </button>

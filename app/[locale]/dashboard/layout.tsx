@@ -7,7 +7,7 @@ import SideBar from "./_components/SideBar";
 import { motion } from "framer-motion";
 import { useMe } from "../hooks/useMe";
 import { getCleanPathname } from "../utils/getCleanPathname";
-import Spinner from "../components/Public/LoadingSpinner";
+import { DashboardLogoLoader } from "../components/Public/Skeletons";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -42,15 +42,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [me, isLoading, router]);
 
   if (isLoading || !me) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Spinner spinnerSize={60} borderColor="#4D8E32" />
-      </div>
-    );
+    return <DashboardLogoLoader />;
   }
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-[#F9F9F9]">
+    <div className="relative flex min-h-screen flex-col bg-[#F9F9F9] pb-18 md:pb-0">
       <SideBar
         collapsed={collapsed}
         toggleCollapse={toggleCollapse}
@@ -59,14 +55,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       <motion.div
         initial={false}
-        animate={{
-          marginLeft: collapsed ? 100 : 256,
-        }}
-        transition={{
-          duration: 0.25,
-          ease: "easeInOut",
-        }}
-        className="mt-12.5 md:mt-14.5 lg:mt-15.5 px-5 py-7.5 md:px-7.5 flex flex-1"
+        className={`mt-16 flex flex-1 px-4 py-5 sm:px-5 md:mt-14.5 md:px-7.5 md:py-7.5 md:transition-[margin-inline-start] md:duration-250 md:ease-in-out ${collapsed ? "md:ms-25" : "md:ms-64"}`}
       >
         <DashboardHeader collapsed={collapsed} />
         {children}

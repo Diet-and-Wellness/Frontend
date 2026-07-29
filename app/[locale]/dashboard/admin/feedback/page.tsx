@@ -17,7 +17,8 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import AddFeedbackModal from "./_components/AddFeedbackModal";
-import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { FeedbackManagementSkeleton } from "@/app/[locale]/components/Public/Skeletons";
+import { useTranslations } from "next-intl";
 
 type DeleteModalState = {
   isOpen: boolean;
@@ -47,6 +48,7 @@ const itemVariants = {
 } as const;
 
 const FeedbackManagementPage = () => {
+  const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
 
   const [deleteModalState, setDeleteModalState] = useState<DeleteModalState>({
@@ -100,13 +102,7 @@ const FeedbackManagementPage = () => {
   return (
     <>
       {isLoading ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="place-self-center mx-auto"
-        >
-          <Spinner borderColor="#4D8E32" spinnerSize={60} />
-        </motion.div>
+        <FeedbackManagementSkeleton />
       ) : (
         <motion.section
           initial="hidden"
@@ -119,8 +115,8 @@ const FeedbackManagementPage = () => {
               <AlertModal
                 key="delete-feedback-modal"
                 illustrator={<TrashIllustrator />}
-                note="Are you sure you want to delete this feedback?"
-                confirmBtnTitle="Yes, delete"
+                note={t("deleteFeedbackConfirmation")}
+                confirmBtnTitle={t("confirmDelete")}
                 confirm={() => deleteFeedbackMutation.mutate()}
                 closeModal={closeDeleteModal}
                 pending={deleteFeedbackMutation.isPending}
@@ -140,17 +136,17 @@ const FeedbackManagementPage = () => {
             )}
           </AnimatePresence>
 
-          <motion.div variants={itemVariants} className="flex justify-between">
+          <motion.div variants={itemVariants} className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <h2 className="mb-4 text-3xl font-bold">Feedback Management</h2>
-              <p className="text-xl font-light text-[#4F4F4F]">
-                Manage WhatsApp client reviews for the main landing page.
+              <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("feedbackManagement")}</h2>
+              <p className="type-body-lg font-light text-[#4F4F4F]">
+                {t("feedbackDescription")}
               </p>
             </div>
 
-            <div>
-              <p className="px-7.5 text-[20px] font-medium">
-                {feedbackList.length} / {MAX_FEEDBACKS_COUNT} Slots
+            <div className="w-full sm:w-52">
+              <p className="type-card-title px-0 font-medium sm:px-7.5">
+                {t("slots", { used: feedbackList.length, total: MAX_FEEDBACKS_COUNT })}
               </p>
 
               <div
@@ -221,6 +217,7 @@ const FeedbackCard = ({
   feedback: FeedbackResponse;
   onDelete: () => void;
 }) => {
+  const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
 
   const feedbackShownStatusMutation = useMutation({
@@ -248,10 +245,10 @@ const FeedbackCard = ({
   return (
     <motion.div
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="rounded-2xl overflow-hidden max-h-110 relative bg-white border border-[#E1E7EF]"
+      className="relative max-h-110 overflow-hidden rounded-2xl border border-[#E1E7EF] bg-white"
     >
       <div className="relative">
-        <div className="relative w-full h-110 overflow-hidden">
+        <div className="relative h-85 w-full overflow-hidden sm:h-110">
           <Image
             src={feedback.attachmentUrl}
             alt="feedback"
@@ -275,7 +272,7 @@ const FeedbackCard = ({
         </motion.div>
       </div>
 
-      <div className="flex flex-col gap-3 bg-white absolute bottom-0 left-0 right-0 p-3.5 rounded-t-2xl">
+      <div className="flex flex-col gap-3 bg-white absolute bottom-0 inset-s-0 inset-e-0 p-3.5 rounded-t-2xl">
         <div className="flex gap-2.5">
           <Tag label={feedback.crop} />
           <Tag label={feedback.theme} />
@@ -284,8 +281,8 @@ const FeedbackCard = ({
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2.5">
             <EyeIcon />
-            <p className="text-[#4F4F4F] text-[16px]">
-              Visible on landing page
+            <p className="type-label text-[#4F4F4F]">
+              {t("visibleOnLanding")}
             </p>
           </div>
 
@@ -303,29 +300,30 @@ const FeedbackCard = ({
 const Tag = ({ label }: { label: string }) => {
   return (
     <motion.div className="px-5 rounded-full border w-fit bg-[#FCEFE0] border-[#E99532]">
-      <p className="text-[#4F4F4F] text-[16px]">{label}</p>
+      <p className="type-label text-[#4F4F4F]">{label}</p>
     </motion.div>
   );
 };
 
 const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
+  const t = useTranslations("dashboard");
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="flex flex-col justify-center items-center gap-2.5 max-w-120 mx-auto mt-5 p-10 border border-[#E1E7EF] rounded-2xl"
+      className="mx-auto mt-5 flex max-w-120 flex-col items-center justify-center gap-2.5 rounded-2xl border border-[#E1E7EF] p-5 sm:p-10"
     >
       <div className="size-30 rounded-full bg-[#FDF4EB] flex justify-center items-center">
         <CameraIcon />
       </div>
 
-      <p className="text-[25px] font-bold text-center">
-        Your Feedback Gallery is Empty
+      <p className="type-card-title text-center font-bold">
+        {t("feedbackGalleryEmpty")}
       </p>
 
-      <p className="text-[16px] text-center">
-        Upload up to 6 WhatsApp reviews to showcase your success.
+      <p className="type-label text-center">
+        {t("feedbackGalleryDescription")}
       </p>
 
       <motion.button
@@ -333,7 +331,7 @@ const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
         onClick={handleClick}
         className="w-full mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer"
       >
-        Add Feedback
+        {t("addFeedback")}
       </motion.button>
     </motion.div>
   );
@@ -346,6 +344,7 @@ const AddFeedbackCard = ({
   remainingSlots: number;
   handleClick: () => void;
 }) => {
+  const t = useTranslations("dashboard");
   return (
     <motion.button
       className="rounded-2xl overflow-hidden w-full h-110 p-5 border-2 border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-2.5 cursor-pointer"
@@ -355,10 +354,10 @@ const AddFeedbackCard = ({
         <PulseIcon />
       </div>
 
-      <p className="text-[16px] font-semibold mt-2.5">Add New Feedback</p>
+      <p className="type-label mt-2.5 font-semibold">{t("uploadFeedback")}</p>
 
-      <p className="text-[#4F4F4F] text-[16px]">
-        {remainingSlots} slots remaining
+      <p className="type-label text-[#4F4F4F]">
+        {t("slotsRemaining", { count: remainingSlots })}
       </p>
     </motion.button>
   );

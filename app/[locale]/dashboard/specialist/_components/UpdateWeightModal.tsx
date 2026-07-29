@@ -7,6 +7,7 @@ import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useTranslations } from "next-intl";
 
 const UpdateWeightModal = ({
   customerId,
@@ -21,6 +22,7 @@ const UpdateWeightModal = ({
   name: string;
   onClose: () => void;
 }) => {
+  const t = useTranslations();
   const [weight, setWeight] = useState(String(currentWeight ?? startWeight));
 
   const queryClient = useQueryClient();
@@ -67,9 +69,9 @@ const UpdateWeightModal = ({
 
   return (
     <ModalWrapper>
-      <div className="bg-[#FFFEFD] p-5 rounded-2xl min-w-110 flex flex-col gap-4">
+      <div className="flex w-[min(100%,27.5rem)] flex-col gap-4 rounded-2xl bg-[#FFFEFD] p-4 sm:p-5">
         <div className="flex justify-between items-center">
-          <p className="text-[20px] font-semibold">Update Client Progress</p>
+          <p className="type-card-title font-semibold">{t("dashboard.updateClientProgress")}</p>
           <button
             onClick={onClose}
             className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
@@ -78,15 +80,15 @@ const UpdateWeightModal = ({
           </button>
         </div>
 
-        <p className="text-[#4F4F4F] text-[16px] font-semibold">{name}</p>
+        <p className="type-label font-semibold text-[#4F4F4F]">{name}</p>
 
         <div className="flex justify-between px-3.5 py-2.5 bg-[#EDEDED] border border-[#E1E7EF] rounded-xl">
-          <p className="text-[16px]">Starting Weight</p>
-          <p className="text-[16px] font-semibold">{startWeight ?? 0} Kg</p>
+          <p className="type-label">{t("dashboard.startingWeight")}</p>
+          <p className="type-label font-semibold">{startWeight ?? 0} Kg</p>
         </div>
 
         <div className="flex flex-col gap-3">
-          <label htmlFor="" className="text-[16px]">
+          <label htmlFor="" className="type-label">
             Current Weight
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
@@ -105,9 +107,9 @@ const UpdateWeightModal = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter numbers only (e.g. 80)"
+              placeholder={t("dashboard.numbersOnly")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">kg</p>
+            <p className="type-label text-[#4F4F4F]">{t("calculators.kg")}</p>
           </div>
         </div>
 
@@ -117,7 +119,7 @@ const UpdateWeightModal = ({
           className={`
           rounded-full
           h-12
-          text-[16px]
+          type-control
           font-semibold
           mt-3.5
           transition-colors
@@ -133,7 +135,7 @@ const UpdateWeightModal = ({
               <Spinner spinnerSize={30} />
             </div>
           ) : (
-            <p className="">Save Update</p>
+            <p className="">{t("dashboard.saveUpdate")}</p>
           )}
         </button>
       </div>

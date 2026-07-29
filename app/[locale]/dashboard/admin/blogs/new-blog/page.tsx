@@ -5,6 +5,7 @@ import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,6 +25,7 @@ const item = {
 } as const;
 
 const AddNewBlogPage = () => {
+  const t = useTranslations("dashboard");
   const router = useRouter();
 
   const backToMainBlogsPage = () => {
@@ -37,24 +39,24 @@ const AddNewBlogPage = () => {
       animate="show"
       className="w-full"
     >
-      <motion.div variants={item} className="flex justify-between items-start">
+      <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-3">
-          <div className="flex gap-2 items-center">
-            <p className="text-[#A4A4A4] text-[20px]">Content & blogs</p>
+          <div className="type-body-lg flex items-center gap-2">
+            <p className="text-[#A4A4A4]">{t("contentAndBlogs")}</p>
             <RightArrowIcon />
-            <p className="text-[20px]">Add blog</p>
+            <p>{t("addBlogBreadcrumb")}</p>
           </div>
-          <h3 className="font-bold text-[30px]">Add New Blog</h3>
-          <p className="text-[#4F4F4F] text-[20px]">
-            Manage wellness blogs and content.
+          <h3 className="type-page-title font-bold">{t("addNewBlog")}</h3>
+          <p className="type-body-lg text-[#4F4F4F]">
+            {t("manageBlogs")}
           </p>
         </div>
         <button
           onClick={backToMainBlogsPage}
-          className="flex items-center gap-3 px-5 py-2 border border-[#E1E7EF] cursor-pointer rounded-full bg-[#FFFEFD]"
+          className="flex items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2 sm:w-fit"
         >
-          <ArrowIcon />
-          <p className="text-[16px] font-semibold">Back to Blogs</p>
+          <ArrowIcon className="direction-aware-back-icon" />
+          <p className="type-control font-semibold">{t("backToBlogs")}</p>
         </button>
       </motion.div>
 

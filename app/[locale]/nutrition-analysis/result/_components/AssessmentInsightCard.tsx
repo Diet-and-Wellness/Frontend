@@ -1,45 +1,38 @@
 import ProgressBar from "@/app/[locale]/components/Public/ProgressBar";
+import { normalizeAssessmentStatus } from "@/app/[locale]/utils/groupAssessmentSectionsByStatus";
+import { useTranslations } from "next-intl";
 
 interface FocusAreaCardProps {
   title: string;
   score: number;
   description: string;
   icon: React.ReactNode;
-  status:
-    | "Excellent"
-    | "Good"
-    | "Average"
-    | "Needs Improvement"
-    | "Needs Attention";
+  status: string;
+  onClick: () => void;
 }
 
 const STATUS = {
   Excellent: {
-    label: "Excellent",
     color: "#22C55E",
     bg: "#F0FDF4",
   },
 
   Good: {
-    label: "Good",
     color: "#65A30D",
     bg: "#F7FEE7",
   },
 
   Average: {
-    label: "Average",
     color: "#F59E0B",
     bg: "#FFFBEB",
   },
 
   ["Needs Improvement"]: {
-    label: "Needs Improvement",
     color: "#F97316",
     bg: "#FFF7ED",
   },
 
   ["Needs Attention"]: {
-    label: "Needs Attention",
     color: "#EF4444",
     bg: "#FEF2F2",
   },
@@ -51,11 +44,27 @@ const AssessmentInsightCard = ({
   description,
   icon,
   status,
+  onClick,
 }: FocusAreaCardProps) => {
-  const ui = STATUS[status];
+  const t = useTranslations("analysis");
+  const normalizedStatus = normalizeAssessmentStatus(status) ?? "Average";
+  const ui = STATUS[normalizedStatus];
+  const statusLabel = t(
+    {
+      Excellent: "excellent",
+      Good: "good",
+      Average: "average",
+      "Needs Improvement": "needsImprovement",
+      "Needs Attention": "needsAttention",
+    }[normalizedStatus],
+  );
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E1E7EF] p-5 flex flex-col justify-between gap-3">
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex w-full flex-col justify-between gap-3 rounded-2xl border border-[#E1E7EF] bg-white p-5 text-start transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4D8E32] hover:shadow-sm cursor-pointer"
+    >
       <div className="flex justify-between items-center">
         <div
           className="size-12 rounded-full flex items-center justify-center"
@@ -81,24 +90,24 @@ const AssessmentInsightCard = ({
             }}
           />
 
-          <span className="font-semibold text-[13px]">{ui.label}</span>
+          <span className="type-meta font-semibold">{statusLabel}</span>
         </div>
       </div>
 
-      <h3 className="text-[18px] font-medium">{title}</h3>
+      <h3 className="type-card-title font-medium">{title}</h3>
 
       <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <span className="text-[14px] text-[#4F4F4F]">Score</span>
-          <span className="text-[14px] font-semibold">{score}%</span>
+          <span className="type-meta text-[#4F4F4F]">{t("score")}</span>
+          <span className="type-meta font-semibold">{score}%</span>
         </div>
         <ProgressBar score={score} bgColor={ui.color} />
       </div>
 
-      <p className="text-[14px] leading-[1.45] text-[#595959] line-clamp-2">
+      <p className="type-label line-clamp-2 text-[#595959]">
         {description}
       </p>
-    </div>
+    </button>
   );
 };
 

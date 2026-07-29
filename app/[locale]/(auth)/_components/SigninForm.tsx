@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useForm } from "react-hook-form";
 import { authApi } from "../../api/endpoints/auth.api";
 import Error from "../../components/Public/Error";
 import Label from "../../components/Public/Label";
 import Spinner from "../../components/Public/LoadingSpinner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type FormData = {
   email: string;
@@ -16,6 +16,7 @@ type FormData = {
 };
 
 const SigninForm = () => {
+  const t = useTranslations();
   const router = useRouter();
 
   const queryClient = useQueryClient();
@@ -49,7 +50,7 @@ const SigninForm = () => {
   });
 
   const inputClassName =
-    "outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+    "text-base outline-none ring ring-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:ring-2 focus:ring-[#3A6B26] transition-all duration-150";
 
   return (
     <motion.form
@@ -66,24 +67,24 @@ const SigninForm = () => {
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
       {/* Title */}
-      <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl">
-        Log in
+      <h3 className="type-display font-extrabold">
+        {t("auth.signIn")}
       </h3>
 
       {/* Email */}
       <div className="flex flex-col gap-2">
-        <Label text={"Email"} isRequired={true} />
+        <Label text={t("placeholders.email")} isRequired={true} />
 
         <input
           type="email"
           {...register("email", {
-            required: "Email is required",
+            required: t("auth.emailRequired"),
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Invalid email",
+              message: t("auth.invalidEmail"),
             },
           })}
-          placeholder="you@company.com"
+          placeholder={t("placeholders.enterYourEmail")}
           className={inputClassName}
         />
 
@@ -92,18 +93,18 @@ const SigninForm = () => {
 
       {/* Password */}
       <div className="flex flex-col gap-2">
-        <Label text={"Password"} isRequired={true} />
+        <Label text={t("placeholders.password")} isRequired={true} />
 
         <input
           type="password"
           {...register("password", {
-            required: "Password is required",
+            required: t("auth.passwordRequired"),
             minLength: {
               value: 6,
-              message: "Minimum 6 characters",
+              message: t("auth.minimumPassword"),
             },
           })}
-          placeholder="Enter your password"
+          placeholder={t("auth.passwordPlaceholder")}
           className={inputClassName}
         />
 
@@ -114,17 +115,17 @@ const SigninForm = () => {
       <button
         type="submit"
         disabled={loginMutation.isPending}
-        className="mt-4 bg-[#E99532] text-white text-[18px] font-medium rounded-4xl h-13 cursor-pointer flex justify-center items-center"
+        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-[#E99532] font-medium text-white cursor-pointer"
       >
-        {loginMutation.isPending ? <Spinner spinnerSize={30} /> : "Log in"}
+        {loginMutation.isPending ? <Spinner spinnerSize={30} /> : t("auth.signIn")}
       </button>
 
       {/* Footer */}
       <div className="flex gap-3 justify-center">
-        <p className="font-medium text-[16px]">Don’t Have an Account ?</p>
+        <p className="type-label font-medium">{t("auth.noAccount")}</p>
         <Link href="/signup">
-          <span className="text-[#4D8E32] text-[16px] font-semibold underline transition">
-            Sign Up
+          <span className="type-label text-[#4D8E32] font-semibold underline transition">
+            {t("auth.signUp")}
           </span>
         </Link>
       </div>

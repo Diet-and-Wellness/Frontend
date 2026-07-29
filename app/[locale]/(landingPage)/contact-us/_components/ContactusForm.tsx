@@ -19,7 +19,7 @@ type FormData = {
 };
 
 const inputClassName =
-  "outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+  "text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
 
 const ContactusForm = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -60,12 +60,12 @@ const ContactusForm = () => {
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
       {/* Title */}
-      <motion.h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl">
+      <motion.h3 className="type-display font-extrabold">
         {t("contactUs.contactUs")}
       </motion.h3>
 
       {/* Description */}
-      <motion.p className="text-[#4F4F4F] text-[16px] mb-5 font-medium">
+      <motion.p className="type-body mb-5 font-medium text-[#4F4F4F]">
         {t("contactUs.contactDescription")}
       </motion.p>
 
@@ -136,7 +136,7 @@ const ContactusForm = () => {
           rows={4}
           onInput={handleAutoGrow}
           placeholder={t("placeholders.leaveUsAMessage")}
-          className="outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 resize-none overflow-hidden focus:border-[#3A6B26] transition"
+          className="text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 resize-none overflow-hidden focus:border-[#3A6B26] transition"
         />
 
         {errors.message && <Error msg={errors.message.message} />}
@@ -146,7 +146,7 @@ const ContactusForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-4 bg-[#E99532] text-white text-[18px] font-medium rounded-4xl h-13 cursor-pointer flex justify-center items-center"
+        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-[#E99532] font-medium text-white cursor-pointer"
       >
         {isSubmitting ? <Spinner /> : t("placeholders.sendMessage")}
       </button>

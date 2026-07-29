@@ -12,9 +12,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import LogoutIllustrator from "../../components/icons/LogoutIllustrator";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const t = useTranslations("dashboard");
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -50,22 +53,24 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
   return (
     <motion.header
       initial={false}
-      animate={{
-        left: collapsed ? 100 : 256,
-      }}
-      transition={{
-        duration: 0.25,
-        ease: "easeInOut",
-      }}
-      className="px-7.5 py-2.5 max-h-17 bg-[#FFFEFD] border-b border-[#e1e7ef88] fixed z-50 top-0 right-0 flex flex-row justify-between items-center"
-    >
+      className={`fixed inset-x-0 top-0 z-50 flex min-h-16 items-center justify-between border-b border-[#e1e7ef88] bg-[#FFFEFD] px-4 py-2.5 sm:px-5 md:px-7.5 md:transition-[inset-inline-start] md:duration-250 md:ease-in-out ${collapsed ? "md:inset-s-25" : "md:inset-s-64"}`}
+      >
+      <div className="sm:hidden">
+        <Image
+          src="/icons/logo.svg"
+          alt="Diet and Wellness"
+          width={56}
+          height={56}
+        />
+      </div>
+
       <AnimatePresence mode="wait">
         {showLogoutModal && (
           <AlertModal
             key="logout-modal"
             illustrator={<LogoutIllustrator />}
-            note={"Are you sure you want to logout"}
-            confirmBtnTitle={"Yes, logout"}
+            note={t("logoutConfirmation")}
+            confirmBtnTitle={t("confirmLogout")}
             confirm={logout}
             closeModal={closeLogoutModalHandler}
             pending={logoutMutation.isPending}
@@ -73,37 +78,37 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
         )}
       </AnimatePresence>
 
-      <div className="w-95 px-4 py-2.5 bg-[#F9F9F9] rounded-xl flex flex-row items-center gap-3 border border-[#e1e7ef88]">
+      <div className="hidden w-95 items-center gap-3 rounded-xl border border-[#e1e7ef88] bg-[#F9F9F9] px-4 py-2.5 sm:flex">
         <SearchIcon className="text-[#4F4F4F]" />
         <input
           type="text"
-          placeholder="Search clients..."
-          className="outline-none w-full"
+          placeholder={t("searchClients")}
+          className="w-full text-base outline-none"
         />
       </div>
 
-      <div className="flex flex-row gap-5 items-center">
+      <div className="flex items-center gap-3 sm:gap-5">
         {/* <button className="relative cursor-pointer p-2.5">
           <NotificationIcon className="text-black" />
-          <div className="bg-[#E99532] rounded-full size-5 flex justify-center items-center absolute -top-0.5 -right-1 text-[#FFFEFD] text-[12px] font-bold">
+          <div className="bg-[#E99532] rounded-full size-5 flex justify-center items-center absolute -top-0.5 -end-1 text-[#FFFEFD] text-[12px] font-bold">
             2
           </div>
         </button> */}
         <button
           onClick={() => setShowMenu((prev) => !prev)}
-          className="rounded-xl px-2 py-2 flex flex-row gap-3 items-center cursor-pointer border border-[#E1E7EF]"
+          className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#E1E7EF] px-2 py-2 sm:gap-3"
         >
           <div className="size-9 bg-[#E99532] rounded-xl flex justify-center items-center relative">
-            <div className="size-3 bg-[#4D8E32] absolute rounded-full -top-0.5 -right-0.5 shadow-[0_0_0_2px_white]"></div>
-            <span className="text-[#FFFEFD] text-[13px] font-bold">
+            <div className="size-3 bg-[#4D8E32] absolute rounded-full -top-0.5 -end-0.5 shadow-[0_0_0_2px_white]"></div>
+            <span className="type-meta font-bold text-[#FFFEFD]">
               {me?.firstName?.at(0)}
               {me?.lastName?.at(0)}
             </span>
           </div>
-          <span className="text-black text-[16px] font-medium">
+          <span className="type-control hidden font-medium text-black sm:block">
             {me?.firstName}
           </span>
-          <ArrowDownIcon className="text-[#4F4F4F] mx-2" />
+          <ArrowDownIcon className="mx-2 hidden text-[#4F4F4F] sm:block" />
         </button>
       </div>
 
@@ -113,7 +118,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
             initial={{ opacity: 0, top: 50 }}
             animate={{ opacity: 1, top: 70 }}
             exit={{ opacity: 0, top: 50 }}
-            className={`p-2 border border-[#E1E7EF] rounded-lg bg-[#FFFEFD] flex flex-col gap-2 absolute right-7.5 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
+            className="absolute end-4 flex flex-col gap-2 rounded-lg border border-[#E1E7EF] bg-[#FFFEFD] p-2 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)] sm:end-7.5"
           >
             <button
               disabled={logoutMutation.isPending}
@@ -121,7 +126,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
               className={`min-w-40 p-2 text-center flex items-center gap-3 cursor-pointer hover:bg-gray-100 transition-colors duration-150 rounded-lg`}
             >
               <LogoutIcon className="text-[#DC2626]" />
-              <p className="text-[18px] text-[#DC2626]">Logout</p>
+              <p className="type-control text-[#DC2626]">{t("logout")}</p>
             </button>
           </motion.div>
         )}

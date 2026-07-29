@@ -2,6 +2,7 @@ import HighActivityIcon from "../icons/HighActivityIcon";
 import LowActivityIcon from "../icons/LowActivityIcon";
 import MediumActivityIcon from "../icons/MediumActivityIcon";
 import VeryHighActivityIcon from "../icons/VeryHighActivityIcon";
+import { useTranslations } from "next-intl";
 
 const ActivityLevelCard = ({
   isSelected,
@@ -14,15 +15,16 @@ const ActivityLevelCard = ({
   description: string;
   selectActivityLevelHandler: () => void;
 }) => {
+  const t = useTranslations("calculators");
   const getActivityLevelIcon = () => {
     switch (level) {
-      case "Low":
+      case t("low"):
         return <LowActivityIcon />;
-      case "Moderate":
+      case t("moderate"):
         return <MediumActivityIcon />;
-      case "High":
+      case t("high"):
         return <HighActivityIcon />;
-      case "Extreme":
+      case t("extreme"):
         return <VeryHighActivityIcon />;
     }
   };
@@ -35,11 +37,11 @@ const ActivityLevelCard = ({
       {getActivityLevelIcon()}
       <div className="flex flex-col items-start">
         <p
-          className={`${isSelected ? "text-gray-800" : "text-[#8E8E8E]"} text-[14px] font-medium`}
+          className={`type-label ${isSelected ? "text-gray-800" : "text-[#8E8E8E]"} font-medium`}
         >
           {level}
         </p>
-        <p className="text-[#8E8E8E] text-[13px]">{description}</p>
+        <p className="type-meta text-[#8E8E8E]">{description}</p>
       </div>
     </button>
   );

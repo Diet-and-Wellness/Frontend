@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const RealStories = () => {
   const t = useTranslations();
+  const isArabic = useLocale() === "ar";
 
   return (
     <section className="my-5 lg:my-20">
@@ -19,10 +20,10 @@ const RealStories = () => {
             viewport={{ once: true, amount: 0.5 }}
             className="max-w-3xl flex flex-col gap-2 md:gap-5"
           >
-            <h4 className="text-[28px] md:text-[50px] lg:text-[60px] font-semibold leading-tight">
+            <h4 className="type-display font-semibold">
               {t("stories.realResultsRealStories")}
             </h4>
-            <p className="text-[20px] md:text-[25px] leading-6 md:leading-8 font-light max-w-[85%] ms:max-w-2xl">
+            <p className="type-body-lg max-w-[85%] font-light ms:max-w-2xl">
               {t("stories.hearFromRealClients")}
             </p>
           </motion.div>
@@ -33,14 +34,14 @@ const RealStories = () => {
             whileInView={{ opacity: 0.8, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute right-0 top-0 pointer-events-none"
+            className="absolute end-0 top-0 pointer-events-none"
           >
             <Image
               src="/icons/qouteTop.svg"
               alt="qoute"
               width={315}
               height={200}
-              className="w-50 md:w-60 lg:w-75 h-auto"
+              className="real-stories-quote-art w-50 md:w-60 lg:w-75 h-auto"
             />
           </motion.div>
         </div>
@@ -48,9 +49,8 @@ const RealStories = () => {
         {/* Content */}
         <div
           className="
-          bg-none md:bg-[url('/icons/decorationBgImg_1.svg')]
+          real-stories-panel relative isolate
           w-full
-          bg-center bg-cover bg-no-repeat
           bg-[#C8DCBF]
           rounded-3xl md:rounded-[60px]
           px-8 pt-12 pb-3 md:p-12
@@ -61,7 +61,7 @@ const RealStories = () => {
         "
         >
           {/* Text Side */}
-          <div className="flex flex-col items-start max-w-xl">
+          <div className="real-stories-content flex flex-col items-start max-w-xl">
             <div className="flex flex-col gap-5 md:gap-7">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -77,7 +77,7 @@ const RealStories = () => {
                   className="rotate-180 w-20 md:w-30 h-auto"
                 />
               </motion.div>
-              <p className="flex flex-col text-[#4F4F4F] font-medium text-[18px] md:text-[20px] lg:text-[25px] gap-5 md:gap-7">
+              <p className="flex flex-col gap-5 text-base font-medium text-[#4F4F4F] sm:gap-7 sm:text-lg md:text-xl lg:text-[22px]">
                 <span>{t("stories.realStoriesFromPeople")}</span>
                 <span>{t("stories.beOneOfThemBookYourSession")}</span>
               </p>
@@ -93,7 +93,7 @@ const RealStories = () => {
                 rounded-full 
                 text-white
                 cursor-pointer 
-                text-[14px] md:text-[16px] lg:text-[18px] 
+                type-control
                 font-medium 
                 bg-[#4D8E32] 
                 hover:bg-[#347716] 
@@ -116,7 +116,9 @@ const RealStories = () => {
                   alt="pointer"
                   width={190}
                   height={150}
-                  className="w-20 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0"
+                  className={`w-20 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0 ${
+                    isArabic ? "md:scale-x-[-1]" : ""
+                  }`}
                 />
               </motion.div>
             </div>

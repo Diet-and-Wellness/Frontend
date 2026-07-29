@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useForm } from "react-hook-form";
 import { authApi } from "../../api/endpoints/auth.api";
 import Error from "../../components/Public/Error";
 import Label from "../../components/Public/Label";
 import Spinner from "../../components/Public/LoadingSpinner";
+import { useTranslations } from "next-intl";
 
 type FormData = {
   firstName: string;
@@ -17,6 +18,7 @@ type FormData = {
 };
 
 const SignupForm = () => {
+  const t = useTranslations();
   const {
     register,
     handleSubmit,
@@ -28,7 +30,7 @@ const SignupForm = () => {
   };
 
   const inputClassName =
-    "outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+    "text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
 
   return (
     <motion.form
@@ -45,17 +47,17 @@ const SignupForm = () => {
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
       {/* Title */}
-      <h3 className="font-extrabold text-3xl md:text-4xl lg:text-5xl">
-        Create a New Account
+      <h3 className="type-display font-extrabold">
+        {t("auth.createAccount")}
       </h3>
 
       {/* First Name */}
       <div className="flex flex-col gap-2">
-        <Label text={"First Name"} isRequired={true} />
+        <Label text={t("placeholders.firstName")} isRequired={true} />
 
         <input
-          {...register("firstName", { required: "First name is required" })}
-          placeholder="First Name"
+          {...register("firstName", { required: t("auth.firstNameRequired") })}
+          placeholder={t("placeholders.firstName")}
           className={inputClassName}
         />
 
@@ -64,11 +66,11 @@ const SignupForm = () => {
 
       {/* Last Name */}
       <div className="flex flex-col gap-2">
-        <Label text={"Last Name"} isRequired={true} />
+        <Label text={t("placeholders.lastName")} isRequired={true} />
 
         <input
-          {...register("lastName", { required: "Last name is required" })}
-          placeholder="Last Name"
+          {...register("lastName", { required: t("auth.lastNameRequired") })}
+          placeholder={t("placeholders.lastName")}
           className={inputClassName}
         />
 
@@ -77,18 +79,18 @@ const SignupForm = () => {
 
       {/* Email */}
       <div className="flex flex-col gap-2">
-        <Label text={"Email"} isRequired={true} />
+        <Label text={t("placeholders.email")} isRequired={true} />
 
         <input
           type="email"
           {...register("email", {
-            required: "Email is required",
+            required: t("auth.emailRequired"),
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Invalid email",
+              message: t("auth.invalidEmail"),
             },
           })}
-          placeholder="you@company.com"
+          placeholder={t("placeholders.enterYourEmail")}
           className={inputClassName}
         />
 
@@ -97,11 +99,11 @@ const SignupForm = () => {
 
       {/* Phone */}
       <div className="flex flex-col gap-2">
-        <Label text={"Phone Number"} isRequired={true} />
+        <Label text={t("placeholders.phoneNumber")} isRequired={true} />
 
         <input
           {...register("phone", {
-            required: "Phone is required",
+            required: t("auth.phoneRequired"),
           })}
           placeholder="+1 (555) 000-0000"
           className={inputClassName}
@@ -112,18 +114,18 @@ const SignupForm = () => {
 
       {/* Password */}
       <div className="flex flex-col gap-2">
-        <Label text={"Password"} isRequired={true} />
+        <Label text={t("placeholders.password")} isRequired={true} />
 
         <input
           type="password"
           {...register("password", {
-            required: "Password is required",
+            required: t("auth.passwordRequired"),
             minLength: {
               value: 6,
-              message: "Minimum 6 characters",
+              message: t("auth.minimumPassword"),
             },
           })}
-          placeholder="Enter your password"
+          placeholder={t("auth.passwordPlaceholder")}
           className={inputClassName}
         />
 
@@ -134,17 +136,17 @@ const SignupForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="mt-4 bg-[#E99532] text-white text-[18px] font-medium rounded-4xl h-13 cursor-pointer flex justify-center items-center"
+        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-[#E99532] font-medium text-white cursor-pointer"
       >
-        {isSubmitting ? <Spinner /> : "Sign Up"}
+        {isSubmitting ? <Spinner /> : t("auth.signUp")}
       </button>
 
       {/* Footer */}
       <div className="flex gap-3 justify-center">
-        <p className="font-medium text-[16px]">Don’t Have an Account ?</p>
+        <p className="type-label font-medium">{t("auth.noAccount")}</p>
         <Link href={"/signin"}>
-          <span className="text-[#4D8E32] text-[16px] font-semibold underline transition">
-            Log in
+          <span className="type-label text-[#4D8E32] font-semibold underline transition">
+            {t("auth.signIn")}
           </span>
         </Link>
       </div>

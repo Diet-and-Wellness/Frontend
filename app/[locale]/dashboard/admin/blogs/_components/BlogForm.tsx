@@ -11,6 +11,7 @@ import { useDropzone } from "react-dropzone";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import Image from "next/image";
 import UploadIcon from "@/app/[locale]/components/icons/UploadIcon";
+import { useTranslations } from "next-intl";
 
 const item = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
@@ -23,6 +24,7 @@ const item = {
 } as const;
 
 const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
+  const t = useTranslations("dashboard");
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -137,66 +139,66 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
   return (
     <motion.div
       variants={item}
-      className="mt-10 flex justify-between items-start gap-10"
+      className="mt-6 flex flex-col items-stretch gap-6 sm:mt-10 lg:flex-row lg:items-start lg:gap-10"
     >
       <form
         action=""
         onSubmit={handleSubmit(postBlog)}
-        className="p-7.5 bg-[#FFFEFD] border border-[#E1E7EF] rounded-2xl flex flex-col gap-7.5 w-full"
+        className="flex w-full flex-col gap-5 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
       >
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="blogTitle" className="text-[16px] font-bold">
-            Blog Title
+          <label htmlFor="blogTitle" className="type-label font-bold">
+            {t("blogTitle")}
           </label>
           <input
             type="text"
-            placeholder="Blog Name..."
+            placeholder={t("blogTitle")}
             id="blogTitle"
             {...register("title", { required: true })}
-            className="border-none outline-none ring ring-[#D5D5D5] rounded-md px-3 py-2 focus:ring-2 focus:ring-[#4D8E32]"
+            className="border-none outline-none ring ring-[#D5D5D5] rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
           />
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="blogDescription" className="text-[16px] font-bold">
-            Blog Description
+          <label htmlFor="blogDescription" className="type-label font-bold">
+            {t("blogDescription")}
           </label>
           <input
             type="text"
-            placeholder="Blog Description..."
+            placeholder={t("blogDescription")}
             id="blogDescription"
             {...register("description", { required: true })}
-            className="border-none outline-none ring ring-[#D5D5D5] rounded-md px-3 py-2 focus:ring-2 focus:ring-[#4D8E32]"
+            className="border-none outline-none ring ring-[#D5D5D5] rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
           />
         </div>
 
         <div className="flex flex-col gap-2.5 max-h-80">
-          <label htmlFor="blogContent" className="text-[16px] font-bold">
-            Blog Content
+          <label htmlFor="blogContent" className="type-label font-bold">
+            {t("blogContent")}
           </label>
           <textarea
             id="blogContent"
-            placeholder="Blog Content..."
+            placeholder={t("blogContent")}
             {...register("content", { required: true })}
-            className="resize-none border-none outline-none ring ring-[#D5D5D5] h-80 rounded-md px-3 py-2 focus:ring-2 focus:ring-[#4D8E32]"
+            className="resize-none border-none outline-none ring ring-[#D5D5D5] h-80 rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
           />
         </div>
 
         <button
           type="submit"
           disabled={!canPublish}
-          className={`${!canPublish ? "cursor-not-allowed bg-[#ffc481]" : "cursor-pointer bg-[#E99532]"} mt-4 text-white text-[18px] font-medium rounded-4xl h-13 flex justify-center items-center`}
+          className={`${!canPublish ? "cursor-not-allowed bg-gray-300 text-gray-500" : "cursor-pointer bg-[#E99532]"} type-control mt-4 flex h-13 items-center justify-center rounded-4xl font-medium text-white`}
         >
           {addNewBlogMutation.isPending ? (
             <Spinner spinnerSize={30} />
           ) : (
-            "Publish"
+            t("publish")
           )}
         </button>
       </form>
       <div
         {...getRootProps()}
-        className={`min-w-100 p-7.5 rounded-2xl border-2 border-dashed ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} flex flex-col justify-center items-center gap-3 bg-[#FFFEFD]`}
+        className={`order-first w-full rounded-2xl border-2 border-dashed p-5 sm:p-7.5 lg:order-none lg:min-w-100 ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} flex flex-col justify-center items-center gap-3 bg-[#FFFEFD]`}
       >
         <input {...getInputProps()} />
 
@@ -214,7 +216,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
             </div>
 
             <p className="text-lg font-semibold text-center text-[#4D8E32]">
-              Image selected successfully
+              {t("imageSelected")}
             </p>
 
             {attachment && (
@@ -233,7 +235,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
               }}
               className="px-8 py-2 rounded-full border border-[#E1E7EF] cursor-pointer"
             >
-              Remove Image
+              {t("removeImage")}
             </button>
           </>
         ) : (
@@ -242,18 +244,18 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
               <UploadIcon />
             </div>
 
-            <p className="text-[20px] mt-2">Drag and drop your image here</p>
+            <p className="type-card-title mt-2 text-center">{t("dragDropImage")}</p>
 
-            <p className="text-[16px] text-[#4F4F4F]">
-              PNG, JPG or WEBP up to 5MB
+            <p className="type-label text-center text-[#4F4F4F]">
+              {t("imageFormats")}
             </p>
 
             <button
               type="button"
               onClick={open}
-              className="px-12 py-2 rounded-full border border-[#E1E7EF] text-[16px] font-semibold cursor-pointer mt-2"
+              className="type-control mt-2 rounded-full border border-[#E1E7EF] px-12 py-2 font-semibold cursor-pointer"
             >
-              Browse Files
+              {t("browseFiles")}
             </button>
           </>
         )}

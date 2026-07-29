@@ -7,6 +7,7 @@ import DangerIcon from "@/app/[locale]/components/icons/DangerIcon";
 import ArrowDownIcon from "@/app/[locale]/components/icons/ArrowDownIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 const unsupportedConditions = [
   "Active cancer undergoing treatment",
@@ -149,6 +150,7 @@ const unsupportedConditions = [
 ];
 
 const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
+  const t = useTranslations("analysis");
   const [isChecked, setIsChecked] = useState(false);
 
   const router = useRouter();
@@ -159,12 +161,12 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <ModalWrapper>
-      <div className="max-w-130 p-7.5 bg-[#FFFEFD] rounded-2xl min-w-100 flex flex-col gap-5">
+      <div className="flex max-h-[calc(100dvh-1.5rem)] w-[min(100%,32.5rem)] flex-col gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5">
         <div className="flex justify-between items-center">
           <div className="w-full flex justify-center items-center gap-2.5">
             <DangerIcon />
-            <p className="text-[24px] font-semibold text-center">
-              Before You Start
+            <p className="type-card-title text-center font-semibold">
+              {t("beforeStart")}
             </p>
           </div>
           <button
@@ -175,15 +177,12 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
           </button>
         </div>
 
-        <p className="text-[16px] text-[#4F4F4F]">
-          To ensure accurate results and recommendations, please let us know if
-          you have any of the following medical conditions.
+        <p className="type-body text-[#4F4F4F]">
+          {t("medicalConditionsIntro")}
         </p>
 
-        <p className="text-[16px] text-[#4F4F4F]">
-          Please note that some conditions are not currently supported by our
-          program. If you select an unsupported condition, you may not be
-          eligible to continue with the assessment.
+        <p className="type-body text-[#4F4F4F]">
+          {t("medicalConditionsWarning")}
         </p>
 
         <MedicalConditionsDropDown />
@@ -196,8 +195,8 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
             onChange={(e) => setIsChecked(e.target.checked)}
             className="size-4.5 accent-[#4D8E32] cursor-pointer"
           />
-          <label htmlFor="checkbox" className="text-[16px] cursor-pointer">
-            I confirm I reviewed the unsupported medical conditions.
+          <label htmlFor="checkbox" className="type-label cursor-pointer">
+            {t("confirmMedicalConditions")}
           </label>
         </div>
 
@@ -207,7 +206,7 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
           className={`
             rounded-full
             h-12
-            text-[16px]
+            type-control
             font-semibold
             mt-2.5
             transition-colors 
@@ -215,7 +214,7 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
             }
             `}
         >
-          <p className="">Continue to Assessment</p>
+          <p className="">{t("continueToAssessment")}</p>
         </button>
       </div>
     </ModalWrapper>
@@ -223,6 +222,8 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
 };
 
 const MedicalConditionsDropDown = () => {
+  const t = useTranslations("analysis");
+  const locale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -238,17 +239,21 @@ const MedicalConditionsDropDown = () => {
     setSearchTerm(event.target.value);
   };
 
+  const medicalConditions = locale === "ar"
+    ? (t.raw("medicalConditions") as string[])
+    : unsupportedConditions;
+
   const filteredMedicalConditions = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
 
     if (!search) {
-      return unsupportedConditions;
+      return medicalConditions;
     }
 
-    return unsupportedConditions.filter((condition) =>
+    return medicalConditions.filter((condition) =>
       condition.toLowerCase().includes(search),
     );
-  }, [searchTerm]);
+  }, [medicalConditions, searchTerm]);
 
   return (
     <motion.div
@@ -262,7 +267,7 @@ const MedicalConditionsDropDown = () => {
       className="relative bg-[#FFFFFF] flex flex-col"
     >
       <p className="font-medium mb-3">
-        The following medical conditions we don’t support
+        {t("unsupportedConditions")}
       </p>
 
       <motion.div
@@ -273,8 +278,8 @@ const MedicalConditionsDropDown = () => {
         <input
           type="text"
           value={searchTerm}
-          placeholder="Search your medical condition"
-          className="text-[16px] w-full outline-none border-none"
+          placeholder={t("searchMedicalCondition")}
+          className="type-control w-full border-none outline-none"
           onChange={handleSearch}
           onFocus={showDropDown}
         />
@@ -338,7 +343,7 @@ const MedicalConditionsDropDown = () => {
               className="h-40 rounded-2xl border border-gray-300 bg-white p-5 flex justify-center items-center"
             >
               <p className="text-center text-gray-500">
-                No matching medical conditions found.
+                {t("noMatchingMedicalConditions")}
               </p>
             </motion.div>
           )}

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { BlogResponse } from "../../api/types/blogs.types";
 import Blog from "../../components/Blogs/Blog";
-import Spinner from "../../components/Public/LoadingSpinner";
+import { CardGridSkeleton, Skeleton } from "../../components/Public/Skeletons";
 import { useBlogs } from "../../hooks/useBlogs";
 
 const container = {
@@ -93,7 +93,7 @@ const BlogPage = () => {
             variants={textVariant}
             className="
             text-[#D2862D]
-            text-[40px] md:text-[60px] lg:text-[80px]
+            text-3xl sm:text-4xl md:text-5xl lg:text-[80px]
             font-bold
             mb-2 lg:mb-5
           "
@@ -105,7 +105,7 @@ const BlogPage = () => {
             variants={textVariant}
             className="
             text-[#234016]
-            text-[26px] md:text-[30px] lg:text-[38px]
+            text-xl sm:text-2xl md:text-[30px] lg:text-[38px]
             font-normal
             leading-8.5 md:leading-10 lg:leading-12
           "
@@ -131,12 +131,13 @@ const BlogPage = () => {
       </motion.div>
 
       {isLoading ? (
-        <div className="place-self-center my-25">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
+        <div className="mt-10 max-w-[90%] mx-auto">
+          <Skeleton className="mb-5 h-9 w-55 lg:mb-10" />
+          <CardGridSkeleton cards={6} />
         </div>
       ) : (
         <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-          <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[38px] font-medium mb-5 lg:mb-10">
+          <h4 className="type-section-title mb-5 font-medium text-[#3E7228] lg:mb-10">
             {t("blogs.featuredBlogs")}
           </h4>
           <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
@@ -152,7 +153,7 @@ const BlogPage = () => {
           onClick={() => {}}
           className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2 lg:py-2.5 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200"
         >
-          <p className="text-[#E99532] text-[16px] md:text-[18px] font-semibold">
+          <p className="type-control font-semibold text-[#E99532]">
             {t("blogs.showMore")}
           </p>
           <Image

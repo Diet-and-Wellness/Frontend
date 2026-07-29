@@ -16,8 +16,8 @@ const EmptyComp = ({
       className="p-5 pb-12.5 place-self-center"
     >
       <EmptyIcon />
-      <h4 className="text-center text-[25px] font-bold mt-7.5">{title}</h4>
-      <p className="text-center text-[20px] text-[#4F4F4F] mt-2.5">
+      <h4 className="type-card-title mt-7.5 text-center font-bold">{title}</h4>
+      <p className="type-body mt-2.5 text-center text-[#4F4F4F]">
         {description}
       </p>
     </motion.div>

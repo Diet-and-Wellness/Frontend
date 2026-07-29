@@ -59,7 +59,7 @@ const PricePlan = ({ plan }: PricePlanProps) => {
             {plan.price}
           </span>
           <span className="pb-1 text-sm sm:text-base font-medium text-[#4F4F4F]">
-            {plan.currency}
+            {plan.currency === "EGP" ? t("pricing.egp") : plan.currency}
             {" / "}
             {t("pricing.month")}
           </span>
@@ -131,6 +131,7 @@ const ListItem = ({
 
 const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
   const t = useTranslations("pricing");
+  const localizedDays = days?.map((day) => t(`days.${day}`));
 
   return (
     <ul className="flex flex-col  gap-3">
@@ -141,7 +142,7 @@ const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
       ))}
 
       <ListItem icon="/icons/date.svg">
-        <span className="font-medium">{t("daysWord")}</span> {days?.join(" — ")}
+        <span className="font-medium">{t("daysWord")}</span> {localizedDays?.join(" — ")}
       </ListItem>
 
       <ListItem icon="/icons/clock.svg">

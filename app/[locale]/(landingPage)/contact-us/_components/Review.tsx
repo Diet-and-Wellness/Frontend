@@ -5,7 +5,7 @@ const Review = () => {
   const t = useTranslations();
 
   return (
-    <div className="max-w-130 rounded-3xl shadow-xl p-5 bg-white/20 backdrop-blur-xl border border-white/40 flex flex-col gap-5">
+    <div className="flex w-[calc(100%-2rem)] max-w-130 flex-col gap-5 rounded-3xl border border-white/40 bg-white/20 p-5 shadow-xl backdrop-blur-xl sm:p-6">
       <Image
         src="/icons/quote.svg"
         alt="Decorative divider"

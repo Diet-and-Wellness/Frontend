@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import CTA from "./CTAFreeToolsResult";
 import ToolModalHeader from "./ToolModalHeader";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
+import { useTranslations } from "next-intl";
 
 const pageVariants = {
   hidden: {
@@ -72,7 +73,7 @@ const BMI = ({
 
   return (
     <ModalWrapper>
-      <div className="min-w-100 flex flex-col gap-4">
+      <div className="flex w-[min(100%,30rem)] flex-col gap-4">
         <AnimatePresence mode="wait">
           {showResult ? (
             <BmiResult
@@ -100,6 +101,7 @@ const BmiForm = ({
   showResultHandler: (bmiResult: BMIResult) => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
   const [heightCm, setHeightCm] = useState(0);
   const [weightKg, setWeightKg] = useState(0);
 
@@ -133,17 +135,17 @@ const BmiForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-7.5 bg-[#FFFEFD] rounded-2xl flex flex-col gap-7.5"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
     >
       <ToolModalHeader
-        toolName="Body Mass Index Calculator"
+        toolName={t("bmiTitle")}
         onClose={onClose}
       />
 
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Height
+          <label htmlFor="" className="type-label font-medium">
+            {t("height")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -160,15 +162,15 @@ const BmiForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your height"
+              placeholder={t("enterHeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">cm</p>
+            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
           </div>
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="" className="text-[16px] font-medium">
-            Weight
+          <label htmlFor="" className="type-label font-medium">
+            {t("weight")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
             <input
@@ -185,9 +187,9 @@ const BmiForm = ({
                 }
               }}
               className="w-full outline-none"
-              placeholder="Enter your weight"
+              placeholder={t("enterWeight")}
             />
-            <p className="text-[#4F4F4F] text-[16px]">kg</p>
+            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
           </div>
         </div>
       </div>
@@ -197,8 +199,9 @@ const BmiForm = ({
         onClick={handleCalculateBMI}
         className={`
             rounded-full
-            h-12
-            text-[16px]
+            min-h-12
+            shrink-0
+            type-control
             font-semibold
             mt-2.5
             transition-colors 
@@ -206,7 +209,7 @@ const BmiForm = ({
             }
             `}
       >
-        <p className="">See Result</p>
+        <p className="">{t("seeResult")}</p>
       </button>
     </motion.div>
   );
@@ -223,26 +226,30 @@ const BmiResult = ({
   onGetFullAnalysis: () => void;
   onClose: () => void;
 }) => {
+  const t = useTranslations("calculators");
+  const direction = bmiResult?.direction ?? "healthy";
+  const action = bmiResult?.action ?? "Maintaining";
+
   return (
     <motion.div
       variants={pageVariants}
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-7.5 bg-[#FFFEFD] rounded-2xl flex flex-col gap-5 items-center"
+      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col items-center gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
     >
       <ToolModalHeader
-        toolName="Body Mass Index Calculator"
+        toolName={t("bmiTitle")}
         onClose={onClose}
       />
 
       <div className="flex flex-col justify-center items-center gap-1">
-        <p className="text-[22px] font-medium">Your BMI Score</p>
-        <p className="text-[36px] text-[#4D8E32] font-bold">{bmiResult?.bmi}</p>
+        <p className="type-card-title font-medium">{t("bmiScore")}</p>
+        <p className="text-3xl font-bold text-[#4D8E32] sm:text-4xl">{bmiResult?.bmi}</p>
         <p
-          className={`text-[24px] ${bmiResult?.status === "Normal" ? "text-[#337516]" : "text-[#E99532]"} font-medium`}
+          className={`type-card-title ${bmiResult?.status === "Normal" ? "text-[#337516]" : "text-[#E99532]"} font-medium`}
         >
-          {bmiResult?.status}
+          {t(`bmiStatus.${bmiResult?.status ?? "Normal"}`)}
         </p>
       </div>
 
@@ -264,22 +271,27 @@ const BmiResult = ({
       />
 
       <div className="w-full rounded-2xl border border-[#4D8E32] px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-[#EDF4EB]">
-        <p className="text-[16px] font-medium">Healthy BMI Range</p>
-        <p className="text-[18px] font-semibold text-[#4D8E32]">
+        <p className="type-label font-medium">{t("healthyBmiRange")}</p>
+        <p className="type-card-title font-semibold text-[#4D8E32]">
           {HEALTHY_MIN} — {HEALTHY_MAX}{" "}
-          <span className="text-gray-900 font-medium text-[16px]">kg/m²</span>
+          <span className="type-label font-medium text-gray-900">kg/m²</span>
         </p>
       </div>
 
       {bmiResult?.status === "Normal" || (
         <div className="w-full rounded-2xl border border-[#E99532] px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-[#FDF4EB]">
-          <p className="text-[16px] font-medium">
-            {`
-          You’re ${bmiResult?.differenceFromHealthy} kg/m² ${bmiResult?.direction} the normal range
-          `}
+          <p className="type-label font-medium">
+            {t("bmiDifference", {
+              difference: bmiResult?.differenceFromHealthy ?? 0,
+              position: t(`weightPosition.${direction}`),
+            })}
           </p>
-          <p className="text-[16px] text-gray-900">
-            {`${bmiResult?.action} about ${bmiResult?.weightRange?.from} — ${bmiResult?.weightRange?.to} kg can help you reach a healthier BMI`}
+          <p className="type-label text-gray-900">
+            {t("bmiRecommendation", {
+              action: t(`weightAction.${action}`),
+              from: bmiResult?.weightRange?.from ?? "",
+              to: bmiResult?.weightRange?.to ?? "",
+            })}
           </p>
         </div>
       )}

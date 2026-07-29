@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { notesApi } from "@/app/[locale]/api/endpoints/notes.api";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import PenIcon from "@/app/[locale]/components/icons/Pen";
-import SendIcon from "@/app/[locale]/components/icons/SendIcon";
+import SaveIcon from "@/app/[locale]/components/icons/SaveIcon";
 import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,6 +13,7 @@ import { AnimatePresence } from "framer-motion";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useTranslations } from "next-intl";
 
 const NoteModal = ({
   customerId,
@@ -25,6 +26,7 @@ const NoteModal = ({
   currentNote: string | null;
   onClose: () => void;
 }) => {
+  const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
 
   const { data: me } = useMe();
@@ -93,8 +95,8 @@ const NoteModal = ({
           <AlertModal
             key="logout-modal"
             illustrator={<TrashIllustrator />}
-            note={"Are you sure you want to delete this note?"}
-            confirmBtnTitle={"Yes, delete"}
+            note={t("deleteNoteConfirmation")}
+            confirmBtnTitle={t("confirmDelete")}
             confirm={deleteNoteHandler}
             closeModal={() => setShowAlertModal(false)}
             pending={deleteNoteMutation.isPending}
@@ -102,9 +104,9 @@ const NoteModal = ({
         )}
       </AnimatePresence>
 
-      <div className="bg-[#FFFEFD] px-7.5 py-5 max-w-140 rounded-2xl flex flex-col gap-3.5">
+      <div className="flex w-[min(100%,35rem)] flex-col gap-3.5 rounded-2xl bg-[#FFFEFD] px-4 py-5 sm:px-7.5">
         <div className="flex justify-between items-center">
-          <p className="text-[18px] font-medium text-gray-900">Note</p>
+          <p className="type-card-title font-medium text-gray-900">{t("note")}</p>
           <button
             disabled={isLoading}
             onClick={onClose}
@@ -115,15 +117,15 @@ const NoteModal = ({
         </div>
 
         {mode === "view" ? (
-          <p className="w-125 max-h-50 overflow-scroll whitespace-pre-wrap">
+          <p className="type-body max-h-50 w-full overflow-y-auto whitespace-pre-wrap">
             {currentNote}
           </p>
         ) : (
           <textarea
             value={note}
             onChange={noteChangeHandler}
-            placeholder="Add Note..."
-            className="resize-none w-125 p-3.5 outline-none ring min-h-50 ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150 rounded-2xl placeholder:text-[#D5D5D5]"
+            placeholder={t("addNote")}
+            className="min-h-50 w-full resize-none rounded-2xl p-3.5 text-base outline-none ring ring-[#D5D5D5] transition-all duration-150 placeholder:text-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32]"
           />
         )}
 
@@ -162,9 +164,9 @@ const NoteModal = ({
                   <Spinner spinnerSize={25} />
                 ) : (
                   <div className="flex items-center gap-2.5">
-                    <p className="text-[16px] font-medium">Save</p>
-                    <SendIcon
-                      className={`${saveBtnDisabled ? "text-gray-500" : "text-[#4D8E32]"}`}
+                    <p className="type-control font-medium">{t("save")}</p>
+                    <SaveIcon
+                      className={`shrink-0 ${saveBtnDisabled ? "text-gray-500" : "text-[#4D8E32]"}`}
                     />
                   </div>
                 )}

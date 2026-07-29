@@ -97,9 +97,7 @@ export interface GetAssessmentSubmissionsRequest {
   dateTo?: string;
 }
 
-export interface UserId {
-  id: string;
-}
+export type UserId = string;
 
 export interface SubmitAssessmentSectionRequest {
   answers: AssessmentAnswerRequest[];
@@ -175,6 +173,15 @@ export interface AssessmentSectionResult {
   sectionScore: number;
   result: AssessmentResult;
   answers: AssessmentAnswerResponse[];
+}
+
+export interface AssessmentSubmission {
+  id?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  submittedAt?: string;
+  completedAt?: string;
+  sectionResults?: AssessmentSectionResult[];
 }
 
 export interface AssessmentResult {

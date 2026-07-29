@@ -70,7 +70,7 @@ const Tool = ({
             height={0}
             className="w-3 h-3"
           />
-          <p className={`leading-4 text-[12px] font-bold text-white`}>
+          <p className="type-meta font-bold leading-4 text-white">
             {isFree ? t("tools.free") : t("tools.premium")}
           </p>
         </div>
@@ -78,12 +78,12 @@ const Tool = ({
 
       {/* Content */}
       <div className="flex flex-col gap-2 flex-1">
-        <h4 className="text-lg sm:text-xl font-bold text-[#111827] leading-snug line-clamp-2 group-hover:text-white transition-colors duration-300">
+        <h4 className="type-card-title line-clamp-2 font-bold text-[#111827] group-hover:text-white transition-colors duration-300">
           {toolName}
         </h4>
 
         <p
-          className={`font-medium text-sm sm:text-[16px] text-[#4F4F4F] line-clamp-3 group-hover:text-white transition-colors duration-300`}
+          className="type-body line-clamp-3 font-medium text-[#4F4F4F] group-hover:text-white transition-colors duration-300"
         >
           {toolDesc}
         </p>
@@ -98,7 +98,7 @@ const Tool = ({
             rounded-full
             ${isFree ? "text-[#4D8E32]" : "text-[#E99532]"}
             font-bold
-            text-sm sm:text-base
+            type-control
             transition-all duration-300
             group-hover:bg-[#FDFDFD]
             active:scale-98

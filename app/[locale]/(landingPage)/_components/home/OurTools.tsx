@@ -8,9 +8,15 @@ import { useState } from "react";
 import IBW from "./free-tools/IBW";
 import CalCal from "./free-tools/CalCal";
 import BeforeStartAssessment from "./free-tools/BeforeStartAssessment";
+import { useRouter } from "next/navigation";
+import { assessmentApi } from "@/app/[locale]/api/endpoints/assessment.api";
+import { useMe } from "@/app/[locale]/hooks/useMe";
+import { hasAssessmentDraft } from "@/app/[locale]/utils/assessmentDraft";
 
 const OurTools = () => {
   const t = useTranslations();
+  const router = useRouter();
+  const { data: me } = useMe();
 
   const [showBmiModal, setShowBmiModal] = useState(false);
   const [showIbwModal, setShowIbwModal] = useState(false);
@@ -42,19 +48,38 @@ const OurTools = () => {
     setShowCalCalModal(false);
   };
 
-  const tryFullAssessment = () => {
-    setShowBeforeStartAssessmentModal(true);
-  };
-
   const closeBeforeAssessmentModal = () => {
     setShowBeforeStartAssessmentModal(false);
   };
 
-  const getFullAnalysis = () => {
+  const getFullAnalysis = async () => {
     setShowBmiModal(false);
     setShowIbwModal(false);
     setShowCalCalModal(false);
+
+    if (me?.id) {
+      try {
+        const { data } = await assessmentApi.getAssessmentsResult();
+
+        if (data?.data) {
+          router.push("/nutrition-analysis/result");
+          return;
+        }
+      } catch {
+        // No completed result is a valid state when the user has not finished yet.
+      }
+
+      if (hasAssessmentDraft(me.id)) {
+        router.push("/nutrition-analysis/assessment");
+        return;
+      }
+    }
+
     setShowBeforeStartAssessmentModal(true);
+  };
+
+  const tryFullAssessment = () => {
+    void getFullAnalysis();
   };
 
   const toolsList = [
@@ -99,14 +124,14 @@ const OurTools = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      className="
+      className="landing-our-tools
       py-10 md:py-25
       flex justify-center items-center
       bg-no-repeat
-      bg-right md:bg-bottom-right
+      ltr:md:bg-right rtl:md:bg-left md:bg-bottom
       bg-contain
       lg:bg-contain
-      md:bg-size-[100%]
+      md:bg-[length:100%_auto]
       bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
       <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-25">
@@ -145,18 +170,18 @@ const OurTools = () => {
           transition={{ duration: 0.7, ease: "easeInOut" }}
           className="max-w-2xl flex flex-col gap-4 md:gap-6"
         >
-          <p className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#E99532] leading-tight">
+          <p className="type-display font-bold text-[#E99532]">
             {t("tools.empoweringYouOnTheJourneyOnWellness")}
           </p>
 
-          <p className="text-base sm:text-lg md:text-2xl text-[#4F4F4F] max-w-sm sm:max-w-xl">
+          <p className="type-body-lg max-w-sm text-[#4F4F4F] sm:max-w-xl">
             {t("tools.startWithOurFreeCalculators")}
           </p>
         </motion.div>
 
         {/* Tools */}
         <div className="flex flex-col gap-6 md:gap-8">
-          <p className="text-[#E99532] font-bold text-xl md:text-3xl lg:text-4xl">
+          <p className="type-section-title font-bold text-[#E99532]">
             {t("tools.tryOurTools")}
           </p>
 

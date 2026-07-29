@@ -6,7 +6,7 @@ const Label = ({
   isRequired?: boolean;
 }) => {
   return (
-    <label>
+    <label className="type-label">
       {text} {isRequired && <span className="text-red-500">*</span>}
     </label>
   );

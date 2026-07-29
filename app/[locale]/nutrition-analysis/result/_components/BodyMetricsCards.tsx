@@ -1,6 +1,7 @@
 import BMIProgress from "./BmiProgressBar";
 import TargetIcon from "@/app/[locale]/components/icons/TargetIcon";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
+import { useTranslations } from "next-intl";
 
 const HEALTHY_MIN = 18.5;
 const HEALTHY_MAX = 24.9;
@@ -14,59 +15,76 @@ export default function BodyMetricsCards({
   bmi,
   idealWeight,
 }: BodyMetricsCardsProps) {
+  const t = useTranslations("analysis");
+  const calculatorT = useTranslations("calculators");
+  const bmiDifferenceLabel = calculatorT(
+    {
+      above: "aboveNormalBy",
+      below: "belowNormalBy",
+      healthy: "withinHealthyRange",
+    }[bmi.direction],
+  );
+  const bmiAction = calculatorT(`weightAction.${bmi.action}`);
+  const idealWeightStatus = calculatorT(`weightPosition.${idealWeight.status}`);
+  const idealWeightAction = calculatorT(`weightAction.${idealWeight.action}`);
+
   return (
-    <div className="grid grid-cols-2 gap-10">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7.5 lg:gap-10">
       <div className="bg-white border border-[#EDEDED] p-5 rounded-2xl flex flex-col justify-between">
-        <p className="text-[#4F4F4F] text-[14px] font-medium">
-          BODY MASS INDEX
+        <p className="type-meta font-medium text-[#4F4F4F]">
+          {t("bodyMassIndex")}
         </p>
         <div className="flex gap-2.5 justify-start items-baseline">
-          <p className="text-[38px] font-medium">{bmi.bmi}</p>
-          <p className="text-[#E99532] text-[16px] font-medium">{bmi.status}</p>
+          <p className="text-2xl font-medium sm:text-3xl lg:text-[38px]">{bmi.bmi}</p>
+          <p className="type-label font-medium text-[#E99532]">{calculatorT(`bmiStatus.${bmi.status}`)}</p>
         </div>
 
         <BMIProgress value={bmi.bmi} />
 
-        <div className="grid grid-cols-2 gap-2.5 my-5">
+        <div className="my-5 grid grid-cols-1 gap-2.5 md:grid-cols-2">
           <div className="w-full rounded-2xl py-2.5 px-4 flex flex-col gap-1.5 bg-[#EDF4EB]">
-            <p className="text-[16px] font-medium">Healthy Range</p>
-            <p className="text-[16px] font-medium text-[#4D8E32]">
+            <p className="type-label font-medium">{t("healthyRange")}</p>
+            <p className="type-label font-medium text-[#4D8E32]">
               {HEALTHY_MIN} — {HEALTHY_MAX} kg/m²
             </p>
           </div>
           <div className="w-full rounded-2xl py-2.5 px-4 flex flex-col gap-1.5 bg-[#FCEFE0]">
-            <p className="text-[16px] font-medium">Above normal by</p>
-            <p className="text-[16px] font-medium text-[#E99532]">
+            <p className="type-label font-medium">{bmiDifferenceLabel}</p>
+            <p className="type-label font-medium text-[#E99532]">
               {bmi.differenceFromHealthy} kg/m²
             </p>
           </div>
         </div>
 
-        <p className="text-[14px] text-[#4F4F4F]">
+        <p className="type-meta text-[#4F4F4F]">
           {bmi.status === "Normal"
-            ? "You're already within a healthy BMI range. Maintain your current weight by continuing your healthy habits."
-            : `${bmi.action} about ${bmi.weightRange?.from} — ${bmi.weightRange?.to} kg can help you reach a healthier BMI`}
+            ? t("healthyBmiMessage")
+            : t("reachHealthyBmi", {
+                action: bmiAction,
+                from: bmi.weightRange?.from ?? "",
+                to: bmi.weightRange?.to ?? "",
+              })}
         </p>
       </div>
 
       <div className="bg-white border border-[#EDEDED] p-5 rounded-2xl flex flex-col justify-between gap-2.5">
-        <p className="text-[#4F4F4F] text-[14px] font-medium">
-          IDEAL WEIGHT RANGE
+        <p className="type-meta font-medium text-[#4F4F4F]">
+          {t("idealWeightRange")}
         </p>
         <div className="flex gap-2.5 justify-start items-baseline">
-          <p className="text-[38px] font-medium text-[#4D8E32]">
+          <p className="text-2xl font-medium text-[#4D8E32] sm:text-3xl lg:text-[38px]">
             {idealWeight.idealWeightRange.min} —{" "}
             {idealWeight.idealWeightRange.max}{" "}
-            <span className="text-[#4F4F4F] text-[22px] font-light">kg</span>
+            <span className="type-card-title font-light text-[#4F4F4F]">kg</span>
           </p>
         </div>
 
-        <div className="flex justify-between items-center py-1.5 px-5 rounded-2xl bg-[#EDF4EB]">
+        <div className="flex items-center justify-between gap-3 rounded-2xl bg-[#EDF4EB] px-4 py-2.5 sm:px-5 sm:py-1.5">
           <div>
-            <p>Ideal weight</p>
-            <p className="text-[#4D8E32] text-[25px] font-semibold">
+            <p>{t("idealWeight")}</p>
+            <p className="text-xl font-semibold text-[#4D8E32] sm:text-2xl lg:text-[25px]">
               {idealWeight.idealWeight}{" "}
-              <span className="text-[16px] font-medium">kg</span>
+              <span className="type-label font-medium">kg</span>
             </p>
           </div>
           <div className="size-11 rounded-full bg-[#C8DCBF] flex justify-center items-center">
@@ -74,10 +92,14 @@ export default function BodyMetricsCards({
           </div>
         </div>
 
-        <p className="text-[14px] text-[#4F4F4F]">
+        <p className="type-meta text-[#4F4F4F]">
           {idealWeight.difference === 0
-            ? "You're already at your ideal weight. Focus on maintaining your current healthy habits."
-            : `You’re ${idealWeight.difference} kg ${idealWeight.status} your ideal weight — a gentle deficit will help you get there.`}
+            ? t("idealWeightMessage")
+            : t("idealWeightDifference", {
+                difference: idealWeight.difference,
+                status: idealWeightStatus,
+                action: idealWeightAction,
+              })}
         </p>
       </div>
     </div>

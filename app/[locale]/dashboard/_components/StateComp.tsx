@@ -1,4 +1,7 @@
+import { useTranslations } from "next-intl";
+
 const StateComp = ({ state = "inactive" }: { state: string }) => {
+  const t = useTranslations("dashboard");
   const states = {
     active: {
       bg: "#E4FFF6",
@@ -49,9 +52,9 @@ const StateComp = ({ state = "inactive" }: { state: string }) => {
         style={{
           color: currentState.text,
         }}
-        className={`text-[14px] font-semibold`}
+        className="type-meta font-semibold"
       >
-        {state}
+        {t(lowercaseState)}
       </span>
     </div>
   );

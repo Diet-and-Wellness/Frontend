@@ -13,6 +13,7 @@ import SettingsIcon from "../../components/icons/SettingsIcon";
 import { usePathname } from "@/i18n/navigation";
 import Collapse from "../../components/icons/Collapse";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const SideBar = ({
   collapsed,
@@ -24,12 +25,16 @@ const SideBar = ({
   role: "admin" | "specialist";
 }) => {
   const pathname = usePathname();
+  const t = useTranslations("dashboard");
+  const isSpecialistDashboardActive =
+    pathname === "/dashboard/specialist" ||
+    pathname.startsWith("/dashboard/customers/");
 
   const sidebarList =
     role === "admin"
       ? [
           {
-            label: "Dashboard",
+            label: t("dashboard"),
             icon: (
               <DashboardIcon
                 className={`${pathname === "/dashboard/admin" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -39,7 +44,7 @@ const SideBar = ({
             isActive: pathname === "/dashboard/admin",
           },
           {
-            label: "Specialists",
+            label: t("specialists"),
             icon: (
               <SpecialistsIcon
                 className={`${pathname === "/dashboard/admin/specialists" || pathname.startsWith("/dashboard/admin/specialists/") ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -51,17 +56,19 @@ const SideBar = ({
               pathname.startsWith("/dashboard/admin/specialists/"),
           },
           {
-            label: "Customers",
+            label: t("customers"),
             icon: (
               <CustomersIcon
-                className={`${pathname === "/dashboard/admin/customers" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/customers" || pathname.startsWith("/dashboard/customers") ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/customers",
-            isActive: pathname === "/dashboard/admin/customers",
+            isActive:
+              pathname.startsWith("/dashboard/admin/customers") ||
+              pathname.startsWith("/dashboard/customers"),
           },
           {
-            label: "Content & Blogs",
+            label: t("contentAndBlogs"),
             icon: (
               <BlogsIcon
                 className={`${pathname === "/dashboard/admin/blogs" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -81,7 +88,7 @@ const SideBar = ({
           //   isActive: pathname === "/dashboard/admin/recipes",
           // },
           {
-            label: "Feedback",
+            label: t("feedback"),
             icon: (
               <FeedbackIcon
                 className={`${pathname === "/dashboard/admin/feedback" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -91,7 +98,7 @@ const SideBar = ({
             isActive: pathname === "/dashboard/admin/feedback",
           },
           {
-            label: "Settings",
+            label: t("settings"),
             icon: (
               <SettingsIcon
                 className={`${pathname === "/dashboard/admin/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -103,17 +110,17 @@ const SideBar = ({
         ]
       : [
           {
-            label: "Dashboard",
+            label: t("dashboard"),
             icon: (
               <DashboardIcon
-                className={`${pathname === "/dashboard/specialist" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${isSpecialistDashboardActive ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
               />
             ),
             href: "/dashboard/specialist",
-            isActive: pathname === "/dashboard/specialist",
+            isActive: isSpecialistDashboardActive,
           },
           {
-            label: "Settings",
+            label: t("settings"),
             icon: (
               <SettingsIcon
                 className={`${pathname === "/dashboard/specialist/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
@@ -125,7 +132,8 @@ const SideBar = ({
         ];
 
   return (
-    <motion.aside
+    <>
+      <motion.aside
       initial={false}
       animate={{
         width: collapsed ? 100 : 256,
@@ -135,12 +143,13 @@ const SideBar = ({
         ease: easeInOut,
       }}
       className="
-      fixed left-0 bottom-0 top-0
+      hidden md:block
+      fixed inset-s-0 bottom-0 top-0
       bg-[#FFFEFD]
       overflow-y-scroll hide-scrollbar
-      border-r border-[#e1e7ef88]
+      border-e border-[#e1e7ef88]
     "
-    >
+      >
       <div className={"flex items-center justify-center px-5 py-3 max-h-17"}>
         {collapsed ? (
           <div
@@ -196,7 +205,28 @@ const SideBar = ({
           ))}
         </ul>
       </nav>
-    </motion.aside>
+      </motion.aside>
+
+      <nav
+        aria-label="Dashboard navigation"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E1E7EF] bg-[#FFFEFD] px-2 pb-[env(safe-area-inset-bottom)] pt-1.5 md:hidden"
+      >
+        <ul className="flex items-center justify-around gap-1 overflow-x-auto">
+          {sidebarList.map((item) => (
+            <li key={item.href} className="shrink-0">
+              <Link
+                href={item.href}
+                aria-label={item.label}
+                className={`group flex size-12 items-center justify-center rounded-xl transition-colors ${item.isActive ? "bg-[#FCEFE0]" : "bg-transparent"}`}
+              >
+                <span className="min-w-6">{item.icon}</span>
+                <span className="sr-only">{item.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 };
 
@@ -214,12 +244,12 @@ const SideBarItem = ({
   return (
     <Link href={href} className="w-full overflow-hidden">
       <div
-        className={`relative group p-2 pl-5 ${isActive ? "bg-[#FCEFE0]" : "bg-white"} hover:bg-[#FCEFE0] transition-colors duration-200 flex flex-row items-center gap-3`}
+        className={`relative group p-2 ps-5 ${isActive ? "bg-[#FCEFE0]" : "bg-white"} hover:bg-[#FCEFE0] transition-colors duration-200 flex flex-row items-center gap-3`}
       >
         <div
           className={`
             absolute
-            -left-2
+            -inset-s-2
             top-1/2
             -translate-y-1/2
             w-4
@@ -227,12 +257,10 @@ const SideBarItem = ({
             bg-[#E99532]
             rounded-full
 
-            ${isActive ? "scale-y-100 opacity-100 translate-x-0" : "scale-y-0 opacity-0 -translate-x-2"}
+            ${isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"}
 
             group-hover:scale-y-100
             group-hover:opacity-100
-            group-hover:translate-x-0
-
             transition-all
             duration-250
             origin-center
@@ -244,7 +272,7 @@ const SideBarItem = ({
         <div className="overflow-hidden whitespace-nowrap">
           <p
             className={`
-            text-[16px]
+            type-control
             ${isActive ? "font-extrabold" : "font-medium"}
             group-hover:font-extrabold
           `}

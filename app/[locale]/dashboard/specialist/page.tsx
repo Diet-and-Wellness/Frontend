@@ -5,7 +5,7 @@ import { Customer } from "../../api/types/profile.types";
 import AddNoteIcon from "../../components/icons/AddNoteIcon";
 import { useMe } from "../../hooks/useMe";
 import { profileApi } from "../../api/endpoints/profile.api";
-import Spinner from "../../components/Public/LoadingSpinner";
+import { TableSkeleton } from "../../components/Public/Skeletons";
 import EmptyComp from "../../components/Public/Empty";
 import NoteModal from "./_components/NoteModal";
 import { useState } from "react";
@@ -13,17 +13,13 @@ import { AnimatePresence } from "framer-motion";
 import UpdateWeightModal from "./_components/UpdateWeightModal";
 import PenIcon from "../../components/icons/Pen";
 import NoteIcon from "../../components/icons/NoteIcon";
-
-const TABLE_HEADERS = [
-  "Name",
-  "Email",
-  "Phone",
-  "Weight Progress",
-  "Height (cm)",
-  "Note",
-];
+import ViewLinkIcon from "../../components/icons/ViewLinkIcon";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 const SpecialistDashboardIndex = () => {
+  const t = useTranslations("dashboard");
+  const router = useRouter();
   const [noteModal, setNoteModal] = useState({
     isVisible: false,
     customerId: "",
@@ -137,37 +133,36 @@ const SpecialistDashboardIndex = () => {
       </AnimatePresence>
 
       <div className="flex flex-col gap-4">
-        <div className="flex gap-5 items-center">
-          <h3 className="font-bold text-[30px]">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <h3 className="type-page-title font-bold">
             Dr. {`${me.firstName} ${me.lastName}`}
           </h3>
           <div className="px-4 py-2 rounded-2xl bg-[#FCEFE0]">
-            <p className="text-[#E99532] text-[16px] font-semibold">
-              {`${me.assignedCustomersCount}`} Total Clients
+            <p className="type-label font-semibold text-[#E99532]">
+              {t("totalClients", { count: me.assignedCustomersCount ?? 0 })}
             </p>
           </div>
         </div>
-        <p className="text-[#65758B] text-[20px]">
-          Welcome back, Dr. {me.firstName}. Here&apos;s an overview of Diet and
-          Wellness.
+        <p className="type-body-lg text-[#65758B]">
+          {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
       </div>
 
       {isLoading ? (
-        <div className="place-self-center my-50">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
+        <div className="mt-10">
+          <TableSkeleton columns={7} />
         </div>
       ) : (customers?.length ?? 0) > 0 ? (
         <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
           <table className="min-w-full divide-y divide-[#E1E7EF]">
             <thead className="bg-[#FCFCFC]">
               <tr>
-                {TABLE_HEADERS.map((header) => (
+                {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
                   <th
                     key={header}
-                    className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
+                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-[#4F4F4F]"
                   >
-                    {header}
+                    {t(header)}
                   </th>
                 ))}
               </tr>
@@ -178,6 +173,11 @@ const SpecialistDashboardIndex = () => {
                 <CustomerRow
                   key={customer.id}
                   customer={customer}
+                  onViewAnswers={() =>
+                    router.push(
+                      `/dashboard/customers/${customer.id}/answers?from=specialist-dashboard`,
+                    )
+                  }
                   onClickAddNote={(
                     customerId: string,
                     note: string,
@@ -199,8 +199,8 @@ const SpecialistDashboardIndex = () => {
         </div>
       ) : (
         <EmptyComp
-          title="No Clients Yet"
-          description="Once clients have been assigned, they will appear here."
+          title={t("noClientsYet")}
+          description={t("noClientsDescription")}
         />
       )}
     </div>
@@ -215,19 +215,22 @@ const TableCell = ({ children }: { children: React.ReactNode }) => {
 
 const CustomerRow = ({
   customer,
+  onViewAnswers,
   onClickAddNote,
   onClickUpdateWeight,
 }: {
   customer: Customer;
+  onViewAnswers: () => void;
   onClickAddNote: (customerId: string, note: string, noteId: string) => void;
   onClickUpdateWeight: (customerId: string) => void;
 }) => {
+  const t = useTranslations("dashboard");
   return (
-    <tr className="text-base font-light text-[#4F4F4F] transition-colors">
+    <tr className="type-table font-light text-[#4F4F4F] transition-colors">
       <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="text-[13px] font-medium text-[#E99532]">
+            <span className="type-meta font-medium text-[#E99532]">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
@@ -263,6 +266,18 @@ const CustomerRow = ({
 
       <TableCell>
         <button
+          onClick={onViewAnswers}
+          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+        >
+          <div className="min-w-6">
+            <ViewLinkIcon className="text-[#E99532]" />
+          </div>
+          <span>{t("viewAnswers")}</span>
+        </button>
+      </TableCell>
+
+      <TableCell>
+        <button
           onClick={() =>
             onClickAddNote(
               customer.id,
@@ -277,7 +292,7 @@ const CustomerRow = ({
           ) : (
             <AddNoteIcon className="text-[#4F4F4F]" />
           )}
-          <p className="text-[16px] text-[]">
+          <p className="type-control">
             {customer.lastNote?.content ? "View" : "Add"} Note
           </p>
         </button>

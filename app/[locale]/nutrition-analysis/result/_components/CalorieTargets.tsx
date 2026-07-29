@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { CalorieCalculatorResult, MacroResult } from "@/app/[locale]/api/types/assessment.types";
 import CaloriesCard from "@/app/[locale]/components/Public/CaloriesCard";
 import MacrosCard from "./MacrosCard";
+import { useTranslations } from "next-intl";
 
 export type MacroGoal = "maintenance" | "fatloss" | "musclegain";
 
@@ -24,6 +25,7 @@ export default function CalorieTargets({
   activeGoal,
   onGoalChange,
 }: CalorieTargetsProps) {
+  const t = useTranslations("analysis");
   const cards = [
     { type: "maintenance", calories: calories?.maintenanceCalories ?? 0 },
     { type: "loss", calories: calories?.fatLossCalories ?? 0 },
@@ -31,13 +33,13 @@ export default function CalorieTargets({
   ] as const;
 
   return (
-    <div className="flex flex-col gap-7.5">
+    <div className="flex flex-col gap-6 sm:gap-7.5">
       <div>
-        <p className="text-[25px] font-bold mb-1.5">Daily Calorie Targets</p>
-        <p className="text-[#4F4F4F] text-[16px]">Choose the goal that fits you today.</p>
+        <p className="type-card-title mb-1.5 font-bold">{t("dailyCalorieTargets")}</p>
+        <p className="type-body text-[#4F4F4F]">{t("chooseGoal")}</p>
       </div>
 
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5 lg:gap-10">
         {cards.map((card) => {
           const goal = goalByCardType[card.type];
 

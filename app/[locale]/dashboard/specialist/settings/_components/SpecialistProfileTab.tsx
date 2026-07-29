@@ -6,6 +6,7 @@ import Error from "@/app/[locale]/components/Public/Error";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const pageVariants = {
   hidden: {
@@ -37,6 +38,7 @@ type FormData = {
 };
 
 const SpecialistProfileTab = () => {
+  const t = useTranslations();
   const {
     register,
     handleSubmit,
@@ -75,84 +77,84 @@ const SpecialistProfileTab = () => {
     >
       <motion.form
         onSubmit={handleSubmit(saveChanges)}
-        className="border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD] max-w-160 my-10 p-7.5 flex flex-col gap-7.5"
+        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
       >
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="firstname" className="text-[16px] w-fit">
-            First Name
+          <label htmlFor="firstname" className="type-label w-fit">
+            {t("dashboard.firstName")}
           </label>
           <input
             id="firstname"
-            placeholder={"First Name"}
+            placeholder={t("dashboard.firstName")}
             defaultValue={me.firstName}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
             {...register("firstName", { required: "First name is required" })}
           />
           {errors.firstName && <Error msg={errors.firstName.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="lastname" className="text-[16px] w-fit">
-            Last Name
+          <label htmlFor="lastname" className="type-label w-fit">
+            {t("dashboard.lastName")}
           </label>
           <input
             id="lastname"
-            placeholder={"Last Name"}
+            placeholder={t("dashboard.lastName")}
             defaultValue={me.lastName}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
             {...register("lastName", { required: "Last name is required" })}
           />
           {errors.lastName && <Error msg={errors.lastName.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="phone" className="text-[16px] w-fit">
-            Phone Number
+          <label htmlFor="phone" className="type-label w-fit">
+            {t("dashboard.phoneNumber")}
           </label>
           <input
             id="phone"
-            placeholder={"Phone Number"}
+            placeholder={t("dashboard.phoneNumber")}
             defaultValue={me.phone}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32] focus:ring-2"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
             {...register("phone", { required: "Phone number is required" })}
           />
           {errors.phone && <Error msg={errors.phone.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="email" className="text-[16px] w-fit">
-            Email
+          <label htmlFor="email" className="type-label w-fit">
+            {t("dashboard.email")}
           </label>
           <input
             id="email"
             readOnly
-            placeholder={"Email"}
+            placeholder={t("dashboard.email")}
             value={me.email}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] bg-gray-100"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] bg-gray-100"
           />
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="speciality" className="text-[16px] w-fit">
-            Speciality
+          <label htmlFor="speciality" className="type-label w-fit">
+            {t("dashboard.specialty")}
           </label>
           <input
             readOnly
             id="speciality"
-            placeholder={"Speciality"}
+            placeholder={t("dashboard.specialty")}
             value={me.specialistInfo.specialization}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] bg-gray-100"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] bg-gray-100"
           />
         </div>
 
         <button
           disabled={updateProfileMutation.isPending}
-          className="mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer flex justify-center items-center"
+          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-[#E99532] px-7.5 font-semibold text-white cursor-pointer"
         >
           {updateProfileMutation.isPending ? (
             <Spinner spinnerSize={30} />
           ) : (
-            <p className="">Save Changes</p>
+            <p className="">{t("dashboard.saveChanges")}</p>
           )}
         </button>
       </motion.form>

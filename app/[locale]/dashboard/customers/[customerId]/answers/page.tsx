@@ -1,0 +1,400 @@
+"use client";
+
+import { assessmentApi } from "@/app/[locale]/api/endpoints/assessment.api";
+import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
+import type {
+  AssessmentAnswerResponse,
+  AssessmentSectionResult,
+  AssessmentSubmission,
+} from "@/app/[locale]/api/types/assessment.types";
+import type { Customer } from "@/app/[locale]/api/types/profile.types";
+import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
+import AssessmentAnswersIcon from "@/app/[locale]/components/icons/AssessmentAnswersIcon";
+import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
+import CheckIcon from "@/app/[locale]/components/icons/CheckIcon";
+import DateIcon from "@/app/[locale]/components/icons/Date";
+import { useMe } from "@/app/[locale]/hooks/useMe";
+import { formatDate } from "@/app/[locale]/utils/formateDate";
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect } from "react";
+
+type SubmissionPayload = AssessmentSubmission & {
+  result?: AssessmentSubmission;
+  assessment?: AssessmentSubmission;
+  submission?: AssessmentSubmission;
+};
+
+const getSubmissionSections = (submission?: SubmissionPayload) =>
+  submission?.sectionResults ??
+  submission?.result?.sectionResults ??
+  submission?.assessment?.sectionResults ??
+  submission?.submission?.sectionResults ??
+  [];
+
+const getSubmissionDate = (submission?: SubmissionPayload) =>
+  submission?.submittedAt ??
+  submission?.completedAt ??
+  submission?.createdAt ??
+  submission?.updatedAt ??
+  submission?.result?.submittedAt ??
+  submission?.result?.completedAt ??
+  submission?.result?.createdAt;
+
+const getLocalizedValue = (value: unknown, locale: string) => {
+  if (typeof value === "string") return value;
+
+  if (value && typeof value === "object") {
+    const localizedValue = value as Record<string, unknown>;
+    const preferredValue = localizedValue[locale];
+
+    if (typeof preferredValue === "string") return preferredValue;
+    if (typeof localizedValue.en === "string") return localizedValue.en;
+    if (typeof localizedValue.ar === "string") return localizedValue.ar;
+  }
+
+  return "—";
+};
+
+const AssessmentAnswersPage = () => {
+  const t = useTranslations("dashboard");
+  const locale = useLocale();
+  const router = useRouter();
+  const { customerId } = useParams<{ customerId: string }>();
+  const { data: me, isLoading: isMeLoading } = useMe();
+  const canViewAnswers = me?.role === "admin" || me?.role === "specialist";
+
+  useEffect(() => {
+    if (!isMeLoading && !canViewAnswers) {
+      router.replace("/");
+    }
+  }, [canViewAnswers, isMeLoading, router]);
+
+  const { data: customer, isLoading: isCustomerLoading } = useQuery({
+    queryKey: ["customer", customerId],
+    queryFn: async () => {
+      const { data } = await profileApi.getProfile(customerId);
+      return (data?.data ?? data) as Customer;
+    },
+    enabled: Boolean(customerId && canViewAnswers),
+  });
+
+  const { data: submission, isLoading: isSubmissionLoading } = useQuery({
+    queryKey: ["assessment-submission", customerId],
+    queryFn: async () => {
+      const { data } = await assessmentApi.getUserSubmission(customerId);
+      const payload = (data?.data ?? data) as SubmissionPayload;
+
+      return payload.submission ?? payload;
+    },
+    enabled: Boolean(customerId && canViewAnswers),
+  });
+
+  const sections = getSubmissionSections(submission);
+  const submittedAt = getSubmissionDate(submission);
+  const dateLocale = locale === "ar" ? "ar-EG" : "en-US";
+  const customerName = `${customer?.firstName ?? ""} ${customer?.lastName ?? ""}`.trim();
+
+  if (isMeLoading || isCustomerLoading || isSubmissionLoading) {
+    return <AssessmentAnswersSkeleton />;
+  }
+
+  if (!canViewAnswers) return null;
+
+  return (
+    <main className="flex w-full flex-col gap-10 pb-10">
+      <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-3">
+          <div className="type-meta flex items-center gap-2 text-[#6B7280]">
+            <span>{t("customers")}</span>
+            <span aria-hidden="true">/</span>
+            <span>{t("assessmentAnswers")}</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex size-13 items-center justify-center rounded-2xl bg-[#EDF4EB] text-[#4D8E32]">
+              <AssessmentAnswersIcon className="text-current" />
+            </div>
+            <div>
+              <h1 className="type-page-title font-bold text-[#111827]">
+                {t("assessmentAnswers")}
+              </h1>
+              <p className="type-body mt-1 text-[#4F4F4F]">
+                {t("assessmentAnswersDescription")}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => router.back()}
+          className="type-control flex w-full items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2.5 font-semibold text-[#4F4F4F] transition-colors hover:bg-[#F9FAFB] cursor-pointer md:w-fit"
+        >
+          <ArrowIcon className="direction-aware-back-icon" />
+          <span>{t("backToClients")}</span>
+        </button>
+      </header>
+
+      <section className="overflow-hidden rounded-3xl border border-[#D9E9D2] bg-white">
+        <div className="flex flex-col gap-5 bg-linear-to-br from-[#EDF4EB] to-[#FFFAF4] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
+          <div className="flex items-center gap-4">
+            <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-[#4D8E32] font-bold text-white ring-4 ring-white">
+              {getInitials(customer?.firstName, customer?.lastName)}
+            </div>
+            <div>
+              <h2 className="type-card-title font-bold text-[#1F2937]">
+                {customerName || t("customer")}
+              </h2>
+              <p className="type-body mt-1 text-[#4F4F4F]">{customer?.email}</p>
+            </div>
+          </div>
+
+          <div className="flex w-full items-center gap-3 rounded-2xl border border-white/90 bg-white/85 px-4 py-3 text-[#4D8E32] md:w-fit">
+            <DateIcon className="text-current" />
+            <div className="flex flex-col gap-0.5">
+              <span className="type-meta font-medium text-[#6B7280]">
+                {t("assessmentSubmittedAt")}
+              </span>
+              <span className="type-label font-semibold text-[#1F2937]">
+                {submittedAt ? formatDate(submittedAt, dateLocale) : "—"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-px bg-[#E5E7EB] sm:grid-cols-3">
+          <ProfileDetail
+            label={t("currentWeight")}
+            value={
+              customer?.profile?.currentWeight
+                ? `${customer.profile.currentWeight} ${t("kilogram")}`
+                : "—"
+            }
+          />
+          <ProfileDetail
+            label={t("height")}
+            value={
+              customer?.profile?.height
+                ? `${customer.profile.height} ${t("centimeter")}`
+                : "—"
+            }
+          />
+          <ProfileDetail
+            label={t("customerSince")}
+            value={
+              customer?.createdAt
+                ? formatDate(customer.createdAt, dateLocale)
+                : "—"
+            }
+          />
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-5">
+        <div>
+          <h2 className="type-page-title font-bold text-[#111827]">
+            {t("assessmentResponses")}
+          </h2>
+          <p className="type-body mt-1 text-[#4F4F4F]">
+            {t("assessmentResponsesDescription")}
+          </p>
+        </div>
+
+        {sections.length > 0 ? (
+          <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-2 xl:gap-6">
+            {sections.map((section, sectionIndex) => (
+              <AssessmentSectionAnswers
+                key={section.section}
+                section={section}
+                sectionIndex={sectionIndex}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-3xl border border-dashed border-[#D1D5DB] bg-white px-6 py-16 text-center">
+            <h3 className="type-card-title font-semibold text-[#374151]">
+              {t("noAssessmentAnswers")}
+            </h3>
+            <p className="type-body mt-2 text-[#6B7280]">
+              {t("noAssessmentAnswersDescription")}
+            </p>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+};
+
+const AssessmentSectionAnswers = ({
+  section,
+  sectionIndex,
+}: {
+  section: AssessmentSectionResult;
+  sectionIndex: number;
+}) => {
+  const locale = useLocale();
+  const sectionTitle = getLocalizedValue(section.sectionTitle, locale);
+
+  return (
+    <article className="overflow-hidden rounded-3xl border border-[#E4EAE1] bg-white">
+      <header className="flex items-center gap-3 border-b border-[#E4EAE1] bg-linear-to-r from-[#F6FBF4] to-white px-5 py-4 sm:px-6">
+        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#4D8E32] font-bold text-white">
+          {sectionIndex + 1}
+        </span>
+        <h3 className="type-card-title font-semibold text-[#1F2937]">
+          {sectionTitle}
+        </h3>
+      </header>
+
+      <div className="divide-y divide-[#EEF0F2] bg-[#FFFEFD]">
+        {section.answers.map((answer, answerIndex) => (
+          <QuestionAnswer
+            key={answer.questionId}
+            answer={answer}
+            answerIndex={answerIndex}
+          />
+        ))}
+      </div>
+    </article>
+  );
+};
+
+const QuestionAnswer = ({
+  answer,
+  answerIndex,
+}: {
+  answer: AssessmentAnswerResponse;
+  answerIndex: number;
+}) => {
+  const locale = useLocale();
+  const questionText = getLocalizedValue(answer.questionText, locale);
+  const answerValue = getLocalizedValue(
+    answer.answerText || answer.choiceText,
+    locale,
+  );
+  const isWrittenResponse =
+    Boolean(answer.answerText) && answerValue !== "—";
+
+  return (
+    <div className="flex flex-col gap-3.5 px-5 py-5 sm:px-6">
+      <div className="flex gap-3">
+        <span className="type-meta flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#F3F4F6] font-bold text-[#6B7280]">
+          {answerIndex + 1}
+        </span>
+        <p className="type-body pt-0.5 font-medium text-[#374151]">
+          {questionText}
+        </p>
+      </div>
+      {isWrittenResponse ? (
+        <div className="ms-10 overflow-hidden rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-4 sm:px-5">
+          <p className="type-body max-w-none whitespace-pre-wrap wrap-break-word text-[#4B5563]">
+            {answerValue}
+          </p>
+        </div>
+      ) : (
+        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-[#DCECD6] bg-[#F7FBF5] px-3.5 py-3">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white">
+            <CheckIcon />
+          </span>
+          <p className="type-label pt-0.5 font-semibold text-[#2E641B]">
+            {answerValue}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ProfileDetail = ({ label, value }: { label: string; value: string }) => (
+  <div className="flex min-w-0 flex-col gap-1.5 bg-white px-3 py-4 text-center sm:px-6 sm:py-5">
+    <span className="type-meta truncate text-[#6B7280]">{label}</span>
+    <span className="type-label truncate font-semibold text-[#1F2937]">
+      {value}
+    </span>
+  </div>
+);
+
+const AssessmentAnswersSkeleton = () => (
+  <div aria-busy="true" className="flex w-full flex-col gap-10">
+    <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-9 w-64" />
+        <Skeleton className="h-5 w-100" />
+      </div>
+      <Skeleton className="h-11 w-full rounded-full md:w-36" />
+    </div>
+    <div className="overflow-hidden rounded-3xl border border-[#E1E7EF] bg-white">
+      <div className="flex flex-col gap-5 bg-[#F3F4F6] p-4 sm:p-7 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-center gap-4">
+          <Skeleton className="size-16 rounded-full!" />
+          <div className="flex flex-col gap-2.5">
+            <Skeleton className="h-7 w-48" />
+            <Skeleton className="h-4 w-60" />
+          </div>
+        </div>
+        <div className="flex min-h-15 w-full items-center gap-3 rounded-2xl border border-[#E5E7EB] bg-white px-4 py-3 md:w-44">
+          <Skeleton className="size-5 rounded-full!" />
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-26" />
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 gap-px bg-[#E5E7EB] sm:grid-cols-3">
+        {Array.from({ length: 3 }, (_, index) => (
+          <div key={index} className="flex flex-col gap-2 bg-white px-3 py-4 sm:px-6 sm:py-5">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-5 w-18" />
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-2 xl:gap-6">
+      {Array.from({ length: 4 }, (_, index) => (
+        <div
+          key={index}
+          className="overflow-hidden rounded-3xl border border-[#E4EAE1] bg-white"
+        >
+          <div className="flex items-center gap-3 bg-[#F6FBF4] px-5 py-4 sm:px-6">
+            <Skeleton className="size-9 rounded-xl" />
+            <Skeleton className="h-6 w-52" />
+          </div>
+          <div className="flex flex-col gap-5 bg-[#FFFEFD] p-5 sm:p-6">
+            {index === 3 ? (
+              <div className="flex flex-col gap-3.5">
+                <div className="flex gap-3">
+                  <Skeleton className="size-7 shrink-0 rounded-lg" />
+                  <Skeleton className="mt-1 h-5 w-4/5" />
+                </div>
+                <div className="ms-10 flex flex-col gap-2 rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-4 sm:px-5">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-11/12" />
+                  <Skeleton className="h-4 w-4/5" />
+                </div>
+              </div>
+            ) : (
+              Array.from({ length: 2 }, (_, answerIndex) => (
+                <div key={answerIndex} className="flex flex-col gap-3.5">
+                  <div className="flex gap-3">
+                    <Skeleton className="size-7 shrink-0 rounded-lg" />
+                    <Skeleton className="mt-1 h-5 w-4/5" />
+                  </div>
+                  <div className="ms-10 flex items-center gap-2.5 rounded-2xl border border-[#DCECD6] bg-[#F7FBF5] px-3.5 py-3">
+                    <Skeleton className="size-6 shrink-0 rounded-full" />
+                    <Skeleton className="h-5 w-2/3" />
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const getInitials = (firstName?: string, lastName?: string) =>
+  `${firstName?.at(0) ?? ""}${lastName?.at(0) ?? ""}`.toUpperCase() || "—";
+
+export default AssessmentAnswersPage;

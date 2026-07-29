@@ -5,13 +5,14 @@ import { blogsApi } from "@/app/[locale]/api/endpoints/blogs.api";
 import Blog from "@/app/[locale]/components/Blogs/Blog";
 import PlusIcon from "@/app/[locale]/components/icons/PlusIcon";
 import { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
-import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { CardGridSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { AnimatePresence, motion } from "framer-motion";
 import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import { useState } from "react";
 import Link from "next/link";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
+import { useTranslations } from "next-intl";
 
 const container = {
   hidden: { opacity: 0 },
@@ -44,6 +45,7 @@ const item = {
 } as const;
 
 const BlogsPage = () => {
+  const t = useTranslations("dashboard");
   const [deleteBlogState, setDeleteBlogState] = useState({
     isOpen: false,
     selectedBlogId: "",
@@ -104,8 +106,8 @@ const BlogsPage = () => {
           <AlertModal
             key="delete-blog-modal"
             illustrator={<TrashIllustrator />}
-            note={"Are you sure you want to delete this blog"}
-            confirmBtnTitle={"Yes, delete"}
+            note={t("deleteBlogConfirmation")}
+            confirmBtnTitle={t("confirmDelete")}
             confirm={deleteBlog}
             closeModal={closeDeleteBlogModal}
             pending={deleteBlogMutation.isPending}
@@ -113,31 +115,25 @@ const BlogsPage = () => {
         )}
       </AnimatePresence>
 
-      <motion.div variants={item} className="flex justify-between items-start">
+      <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="mb-4 text-3xl font-bold">Content & Blogs</h2>
-          <p className="text-xl font-light text-[#4F4F4F]">
-            Manage wellness blogs and content.
+          <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("contentAndBlogs")}</h2>
+          <p className="type-body-lg font-light text-[#4F4F4F]">
+            {t("manageBlogs")}
           </p>
         </div>
 
         <Link
           href={"/dashboard/admin/blogs/new-blog"}
-          className="px-5 py-2.5 rounded-full bg-[#E99532] cursor-pointer hover:bg-[#e28010] transition duration-150 flex"
+          className="flex items-center justify-center rounded-full bg-[#E99532] px-5 py-2.5 transition duration-150 hover:bg-[#e28010] sm:w-fit"
         >
           <PlusIcon className="text-white" />
-          <p className="text-[#FFFEFD] text-[16px] font-medium">Add Blog</p>
+          <p className="type-control font-medium text-[#FFFEFD]">{t("addBlog")}</p>
         </Link>
       </motion.div>
 
       {isLoading ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="place-self-center my-50"
-        >
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
-        </motion.div>
+        <CardGridSkeleton cards={6} />
       ) : blogs.length > 0 ? (
         <motion.div
           layout
@@ -165,8 +161,8 @@ const BlogsPage = () => {
         </motion.div>
       ) : (
         <EmptyComp
-          title="No Blogs Yet"
-          description="Your blogs will appear here once they have been created."
+          title={t("noBlogsYet")}
+          description={t("noBlogsDescription")}
         />
       )}
     </motion.section>

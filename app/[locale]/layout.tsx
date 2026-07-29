@@ -7,13 +7,19 @@ import type { Metadata } from "next";
 
 import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
 
-import { Roboto } from "next/font/google";
+import { Cairo, Roboto } from "next/font/google";
 
 import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const cairo = Cairo({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -43,7 +49,7 @@ export default async function IndexLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" dir={direction}>
-      <body className={`${roboto.className}`}>
+      <body className={locale === "ar" ? cairo.className : roboto.className}>
         <ReactQueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}

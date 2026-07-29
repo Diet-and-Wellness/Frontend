@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
 
 import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
+import { useTranslations } from "next-intl";
 
 const container = {
   hidden: { opacity: 0 },
@@ -45,6 +47,7 @@ const AssignSpecialistModal = ({
     currentSpecialistId: string | undefined;
   };
 }) => {
+  const t = useTranslations("dashboard");
   const [selectedSpecialistId, setSelectedSpecialistId] = useState<
     string | undefined
   >(assignmentData.currentSpecialistId);
@@ -93,11 +96,11 @@ const AssignSpecialistModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex flex-col justify-start bg-[#FFFEFD] rounded-2xl min-w-120 max-h-[85vh]">
+      <div className="flex max-h-[85vh] w-[min(100%,30rem)] flex-col justify-start overflow-y-auto rounded-2xl bg-[#FFFEFD]">
         <div className="p-5 flex flex-col gap-3">
           <div className="flex justify-between items-center">
-            <p className="text-[18px] font-medium text-gray-900">
-              Assign Customer to Specialist
+            <p className="type-card-title font-medium text-gray-900">
+              {t("assignCustomer")}
             </p>
 
             <button
@@ -113,17 +116,25 @@ const AssignSpecialistModal = ({
 
             <input
               type="text"
-              placeholder="Search specialists..."
+              placeholder={t("searchSpecialists")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="outline-none w-full bg-transparent"
+              className="w-full bg-transparent text-base outline-none"
             />
           </div>
         </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center py-20">
-            <Spinner spinnerSize={60} borderColor="#4D8E32" />
+          <div className="flex flex-col gap-3 px-5 py-2.5" aria-busy="true">
+            {Array.from({ length: 5 }, (_, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-3 rounded-xl border border-[#E1E7EF] p-3"
+              >
+                <Skeleton className="size-9 rounded-full" />
+                <Skeleton className="h-4 w-2/5" />
+              </div>
+            ))}
           </div>
         ) : (
           <motion.div
@@ -143,8 +154,8 @@ const AssignSpecialistModal = ({
                 />
               ))
             ) : (
-              <div className="py-10 text-center text-gray-500">
-                No specialists found.
+              <div className="type-body py-10 text-center text-gray-500">
+                {t("noSpecialistsFound")}
               </div>
             )}
           </motion.div>
@@ -158,9 +169,9 @@ const AssignSpecialistModal = ({
               selectedSpecialistId === assignmentData.currentSpecialistId ||
               pending
             }
-            className="w-full min-h-12 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="type-control flex min-h-12 w-full items-center justify-center rounded-full bg-[#E99532] font-semibold text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
           >
-            {pending ? <Spinner spinnerSize={30} /> : "Assign Specialist"}
+            {pending ? <Spinner spinnerSize={30} /> : t("assignToSpecialist")}
           </button>
         </div>
       </div>
@@ -191,12 +202,12 @@ const SpecialistCard = ({
           : "ring-[#E1E7EF] bg-white"
       }`}
     >
-      <div className="size-9 rounded-full bg-[#E99532] text-[12px] font-bold text-white flex items-center justify-center">
+      <div className="type-meta flex size-9 items-center justify-center rounded-full bg-[#E99532] font-bold text-white">
         {firstName.at(0)}
         {lastName.at(0)}
       </div>
 
-      <p className="text-[16px] font-medium">
+      <p className="type-control font-medium">
         {firstName} {lastName}
       </p>
     </motion.button>

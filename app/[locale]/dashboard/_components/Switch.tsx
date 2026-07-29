@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLocale } from "next-intl";
 
 const Switch = ({
   isOn,
@@ -16,6 +17,7 @@ const Switch = ({
   activeBgColor?: string;
   deactiveBgColor?: string;
 }) => {
+  const locale = useLocale();
   const [active, setActive] = useState(isOn);
 
   const toggle = () => {
@@ -44,7 +46,7 @@ const Switch = ({
       <motion.div
         initial={false}
         animate={{
-          x: active ? 20 : 0,
+          x: active ? (locale === "ar" ? -20 : 20) : 0,
         }}
         transition={{
           type: "spring",

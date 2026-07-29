@@ -13,7 +13,7 @@ const ToolModalHeader = ({
       <div className="size-12 flex justify-center items-center rounded-2xl bg-[#C8DCBF]">
         <Image src={"/icons/bmi.svg"} alt="" width={30} height={30} />
       </div>
-      <p className="text-[22px] font-semibold text-center">{toolName}</p>
+      <p className="type-card-title text-center font-semibold">{toolName}</p>
       <button
         onClick={onClose}
         className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"

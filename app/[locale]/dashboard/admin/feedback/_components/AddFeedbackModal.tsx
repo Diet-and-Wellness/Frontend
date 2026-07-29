@@ -13,6 +13,7 @@ import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import Image from "next/image";
 import { Feedback } from "@/app/[locale]/api/types/feedback.types";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useTranslations } from "next-intl";
 
 const AddFeedbackModal = ({
   onUploadFeedback,
@@ -23,6 +24,7 @@ const AddFeedbackModal = ({
   pending: boolean;
   closeModal: () => void;
 }) => {
+  const t = useTranslations("dashboard");
   const [screenshotType, setScreenshotType] = useState<"full" | "cropped">(
     "full",
   );
@@ -67,9 +69,9 @@ const AddFeedbackModal = ({
 
   return (
     <ModalWrapper>
-      <div className="min-h-[85vh] min-w-150 bg-[#FFFEFD] p-7.5 rounded-2xl flex flex-col gap-5">
-        <div className="flex justify-between items-center">
-          <h4 className="text-[26px] font-bold">Upload Feedback</h4>
+      <div className="flex max-h-[88vh] w-[min(100%,37.5rem)] flex-col gap-5 overflow-y-auto rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="type-card-title font-bold">{t("uploadFeedback")}</h4>
 
           <button
             onClick={closeModal}
@@ -80,13 +82,13 @@ const AddFeedbackModal = ({
         </div>
 
         <div className="flex flex-col gap-5">
-          <p className="text-[20px]">Screenshot Type</p>
+          <p className="type-body-lg">{t("screenshotType")}</p>
 
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
             <ScreenshotTypeCard
               selected={screenshotType === "full"}
               selectHandler={() => setScreenshotType("full")}
-              title="Full Screenshot"
+              title={t("fullScreenshot")}
               icon={
                 <FullScreenshotIcon
                   className={
@@ -101,7 +103,7 @@ const AddFeedbackModal = ({
             <ScreenshotTypeCard
               selected={screenshotType === "cropped"}
               selectHandler={() => setScreenshotType("cropped")}
-              title="Cropped Screenshot"
+              title={t("croppedScreenshot")}
               icon={
                 <CroppedScreenshotIcon
                   className={
@@ -115,11 +117,11 @@ const AddFeedbackModal = ({
           </div>
         </div>
 
-        <div className="flex justify-between items-center mt-5">
-          <p className="text-[20px]">Select Theme</p>
+        <div className="mt-2 flex flex-col items-start gap-3 sm:mt-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="type-body-lg">{t("selectTheme")}</p>
 
           <div className="flex items-center gap-4">
-            <p className="text-[20px] font-medium">Dark Mode</p>
+            <p className="type-body-lg font-medium">{t("darkMode")}</p>
 
             <Switch
               isOn={theme === "dark"}
@@ -149,9 +151,9 @@ const AddFeedbackModal = ({
                 />
               </div>
 
-              <p className="text-lg font-semibold">{attachment.name}</p>
+              <p className="type-card-title font-semibold">{attachment.name}</p>
 
-              <p className="text-[#4F4F4F]">
+              <p className="type-label text-[#4F4F4F]">
                 {(attachment.size / 1024 / 1024).toFixed(2)}
                 {" MB"}
               </p>
@@ -159,9 +161,9 @@ const AddFeedbackModal = ({
               <button
                 type="button"
                 onClick={() => setAttachment(null)}
-                className="px-8 py-2 rounded-full border border-[#E1E7EF] cursor-pointer"
+                className="type-control rounded-full border border-[#E1E7EF] px-8 py-2 cursor-pointer"
               >
-                Remove Image
+                {t("removeImage")}
               </button>
             </>
           ) : (
@@ -170,18 +172,18 @@ const AddFeedbackModal = ({
                 <UploadIcon />
               </div>
 
-              <p className="text-[20px] mt-2">Drag and drop your image here</p>
+              <p className="type-card-title mt-2 text-center">{t("dragDropImage")}</p>
 
-              <p className="text-[16px] text-[#4F4F4F]">
-                PNG, JPG or WEBP up to 5MB
+              <p className="type-label text-[#4F4F4F]">
+                {t("imageFormats")}
               </p>
 
               <button
                 type="button"
                 onClick={open}
-                className="px-12 py-2 rounded-full border border-[#E1E7EF] text-[16px] font-semibold cursor-pointer mt-2"
+                className="type-control mt-2 rounded-full border border-[#E1E7EF] px-12 py-2 font-semibold cursor-pointer"
               >
-                Browse Files
+                {t("browseFiles")}
               </button>
             </>
           )}
@@ -196,12 +198,12 @@ const AddFeedbackModal = ({
               attachment: attachment,
             })
           }
-          className={`w-full mt-5 px-7.5 min-h-12.5 rounded-full text-white font-semibold text-lg flex justify-center items-center ${pending || attachment === null ? "cursor-not-allowed bg-[#ffc481]" : "cursor-pointer bg-[#E99532]"} `}
+          className={`type-control mt-5 flex min-h-12.5 w-full items-center justify-center rounded-full px-7.5 font-semibold text-white ${pending || attachment === null ? "cursor-not-allowed bg-gray-300 text-gray-500" : "cursor-pointer bg-[#E99532]"} `}
         >
           {pending ? (
             <Spinner spinnerSize={30} />
           ) : (
-            <p className="">Upload Feedback</p>
+            <p className="">{t("uploadFeedback")}</p>
           )}
         </button>
       </div>
@@ -230,7 +232,7 @@ const ScreenshotTypeCard = ({
       {icon}
 
       <p
-        className={`text-[20px] ${
+        className={`type-card-title ${
           selected ? "text-[#8C591E] font-semibold" : "text-black"
         }`}
       >

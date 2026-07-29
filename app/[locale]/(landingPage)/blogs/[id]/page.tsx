@@ -3,15 +3,20 @@
 import Image from "next/image";
 import { usePathname } from "@/i18n/navigation";
 import { formatDate } from "@/app/[locale]/utils/formateDate";
-import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import {
+  BlogDetailsSkeleton,
+  CardGridSkeleton,
+} from "@/app/[locale]/components/Public/Skeletons";
 import { useBlog } from "@/app/[locale]/hooks/useBlog";
 import ViewIcon from "@/app/[locale]/components/icons/ViewIcon";
 import { useBlogs } from "@/app/[locale]/hooks/useBlogs";
 import { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
 import Blog from "@/app/[locale]/components/Blogs/Blog";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 const BlogDetails = () => {
+  const t = useTranslations("blogs");
   const pathname = usePathname();
   const splittedPathname = pathname.split("/");
   const slug = splittedPathname[splittedPathname.length - 1];
@@ -38,14 +43,12 @@ const BlogDetails = () => {
       )}
 
       {isLoading ? (
-        <div className="place-self-center my-25">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
-        </div>
+        <BlogDetailsSkeleton />
       ) : (
         <div className="flex flex-col gap-7.5 w-[90%] md:max-w-[70%] mx-auto py-7.5 lg:py-10">
-          <div className="flex justify-between items-center">
-            <div className="flex flex-row gap-5 items-center">
-              <p className="text-[#3E7228] text-[20px] md:text-[22px] lg:text-[24px] font-medium">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-5">
+              <p className="type-body-lg font-medium text-[#3E7228]">
                 {formatDate(blog.createdAt)}
               </p>
 
@@ -58,39 +61,37 @@ const BlogDetails = () => {
                   className="h-4 w-4 lg:h-5 lg:w-5"
                 />
 
-                <p className="text-white font-medium text-[14px] md:text-[15px] lg:text-[16px] leading-3">
-                  {`${blog.estimatedReadTime} min Read`}
+                <p className="type-meta font-medium leading-3 text-white">
+                  {t("minutesRead", { count: blog.estimatedReadTime })}
                 </p>
               </div>
             </div>
-            <div className="flex gap-1.5 items-center">
-              <p className="text-[20px] font-medium text-[#4F4F4F]">
-                Viewed by {blog.viewCount}
+            <div className="flex items-center gap-1.5">
+              <p className="type-body font-medium text-[#4F4F4F]">
+                {t("viewedBy", { count: blog.viewCount })}
               </p>
               <ViewIcon />
             </div>
           </div>
 
-          <h5 className="text-[24px] md:text-[32px] font-semibold leading-9">
+          <h5 className="type-page-title font-semibold">
             {blog.title}
           </h5>
 
-          <p className="text-[#4F4F4F] max-w-6xl text-[18px] md:text-[20px] lg:text-[22px] font-medium">
+          <p className="type-body-lg max-w-6xl font-medium text-[#4F4F4F]">
             {blog.description}
           </p>
 
-          <p className="text-[#4F4F4F] max-w-6xl text-[16px] md:text-[18px] lg:text-[20px] whitespace-pre-wrap">
+          <p className="type-body max-w-6xl whitespace-pre-wrap text-[#4F4F4F]">
             {blog.content}
           </p>
 
           {isBlogsLoading ? (
-            <div className="place-self-center my-25">
-              <Spinner spinnerSize={60} borderColor="#4D8E32" />
-            </div>
+            <CardGridSkeleton cards={3} className="mt-10" />
           ) : (
             <div className="mt-10 max-w-full mx-auto">
-              <h4 className="text-[#3E7228] text-[26px] md:text-[32px] lg:text-[34px] font-medium mb-5 lg:mb-10">
-                You may also like
+              <h4 className="type-section-title mb-5 font-medium text-[#3E7228] lg:mb-10">
+                {t("youMayAlsoLike")}
               </h4>
               <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
                 {filteredBlogs?.map((blog: BlogResponse) => (

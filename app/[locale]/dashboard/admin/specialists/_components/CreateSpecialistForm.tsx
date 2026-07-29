@@ -6,6 +6,7 @@ import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
+import { useTranslations } from "next-intl";
 
 type FormData = {
   firstName: string;
@@ -18,9 +19,11 @@ type FormData = {
 };
 
 const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
+  const t = useTranslations();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -51,11 +54,24 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
     },
   });
 
+  const formValues = watch();
+  const isFormIncomplete = !(
+    formValues.firstName?.trim() &&
+    formValues.lastName?.trim() &&
+    formValues.email?.trim() &&
+    formValues.phone?.trim() &&
+    formValues.speciality?.trim() &&
+    formValues.password?.trim() &&
+    Number(formValues.experienceYears) >= 0
+  );
+  const isSubmitDisabled =
+    isFormIncomplete || createSpecialistMutation.isPending;
+
   return (
-    <div className="rounded-2xl p-7.5 bg-[#fffdfd] min-w-130">
-      <div className="flex justify-between items-center mb-5">
-        <h4 className="text-[24px] font-semibold text-center">
-          Add Specialist
+    <div className="flex max-h-[calc(100dvh-1.5rem)] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-[#fffdfd]">
+      <div className="flex shrink-0 items-center justify-between px-5 pt-5 sm:px-7.5 sm:pt-7.5">
+        <h4 className="type-card-title text-center font-semibold">
+          {t("dashboard.addSpecialist")}
         </h4>
         <button
           onClick={closeModal}
@@ -67,83 +83,84 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
 
       <form
         onSubmit={handleSubmit(createSpecialist)}
-        className="flex flex-col gap-5"
+        className="flex min-h-0 flex-1 flex-col"
       >
-        <div className="flex flex-col gap-2.5">
-          <label htmlFor="firstname" className="text-[16px] w-fit">
-            First Name
+        <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-5 py-5 sm:px-7.5">
+          <div className="flex flex-col gap-2.5">
+          <label htmlFor="firstname" className="type-label w-fit">
+            {t("dashboard.firstName")}
           </label>
           <input
             id="firstname"
-            placeholder={"First Name"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.firstName")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("firstName", { required: "First name is required" })}
           />
           {errors.firstName && <Error msg={errors.firstName.message} />}
-        </div>
+          </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="lastname" className="text-[16px] w-fit">
-            Last Name
+          <label htmlFor="lastname" className="type-label w-fit">
+            {t("dashboard.lastName")}
           </label>
           <input
             id="lastname"
-            placeholder={"Last Name"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.lastName")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("lastName", { required: "Last name is required" })}
           />
           {errors.lastName && <Error msg={errors.lastName.message} />}
-        </div>
+          </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="email" className="text-[16px] w-fit">
-            Email
+          <label htmlFor="email" className="type-label w-fit">
+            {t("dashboard.email")}
           </label>
           <input
             id="email"
-            placeholder={"Email"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.email")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("email", { required: "Email is required" })}
           />
           {errors.email && <Error msg={errors.email.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="phone" className="text-[16px] w-fit">
-            Phone Number
+          <label htmlFor="phone" className="type-label w-fit">
+            {t("dashboard.phoneNumber")}
           </label>
           <input
             id="phone"
-            placeholder={"Phone Number"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.phoneNumber")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("phone", { required: "Phone number is required" })}
           />
           {errors.phone && <Error msg={errors.phone.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="speciality" className="text-[16px] w-fit">
-            Speciality
+          <label htmlFor="speciality" className="type-label w-fit">
+            {t("dashboard.specialty")}
           </label>
           <input
             id="speciality"
-            placeholder={"Speciality"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.specialty")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("speciality", { required: "Speciality is required" })}
           />
           {errors.speciality && <Error msg={errors.speciality.message} />}
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="experienceYears" className="text-[16px] w-fit">
-            Experience Years
+          <label htmlFor="experienceYears" className="type-label w-fit">
+            {t("dashboard.experienceYears")}
           </label>
           <input
             type="number"
             min={0}
             id="experienceYears"
-            placeholder={"Experience Years"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("dashboard.experienceYears")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("experienceYears", {
               required: "Experience years is required",
             })}
@@ -154,13 +171,13 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
         </div>
 
         <div className="flex flex-col gap-2.5">
-          <label htmlFor="password" className="text-[16px] w-fit">
-            Password
+          <label htmlFor="password" className="type-label w-fit">
+            {t("placeholders.password")}
           </label>
           <input
             id="password"
-            placeholder={"Password"}
-            className="px-3 py-2 rounded-lg border-none outline-none ring-[1.5px] ring-[#D5D5D5] focus:outline-none focus:ring-[#4D8E32]"
+            placeholder={t("placeholders.password")}
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
             {...register("password", {
               required: "Password is required",
             })}
@@ -168,16 +185,24 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           {errors.password && <Error msg={errors.password.message} />}
         </div>
 
-        <button
-          disabled={createSpecialistMutation.isPending}
-          className="mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-2xl text-white font-semibold text-lg cursor-pointer flex justify-center items-center"
-        >
-          {createSpecialistMutation.isPending ? (
-            <Spinner spinnerSize={30} />
-          ) : (
-            <p className="">Add Specialist</p>
-          )}
-        </button>
+        </div>
+
+        <div className="shrink-0 border-t border-[#E1E7EF] bg-[#fffdfd] p-5 sm:px-7.5 sm:py-5">
+          <button
+            disabled={isSubmitDisabled}
+            className={`type-control flex min-h-12.5 w-full items-center justify-center rounded-full px-7.5 font-semibold transition-colors ${
+              isSubmitDisabled
+                ? "cursor-not-allowed bg-gray-300 text-gray-500"
+                : "cursor-pointer bg-[#E99532] text-white hover:bg-[#D98622]"
+            }`}
+          >
+            {createSpecialistMutation.isPending ? (
+              <Spinner spinnerSize={30} />
+            ) : (
+              <p className="">{t("dashboard.addSpecialist")}</p>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -7,39 +7,24 @@ import {
 } from "./ImageComparison";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-const useWindowSize = () => {
-  const [width, setWidth] = useState<number>(0);
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return width;
-};
 
 const Hero = () => {
   const t = useTranslations();
 
-  const windowWidth = useWindowSize();
-
   const router = useRouter();
 
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden pt-15 sm:pt-22 md:pt-25 xl:pt-30">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeInOut" }}
-        className={`mx-auto overflow-hidden max-w-full ${windowWidth <= 550 ? "aspect-5.5/10 mt-5" : "aspect-15.5/10 mt-15"}`}
+        className="mx-auto w-full max-w-400 overflow-hidden aspect-[39/75] sm:aspect-[4/5] md:aspect-[15.5/10]"
       >
-        {windowWidth <= 550 ? (
-          <ImageComparison className="w-full h-full" enableHover>
+        <div className="h-full md:hidden">
+          <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
               src="/images/fit-small.webp"
               alt="After"
@@ -52,8 +37,9 @@ const Hero = () => {
             />
             <ImageComparisonSlider className="w-0.5 bg-white/30 backdrop-blur-xs" />
           </ImageComparison>
-        ) : (
-          <ImageComparison className="aspect-13/10 w-full" enableHover>
+        </div>
+        <div className="hidden h-full md:block">
+          <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
               src="/images/fit.webp"
               alt="After"
@@ -66,11 +52,11 @@ const Hero = () => {
             />
             <ImageComparisonSlider className="w-0.5 bg-white/30 backdrop-blur-xs" />
           </ImageComparison>
-        )}
+        </div>
       </motion.div>
 
       <div
-        className={`pointer-events-none flex flex-col gap-10 md:flex-row justify-between items-center w-[90%] mx-auto ${windowWidth <= 1000 ? "mt-10" : "absolute place-self-center bottom-20"}`}
+        className="pointer-events-none mx-auto mt-8 flex w-[90%] flex-col items-stretch justify-between gap-8 sm:gap-10 md:flex-row md:items-center xl:absolute xl:inset-x-0 xl:bottom-20 xl:mt-0"
       >
         {/* Left content */}
         <motion.div
@@ -78,19 +64,19 @@ const Hero = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="flex flex-col gap-3 w-full md:w-fit"
+          className="flex w-full flex-col gap-3 md:w-fit"
         >
           <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#E99532]">
             1k+
           </p>
 
-          <p className="text-[#B2B2B2] xl lg:text-2xl tracking-wider font-bold">
+          <p className="type-body-lg font-bold tracking-wider text-[#B2B2B2]">
             {t("hero.clientsTrustUs")}
           </p>
 
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="pointer-events-auto px-10 py-2 border-2 border-[#E99532] rounded-full text-[#E99532] font-bold text-lg lg:text-xl hover:bg-[#E99532] hover:text-white transition-all duration-300 cursor-pointer"
+            className="type-control pointer-events-auto rounded-full border-2 border-[#E99532] px-10 py-2 font-bold text-[#E99532] transition-all duration-300 hover:bg-[#E99532] hover:text-white cursor-pointer"
           >
             {t("hero.viewFeedback")}
           </motion.button>
@@ -102,7 +88,7 @@ const Hero = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
-          className="bg-[#F8DEBF] rounded-3xl p-5 w-full md:max-w-75 flex flex-col gap-5 shadow-lg"
+          className="flex w-full flex-col gap-5 rounded-3xl bg-[#F8DEBF] p-5 md:max-w-75"
         >
           <Image
             src="/images/cardHeader.webp"
@@ -112,14 +98,14 @@ const Hero = () => {
             className="rounded-xl w-full"
           />
 
-          <p className="text-[14px] md:text-[16px] font-medium">
+          <p className="type-label font-medium">
             {t("hero.getToKnowMoreAboutYourBody")}
           </p>
 
           <motion.button
             onClick={() => router.push("/blogs")}
             whileTap={{ scale: 0.95 }}
-            className="pointer-events-auto px-10 py-2 rounded-full text-white font-bold text-[14px] md:text-[16px] bg-[#E99532] hover:bg-[#c76a00] transition-all duration-300 cursor-pointer"
+            className="type-control pointer-events-auto rounded-full bg-[#E99532] px-10 py-2 font-bold text-white transition-all duration-300 hover:bg-[#c76a00] cursor-pointer"
           >
             {t("hero.viewBlogs")}
           </motion.button>

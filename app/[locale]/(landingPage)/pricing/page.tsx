@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import PricePlan from "./_components/PricePlan";
 import { useTranslations } from "next-intl";
 import { SubscriptionPlanResponse } from "../../api/types/subscription.types";
-import Spinner from "../../components/Public/LoadingSpinner";
+import { PricingPlansSkeleton } from "../../components/Public/Skeletons";
 import { useSubscriptionPlans } from "../../hooks/useSubscriptionPlans";
 
 const PricingPage = () => {
@@ -58,9 +58,7 @@ const PricingPage = () => {
 
       {/* Cards */}
       {isLoading ? (
-        <div className="place-self-center my-25">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
-        </div>
+        <PricingPlansSkeleton />
       ) : (
         <ul
           className="

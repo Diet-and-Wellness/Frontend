@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Customer, LastNote } from "@/app/[locale]/api/types/profile.types";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
-import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { Skeleton, TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { useParams, useRouter } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
@@ -13,16 +13,7 @@ import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import ViewNoteModal from "./_components/ViewNoteModal";
 import { useState } from "react";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
-
-const TABLE_HEADERS = [
-  "Name",
-  "Email",
-  "Phone",
-  "Weight Progress (kg)",
-  "Height (cm)",
-  "Link To Answers",
-  "Note",
-];
+import { useTranslations } from "next-intl";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,6 +44,7 @@ const item = {
 } as const;
 
 const SpecialistClientsPage = () => {
+  const t = useTranslations("dashboard");
   const params = useParams();
 
   const router = useRouter();
@@ -105,9 +97,7 @@ const SpecialistClientsPage = () => {
   return (
     <>
       {isSpecialistInfoLoading || isSpecialistClientsLoading ? (
-        <div className="place-self-center mx-auto my-auto">
-          <Spinner spinnerSize={60} borderColor="#4D8E32" />
-        </div>
+        <SpecialistClientsSkeleton />
       ) : (
         <motion.div
           variants={container}
@@ -123,33 +113,37 @@ const SpecialistClientsPage = () => {
 
           <motion.div
             variants={item}
-            className="flex justify-between items-start"
+            className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between"
           >
             <div className="flex flex-col gap-5">
-              <div className="flex gap-2 items-center">
-                <p className="text-[#A4A4A4] text-[20px]">Specialists</p>
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="type-body text-[#A4A4A4]">{t("specialists")}</p>
                 <RightArrowIcon />
-                <p className="text-[20px]">
-                  Dr. {`${specialist?.firstName} ${specialist?.lastName}`}
+                <p className="type-body">
+                  {t("doctorName", {
+                    name: `${specialist?.firstName} ${specialist?.lastName}`,
+                  })}
                 </p>
               </div>
-              <div className="flex gap-5 items-center">
-                <h3 className="font-bold text-[30px]">
-                  Dr. {`${specialist?.firstName} ${specialist?.lastName}`}
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+                <h3 className="type-page-title font-bold">
+                  {t("doctorName", {
+                    name: `${specialist?.firstName} ${specialist?.lastName}`,
+                  })}
                 </h3>
                 <div className="px-4 py-2 rounded-2xl bg-[#FCEFE0]">
-                  <p className="text-[#E99532] text-[16px] font-semibold">
-                    {`${specialist?.assignedCustomersCount}`} Total Clients
+                  <p className="type-label font-semibold text-[#E99532]">
+                    {t("totalClients", { count: specialist?.assignedCustomersCount ?? 0 })}
                   </p>
                 </div>
               </div>
             </div>
             <button
               onClick={backToSpecialistHandler}
-              className="flex items-center gap-3 px-5 py-2 border border-[#E1E7EF] cursor-pointer rounded-full bg-[#FFFEFD]"
+              className="flex w-full items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2 cursor-pointer sm:w-auto"
             >
-              <ArrowIcon />
-              <p className="text-[16px] font-semibold">Back to Specialists</p>
+              <ArrowIcon className="direction-aware-back-icon" />
+              <p className="type-control font-semibold">{t("backToSpecialists")}</p>
             </button>
           </motion.div>
 
@@ -158,12 +152,12 @@ const SpecialistClientsPage = () => {
               <table className="min-w-full divide-y divide-[#E1E7EF]">
                 <thead className="bg-[#FCFCFC]">
                   <tr>
-                    {TABLE_HEADERS.map((header) => (
+                    {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
                       <th
                         key={header}
-                        className="whitespace-nowrap px-6 py-4 text-left text-base font-light text-[#4F4F4F]"
+                        className="type-table whitespace-nowrap px-6 py-4 text-start font-light text-[#4F4F4F]"
                       >
-                        {header}
+                        {t(header)}
                       </th>
                     ))}
                   </tr>
@@ -187,8 +181,8 @@ const SpecialistClientsPage = () => {
             </div>
           ) : (
             <EmptyComp
-              title="No Assigned Clients Yet"
-              description="Assigned clients will appear here once they have been assigned."
+              title={t("noAssignedClientsYet")}
+              description={t("assignedClientsDescription")}
             />
           )}
         </motion.div>
@@ -198,6 +192,29 @@ const SpecialistClientsPage = () => {
 };
 
 export default SpecialistClientsPage;
+
+const SpecialistClientsSkeleton = () => (
+  <div aria-busy="true" className="flex w-full flex-col">
+    <div className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex flex-col gap-5">
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-24" />
+          <Skeleton className="size-4 rounded-full" />
+          <Skeleton className="h-5 w-44" />
+        </div>
+
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <Skeleton className="h-9 w-72 max-w-[56vw]" />
+          <Skeleton className="h-10 w-30 rounded-2xl" />
+        </div>
+      </div>
+
+      <Skeleton className="h-10 w-full shrink-0 rounded-full sm:w-44" />
+    </div>
+
+    <TableSkeleton className="mt-10" columns={7} rows={6} />
+  </div>
+);
 
 const TableCell = ({ children }: { children: React.ReactNode }) => {
   return <td className="whitespace-nowrap px-6 py-4">{children}</td>;
@@ -210,16 +227,18 @@ const CustomerRow = ({
   customer: Customer;
   onViewNote: (note: LastNote) => void;
 }) => {
+  const t = useTranslations("dashboard");
+  const router = useRouter();
   return (
     <motion.tr
       layout
       variants={item}
-      className="text-base font-light text-[#4F4F4F] transition-colors"
+      className="type-table font-light text-[#4F4F4F] transition-colors"
     >
       <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="text-[13px] font-medium text-[#E99532]">
+            <span className="type-meta font-medium text-[#E99532]">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
@@ -236,35 +255,45 @@ const CustomerRow = ({
       <TableCell>
         <p className="text-center">
           {customer.weight.start?.weight
-            ? `${customer.weight.start.weight} kg ${" "}${" — "}${" "} ${customer.profile.currentWeight} kg`
+            ? `${customer.weight.start.weight} ${t("kilogram")} — ${customer.profile.currentWeight} ${t("kilogram")}`
             : "—"}
         </p>
       </TableCell>
 
       <TableCell>
         <p className="text-center">
-          {customer?.profile?.height ? `${customer.profile.height} cm` : "—"}
+          {customer?.profile?.height
+            ? `${customer.profile.height} ${t("centimeter")}`
+            : "—"}
         </p>
       </TableCell>
 
       <TableCell>
-        <button className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline">
+        <button
+          onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
+          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+        >
           <div className="min-w-6">
             <ViewLinkIcon className="text-[#E99532]" />
           </div>
-          <span>View Answers</span>
+          <span>{t("viewAnswers")}</span>
         </button>
       </TableCell>
 
       <TableCell>
         <button
-          disabled={!!!customer.lastNote}
-          onClick={() => onViewNote(customer.lastNote)}
-          className={`${!!customer.lastNote ? "cursor-pointer" : "cursor-not-allowed"}`}
+          aria-disabled={!customer.lastNote}
+          tabIndex={customer.lastNote ? 0 : -1}
+          onClick={() => {
+            if (customer.lastNote) onViewNote(customer.lastNote);
+          }}
+          className={
+            customer.lastNote
+              ? "cursor-pointer text-[#4F4F4F]"
+              : "cursor-default text-[#C4CBD4]"
+          }
         >
-          <NoteIcon
-            className={`${!!customer.lastNote ? "text-[#4F4F4F]" : "text-gray-300"}`}
-          />
+          <NoteIcon />
         </button>
       </TableCell>
     </motion.tr>
