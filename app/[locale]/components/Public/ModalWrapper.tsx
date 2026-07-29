@@ -8,6 +8,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
     height: "100dvh",
     top: "0px",
   });
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const updateViewport = () => {
@@ -32,12 +33,19 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
+  const isEditableField = (element: EventTarget | null) =>
+    element instanceof HTMLInputElement ||
+    element instanceof HTMLTextAreaElement ||
+    element instanceof HTMLSelectElement;
+
   const keepFocusedFieldVisible = (event: React.FocusEvent<HTMLDivElement>) => {
     const target = event.target;
 
-    if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) {
+    if (!isEditableField(target)) {
       return;
     }
+
+    setIsEditing(true);
 
     window.setTimeout(() => {
       target.scrollIntoView({
@@ -48,9 +56,15 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
     }, 250);
   };
 
+  const resetEditingState = () => {
+    window.setTimeout(() => setIsEditing(isEditableField(document.activeElement)), 0);
+  };
+
   return (
     <motion.div
-      className="fixed inset-x-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs"
+      className={`fixed inset-x-0 z-50 flex justify-center bg-black/40 backdrop-blur-xs ${
+        isEditing ? "items-start" : "items-center"
+      }`}
       style={viewport}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -59,8 +73,11 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
     >
       <div className="h-full w-full overflow-y-auto overscroll-contain touch-pan-y">
         <motion.div
-          className="flex min-h-full w-full items-center justify-center px-[4vw] py-3 sm:p-4"
+          className={`flex min-h-full w-full justify-center px-[4vw] py-3 sm:p-4 ${
+            isEditing ? "items-start" : "items-center"
+          }`}
           onFocusCapture={keepFocusedFieldVisible}
+          onBlurCapture={resetEditingState}
           initial={{ scale: 0.85, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 10 }}
