@@ -36,49 +36,51 @@ const LandingNavBar = () => {
     <nav className="fixed top-0 z-50 w-full backdrop-blur-xl">
       <div className="mx-auto flex w-[90%] items-center justify-between py-2">
         <Logo href={"/"} />
-        <NavList tabs={tabs} />
-        <div className="flex items-center gap-2.5">
-          <ThemeSwitch />
-          <button
-            onClick={menuToggle}
-            className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
-          >
-          <AnimatePresence mode="wait">
-            {isMenuVisible ? (
-              <motion.div
-                key="close"
-                initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  width={40}
-                  height={40}
-                  src="/icons/close-icon.svg"
-                  alt="close icon"
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="menu"
-                initial={{ opacity: 0, rotate: 90, scale: 0.7 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                className="absolute inset-0"
-              >
-                <Image
-                  width={40}
-                  height={40}
-                  src="/icons/menu-icon.svg"
-                  alt="menu icon"
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          </button>
+        <div className="flex items-center gap-5">
+          <NavList tabs={tabs} />
+          <div className="flex items-center gap-2.5">
+            <ThemeSwitch />
+            <button
+              onClick={menuToggle}
+              className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
+            >
+              <AnimatePresence mode="wait">
+                {isMenuVisible ? (
+                  <motion.div
+                    key="close"
+                    initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      width={40}
+                      height={40}
+                      src="/icons/close-icon.svg"
+                      alt="close icon"
+                    />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ opacity: 0, rotate: 90, scale: 0.7 }}
+                    animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotate: -90, scale: 0.7 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      width={40}
+                      height={40}
+                      src="/icons/menu-icon.svg"
+                      alt="menu icon"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
         </div>
       </div>
       <AnimatePresence>

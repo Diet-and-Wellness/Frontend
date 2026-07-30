@@ -70,19 +70,17 @@ const MobileMenu = ({
         className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface-muted px-5 py-2 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft"
       >
         <LanguageIcon className="size-5.5" />
-        <span className="text-lg font-semibold">
-          {isArabic ? "En" : "ع"}
-        </span>
+        <span className="text-lg font-semibold">{isArabic ? "En" : "ع"}</span>
       </button>
 
       <Link
         href={"/signin"}
         className="
-            group border-2 border-[var(--color-palette-e88b60)] px-15 py-3 cursor-pointer
+            group border-2 border-(--color-palette-e88b60) px-15 py-3 cursor-pointer
             lg:flex self-center rounded-full
             transition-all duration-300 active:scale-95"
       >
-        <span className="text-xl font-semibold text-[var(--color-palette-e88b60)] transition-colors duration-300">
+        <span className="text-xl font-semibold text-(--color-palette-e88b60) transition-colors duration-300">
           {t("getStarted.getStart")}
         </span>
       </Link>
@@ -107,7 +105,11 @@ const Tab = ({
         className={`rounded-full cursor-pointer px-10 py-3 text-center text-[18px] font-semibold text-brand-hover sm:px-20 sm:text-[20px]
            transition-all duration-300 ease-in-out
            hover:bg-brand-hover hover:text-brand-contrast
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-hover focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${isActive ? "bg-brand-hover text-brand-contrast shadow-sm" : ""}`}
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-hover focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
+             isActive
+               ? "bg-brand-hover text-surface shadow-sm"
+               : "text-brand-hover"
+           }`}
       >
         {label}
       </li>

@@ -9,11 +9,26 @@ import { normalizeAssessmentStatus } from "@/app/[locale]/utils/groupAssessmentS
 import { useTranslations } from "next-intl";
 
 const STATUS = {
-  Excellent: { color: "var(--color-palette-22c55e)", bg: "var(--color-palette-f0fdf4)" },
-  Good: { color: "var(--color-palette-65a30d)", bg: "var(--color-palette-f7fee7)" },
-  Average: { color: "var(--color-palette-f59e0b)", bg: "var(--color-palette-fffbeb)" },
-  "Needs Improvement": { color: "var(--color-palette-f97316)", bg: "var(--color-palette-fff7ed)" },
-  "Needs Attention": { color: "var(--color-palette-ef4444)", bg: "var(--color-palette-fef2f2)" },
+  Excellent: {
+    color: "var(--color-palette-22c55e)",
+    bg: "var(--color-palette-f0fdf4)",
+  },
+  Good: {
+    color: "var(--color-palette-65a30d)",
+    bg: "var(--color-palette-f7fee7)",
+  },
+  Average: {
+    color: "var(--color-palette-f59e0b)",
+    bg: "var(--color-palette-fffbeb)",
+  },
+  "Needs Improvement": {
+    color: "var(--color-palette-f97316)",
+    bg: "var(--color-palette-fff7ed)",
+  },
+  "Needs Attention": {
+    color: "var(--color-palette-ef4444)",
+    bg: "var(--color-palette-fef2f2)",
+  },
 };
 
 const AssessmentInsightModal = ({
@@ -46,7 +61,24 @@ const AssessmentInsightModal = ({
         aria-labelledby="assessment-insight-title"
         className="relative flex max-h-[85dvh] w-full flex-col overflow-hidden rounded-3xl bg-surface sm:w-[min(42rem,calc(100vw-2rem))]"
       >
-        <div className="flex shrink-0 items-center justify-between gap-5 border-b border-line p-5 sm:p-6 md:px-7.5">
+        <div className="flex flex-col shrink-0 items-start justify-between gap-1 border-b border-line p-5 sm:p-6 md:px-7.5">
+          <div className="flex justify-between items-center w-full">
+            <p className="mb-1 text-sm text-content-muted">
+              {t("sectionDetails")}
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t("close")}
+              className="shrink-0 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
+            >
+              <CloseIcon
+                className="text-content-subtle"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
           <div className="flex min-w-0 items-center gap-3.5">
             <div
               className="flex size-12 shrink-0 items-center justify-center rounded-full"
@@ -55,9 +87,6 @@ const AssessmentInsightModal = ({
               <GoalIcon />
             </div>
             <div className="min-w-0">
-              <p className="mb-1 text-sm text-content-muted">
-                {t("sectionDetails")}
-              </p>
               <h2
                 id="assessment-insight-title"
                 className="wrap-break-word text-lg font-bold text-content sm:text-xl"
@@ -66,58 +95,49 @@ const AssessmentInsightModal = ({
               </h2>
             </div>
           </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={t("close")}
-            className="shrink-0 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
-          >
-            <CloseIcon className="text-content-subtle" width="16" height="16" />
-          </button>
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:gap-6 sm:p-6 md:p-7.5">
-        <div className="rounded-2xl border border-line bg-surface-raised p-5">
-          <div className="mb-3 flex items-center justify-between">
-            <span className="text-sm text-content-muted">{t("score")}</span>
-            <span className="text-lg font-bold" style={{ color: ui.color }}>
-              {score}%
-            </span>
+          <div className="rounded-2xl border border-line bg-surface-raised p-5">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-sm text-content-muted">{t("score")}</span>
+              <span className="text-lg font-bold" style={{ color: ui.color }}>
+                {score}%
+              </span>
+            </div>
+            <ProgressBar score={score} bgColor={ui.color} />
           </div>
-          <ProgressBar score={score} bgColor={ui.color} />
-        </div>
 
-        <div className="flex flex-col gap-3">
-          <h3 className="text-lg font-semibold text-content">
-            {t("sectionInsight")}
-          </h3>
-          <div
-            className="flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
-            style={{ background: ui.bg, color: ui.color }}
-          >
-            <span
-              className="size-2.5 rounded-full"
-              style={{ background: ui.color }}
-            />
-            <span className="text-sm font-semibold">{statusLabel}</span>
-          </div>
-        </div>
-
-        {section.result.recommendations.length > 0 && (
           <div className="flex flex-col gap-3">
             <h3 className="text-lg font-semibold text-content">
-              {t("recommendations")}
+              {t("sectionInsight")}
             </h3>
-            <ul className="flex list-disc flex-col gap-3 text-content-muted marker:text-brand">
-              {section.result.recommendations.map((recommendation, index) => (
-                <li key={`${section.section}-${index}`} className="leading-7">
-                  {recommendation}
-                </li>
-              ))}
-            </ul>
+            <div
+              className="flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
+              style={{ background: ui.bg, color: ui.color }}
+            >
+              <span
+                className="size-2.5 rounded-full"
+                style={{ background: ui.color }}
+              />
+              <span className="text-sm font-semibold">{statusLabel}</span>
+            </div>
           </div>
-        )}
+
+          {section.result.recommendations.length > 0 && (
+            <div className="flex flex-col gap-3">
+              <h3 className="text-lg font-semibold text-content">
+                {t("recommendations")}
+              </h3>
+              <ul className="flex list-disc flex-col gap-3 text-content-muted marker:text-brand">
+                {section.result.recommendations.map((recommendation, index) => (
+                  <li key={`${section.section}-${index}`} className="leading-7">
+                    {recommendation}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </section>
     </ModalWrapper>
