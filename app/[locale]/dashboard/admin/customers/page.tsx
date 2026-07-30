@@ -14,6 +14,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import Pagination from "../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const container = {
   hidden: { opacity: 0 },
@@ -46,6 +48,7 @@ const tableContainer = {
 const CustomersPage = () => {
   const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
 
   const [showAssignSpecialistModal, setShowAssignSpecialistModal] =
     useState<boolean>(false);
@@ -57,20 +60,26 @@ const CustomersPage = () => {
     currentSpecialistId: "",
   });
 
-  const getCustomers = async (): Promise<Customer[]> => {
+  const getCustomers = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 1,
-      limit: 30,
+      page,
+      limit: 5,
     });
 
-    return data?.data ?? [];
+    return parsePaginatedResponse<Customer>(data, page, 5);
   };
 
-  const { data: customers, isLoading } = useQuery({
-    queryKey: ["customers"],
+  const {
+    data: customersPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["customers", page],
     queryFn: getCustomers,
+    placeholderData: (previousData) => previousData,
   });
+  const customers = customersPage?.items ?? [];
 
   const closeAssignSpecialistModalHandler = () => {
     setAssignmentData({
@@ -144,7 +153,7 @@ const CustomersPage = () => {
       {/* Header */}
       <motion.div variants={item}>
         <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("customers")}</h2>
-        <p className="type-body-lg font-light text-[#4F4F4F]">
+        <p className="type-body-lg font-light text-content-muted">
           {t("manageCustomers")}
         </p>
       </motion.div>
@@ -160,17 +169,17 @@ const CustomersPage = () => {
       {isLoading ? (
         <TableSkeleton columns={8} />
       ) : (customers?.length ?? 0) > 0 ? (
-        <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
+        <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised">
           <motion.table
             variants={container}
-            className="min-w-full divide-y divide-[#E1E7EF]"
+            className="min-w-full divide-y divide-line"
           >
-            <thead className="bg-[#FCFCFC]">
+            <thead className="bg-surface-subtle">
               <tr>
                 {["name", "email", "phone", "weightProgress", "heightCm", "subscription", "linkToAnswers", "assignToSpecialist"].map((header) => (
                   <th
                     key={header}
-                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-[#4F4F4F]"
+                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-content-muted"
                   >
                     {t(header)}
                   </th>
@@ -180,7 +189,7 @@ const CustomersPage = () => {
 
             <motion.tbody
               variants={tableContainer}
-              className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
+              className="divide-y divide-line bg-surface"
             >
               {customers?.map((customer) => (
                 <CustomerRow
@@ -203,6 +212,16 @@ const CustomersPage = () => {
           description={t("noCustomersDescription")}
         />
       )}
+
+      {customers.length > 0 && customersPage && (
+        <Pagination
+          currentPage={page}
+          totalPages={customersPage.totalPages}
+          hasNextPage={customersPage.hasNextPage}
+          isFetching={isFetching}
+          onPageChange={setPage}
+        />
+      )}
     </motion.section>
   );
 };
@@ -221,17 +240,17 @@ const CustomerRow = ({
     <motion.tr
       layout
       variants={item}
-      className="type-table font-light text-[#4F4F4F] transition-colors"
+      className="type-table font-light text-content-muted transition-colors"
     >
       {/* Name */}
       <TableCell>
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="type-meta font-medium text-[#E99532]">
+          <div className="flex size-8 items-center justify-center rounded-full bg-accent-soft">
+            <span className="type-meta font-medium text-accent">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
-          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
+          <span className="text-content">{`${customer.firstName} ${customer.lastName}`}</span>
         </div>
       </TableCell>
 
@@ -266,10 +285,10 @@ const CustomerRow = ({
       <TableCell>
         <button
           onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
-          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
-            <ViewLinkIcon className="text-[#E99532]" />
+            <ViewLinkIcon className="text-accent" />
           </div>
           <span>{t("viewAnswers")}</span>
         </button>
@@ -279,14 +298,14 @@ const CustomerRow = ({
       <TableCell>
         <button
           onClick={assignSpecialistHandler}
-          className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-[#E1E7EF] bg-[#fffdfe] px-5 py-2.5 cursor-pointer"
+          className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-line bg-surface-raised px-5 py-2.5 cursor-pointer"
         >
           {customer.specialist ? (
             <span className="">
               {customer.specialist.firstName} {customer.specialist.lastName}
             </span>
           ) : (
-            <span className="whitespace-nowrap text-sm text-[#A4A4A4]">
+            <span className="whitespace-nowrap text-sm text-content-placeholder">
               {t("selectSpecialist")}
             </span>
           )}
@@ -300,12 +319,12 @@ const CustomerRow = ({
 const SearchInput = () => {
   const t = useTranslations("dashboard");
   return (
-    <div className="flex w-full items-center gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-4 py-2.5 sm:w-95">
-      <SearchIcon className="text-[#4F4F4F]" />
+    <div className="flex w-full items-center gap-3 rounded-xl border border-line bg-surface px-4 py-2.5 sm:w-95">
+      <SearchIcon className="text-content-muted" />
       <input
         type="text"
         placeholder={t("searchClients")}
-        className="w-full outline-none placeholder:text-[#A4A4A4]"
+        className="w-full outline-none placeholder:text-content-placeholder"
       />
     </div>
   );
@@ -313,7 +332,7 @@ const SearchInput = () => {
 
 const FilterButton = ({ label }: { label: string }) => {
   return (
-    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
+    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-line bg-surface px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
       <p className="text-base font-light">{label}</p>
       <ChevronDownIcon />
     </button>

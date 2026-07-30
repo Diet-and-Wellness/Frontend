@@ -6,6 +6,7 @@ import { BlogResponse } from "../../api/types/blogs.types";
 import Blog from "../../components/Blogs/Blog";
 import { CardGridSkeleton, Skeleton } from "../../components/Public/Skeletons";
 import { useBlogs } from "../../hooks/useBlogs";
+import Spinner from "../../components/Public/LoadingSpinner";
 
 const container = {
   hidden: {},
@@ -66,7 +67,13 @@ const textVariant = {
 const BlogPage = () => {
   const t = useTranslations();
 
-  const { data: blogs, isLoading } = useBlogs();
+  const {
+    data: blogs,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useBlogs();
 
   return (
     <section className="mb-20">
@@ -78,7 +85,7 @@ const BlogPage = () => {
         className="
         mt-20 md:mt-30
         max-w-[92.5%] mx-auto
-        bg-[#FDF4EB]
+        bg-accent-softer
         rounded-4xl
         p-7 md:p-15
         grid grid-cols-1 lg:grid-cols-2
@@ -92,7 +99,7 @@ const BlogPage = () => {
           <motion.h3
             variants={textVariant}
             className="
-            text-[#D2862D]
+            text-accent-dark
             text-3xl sm:text-4xl md:text-5xl lg:text-[80px]
             font-bold
             mb-2 lg:mb-5
@@ -104,7 +111,7 @@ const BlogPage = () => {
           <motion.p
             variants={textVariant}
             className="
-            text-[#234016]
+            text-brand-ink
             text-xl sm:text-2xl md:text-[30px] lg:text-[38px]
             font-normal
             leading-8.5 md:leading-10 lg:leading-12
@@ -137,7 +144,7 @@ const BlogPage = () => {
         </div>
       ) : (
         <div className="mt-10 lg:mt-15 max-w-[90%] mx-auto">
-          <h4 className="type-section-title mb-5 font-medium text-[#3E7228] lg:mb-10">
+          <h4 className="type-section-title mb-5 font-medium text-brand-dark lg:mb-10">
             {t("blogs.featuredBlogs")}
           </h4>
           <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
@@ -148,21 +155,29 @@ const BlogPage = () => {
         </div>
       )}
 
-      {isLoading || (
+      {!isLoading && hasNextPage && (
         <button
-          onClick={() => {}}
-          className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2 lg:py-2.5 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[#e994322b] border-2 border-[#E99532] transition-colors duration-200"
+          type="button"
+          disabled={isFetchingNextPage}
+          onClick={() => fetchNextPage()}
+          className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2 lg:py-2.5 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-[var(--color-palette-e994322b)] border-2 border-accent transition-colors duration-200"
         >
-          <p className="type-control font-semibold text-[#E99532]">
-            {t("blogs.showMore")}
-          </p>
-          <Image
-            alt="plus icon"
-            src={"/icons/plus-orange.svg"}
-            width={24}
-            height={24}
-            className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
-          />
+          {isFetchingNextPage ? (
+            <Spinner spinnerSize={24} />
+          ) : (
+            <>
+              <p className="type-control font-semibold text-accent">
+                {t("blogs.showMore")}
+              </p>
+              <Image
+                alt=""
+                src={"/icons/plus-orange.svg"}
+                width={24}
+                height={24}
+                className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
+              />
+            </>
+          )}
         </button>
       )}
     </section>

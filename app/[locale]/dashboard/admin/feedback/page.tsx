@@ -139,7 +139,7 @@ const FeedbackManagementPage = () => {
           <motion.div variants={itemVariants} className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("feedbackManagement")}</h2>
-              <p className="type-body-lg font-light text-[#4F4F4F]">
+              <p className="type-body-lg font-light text-content-muted">
                 {t("feedbackDescription")}
               </p>
             </div>
@@ -150,10 +150,10 @@ const FeedbackManagementPage = () => {
               </p>
 
               <div
-                className={`h-2 w-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-[#FCEFE0]" : "bg-[#E4EEE0]"} rounded-full mt-2.5 overflow-hidden`}
+                className={`h-2 w-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-accent-soft" : "bg-[var(--color-palette-e4eee0)]"} rounded-full mt-2.5 overflow-hidden`}
               >
                 <motion.div
-                  className={`h-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-[#E99532]" : "bg-[#4D8E32]"} rounded-full`}
+                  className={`h-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-accent" : "bg-brand"} rounded-full`}
                   initial={{ width: 0 }}
                   animate={{
                     width: `${(feedbackList.length / MAX_FEEDBACKS_COUNT) * 100}%`,
@@ -245,7 +245,7 @@ const FeedbackCard = ({
   return (
     <motion.div
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className="relative max-h-110 overflow-hidden rounded-2xl border border-[#E1E7EF] bg-white"
+      className="relative max-h-110 overflow-hidden rounded-2xl border border-line bg-surface-raised"
     >
       <div className="relative">
         <div className="relative h-85 w-full overflow-hidden sm:h-110">
@@ -260,19 +260,31 @@ const FeedbackCard = ({
         <motion.div
           initial={{ opacity: 0 }}
           whileHover={{ opacity: 1 }}
-          className="absolute inset-0 bg-black/70 flex justify-center"
+          className="feedback-card-hover-overlay absolute inset-0 items-center justify-center bg-black/70"
         >
           <motion.button
+            type="button"
             whileTap={{ scale: 0.9 }}
             onClick={onDelete}
-            className="size-14 rounded-full bg-[#ffe7e7] flex justify-center items-center mt-40 cursor-pointer"
+            aria-label={t("deleteFeedback")}
+            className="flex size-14 cursor-pointer items-center justify-center rounded-full bg-danger-soft"
           >
-            <TrashIcon className="text-[#DC2626]" />
+            <TrashIcon className="text-danger" />
           </motion.button>
         </motion.div>
+
+        <motion.button
+          type="button"
+          whileTap={{ scale: 0.92 }}
+          onClick={onDelete}
+          aria-label={t("deleteFeedback")}
+          className="feedback-card-touch-delete absolute top-3 inset-e-3 z-10 size-12 cursor-pointer items-center justify-center rounded-full border border-danger/35 bg-danger-soft/95 backdrop-blur-sm"
+        >
+          <TrashIcon className="text-danger" />
+        </motion.button>
       </div>
 
-      <div className="flex flex-col gap-3 bg-white absolute bottom-0 inset-s-0 inset-e-0 p-3.5 rounded-t-2xl">
+      <div className="flex flex-col gap-3 bg-surface-raised absolute bottom-0 inset-s-0 inset-e-0 p-3.5 rounded-t-2xl">
         <div className="flex gap-2.5">
           <Tag label={feedback.crop} />
           <Tag label={feedback.theme} />
@@ -281,7 +293,7 @@ const FeedbackCard = ({
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2.5">
             <EyeIcon />
-            <p className="type-label text-[#4F4F4F]">
+            <p className="type-label text-content-muted">
               {t("visibleOnLanding")}
             </p>
           </div>
@@ -299,8 +311,8 @@ const FeedbackCard = ({
 
 const Tag = ({ label }: { label: string }) => {
   return (
-    <motion.div className="px-5 rounded-full border w-fit bg-[#FCEFE0] border-[#E99532]">
-      <p className="type-label text-[#4F4F4F]">{label}</p>
+    <motion.div className="px-5 rounded-full border w-fit bg-accent-soft border-accent">
+      <p className="type-label text-content-muted">{label}</p>
     </motion.div>
   );
 };
@@ -312,9 +324,9 @@ const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="mx-auto mt-5 flex max-w-120 flex-col items-center justify-center gap-2.5 rounded-2xl border border-[#E1E7EF] p-5 sm:p-10"
+      className="mx-auto mt-5 flex max-w-120 flex-col items-center justify-center gap-2.5 rounded-2xl border border-line p-5 sm:p-10"
     >
-      <div className="size-30 rounded-full bg-[#FDF4EB] flex justify-center items-center">
+      <div className="size-30 rounded-full bg-accent-softer flex justify-center items-center">
         <CameraIcon />
       </div>
 
@@ -329,7 +341,7 @@ const EmptyFeedbackState = ({ handleClick }: { handleClick: () => void }) => {
       <motion.button
         whileTap={{ scale: 0.97 }}
         onClick={handleClick}
-        className="w-full mt-5 px-7.5 min-h-12.5 bg-[#E99532] rounded-full text-white font-semibold text-lg cursor-pointer"
+        className="w-full mt-5 px-7.5 min-h-12.5 bg-accent rounded-full text-white font-semibold text-lg cursor-pointer"
       >
         {t("addFeedback")}
       </motion.button>
@@ -347,16 +359,16 @@ const AddFeedbackCard = ({
   const t = useTranslations("dashboard");
   return (
     <motion.button
-      className="rounded-2xl overflow-hidden w-full h-110 p-5 border-2 border-dashed border-[#4F4F4F] flex flex-col justify-center items-center gap-2.5 cursor-pointer"
+      className="rounded-2xl overflow-hidden w-full h-110 p-5 border-2 border-dashed border-content-muted flex flex-col justify-center items-center gap-2.5 cursor-pointer"
       onClick={handleClick}
     >
-      <div className="size-17.5 flex justify-center items-center bg-white rounded-full border-2 border-dashed border-[#4F4F4F]">
+      <div className="size-17.5 flex justify-center items-center bg-surface-raised rounded-full border-2 border-dashed border-content-muted">
         <PulseIcon />
       </div>
 
       <p className="type-label mt-2.5 font-semibold">{t("uploadFeedback")}</p>
 
-      <p className="type-label text-[#4F4F4F]">
+      <p className="type-label text-content-muted">
         {t("slotsRemaining", { count: remainingSlots })}
       </p>
     </motion.button>

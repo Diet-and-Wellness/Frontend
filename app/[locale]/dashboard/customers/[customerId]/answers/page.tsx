@@ -9,7 +9,6 @@ import type {
 } from "@/app/[locale]/api/types/assessment.types";
 import type { Customer } from "@/app/[locale]/api/types/profile.types";
 import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
-import AssessmentAnswersIcon from "@/app/[locale]/components/icons/AssessmentAnswersIcon";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import CheckIcon from "@/app/[locale]/components/icons/CheckIcon";
 import DateIcon from "@/app/[locale]/components/icons/Date";
@@ -106,63 +105,58 @@ const AssessmentAnswersPage = () => {
     <main className="flex w-full flex-col gap-10 pb-10">
       <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-3">
-          <div className="type-meta flex items-center gap-2 text-[#6B7280]">
+          <div className="type-meta flex items-center gap-2 text-content-subtle">
             <span>{t("customers")}</span>
             <span aria-hidden="true">/</span>
             <span>{t("assessmentAnswers")}</span>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="flex size-13 items-center justify-center rounded-2xl bg-[#EDF4EB] text-[#4D8E32]">
-              <AssessmentAnswersIcon className="text-current" />
-            </div>
-            <div>
-              <h1 className="type-page-title font-bold text-[#111827]">
-                {t("assessmentAnswers")}
-              </h1>
-              <p className="type-body mt-1 text-[#4F4F4F]">
-                {t("assessmentAnswersDescription")}
-              </p>
-            </div>
+          <div>
+            <h1 className="type-page-title font-bold text-content">
+              {t("assessmentAnswers")}
+            </h1>
+            <p className="type-body mt-1 text-content-muted">
+              {t("assessmentAnswersDescription")}
+            </p>
           </div>
         </div>
 
         <button
           onClick={() => router.back()}
-          className="type-control flex w-full items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2.5 font-semibold text-[#4F4F4F] transition-colors hover:bg-[#F9FAFB] cursor-pointer md:w-fit"
+          className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
         >
           <ArrowIcon className="direction-aware-back-icon" />
           <span>{t("backToClients")}</span>
         </button>
       </header>
 
-      <section className="overflow-hidden rounded-3xl border border-[#D9E9D2] bg-white">
-        <div className="flex flex-col gap-5 bg-linear-to-br from-[#EDF4EB] to-[#FFFAF4] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
+      <section className="overflow-hidden rounded-3xl border border-[var(--color-palette-d9e9d2)] bg-surface-raised">
+        <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-[var(--color-palette-fffaf4)] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
           <div className="flex items-center gap-4">
-            <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-[#4D8E32] font-bold text-white ring-4 ring-white">
+            <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white ring-4 ring-white">
               {getInitials(customer?.firstName, customer?.lastName)}
             </div>
             <div>
-              <h2 className="type-card-title font-bold text-[#1F2937]">
+              <h2 className="type-card-title font-bold text-content-strong">
                 {customerName || t("customer")}
               </h2>
-              <p className="type-body mt-1 text-[#4F4F4F]">{customer?.email}</p>
+              <p className="type-body mt-1 text-content-muted">{customer?.email}</p>
             </div>
           </div>
 
-          <div className="flex w-full items-center gap-3 rounded-2xl border border-white/90 bg-white/85 px-4 py-3 text-[#4D8E32] md:w-fit">
+          <div className="flex w-full items-center gap-3 rounded-2xl border border-white/90 bg-surface-raised/85 px-4 py-3 text-brand md:w-fit">
             <DateIcon className="text-current" />
             <div className="flex flex-col gap-0.5">
-              <span className="type-meta font-medium text-[#6B7280]">
+              <span className="type-meta font-medium text-content-subtle">
                 {t("assessmentSubmittedAt")}
               </span>
-              <span className="type-label font-semibold text-[#1F2937]">
+              <span className="type-label font-semibold text-content-strong">
                 {submittedAt ? formatDate(submittedAt, dateLocale) : "—"}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-px bg-[#E5E7EB] sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px bg-line-muted sm:grid-cols-3">
           <ProfileDetail
             label={t("currentWeight")}
             value={
@@ -192,10 +186,10 @@ const AssessmentAnswersPage = () => {
 
       <section className="flex flex-col gap-5">
         <div>
-          <h2 className="type-page-title font-bold text-[#111827]">
+          <h2 className="type-page-title font-bold text-content">
             {t("assessmentResponses")}
           </h2>
-          <p className="type-body mt-1 text-[#4F4F4F]">
+          <p className="type-body mt-1 text-content-muted">
             {t("assessmentResponsesDescription")}
           </p>
         </div>
@@ -211,11 +205,11 @@ const AssessmentAnswersPage = () => {
             ))}
           </div>
         ) : (
-          <div className="rounded-3xl border border-dashed border-[#D1D5DB] bg-white px-6 py-16 text-center">
-            <h3 className="type-card-title font-semibold text-[#374151]">
+          <div className="rounded-3xl border border-dashed border-line-subtle bg-surface-raised px-6 py-16 text-center">
+            <h3 className="type-card-title font-semibold text-content-strong">
               {t("noAssessmentAnswers")}
             </h3>
-            <p className="type-body mt-2 text-[#6B7280]">
+            <p className="type-body mt-2 text-content-subtle">
               {t("noAssessmentAnswersDescription")}
             </p>
           </div>
@@ -236,17 +230,17 @@ const AssessmentSectionAnswers = ({
   const sectionTitle = getLocalizedValue(section.sectionTitle, locale);
 
   return (
-    <article className="overflow-hidden rounded-3xl border border-[#E4EAE1] bg-white">
-      <header className="flex items-center gap-3 border-b border-[#E4EAE1] bg-linear-to-r from-[#F6FBF4] to-white px-5 py-4 sm:px-6">
-        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#4D8E32] font-bold text-white">
+    <article className="overflow-hidden rounded-3xl border border-[var(--color-palette-e4eae1)] bg-surface-raised">
+      <header className="flex items-center gap-3 border-b border-[var(--color-palette-e4eae1)] bg-linear-to-r from-[var(--color-palette-f6fbf4)] to-surface-raised px-5 py-4 sm:px-6">
+        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand font-bold text-white">
           {sectionIndex + 1}
         </span>
-        <h3 className="type-card-title font-semibold text-[#1F2937]">
+        <h3 className="type-card-title font-semibold text-content-strong">
           {sectionTitle}
         </h3>
       </header>
 
-      <div className="divide-y divide-[#EEF0F2] bg-[#FFFEFD]">
+      <div className="divide-y divide-[var(--color-palette-eef0f2)] bg-surface">
         {section.answers.map((answer, answerIndex) => (
           <QuestionAnswer
             key={answer.questionId}
@@ -278,25 +272,25 @@ const QuestionAnswer = ({
   return (
     <div className="flex flex-col gap-3.5 px-5 py-5 sm:px-6">
       <div className="flex gap-3">
-        <span className="type-meta flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#F3F4F6] font-bold text-[#6B7280]">
+        <span className="type-meta flex size-7 shrink-0 items-center justify-center rounded-lg bg-surface-neutral font-bold text-content-subtle">
           {answerIndex + 1}
         </span>
-        <p className="type-body pt-0.5 font-medium text-[#374151]">
+        <p className="type-body pt-0.5 font-medium text-content-strong">
           {questionText}
         </p>
       </div>
       {isWrittenResponse ? (
-        <div className="ms-10 overflow-hidden rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-4 sm:px-5">
-          <p className="type-body max-w-none whitespace-pre-wrap wrap-break-word text-[#4B5563]">
+        <div className="ms-10 overflow-hidden rounded-2xl border border-line-muted bg-surface-muted px-4 py-4 sm:px-5">
+          <p className="type-body max-w-none whitespace-pre-wrap wrap-break-word text-content-muted">
             {answerValue}
           </p>
         </div>
       ) : (
-        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-[#DCECD6] bg-[#F7FBF5] px-3.5 py-3">
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-white">
+        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-[var(--color-palette-dcecd6)] bg-[var(--color-palette-f7fbf5)] px-3.5 py-3">
+          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-raised">
             <CheckIcon />
           </span>
-          <p className="type-label pt-0.5 font-semibold text-[#2E641B]">
+          <p className="type-label pt-0.5 font-semibold text-[var(--color-palette-2e641b)]">
             {answerValue}
           </p>
         </div>
@@ -306,91 +300,120 @@ const QuestionAnswer = ({
 };
 
 const ProfileDetail = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex min-w-0 flex-col gap-1.5 bg-white px-3 py-4 text-center sm:px-6 sm:py-5">
-    <span className="type-meta truncate text-[#6B7280]">{label}</span>
-    <span className="type-label truncate font-semibold text-[#1F2937]">
+  <div className="flex min-w-0 flex-col gap-1.5 bg-surface-raised px-3 py-4 text-center sm:px-6 sm:py-5">
+    <span className="type-meta truncate text-content-subtle">{label}</span>
+    <span className="type-label truncate font-semibold text-content-strong">
       {value}
     </span>
   </div>
 );
 
 const AssessmentAnswersSkeleton = () => (
-  <div aria-busy="true" className="flex w-full flex-col gap-10">
-    <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-      <div className="flex flex-col gap-3">
-        <Skeleton className="h-4 w-32" />
-        <Skeleton className="h-9 w-64" />
-        <Skeleton className="h-5 w-100" />
-      </div>
-      <Skeleton className="h-11 w-full rounded-full md:w-36" />
-    </div>
-    <div className="overflow-hidden rounded-3xl border border-[#E1E7EF] bg-white">
-      <div className="flex flex-col gap-5 bg-[#F3F4F6] p-4 sm:p-7 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-4">
-          <Skeleton className="size-16 rounded-full!" />
-          <div className="flex flex-col gap-2.5">
-            <Skeleton className="h-7 w-48" />
-            <Skeleton className="h-4 w-60" />
-          </div>
+  <main
+    aria-busy="true"
+    aria-label="Loading assessment answers"
+    className="flex w-full min-w-0 flex-col gap-10 pb-10"
+  >
+    <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="size-2 rounded-full!" />
+          <Skeleton className="h-4 w-32" />
         </div>
-        <div className="flex min-h-15 w-full items-center gap-3 rounded-2xl border border-[#E5E7EB] bg-white px-4 py-3 md:w-44">
-          <Skeleton className="size-5 rounded-full!" />
-          <div className="flex flex-col gap-2">
-            <Skeleton className="h-3 w-20" />
-            <Skeleton className="h-4 w-26" />
-          </div>
+        <div className="flex min-w-0 flex-col gap-2">
+          <Skeleton className="h-7 w-full max-w-64" />
+          <Skeleton className="h-5 w-full max-w-100" />
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-px bg-[#E5E7EB] sm:grid-cols-3">
+      <Skeleton className="h-13 w-full rounded-full md:w-36" />
+    </header>
+
+    <section className="min-w-0 overflow-hidden rounded-3xl border border-[var(--color-palette-d9e9d2)] bg-surface-raised">
+      <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-[var(--color-palette-fffaf4)] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
+        <div className="flex min-w-0 items-center gap-4">
+          <Skeleton className="size-16 shrink-0 rounded-full!" />
+          <div className="flex min-w-0 flex-1 flex-col gap-2.5">
+            <Skeleton className="h-7 w-full max-w-48" />
+            <Skeleton className="h-4 w-full max-w-60" />
+          </div>
+        </div>
+        <div className="flex min-h-15 w-full items-center gap-3 rounded-2xl border border-line-muted bg-surface-raised px-4 py-3 md:w-44">
+          <Skeleton className="size-5 shrink-0 rounded-full!" />
+          <div className="flex min-w-0 flex-1 flex-col gap-2">
+            <Skeleton className="h-3 w-full max-w-20" />
+            <Skeleton className="h-4 w-full max-w-26" />
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 gap-px bg-line-muted sm:grid-cols-3">
         {Array.from({ length: 3 }, (_, index) => (
-          <div key={index} className="flex flex-col gap-2 bg-white px-3 py-4 sm:px-6 sm:py-5">
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-5 w-18" />
+          <div
+            key={index}
+            className="flex flex-col items-center gap-2 bg-surface-raised px-3 py-4 sm:px-6 sm:py-5"
+          >
+            <Skeleton className="h-4 w-24 max-w-full" />
+            <Skeleton className="h-5 w-18 max-w-full" />
           </div>
         ))}
       </div>
+    </section>
+
+    <section className="flex min-w-0 flex-col gap-5">
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-7 w-full max-w-64" />
+        <Skeleton className="h-5 w-full max-w-100" />
+      </div>
+
+      <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-2 xl:gap-6">
+        {Array.from({ length: 4 }, (_, sectionIndex) => (
+          <article
+            key={sectionIndex}
+            className="min-w-0 overflow-hidden rounded-3xl border border-[var(--color-palette-e4eae1)] bg-surface-raised"
+          >
+            <div className="flex min-w-0 items-center gap-3 border-b border-[var(--color-palette-e4eae1)] bg-linear-to-r from-[var(--color-palette-f6fbf4)] to-surface-raised px-5 py-4 sm:px-6">
+              <Skeleton className="size-9 shrink-0 rounded-xl" />
+              <Skeleton className="h-6 w-full max-w-52" />
+            </div>
+            <div className="divide-y divide-[var(--color-palette-eef0f2)] bg-surface">
+              {Array.from({ length: 2 }, (_, answerIndex) => (
+                <AssessmentAnswerRowSkeleton
+                  key={answerIndex}
+                  written={sectionIndex === 3 && answerIndex === 1}
+                />
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+);
+
+const AssessmentAnswerRowSkeleton = ({ written }: { written: boolean }) => (
+  <div className="flex min-w-0 flex-col gap-3.5 px-5 py-5 sm:px-6">
+    <div className="flex min-w-0 gap-3">
+      <Skeleton className="size-7 shrink-0 rounded-lg" />
+      <div className="flex min-w-0 flex-1 flex-col gap-2 pt-1">
+        <Skeleton className="h-5 w-4/5 max-w-full" />
+        <Skeleton className="h-4 w-3/5 max-w-full" />
+      </div>
     </div>
-    <div className="grid grid-cols-1 items-start gap-5 xl:grid-cols-2 xl:gap-6">
-      {Array.from({ length: 4 }, (_, index) => (
-        <div
-          key={index}
-          className="overflow-hidden rounded-3xl border border-[#E4EAE1] bg-white"
-        >
-          <div className="flex items-center gap-3 bg-[#F6FBF4] px-5 py-4 sm:px-6">
-            <Skeleton className="size-9 rounded-xl" />
-            <Skeleton className="h-6 w-52" />
-          </div>
-          <div className="flex flex-col gap-5 bg-[#FFFEFD] p-5 sm:p-6">
-            {index === 3 ? (
-              <div className="flex flex-col gap-3.5">
-                <div className="flex gap-3">
-                  <Skeleton className="size-7 shrink-0 rounded-lg" />
-                  <Skeleton className="mt-1 h-5 w-4/5" />
-                </div>
-                <div className="ms-10 flex flex-col gap-2 rounded-2xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-4 sm:px-5">
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-11/12" />
-                  <Skeleton className="h-4 w-4/5" />
-                </div>
-              </div>
-            ) : (
-              Array.from({ length: 2 }, (_, answerIndex) => (
-                <div key={answerIndex} className="flex flex-col gap-3.5">
-                  <div className="flex gap-3">
-                    <Skeleton className="size-7 shrink-0 rounded-lg" />
-                    <Skeleton className="mt-1 h-5 w-4/5" />
-                  </div>
-                  <div className="ms-10 flex items-center gap-2.5 rounded-2xl border border-[#DCECD6] bg-[#F7FBF5] px-3.5 py-3">
-                    <Skeleton className="size-6 shrink-0 rounded-full" />
-                    <Skeleton className="h-5 w-2/3" />
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+    {written ? (
+      <div className="ms-0 flex min-w-0 flex-col gap-2 rounded-2xl border border-line-muted bg-surface-muted px-4 py-4 min-[360px]:ms-10 sm:px-5">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-11/12" />
+        <Skeleton className="h-4 w-4/5" />
+      </div>
+    ) : (
+      <div className="ms-0 flex min-w-0 items-center gap-2.5 rounded-2xl border border-[var(--color-palette-dcecd6)] bg-[var(--color-palette-f7fbf5)] px-3.5 py-3 min-[360px]:ms-10">
+        <Skeleton className="size-6 shrink-0 rounded-full" />
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <Skeleton className="h-5 w-2/3 max-w-full" />
+          <Skeleton className="h-3 w-2/5 max-w-full" />
         </div>
-      ))}
-    </div>
+      </div>
+    )}
   </div>
 );
 

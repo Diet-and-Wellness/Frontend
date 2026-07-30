@@ -19,7 +19,7 @@ export interface Note {
   id: string;
   content: string;
   customer: string;
-  writer: NoteWriter;
+  writer: NoteWriter | null;
   attachments: string[];
   isDeleted: boolean;
   createdAt: string;

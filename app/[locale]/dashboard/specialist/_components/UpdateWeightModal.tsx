@@ -69,20 +69,21 @@ const UpdateWeightModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex w-[min(100%,27.5rem)] flex-col gap-4 rounded-2xl bg-[#FFFEFD] p-4 sm:p-5">
-        <div className="flex justify-between items-center">
+      <div className="flex max-h-[85dvh] w-[min(100%,27.5rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+        <div className="flex shrink-0 items-center justify-between border-b border-line px-4 py-3 sm:px-5">
           <p className="type-card-title font-semibold">{t("dashboard.updateClientProgress")}</p>
           <button
             onClick={onClose}
-            className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
+            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
           >
-            <CloseIcon className="text-gray-500" width="16" height="16" />
+            <CloseIcon className="text-content-subtle" width="16" height="16" />
           </button>
         </div>
 
-        <p className="type-label font-semibold text-[#4F4F4F]">{name}</p>
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4 overscroll-contain sm:p-5">
+        <p className="type-label font-semibold text-content-muted">{name}</p>
 
-        <div className="flex justify-between px-3.5 py-2.5 bg-[#EDEDED] border border-[#E1E7EF] rounded-xl">
+        <div className="flex justify-between px-3.5 py-2.5 bg-line-soft border border-line rounded-xl">
           <p className="type-label">{t("dashboard.startingWeight")}</p>
           <p className="type-label font-semibold">{startWeight ?? 0} Kg</p>
         </div>
@@ -91,7 +92,7 @@ const UpdateWeightModal = ({
           <label htmlFor="" className="type-label">
             Current Weight
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               step="0.1"
@@ -109,10 +110,13 @@ const UpdateWeightModal = ({
               className="w-full outline-none"
               placeholder={t("dashboard.numbersOnly")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("calculators.kg")}</p>
+            <p className="type-label text-content-muted">{t("calculators.kg")}</p>
           </div>
         </div>
 
+        </div>
+
+        <div className="shrink-0 border-t border-line bg-surface p-4 sm:p-5">
         <button
           disabled={isSaveDisabled}
           onClick={updateWeight}
@@ -125,8 +129,8 @@ const UpdateWeightModal = ({
           transition-colors
           ${
             isSaveDisabled
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-[#E99532] text-white hover:bg-[#d98622] cursor-pointer"
+              ? "bg-line-strong text-content-subtle cursor-not-allowed"
+              : "bg-accent text-white hover:bg-accent-hover cursor-pointer"
           }
         `}
         >
@@ -138,6 +142,7 @@ const UpdateWeightModal = ({
             <p className="">{t("dashboard.saveUpdate")}</p>
           )}
         </button>
+        </div>
       </div>
     </ModalWrapper>
   );

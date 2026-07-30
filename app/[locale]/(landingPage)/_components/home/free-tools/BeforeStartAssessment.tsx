@@ -161,27 +161,28 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[calc(100dvh-1.5rem)] w-[min(100%,32.5rem)] flex-col gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5">
-        <div className="flex justify-between items-center">
+      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+        <div className="flex shrink-0 items-center justify-between border-b border-line px-5 py-4 sm:px-7.5">
           <div className="w-full flex justify-center items-center gap-2.5">
             <DangerIcon />
-            <p className="type-card-title text-center font-semibold">
+            <p className="text-center text-lg leading-snug font-semibold sm:text-xl">
               {t("beforeStart")}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
+            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
           >
-            <CloseIcon className="text-gray-500" width="16" height="16" />
+            <CloseIcon className="text-content-subtle" width="16" height="16" />
           </button>
         </div>
 
-        <p className="type-body text-[#4F4F4F]">
+        <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
+        <p className="type-body text-content-muted">
           {t("medicalConditionsIntro")}
         </p>
 
-        <p className="type-body text-[#4F4F4F]">
+        <p className="type-body text-content-muted">
           {t("medicalConditionsWarning")}
         </p>
 
@@ -193,29 +194,33 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
             type="checkbox"
             checked={isChecked}
             onChange={(e) => setIsChecked(e.target.checked)}
-            className="size-4.5 accent-[#4D8E32] cursor-pointer"
+            className="size-4.5 accent-brand cursor-pointer"
           />
           <label htmlFor="checkbox" className="type-label cursor-pointer">
             {t("confirmMedicalConditions")}
           </label>
         </div>
+        </div>
 
+        <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
         <button
           disabled={!isChecked}
           onClick={goToAssessmentPage}
           className={`
             rounded-full
             h-12
+            w-full
             type-control
             font-semibold
             mt-2.5
             transition-colors 
-            ${isChecked ? "bg-[#4D8E32] text-white hover:bg-[#337516] cursor-pointer" : "bg-gray-300 text-white cursor-not-allowed"}
+            ${isChecked ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
         >
           <p className="">{t("continueToAssessment")}</p>
         </button>
+        </div>
       </div>
     </ModalWrapper>
   );
@@ -264,7 +269,7 @@ const MedicalConditionsDropDown = () => {
           ease: "easeInOut",
         },
       }}
-      className="relative bg-[#FFFFFF] flex flex-col"
+      className="relative flex flex-col"
     >
       <p className="font-medium mb-3">
         {t("unsupportedConditions")}
@@ -273,7 +278,7 @@ const MedicalConditionsDropDown = () => {
       <motion.div
         layout
         aria-expanded={isOpen}
-        className="mb-3.5 w-full px-5 py-2.5 rounded-2xl ring focus-within:ring-2 focus-within:ring-[#4D8E32] ring-gray-300 flex justify-between items-center gap-2.5"
+        className="mb-3.5 w-full px-5 py-2.5 rounded-2xl ring focus-within:ring-2 focus-within:ring-brand ring-line-strong flex justify-between items-center gap-2.5"
       >
         <input
           type="text"
@@ -314,7 +319,7 @@ const MedicalConditionsDropDown = () => {
           {filteredMedicalConditions.length > 0 ? (
             <motion.div
               layout
-              className="h-40 overflow-y-auto rounded-2xl border border-gray-300 bg-white p-5 flex flex-col gap-2.5"
+              className="h-40 overflow-y-auto rounded-2xl border border-line-strong bg-surface-raised p-5 flex flex-col gap-2.5"
             >
               <AnimatePresence>
                 {filteredMedicalConditions.map((condition) => (
@@ -340,9 +345,9 @@ const MedicalConditionsDropDown = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="h-40 rounded-2xl border border-gray-300 bg-white p-5 flex justify-center items-center"
+              className="h-40 rounded-2xl border border-line-strong bg-surface-raised p-5 flex justify-center items-center"
             >
-              <p className="text-center text-gray-500">
+              <p className="text-center text-content-subtle">
                 {t("noMatchingMedicalConditions")}
               </p>
             </motion.div>

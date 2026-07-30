@@ -16,10 +16,13 @@ import NoteIcon from "../../components/icons/NoteIcon";
 import ViewLinkIcon from "../../components/icons/ViewLinkIcon";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import Pagination from "../_components/Pagination";
+import { parsePaginatedResponse } from "../../utils/pagination";
 
 const SpecialistDashboardIndex = () => {
   const t = useTranslations("dashboard");
   const router = useRouter();
+  const [page, setPage] = useState(1);
   const [noteModal, setNoteModal] = useState({
     isVisible: false,
     customerId: "",
@@ -38,20 +41,26 @@ const SpecialistDashboardIndex = () => {
 
   const { data: me } = useMe();
 
-  const getCustomers = async (): Promise<Customer[]> => {
+  const getCustomers = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 1,
-      limit: 20,
+      page,
+      limit: 5,
     });
 
-    return data?.data ?? [];
+    return parsePaginatedResponse<Customer>(data, page, 5);
   };
 
-  const { data: customers, isLoading } = useQuery({
-    queryKey: ["customers", me.id],
+  const {
+    data: customersPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["customers", me.id, page],
     queryFn: getCustomers,
+    placeholderData: (previousData) => previousData,
   });
+  const customers = customersPage?.items ?? [];
 
   const openNoteModal = (customerId: string, note: string, noteId: string) => {
     setNoteModal({
@@ -137,13 +146,13 @@ const SpecialistDashboardIndex = () => {
           <h3 className="type-page-title font-bold">
             Dr. {`${me.firstName} ${me.lastName}`}
           </h3>
-          <div className="px-4 py-2 rounded-2xl bg-[#FCEFE0]">
-            <p className="type-label font-semibold text-[#E99532]">
+          <div className="px-4 py-2 rounded-2xl bg-accent-soft">
+            <p className="type-label font-semibold text-accent">
               {t("totalClients", { count: me.assignedCustomersCount ?? 0 })}
             </p>
           </div>
         </div>
-        <p className="type-body-lg text-[#65758B]">
+        <p className="type-body-lg text-[var(--color-palette-65758b)]">
           {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
       </div>
@@ -153,14 +162,14 @@ const SpecialistDashboardIndex = () => {
           <TableSkeleton columns={7} />
         </div>
       ) : (customers?.length ?? 0) > 0 ? (
-        <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
-          <table className="min-w-full divide-y divide-[#E1E7EF]">
-            <thead className="bg-[#FCFCFC]">
+        <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised mt-10">
+          <table className="min-w-full divide-y divide-line">
+            <thead className="bg-surface-subtle">
               <tr>
                 {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
                   <th
                     key={header}
-                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-[#4F4F4F]"
+                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-content-muted"
                   >
                     {t(header)}
                   </th>
@@ -168,7 +177,7 @@ const SpecialistDashboardIndex = () => {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+            <tbody className="divide-y divide-line bg-surface">
               {customers?.map((customer) => (
                 <CustomerRow
                   key={customer.id}
@@ -203,6 +212,16 @@ const SpecialistDashboardIndex = () => {
           description={t("noClientsDescription")}
         />
       )}
+
+      {customers.length > 0 && customersPage && (
+        <Pagination
+          currentPage={page}
+          totalPages={customersPage.totalPages}
+          hasNextPage={customersPage.hasNextPage}
+          isFetching={isFetching}
+          onPageChange={setPage}
+        />
+      )}
     </div>
   );
 };
@@ -226,15 +245,15 @@ const CustomerRow = ({
 }) => {
   const t = useTranslations("dashboard");
   return (
-    <tr className="type-table font-light text-[#4F4F4F] transition-colors">
+    <tr className="type-table font-light text-content-muted transition-colors">
       <TableCell>
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="type-meta font-medium text-[#E99532]">
+          <div className="flex size-8 items-center justify-center rounded-full bg-accent-soft">
+            <span className="type-meta font-medium text-accent">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
-          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
+          <span className="text-content">{`${customer.firstName} ${customer.lastName}`}</span>
         </div>
       </TableCell>
 
@@ -254,7 +273,7 @@ const CustomerRow = ({
               ? `${customer.weight.start.weight} kg ${" "}${" — "}${" "} ${customer.weight.current.weight} kg`
               : "—"}
           </p>
-          <PenIcon className="text-[#A4A4A4]" />
+          <PenIcon className="text-content-placeholder" />
         </button>
       </TableCell>
 
@@ -267,10 +286,10 @@ const CustomerRow = ({
       <TableCell>
         <button
           onClick={onViewAnswers}
-          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
-            <ViewLinkIcon className="text-[#E99532]" />
+            <ViewLinkIcon className="text-accent" />
           </div>
           <span>{t("viewAnswers")}</span>
         </button>
@@ -285,12 +304,12 @@ const CustomerRow = ({
               customer.lastNote?.id,
             )
           }
-          className="flex items-center gap-3 px-4 py-2 rounded-full cursor-pointer border border-[#E1E7EF]"
+          className="flex items-center gap-3 px-4 py-2 rounded-full cursor-pointer border border-line"
         >
           {!!customer.lastNote ? (
-            <NoteIcon className="text-[#4F4F4F]" />
+            <NoteIcon className="text-content-muted" />
           ) : (
-            <AddNoteIcon className="text-[#4F4F4F]" />
+            <AddNoteIcon className="text-content-muted" />
           )}
           <p className="type-control">
             {customer.lastNote?.content ? "View" : "Add"} Note

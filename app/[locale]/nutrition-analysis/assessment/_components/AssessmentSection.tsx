@@ -43,7 +43,7 @@ const AssessmentSection = ({
       >
         <div className="flex flex-col gap-2">
           <h3 className="type-card-title font-semibold">{section?.title}</h3>
-          <p className="type-body text-[#4F4F4F]">{section?.description}</p>
+          <p className="type-body text-content-muted">{section?.description}</p>
         </div>
 
         {isLastQuestion ? (
@@ -55,7 +55,7 @@ const AssessmentSection = ({
                 onTextAnswer(textQuestionId, event.target.value);
               }
             }}
-            className="h-48 w-full resize-none rounded-2xl border-none p-4 outline-none ring ring-gray-200 transition-all duration-100 placeholder-gray-400 focus:ring-2 focus:ring-[#4D8E32] sm:h-60 sm:p-5"
+            className="h-48 w-full resize-none rounded-2xl border-none p-4 outline-none ring ring-line-strong transition-all duration-100 placeholder:text-content-placeholder focus:ring-2 focus:ring-brand sm:h-60 sm:p-5"
           />
         ) : (
           section?.questions.map((question) => (

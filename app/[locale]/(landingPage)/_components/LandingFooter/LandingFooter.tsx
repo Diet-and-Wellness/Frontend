@@ -24,7 +24,7 @@ const LandingFooter = () => {
   ];
 
   return (
-    <footer className="w-full bg-[#2D5A3D] py-12">
+    <footer className="w-full bg-[var(--color-palette-2d5a3d)] py-12">
       <div className="mx-auto w-[90%] flex flex-col gap-12">
         {/* Layout */}
         <div className="flex flex-col gap-10 sm:flex-row sm:flex-wrap sm:justify-between">

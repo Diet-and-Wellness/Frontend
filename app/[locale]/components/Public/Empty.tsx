@@ -17,7 +17,7 @@ const EmptyComp = ({
     >
       <EmptyIcon className="h-auto w-48 max-w-full sm:w-64 md:w-72 lg:w-80" />
       <h4 className="type-card-title mt-5 text-center font-bold sm:mt-7.5">{title}</h4>
-      <p className="type-body mt-2.5 max-w-md text-center text-[#4F4F4F]">
+      <p className="type-body mt-2.5 max-w-md text-center text-content-muted">
         {description}
       </p>
     </motion.div>

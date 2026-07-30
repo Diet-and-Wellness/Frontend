@@ -13,6 +13,8 @@ import { useState } from "react";
 import Link from "next/link";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import { useTranslations } from "next-intl";
+import Pagination from "../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const container = {
   hidden: { opacity: 0 },
@@ -46,6 +48,7 @@ const item = {
 
 const BlogsPage = () => {
   const t = useTranslations("dashboard");
+  const [page, setPage] = useState(1);
   const [deleteBlogState, setDeleteBlogState] = useState({
     isOpen: false,
     selectedBlogId: "",
@@ -58,6 +61,10 @@ const BlogsPage = () => {
       await blogsApi.deleteBlog(blogId);
     },
     onSuccess: async () => {
+      if (page > 1 && blogs.length === 1) {
+        setPage(page - 1);
+      }
+
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["publishedBlogs"] }),
         queryClient.invalidateQueries({ queryKey: ["dashboardStat"] }),
@@ -85,14 +92,21 @@ const BlogsPage = () => {
   };
 
   const getPublishedBlogs = async () => {
-    const { data } = await blogsApi.getAllBlogs();
-    return data?.data ?? [];
+    const { data } = await blogsApi.getAllBlogs({ page, limit: 6 });
+    return parsePaginatedResponse<BlogResponse>(data, page, 6);
   };
 
-  const { data: blogs, isLoading } = useQuery({
-    queryKey: ["publishedBlogs"],
+  const {
+    data: blogsPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["publishedBlogs", page],
     queryFn: getPublishedBlogs,
+    placeholderData: (previousData) => previousData,
   });
+
+  const blogs = blogsPage?.items ?? [];
 
   return (
     <motion.section
@@ -118,22 +132,22 @@ const BlogsPage = () => {
       <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("contentAndBlogs")}</h2>
-          <p className="type-body-lg font-light text-[#4F4F4F]">
+          <p className="type-body-lg font-light text-content-muted">
             {t("manageBlogs")}
           </p>
         </div>
 
         <Link
           href={"/dashboard/admin/blogs/new-blog"}
-          className="flex items-center justify-center rounded-full bg-[#E99532] px-5 py-2.5 transition duration-150 hover:bg-[#e28010] sm:w-fit"
+          className="flex items-center justify-center rounded-full bg-accent px-5 py-2.5 transition duration-150 hover:bg-accent-hover sm:w-fit"
         >
-          <PlusIcon className="text-white" />
-          <p className="type-control font-medium text-[#FFFEFD]">{t("addBlog")}</p>
+          <PlusIcon className="text-accent-contrast" />
+          <p className="type-control font-medium text-surface">{t("addBlog")}</p>
         </Link>
       </motion.div>
 
       {isLoading ? (
-        <CardGridSkeleton cards={6} />
+        <CardGridSkeleton cards={6} variant="dashboard" />
       ) : blogs.length > 0 ? (
         <motion.div
           layout
@@ -163,6 +177,16 @@ const BlogsPage = () => {
         <EmptyComp
           title={t("noBlogsYet")}
           description={t("noBlogsDescription")}
+        />
+      )}
+
+      {blogs.length > 0 && blogsPage && (
+        <Pagination
+          currentPage={page}
+          totalPages={blogsPage.totalPages}
+          hasNextPage={blogsPage.hasNextPage}
+          isFetching={isFetching}
+          onPageChange={setPage}
         />
       )}
     </motion.section>

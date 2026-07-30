@@ -104,20 +104,21 @@ const NoteModal = ({
         )}
       </AnimatePresence>
 
-      <div className="flex w-[min(100%,35rem)] flex-col gap-3.5 rounded-2xl bg-[#FFFEFD] px-4 py-5 sm:px-7.5">
-        <div className="flex justify-between items-center">
-          <p className="type-card-title font-medium text-gray-900">{t("note")}</p>
+      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+        <div className="flex shrink-0 items-center justify-between border-b border-line px-4 py-4 sm:px-7.5">
+          <p className="type-card-title font-medium text-content-strong">{t("note")}</p>
           <button
             disabled={isLoading}
             onClick={onClose}
-            className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
+            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
           >
-            <CloseIcon className="text-gray-500" width="16" height="16" />
+            <CloseIcon className="text-content-subtle" width="16" height="16" />
           </button>
         </div>
 
+        <div className="min-h-0 flex-1 overflow-y-auto p-4 overscroll-contain sm:px-7.5">
         {mode === "view" ? (
-          <p className="type-body max-h-50 w-full overflow-y-auto whitespace-pre-wrap">
+          <p className="type-body w-full whitespace-pre-wrap">
             {currentNote}
           </p>
         ) : (
@@ -125,11 +126,12 @@ const NoteModal = ({
             value={note}
             onChange={noteChangeHandler}
             placeholder={t("addNote")}
-            className="min-h-50 w-full resize-none rounded-2xl p-3.5 text-base outline-none ring ring-[#D5D5D5] transition-all duration-150 placeholder:text-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32]"
+            className="min-h-50 w-full resize-none rounded-2xl p-3.5 text-base outline-none ring ring-line-strong transition-all duration-150 placeholder:text-line-strong focus:ring-2 focus:ring-brand"
           />
         )}
+        </div>
 
-        <div className="flex justify-between items-center mt-2.5">
+        <div className="flex shrink-0 items-center justify-between border-t border-line bg-surface p-4 sm:px-7.5">
           <div className="w-full flex justify-between items-center">
             <div className="flex gap-2.5">
               {!!currentNote && (
@@ -141,16 +143,16 @@ const NoteModal = ({
                   <TrashIcon
                     width={22}
                     height={22}
-                    className="text-[#DC2626]"
+                    className="text-danger"
                   />
                 </button>
               )}
               {mode === "view" && (
                 <button
                   onClick={() => setMode("edit")}
-                  className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-gray-100"
+                  className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-surface-neutral"
                 >
-                  <PenIcon className="text-[#4F4F4F]" />
+                  <PenIcon className="text-content-muted" />
                 </button>
               )}
             </div>
@@ -158,7 +160,7 @@ const NoteModal = ({
               <button
                 disabled={saveBtnDisabled}
                 onClick={!!currentNote ? updateNoteHandler : addNoteHandler}
-                className={`px-5 h-10 rounded-full flex justify-center items-center gap-4 ${isLoading || saveBtnDisabled ? "bg-gray-300 text-gray-500" : ""} ${saveBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"} bg-[#4e8e321a] transition-colors duration-150`}
+                className={`px-5 h-10 rounded-full flex justify-center items-center gap-4 ${isLoading || saveBtnDisabled ? "bg-line-strong text-content-subtle" : ""} ${saveBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"} bg-[var(--color-palette-4e8e321a)] transition-colors duration-150`}
               >
                 {isLoading ? (
                   <Spinner spinnerSize={25} />
@@ -166,7 +168,7 @@ const NoteModal = ({
                   <div className="flex items-center gap-2.5">
                     <p className="type-control font-medium">{t("save")}</p>
                     <SaveIcon
-                      className={`shrink-0 ${saveBtnDisabled ? "text-gray-500" : "text-[#4D8E32]"}`}
+                      className={`shrink-0 ${saveBtnDisabled ? "text-content-subtle" : "text-brand"}`}
                     />
                   </div>
                 )}

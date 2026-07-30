@@ -139,12 +139,12 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
   return (
     <motion.div
       variants={item}
-      className="mt-6 flex flex-col items-stretch gap-6 sm:mt-10 lg:flex-row lg:items-start lg:gap-10"
+      className="mt-6 grid grid-cols-1 items-start gap-6 sm:mt-10 lg:grid-cols-5 lg:gap-10"
     >
       <form
         action=""
         onSubmit={handleSubmit(postBlog)}
-        className="flex w-full flex-col gap-5 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
+        className="flex min-w-0 w-full flex-col gap-5 rounded-2xl border border-line bg-surface p-5 sm:gap-7.5 sm:p-7.5 lg:col-span-3"
       >
         <div className="flex flex-col gap-2.5">
           <label htmlFor="blogTitle" className="type-label font-bold">
@@ -155,7 +155,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
             placeholder={t("blogTitle")}
             id="blogTitle"
             {...register("title", { required: true })}
-            className="border-none outline-none ring ring-[#D5D5D5] rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="border-none outline-none ring ring-line-strong rounded-xl px-3 py-2 focus:ring-2 focus:ring-brand transition-all duration-150"
           />
         </div>
 
@@ -168,7 +168,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
             placeholder={t("blogDescription")}
             id="blogDescription"
             {...register("description", { required: true })}
-            className="border-none outline-none ring ring-[#D5D5D5] rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="border-none outline-none ring ring-line-strong rounded-xl px-3 py-2 focus:ring-2 focus:ring-brand transition-all duration-150"
           />
         </div>
 
@@ -180,14 +180,14 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
             id="blogContent"
             placeholder={t("blogContent")}
             {...register("content", { required: true })}
-            className="resize-none border-none outline-none ring ring-[#D5D5D5] h-80 rounded-xl px-3 py-2 focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="resize-none border-none outline-none ring ring-line-strong h-80 rounded-xl px-3 py-2 focus:ring-2 focus:ring-brand transition-all duration-150"
           />
         </div>
 
         <button
           type="submit"
           disabled={!canPublish}
-          className={`${!canPublish ? "cursor-not-allowed bg-gray-300 text-gray-500" : "cursor-pointer bg-[#E99532]"} type-control mt-4 flex h-13 items-center justify-center rounded-4xl font-medium text-white`}
+          className={`${!canPublish ? "cursor-not-allowed bg-line-strong text-content-subtle" : "cursor-pointer bg-accent"} type-control mt-4 flex h-13 items-center justify-center rounded-4xl font-medium text-white`}
         >
           {addNewBlogMutation.isPending ? (
             <Spinner spinnerSize={30} />
@@ -198,13 +198,13 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
       </form>
       <div
         {...getRootProps()}
-        className={`order-first w-full rounded-2xl border-2 border-dashed p-5 sm:p-7.5 lg:order-0 lg:min-w-100 ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} flex flex-col justify-center items-center gap-3 bg-[#FFFEFD]`}
+        className={`order-first flex min-w-0 w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed bg-surface p-5 sm:p-7.5 lg:order-0 lg:col-span-2 ${isDragActive ? "border-transparent ring-5 ring-brand/70" : "border-content-muted"}`}
       >
         <input {...getInputProps()} />
 
         {previewUrl ? (
           <>
-            <div className="ring-3 ring-[#4D8E32] rounded-2xl overflow-hidden max-h-50 max-w-full min-h-30">
+            <div className="ring-3 ring-brand rounded-2xl overflow-hidden max-h-50 max-w-full min-h-30">
               <Image
                 src={previewUrl ?? ""}
                 alt="Preview"
@@ -215,12 +215,12 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
               />
             </div>
 
-            <p className="text-lg font-semibold text-center text-[#4D8E32]">
+            <p className="text-lg font-semibold text-center text-brand">
               {t("imageSelected")}
             </p>
 
             {attachment && (
-              <p className="text-[#4F4F4F]">
+              <p className="text-content-muted">
                 {(attachment.size / 1024 / 1024).toFixed(2)}
                 {" MB"}
               </p>
@@ -233,27 +233,27 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
                 setAttachment(null);
                 setHideCurrentImage(true);
               }}
-              className="px-8 py-2 rounded-full border border-[#E1E7EF] cursor-pointer"
+              className="px-8 py-2 rounded-full border border-line cursor-pointer"
             >
               {t("removeImage")}
             </button>
           </>
         ) : (
           <>
-            <div className="size-17.5 rounded-full flex justify-center items-center bg-[#FDF4EB]">
+            <div className="size-17.5 rounded-full flex justify-center items-center bg-accent-softer">
               <UploadIcon />
             </div>
 
             <p className="type-card-title mt-2 text-center">{t("dragDropImage")}</p>
 
-            <p className="type-label text-center text-[#4F4F4F]">
+            <p className="type-label text-center text-content-muted">
               {t("imageFormats")}
             </p>
 
             <button
               type="button"
               onClick={open}
-              className="type-control mt-2 rounded-full border border-[#E1E7EF] px-12 py-2 font-semibold cursor-pointer"
+              className="type-control mt-2 rounded-full border border-line px-12 py-2 font-semibold cursor-pointer"
             >
               {t("browseFiles")}
             </button>

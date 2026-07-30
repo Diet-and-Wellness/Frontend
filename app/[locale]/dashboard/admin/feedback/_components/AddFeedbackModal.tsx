@@ -69,18 +69,19 @@ const AddFeedbackModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[88vh] w-[min(100%,37.5rem)] flex-col gap-5 overflow-y-auto rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5">
-        <div className="flex items-center justify-between gap-3">
+      <div className="flex max-h-[85dvh] w-[min(100%,37.5rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-line px-5 py-4 sm:px-7.5">
           <h4 className="type-card-title font-bold">{t("uploadFeedback")}</h4>
 
           <button
             onClick={closeModal}
-            className="hover:bg-gray-100 transition-colors duration-150 p-3 rounded-full cursor-pointer"
+            className="hover:bg-surface-neutral transition-colors duration-150 p-3 rounded-full cursor-pointer"
           >
-            <CloseIcon className="text-gray-600" width="18" height="18" />
+            <CloseIcon className="text-content-muted" width="18" height="18" />
           </button>
         </div>
 
+        <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto overscroll-contain p-5 sm:p-7.5">
         <div className="flex flex-col gap-5">
           <p className="type-body-lg">{t("screenshotType")}</p>
 
@@ -93,8 +94,8 @@ const AddFeedbackModal = ({
                 <FullScreenshotIcon
                   className={
                     screenshotType === "full"
-                      ? "text-[#E99532]"
-                      : "text-[#4F4F4F]"
+                      ? "text-accent"
+                      : "text-content-muted"
                   }
                 />
               }
@@ -108,8 +109,8 @@ const AddFeedbackModal = ({
                 <CroppedScreenshotIcon
                   className={
                     screenshotType === "cropped"
-                      ? "text-[#E99532]"
-                      : "text-[#4F4F4F]"
+                      ? "text-accent"
+                      : "text-content-muted"
                   }
                 />
               }
@@ -127,20 +128,20 @@ const AddFeedbackModal = ({
               isOn={theme === "dark"}
               activate={() => setTheme("dark")}
               deactivate={() => setTheme("light")}
-              activeBgColor="#2C3549"
+              activeBgColor="var(--color-palette-2c3549)"
             />
           </div>
         </div>
 
         <div
           {...getRootProps()}
-          className={`mt-2.5 p-5 rounded-2xl border border-dashed ${isDragActive ? "ring-5 ring-[#4D8E32]/70 border-transparent" : "border-[#4F4F4F]"} border-[#4F4F4F] flex flex-col justify-center items-center gap-3`}
+          className={`mt-2.5 p-5 rounded-2xl border border-dashed ${isDragActive ? "ring-5 ring-brand/70 border-transparent" : "border-content-muted"} border-content-muted flex flex-col justify-center items-center gap-3`}
         >
           <input {...getInputProps()} />
 
           {attachment ? (
             <>
-              <div className="ring-3 ring-[#4D8E32] rounded-2xl overflow-hidden max-h-50 min-h-30">
+              <div className="ring-3 ring-brand rounded-2xl overflow-hidden max-h-50 min-h-30">
                 <Image
                   src={previewUrl ?? ""}
                   alt="Preview"
@@ -153,7 +154,7 @@ const AddFeedbackModal = ({
 
               <p className="type-card-title font-semibold">{attachment.name}</p>
 
-              <p className="type-label text-[#4F4F4F]">
+              <p className="type-label text-content-muted">
                 {(attachment.size / 1024 / 1024).toFixed(2)}
                 {" MB"}
               </p>
@@ -161,27 +162,27 @@ const AddFeedbackModal = ({
               <button
                 type="button"
                 onClick={() => setAttachment(null)}
-                className="type-control rounded-full border border-[#E1E7EF] px-8 py-2 cursor-pointer"
+                className="type-control rounded-full border border-line px-8 py-2 cursor-pointer"
               >
                 {t("removeImage")}
               </button>
             </>
           ) : (
             <>
-              <div className="size-17.5 rounded-full flex justify-center items-center bg-[#FDF4EB]">
+              <div className="size-17.5 rounded-full flex justify-center items-center bg-accent-softer">
                 <UploadIcon />
               </div>
 
               <p className="type-card-title mt-2 text-center">{t("dragDropImage")}</p>
 
-              <p className="type-label text-[#4F4F4F]">
+              <p className="type-label text-content-muted">
                 {t("imageFormats")}
               </p>
 
               <button
                 type="button"
                 onClick={open}
-                className="type-control mt-2 rounded-full border border-[#E1E7EF] px-12 py-2 font-semibold cursor-pointer"
+                className="type-control mt-2 rounded-full border border-line px-12 py-2 font-semibold cursor-pointer"
               >
                 {t("browseFiles")}
               </button>
@@ -189,6 +190,9 @@ const AddFeedbackModal = ({
           )}
         </div>
 
+        </div>
+
+        <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
         <button
           disabled={pending || attachment === null}
           onClick={() =>
@@ -198,7 +202,7 @@ const AddFeedbackModal = ({
               attachment: attachment,
             })
           }
-          className={`type-control mt-5 flex min-h-12.5 w-full items-center justify-center rounded-full px-7.5 font-semibold text-white ${pending || attachment === null ? "cursor-not-allowed bg-gray-300 text-gray-500" : "cursor-pointer bg-[#E99532]"} `}
+          className={`type-control mt-5 flex min-h-12.5 w-full items-center justify-center rounded-full px-7.5 font-semibold text-white ${pending || attachment === null ? "cursor-not-allowed bg-line-strong text-content-subtle" : "cursor-pointer bg-accent"} `}
         >
           {pending ? (
             <Spinner spinnerSize={30} />
@@ -206,6 +210,7 @@ const AddFeedbackModal = ({
             <p className="">{t("uploadFeedback")}</p>
           )}
         </button>
+        </div>
       </div>
     </ModalWrapper>
   );
@@ -226,14 +231,14 @@ const ScreenshotTypeCard = ({
     <button
       onClick={selectHandler}
       className={`px-7.5 py-3.5 flex flex-col justify-center items-center gap-2.5 rounded-2xl border transition-all duration-150 cursor-pointer ${
-        selected ? "border-[#E99532] bg-[#FCEFE0]" : "border-[#E1E7EF]"
+        selected ? "border-accent bg-accent-soft" : "border-line"
       }`}
     >
       {icon}
 
       <p
         className={`type-card-title ${
-          selected ? "text-[#8C591E] font-semibold" : "text-black"
+          selected ? "text-[var(--color-palette-8c591e)] font-semibold" : "text-content"
         }`}
       >
         {title}

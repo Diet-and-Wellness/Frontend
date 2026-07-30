@@ -19,7 +19,7 @@ type FormData = {
 };
 
 const inputClassName =
-  "text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+  "text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 focus:border-brand-hover transition";
 
 const ContactusForm = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -65,7 +65,7 @@ const ContactusForm = () => {
       </motion.h3>
 
       {/* Description */}
-      <motion.p className="type-body mb-5 font-medium text-[#4F4F4F]">
+      <motion.p className="type-body mb-5 font-medium text-content-muted">
         {t("contactUs.contactDescription")}
       </motion.p>
 
@@ -136,7 +136,7 @@ const ContactusForm = () => {
           rows={4}
           onInput={handleAutoGrow}
           placeholder={t("placeholders.leaveUsAMessage")}
-          className="text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 resize-none overflow-hidden focus:border-[#3A6B26] transition"
+          className="text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 resize-none overflow-hidden focus:border-brand-hover transition"
         />
 
         {errors.message && <Error msg={errors.message.message} />}
@@ -146,7 +146,7 @@ const ContactusForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-[#E99532] font-medium text-white cursor-pointer"
+        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
         {isSubmitting ? <Spinner /> : t("placeholders.sendMessage")}
       </button>

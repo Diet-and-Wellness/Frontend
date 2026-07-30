@@ -30,7 +30,7 @@ const SignupForm = () => {
   };
 
   const inputClassName =
-    "text-base outline-none border-2 border-[#D5D5D5] placeholder:text-[#A4A4A4] rounded-xl p-3 focus:border-[#3A6B26] transition";
+    "text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 focus:border-brand-hover transition";
 
   return (
     <motion.form
@@ -136,7 +136,7 @@ const SignupForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-[#E99532] font-medium text-white cursor-pointer"
+        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
         {isSubmitting ? <Spinner /> : t("auth.signUp")}
       </button>
@@ -145,7 +145,7 @@ const SignupForm = () => {
       <div className="flex gap-3 justify-center">
         <p className="type-label font-medium">{t("auth.noAccount")}</p>
         <Link href={"/signin"}>
-          <span className="type-label text-[#4D8E32] font-semibold underline transition">
+          <span className="type-label text-brand font-semibold underline transition">
             {t("auth.signIn")}
           </span>
         </Link>

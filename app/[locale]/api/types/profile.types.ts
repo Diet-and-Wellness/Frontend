@@ -49,7 +49,7 @@ export interface Note {
     email: string;
     role: string;
     id: string;
-  };
+  } | null;
   attachments: string[];
   isDeleted: boolean;
   createdAt: string;
@@ -144,7 +144,7 @@ export interface LastNote {
   id: string;
   content: string;
   customer: string;
-  writer: NoteWriter;
+  writer: NoteWriter | null;
   attachments?: Attachment[];
   isDeleted: boolean;
   createdAt: string;

@@ -11,6 +11,8 @@ import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import { useTranslations } from "next-intl";
+import Pagination from "../../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,25 +55,33 @@ const AssignSpecialistModal = ({
   >(assignmentData.currentSpecialistId);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
-  const getSpecialists = async (): Promise<SpecialistDTO[]> => {
+  const getSpecialists = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "specialist",
-      limit: 20,
-      page: 1,
+      limit: 5,
+      page,
     });
 
-    return data?.data ?? [];
+    return parsePaginatedResponse<SpecialistDTO>(data, page, 5);
   };
 
-  const { data: specialists, isLoading } = useQuery({
-    queryKey: ["specialists"],
+  const {
+    data: specialistsPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["specialists", page],
     queryFn: getSpecialists,
+    placeholderData: (previousData) => previousData,
   });
+  const specialists = useMemo(
+    () => specialistsPage?.items ?? [],
+    [specialistsPage],
+  );
 
   const filteredSpecialists = useMemo(() => {
-    if (!specialists) return [];
-
     const search = searchTerm.trim().toLowerCase();
 
     if (!search) return specialists;
@@ -96,23 +106,23 @@ const AssignSpecialistModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[85vh] w-[min(100%,30rem)] flex-col justify-start overflow-y-auto rounded-2xl bg-[#FFFEFD]">
-        <div className="p-5 flex flex-col gap-3">
+      <div className="flex max-h-[85dvh] w-[min(100%,30rem)] flex-col justify-start overflow-hidden rounded-2xl bg-surface">
+        <div className="flex shrink-0 flex-col gap-3 border-b border-line p-5">
           <div className="flex justify-between items-center">
-            <p className="type-card-title font-medium text-gray-900">
+            <p className="type-card-title font-medium text-content-strong">
               {t("assignCustomer")}
             </p>
 
             <button
               onClick={onClose}
-              className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
+              className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
             >
-              <CloseIcon className="text-gray-500" width="16" height="16" />
+              <CloseIcon className="text-content-subtle" width="16" height="16" />
             </button>
           </div>
 
-          <div className="w-full px-4 py-2.5 bg-[#F9F9F9] rounded-xl flex items-center gap-3 border border-[#E1E7EF]">
-            <SearchIcon className="text-[#4F4F4F]" />
+          <div className="w-full px-4 py-2.5 bg-surface-muted rounded-xl flex items-center gap-3 border border-line">
+            <SearchIcon className="text-content-muted" />
 
             <input
               type="text"
@@ -129,7 +139,7 @@ const AssignSpecialistModal = ({
             {Array.from({ length: 5 }, (_, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 rounded-xl border border-[#E1E7EF] p-3"
+                className="flex items-center gap-3 rounded-xl border border-line p-3"
               >
                 <Skeleton className="size-9 rounded-full" />
                 <Skeleton className="h-4 w-2/5" />
@@ -141,7 +151,7 @@ const AssignSpecialistModal = ({
             variants={container}
             initial="hidden"
             animate="show"
-            className="px-5 py-2.5 flex flex-col justify-start gap-3 overflow-auto"
+            className="flex min-h-0 flex-1 flex-col justify-start gap-3 overflow-y-auto px-5 py-2.5 overscroll-contain"
           >
             {filteredSpecialists.length > 0 ? (
               filteredSpecialists.map((specialist) => (
@@ -154,14 +164,26 @@ const AssignSpecialistModal = ({
                 />
               ))
             ) : (
-              <div className="type-body py-10 text-center text-gray-500">
+              <div className="type-body py-10 text-center text-content-subtle">
                 {t("noSpecialistsFound")}
               </div>
             )}
           </motion.div>
         )}
 
-        <div className="p-5">
+        {specialists.length > 0 && specialistsPage && (
+          <div className="px-5 py-2.5">
+            <Pagination
+              currentPage={page}
+              totalPages={specialistsPage.totalPages}
+              hasNextPage={specialistsPage.hasNextPage}
+              isFetching={isFetching}
+              onPageChange={setPage}
+            />
+          </div>
+        )}
+
+        <div className="shrink-0 border-t border-line bg-surface p-5">
           <button
             onClick={() => onSelect(selectedSpecialistId ?? "")}
             disabled={
@@ -169,7 +191,7 @@ const AssignSpecialistModal = ({
               selectedSpecialistId === assignmentData.currentSpecialistId ||
               pending
             }
-            className="type-control flex min-h-12 w-full items-center justify-center rounded-full bg-[#E99532] font-semibold text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+            className="type-control flex min-h-12 w-full items-center justify-center rounded-full bg-accent font-semibold text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-line-strong disabled:text-content-subtle"
           >
             {pending ? <Spinner spinnerSize={30} /> : t("assignToSpecialist")}
           </button>
@@ -198,11 +220,11 @@ const SpecialistCard = ({
       onClick={onClick}
       className={`ring cursor-pointer py-1.5 px-3 rounded-xl flex items-center gap-3 transition-colors ${
         isSelected
-          ? "ring-[#4D8E32] bg-green-50 ring-2"
-          : "ring-[#E1E7EF] bg-white"
+          ? "ring-brand bg-brand-soft ring-2"
+          : "ring-line bg-surface-raised"
       }`}
     >
-      <div className="type-meta flex size-9 items-center justify-center rounded-full bg-[#E99532] font-bold text-white">
+      <div className="type-meta flex size-9 items-center justify-center rounded-full bg-accent font-bold text-accent-contrast">
         {firstName.at(0)}
         {lastName.at(0)}
       </div>

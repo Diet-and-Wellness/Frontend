@@ -36,7 +36,7 @@ export default function CalorieTargets({
     <div className="flex flex-col gap-6 sm:gap-7.5">
       <div>
         <p className="type-card-title mb-1.5 font-bold">{t("dailyCalorieTargets")}</p>
-        <p className="type-body text-[#4F4F4F]">{t("chooseGoal")}</p>
+        <p className="type-body text-content-muted">{t("chooseGoal")}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5 lg:gap-10">

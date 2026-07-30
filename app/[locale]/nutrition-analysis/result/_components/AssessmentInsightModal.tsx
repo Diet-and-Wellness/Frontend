@@ -9,11 +9,11 @@ import { normalizeAssessmentStatus } from "@/app/[locale]/utils/groupAssessmentS
 import { useTranslations } from "next-intl";
 
 const STATUS = {
-  Excellent: { color: "#22C55E", bg: "#F0FDF4" },
-  Good: { color: "#65A30D", bg: "#F7FEE7" },
-  Average: { color: "#F59E0B", bg: "#FFFBEB" },
-  "Needs Improvement": { color: "#F97316", bg: "#FFF7ED" },
-  "Needs Attention": { color: "#EF4444", bg: "#FEF2F2" },
+  Excellent: { color: "var(--color-palette-22c55e)", bg: "var(--color-palette-f0fdf4)" },
+  Good: { color: "var(--color-palette-65a30d)", bg: "var(--color-palette-f7fee7)" },
+  Average: { color: "var(--color-palette-f59e0b)", bg: "var(--color-palette-fffbeb)" },
+  "Needs Improvement": { color: "var(--color-palette-f97316)", bg: "var(--color-palette-fff7ed)" },
+  "Needs Attention": { color: "var(--color-palette-ef4444)", bg: "var(--color-palette-fef2f2)" },
 };
 
 const AssessmentInsightModal = ({
@@ -44,9 +44,9 @@ const AssessmentInsightModal = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="assessment-insight-title"
-        className="relative flex max-h-[85vh] w-full flex-col gap-5 overflow-y-auto rounded-3xl bg-[#FFFEFD] p-5 sm:w-[min(42rem,calc(100vw-2rem))] sm:gap-6 sm:p-6 md:p-7.5"
+        className="relative flex max-h-[85dvh] w-full flex-col overflow-hidden rounded-3xl bg-surface sm:w-[min(42rem,calc(100vw-2rem))]"
       >
-        <div className="flex items-center justify-between gap-5">
+        <div className="flex shrink-0 items-center justify-between gap-5 border-b border-line p-5 sm:p-6 md:px-7.5">
           <div className="flex min-w-0 items-center gap-3.5">
             <div
               className="flex size-12 shrink-0 items-center justify-center rounded-full"
@@ -55,12 +55,12 @@ const AssessmentInsightModal = ({
               <GoalIcon />
             </div>
             <div className="min-w-0">
-              <p className="mb-1 text-sm text-[#4F4F4F]">
+              <p className="mb-1 text-sm text-content-muted">
                 {t("sectionDetails")}
               </p>
               <h2
                 id="assessment-insight-title"
-                className="wrap-break-word text-lg font-bold text-[#111827] sm:text-xl"
+                className="wrap-break-word text-lg font-bold text-content sm:text-xl"
               >
                 {section.sectionTitle}
               </h2>
@@ -71,15 +71,16 @@ const AssessmentInsightModal = ({
             type="button"
             onClick={onClose}
             aria-label={t("close")}
-            className="shrink-0 rounded-full p-3 text-gray-500 transition-colors hover:bg-gray-100 cursor-pointer"
+            className="shrink-0 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
           >
-            <CloseIcon className="text-gray-500" width="16" height="16" />
+            <CloseIcon className="text-content-subtle" width="16" height="16" />
           </button>
         </div>
 
-        <div className="rounded-2xl border border-[#E1E7EF] bg-white p-5">
+        <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:gap-6 sm:p-6 md:p-7.5">
+        <div className="rounded-2xl border border-line bg-surface-raised p-5">
           <div className="mb-3 flex items-center justify-between">
-            <span className="text-sm text-[#4F4F4F]">{t("score")}</span>
+            <span className="text-sm text-content-muted">{t("score")}</span>
             <span className="text-lg font-bold" style={{ color: ui.color }}>
               {score}%
             </span>
@@ -88,7 +89,7 @@ const AssessmentInsightModal = ({
         </div>
 
         <div className="flex flex-col gap-3">
-          <h3 className="text-lg font-semibold text-[#111827]">
+          <h3 className="text-lg font-semibold text-content">
             {t("sectionInsight")}
           </h3>
           <div
@@ -105,10 +106,10 @@ const AssessmentInsightModal = ({
 
         {section.result.recommendations.length > 0 && (
           <div className="flex flex-col gap-3">
-            <h3 className="text-lg font-semibold text-[#111827]">
+            <h3 className="text-lg font-semibold text-content">
               {t("recommendations")}
             </h3>
-            <ul className="flex list-disc flex-col gap-3 text-[#4F4F4F] marker:text-[#4D8E32]">
+            <ul className="flex list-disc flex-col gap-3 text-content-muted marker:text-brand">
               {section.result.recommendations.map((recommendation, index) => (
                 <li key={`${section.section}-${index}`} className="leading-7">
                   {recommendation}
@@ -117,6 +118,7 @@ const AssessmentInsightModal = ({
             </ul>
           </div>
         )}
+        </div>
       </section>
     </ModalWrapper>
   );

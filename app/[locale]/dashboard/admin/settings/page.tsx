@@ -37,7 +37,7 @@ const SettingsPage = () => {
     >
       <motion.div variants={item} className="flex flex-col gap-2">
         <h3 className="type-page-title font-bold">{t("settings")}</h3>
-        <p className="type-body-lg text-[#4F4F4F]">
+        <p className="type-body-lg text-content-muted">
           {t("manageAdminProfileSecurity")}
         </p>
       </motion.div>

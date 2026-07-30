@@ -10,7 +10,7 @@ const RightArrowIcon = () => {
       >
         <path
           d="M0.583984 7.58398L4.08398 4.08398L0.583984 0.583984"
-          stroke="#4F4F4F"
+          stroke="var(--color-palette-4f4f4f)"
           strokeWidth="1.16667"
           strokeLinecap="round"
           strokeLinejoin="round"

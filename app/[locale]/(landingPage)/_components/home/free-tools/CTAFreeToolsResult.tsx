@@ -1,6 +1,6 @@
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RedoIcon from "@/app/[locale]/components/icons/RedoIcon";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const CTA = ({
   tryAgainHanlder,
@@ -10,11 +10,13 @@ const CTA = ({
   getFullAssessment: () => void;
 }) => {
   const t = useTranslations("calculators");
+  const locale = useLocale();
+
   return (
-    <div className="mt-2 grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+    <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
       <button
         onClick={tryAgainHanlder}
-        className="type-control flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-[#4D8E32] px-7.5 py-2.5 font-semibold text-[#4D8E32] cursor-pointer"
+        className="type-control flex min-h-12 items-center justify-center gap-2.5 rounded-full border border-brand px-7.5 py-2.5 font-semibold text-brand cursor-pointer"
       >
         <RedoIcon />
         <span>{t("tryAgain")}</span>
@@ -22,10 +24,10 @@ const CTA = ({
 
       <button
         onClick={getFullAssessment}
-        className="type-control flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[#4D8E32] px-7.5 py-2.5 font-semibold text-[#FDFDFD] cursor-pointer"
+        className="type-control flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-brand px-7.5 py-2.5 font-semibold text-brand-contrast cursor-pointer"
       >
         <span>{t("fullAnalysis")}</span>
-        <div className="rotate-y-180">
+        <div className={locale === "ar" ? "" : "rotate-y-180"}>
           <ArrowIcon />
         </div>
       </button>

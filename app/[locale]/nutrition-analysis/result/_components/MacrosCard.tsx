@@ -59,7 +59,7 @@ function DonutChart({
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <p className="text-2xl font-bold leading-none sm:text-3xl lg:text-[36px]">{centerValue}</p>
-        {centerLabel && <p className="type-label text-[#666]">{centerLabel}</p>}
+        {centerLabel && <p className="type-label text-content-muted">{centerLabel}</p>}
       </div>
     </div>
   );
@@ -85,13 +85,13 @@ function MacroDetailsBar({
       <div className="w-full flex flex-col gap-2">
         <div className="flex items-center gap-5">
           <span className="type-label font-medium">{title}</span>
-          <span className="type-label text-gray-600">{percentage}%</span>
+          <span className="type-label text-content-muted">{percentage}%</span>
         </div>
         <ProgressBar score={percentage} bgColor={barBgColor} height={11} />
       </div>
       <div className="min-w-20">
         <p className="type-label text-nowrap font-semibold">{grams} g</p>
-        <p className="type-label text-nowrap text-gray-500">{kcal} kcal</p>
+        <p className="type-label text-nowrap text-content-subtle">{kcal} kcal</p>
       </div>
     </div>
   );
@@ -100,13 +100,13 @@ function MacroDetailsBar({
 export default function MacrosCard({ macros }: { macros: MacroResult }) {
   const t = useTranslations("analysis");
   const segments: Segment[] = [
-    { label: t("protein"), value: 30, color: "#5B8FF9" },
-    { label: t("carbohydrates"), value: 55, color: "#4D8E32" },
-    { label: t("fat"), value: 15, color: "#E99532" },
+    { label: t("protein"), value: 30, color: "var(--color-palette-5b8ff9)" },
+    { label: t("carbohydrates"), value: 55, color: "var(--color-palette-4d8e32)" },
+    { label: t("fat"), value: 15, color: "var(--color-palette-e99532)" },
   ];
 
   return (
-    <div className="flex w-full flex-col items-center gap-6 rounded-2xl border border-[#E1E7EF] px-5 py-6 sm:px-7.5 sm:py-8 md:flex-row md:gap-10 md:px-15 md:py-10">
+    <div className="flex w-full flex-col items-center gap-6 rounded-2xl border border-line px-5 py-6 sm:px-7.5 sm:py-8 md:flex-row md:gap-10 md:px-15 md:py-10">
       <div className="shrink-0">
         <DonutChart
           size={180}
@@ -121,21 +121,21 @@ export default function MacrosCard({ macros }: { macros: MacroResult }) {
           percentage={30}
           grams={macros.protein.grams}
           kcal={macros.protein.calories}
-          barBgColor="#5B8FF9"
+          barBgColor="var(--color-palette-5b8ff9)"
         />
         <MacroDetailsBar
           title={t("carbohydrates")}
           percentage={55}
           grams={macros.carbs.grams}
           kcal={macros.carbs.calories}
-          barBgColor="#4D8E32"
+          barBgColor="var(--color-palette-4d8e32)"
         />
         <MacroDetailsBar
           title={t("fat")}
           percentage={15}
           grams={macros.fat.grams}
           kcal={macros.fat.calories}
-          barBgColor="#E99532"
+          barBgColor="var(--color-palette-e99532)"
         />
       </div>
     </div>

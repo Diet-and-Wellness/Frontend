@@ -14,6 +14,8 @@ import ViewNoteModal from "./_components/ViewNoteModal";
 import { useState } from "react";
 import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import { useTranslations } from "next-intl";
+import Pagination from "../../../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const container = {
   hidden: { opacity: 0 },
@@ -49,6 +51,7 @@ const SpecialistClientsPage = () => {
 
   const router = useRouter();
 
+  const [page, setPage] = useState(1);
   const [note, setNote] = useState<LastNote | null>(null);
   const [isNoteModalVisible, setIsNoteModalVisible] = useState(false);
 
@@ -64,21 +67,27 @@ const SpecialistClientsPage = () => {
     queryFn: getSpecialistProfile,
   });
 
-  const getCustomers = async (): Promise<Customer[]> => {
+  const getCustomers = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 1,
-      limit: 20,
+      page,
+      limit: 5,
       assignedSpecialistId: specialistId,
     });
 
-    return data?.data ?? [];
+    return parsePaginatedResponse<Customer>(data, page, 5);
   };
 
-  const { data: customers, isLoading: isSpecialistClientsLoading } = useQuery({
-    queryKey: ["customers", specialistId],
+  const {
+    data: customersPage,
+    isLoading: isSpecialistClientsLoading,
+    isFetching: isSpecialistClientsFetching,
+  } = useQuery({
+    queryKey: ["customers", specialistId, page],
     queryFn: getCustomers,
+    placeholderData: (previousData) => previousData,
   });
+  const customers = customersPage?.items ?? [];
 
   const backToSpecialistHandler = () => {
     router.replace("/dashboard/admin/specialists");
@@ -117,7 +126,7 @@ const SpecialistClientsPage = () => {
           >
             <div className="flex flex-col gap-5">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="type-body text-[#A4A4A4]">{t("specialists")}</p>
+                <p className="type-body text-content-placeholder">{t("specialists")}</p>
                 <RightArrowIcon />
                 <p className="type-body">
                   {t("doctorName", {
@@ -131,8 +140,8 @@ const SpecialistClientsPage = () => {
                     name: `${specialist?.firstName} ${specialist?.lastName}`,
                   })}
                 </h3>
-                <div className="px-4 py-2 rounded-2xl bg-[#FCEFE0]">
-                  <p className="type-label font-semibold text-[#E99532]">
+                <div className="px-4 py-2 rounded-2xl bg-accent-soft">
+                  <p className="type-label font-semibold text-accent">
                     {t("totalClients", { count: specialist?.assignedCustomersCount ?? 0 })}
                   </p>
                 </div>
@@ -140,7 +149,7 @@ const SpecialistClientsPage = () => {
             </div>
             <button
               onClick={backToSpecialistHandler}
-              className="flex w-full items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2 cursor-pointer sm:w-auto"
+              className="flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-auto"
             >
               <ArrowIcon className="direction-aware-back-icon" />
               <p className="type-control font-semibold">{t("backToSpecialists")}</p>
@@ -148,14 +157,14 @@ const SpecialistClientsPage = () => {
           </motion.div>
 
           {(customers?.length ?? 0) > 0 ? (
-            <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white mt-10">
-              <table className="min-w-full divide-y divide-[#E1E7EF]">
-                <thead className="bg-[#FCFCFC]">
+            <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised mt-10">
+              <table className="min-w-full divide-y divide-line">
+                <thead className="bg-surface-subtle">
                   <tr>
                     {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
                       <th
                         key={header}
-                        className="type-table whitespace-nowrap px-6 py-4 text-start font-light text-[#4F4F4F]"
+                        className="type-table whitespace-nowrap px-6 py-4 text-start font-light text-content-muted"
                       >
                         {t(header)}
                       </th>
@@ -165,7 +174,7 @@ const SpecialistClientsPage = () => {
 
                 <motion.tbody
                   variants={tableContainer}
-                  className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]"
+                  className="divide-y divide-line bg-surface"
                 >
                   {customers?.map((customer) => (
                     <CustomerRow
@@ -183,6 +192,16 @@ const SpecialistClientsPage = () => {
             <EmptyComp
               title={t("noAssignedClientsYet")}
               description={t("assignedClientsDescription")}
+            />
+          )}
+
+          {customers.length > 0 && customersPage && (
+            <Pagination
+              currentPage={page}
+              totalPages={customersPage.totalPages}
+              hasNextPage={customersPage.hasNextPage}
+              isFetching={isSpecialistClientsFetching}
+              onPageChange={setPage}
             />
           )}
         </motion.div>
@@ -233,16 +252,16 @@ const CustomerRow = ({
     <motion.tr
       layout
       variants={item}
-      className="type-table font-light text-[#4F4F4F] transition-colors"
+      className="type-table font-light text-content-muted transition-colors"
     >
       <TableCell>
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="type-meta font-medium text-[#E99532]">
+          <div className="flex size-8 items-center justify-center rounded-full bg-accent-soft">
+            <span className="type-meta font-medium text-accent">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
-          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
+          <span className="text-content">{`${customer.firstName} ${customer.lastName}`}</span>
         </div>
       </TableCell>
 
@@ -271,10 +290,10 @@ const CustomerRow = ({
       <TableCell>
         <button
           onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
-          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
-            <ViewLinkIcon className="text-[#E99532]" />
+            <ViewLinkIcon className="text-accent" />
           </div>
           <span>{t("viewAnswers")}</span>
         </button>
@@ -289,8 +308,8 @@ const CustomerRow = ({
           }}
           className={
             customer.lastNote
-              ? "cursor-pointer text-[#4F4F4F]"
-              : "cursor-default text-[#C4CBD4]"
+              ? "cursor-pointer text-content-muted"
+              : "cursor-default text-[var(--color-palette-c4cbd4)]"
           }
         >
           <NoteIcon />

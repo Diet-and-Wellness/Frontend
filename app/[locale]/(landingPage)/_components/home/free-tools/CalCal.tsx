@@ -9,6 +9,7 @@ import CaloriesCard from "@/app/[locale]/components/Public/CaloriesCard";
 import BarsIcon from "@/app/[locale]/components/icons/BarsIcon";
 import CTA from "./CTAFreeToolsResult";
 import ToolModalHeader from "./ToolModalHeader";
+import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
 import {
   ActivityLevel,
@@ -67,7 +68,7 @@ const CalCal = ({
   return (
     <ModalWrapper>
       <div
-        className={`flex flex-col gap-5 ${showResult ? "w-[92vw] md:w-210" : "w-[92vw] md:w-130"}`}
+        className={`flex flex-col gap-5 ${showResult ? "w-[92vw] md:w-220" : "w-[92vw] md:w-140"}`}
       >
         <AnimatePresence mode="wait">
           {showResult ? (
@@ -145,15 +146,17 @@ const CalCalForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
     >
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("calorieTitle")}
-        toolIconSrc="/icons/CalCalc.svg"
+        toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
+      </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <GenderCard
             selectGenderHandler={() => setGender("male")}
@@ -171,7 +174,7 @@ const CalCalForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("age")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               min={1}
@@ -185,7 +188,7 @@ const CalCalForm = ({
               className="w-full outline-none"
               placeholder={t("enterAge")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("year")}</p>
+            <p className="type-label text-content-muted">{t("year")}</p>
           </div>
         </div>
 
@@ -193,7 +196,7 @@ const CalCalForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("height")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -210,7 +213,7 @@ const CalCalForm = ({
               className="w-full outline-none"
               placeholder={t("enterHeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
+            <p className="type-label text-content-muted">{t("cm")}</p>
           </div>
         </div>
 
@@ -218,7 +221,7 @@ const CalCalForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("weight")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -235,11 +238,15 @@ const CalCalForm = ({
               className="w-full outline-none"
               placeholder={t("enterWeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
+            <p className="type-label text-content-muted">{t("kg")}</p>
           </div>
         </div>
 
-        <div className="mt-2.5 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+        <div className="mt-2.5 flex flex-col gap-3">
+          <p className="type-label font-medium text-content-strong">
+            {t("activityLevel")}
+          </p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3">
           <ActivityLevelCard
             level={t("low")}
             description={t("littleExercise")}
@@ -267,26 +274,28 @@ const CalCalForm = ({
             isSelected={activityLevel === "extreme"}
             selectActivityLevelHandler={() => setActivityLevel("extreme")}
           />
+          </div>
         </div>
       </div>
 
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
       <button
         disabled={!showResultBtnActive}
         onClick={handleCalculateCalories}
         className={`
             rounded-full
             min-h-12
-            shrink-0
             type-control
             font-semibold
-            mt-2
+            w-full
             transition-colors 
-            ${showResultBtnActive ? "bg-[#4D8E32] text-white hover:bg-[#337516] cursor-pointer" : "bg-gray-300 text-white cursor-not-allowed"}
+            ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
       >
         <p className="">{t("seeResult")}</p>
       </button>
+      </div>
     </motion.div>
   );
 };
@@ -309,19 +318,22 @@ const CalCalResult = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 w-full flex-col gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 w-full flex-col overflow-hidden rounded-2xl bg-surface"
     >
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("calorieTitle")}
-        toolIconSrc="/icons/CalCalc.svg"
+        toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
+      </div>
 
+      <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
       <div className="flex justify-center items-center gap-5">
-        <div className="p-2.5 bg-[#F2F7F0] rounded-full flex justify-center items-center">
+        <div className="p-2.5 bg-[var(--color-palette-f2f7f0)] rounded-full flex justify-center items-center">
           <BarsIcon />
         </div>
-        <p className="type-card-title text-center font-medium text-[#3E7228]">
+        <p className="type-card-title text-center font-medium text-brand-dark">
           {t("dailyCalorieNeeds")}
         </p>
       </div>
@@ -341,14 +353,17 @@ const CalCalResult = ({
         />
       </div>
 
-      <p className="type-label rounded-xl bg-[#F1F9EF] px-5 py-3 text-center font-medium text-gray-700">
+      <p className="type-label rounded-xl bg-brand-softer px-5 py-3 text-center font-medium text-content-muted">
         {t("estimatedValues")}
       </p>
+      </div>
 
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
       <CTA
         tryAgainHanlder={tryAgainHandler}
         getFullAssessment={onGetFullAnalysis}
       />
+      </div>
     </motion.div>
   );
 };

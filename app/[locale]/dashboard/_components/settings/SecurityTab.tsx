@@ -85,17 +85,17 @@ const SecurityTab = () => {
     >
       <form
         onSubmit={handleSubmit(saveChanges)}
-        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
+        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-line bg-surface p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
       >
         <p className="type-card-title font-semibold">{t("securityAndPassword")}</p>
 
-        <div className="flex gap-5 items-center border-b border-[#E1E7EF] py-5">
-          <div className="size-16 rounded-full flex justify-center items-center bg-[#E4EEE0] shrink-0">
+        <div className="flex gap-5 items-center border-b border-line py-5">
+          <div className="size-16 rounded-full flex justify-center items-center bg-[var(--color-palette-e4eee0)] shrink-0">
             <SecurityIcon />
           </div>
           <div className="flex flex-col gap-1.5">
             <h4 className="type-label font-bold">{t("keepAccountSecure")}</h4>
-            <p className="type-meta text-[#4F4F4F]">
+            <p className="type-meta text-content-muted">
               {t("securityDescription")}
             </p>
           </div>
@@ -111,7 +111,7 @@ const SecurityTab = () => {
             type="password"
             id="currentPassword"
             placeholder={t("currentPassword")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
             {...register("currentPassword", {
               required: "Current password is required",
             })}
@@ -129,7 +129,7 @@ const SecurityTab = () => {
             type="password"
             id="newPassword"
             placeholder={t("newPassword")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
             {...register("newPassword", {
               required: "New Password is required",
             })}
@@ -145,11 +145,11 @@ const SecurityTab = () => {
             type="password"
             id="confirmNewPassword"
             placeholder={t("confirmNewPassword")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
           />
         </div>
 
-        <div className="flex flex-col gap-2.5 bg-[#FDF4EB] p-5 rounded-2xl">
+        <div className="flex flex-col gap-2.5 bg-accent-softer p-5 rounded-2xl">
           <p className="type-label mb-2.5 font-medium">
             {t("passwordRequirements")}
           </p>
@@ -163,7 +163,7 @@ const SecurityTab = () => {
 
         <button
           disabled={changePasswordMutation.isPending}
-          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-[#E99532] px-7.5 font-semibold text-white cursor-pointer"
+          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-accent px-7.5 font-semibold text-white cursor-pointer"
         >
           {changePasswordMutation.isPending ? (
             <Spinner spinnerSize={30} />
@@ -184,7 +184,7 @@ const PasswordRequirement = ({
   return (
     <div className="flex gap-3 items-center">
       <CheckIcon />
-      <p className="type-meta text-[#4F4F4F]">{passwordRequirement}</p>
+      <p className="type-meta text-content-muted">{passwordRequirement}</p>
     </div>
   );
 };

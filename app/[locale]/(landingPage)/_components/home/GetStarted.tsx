@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import GetStartedWave from "@/app/[locale]/components/illustrations/GetStartedWave";
 
 const GetStarted = () => {
   const t = useTranslations("getStarted");
@@ -31,9 +32,11 @@ const GetStarted = () => {
         landing-get-started relative isolate mx-auto max-w-[90%]
         mb-12 md:mb-20
         flex flex-col-reverse md:flex-row 
-        bg-[#E99532]
+        bg-accent
         rounded-3xl md:rounded-4xl overflow-hidden"
       >
+        <GetStartedWave className="get-started-wave pointer-events-none absolute start-0 top-0 z-0 hidden h-auto w-[500px] text-surface md:block lg:w-[680px] xl:w-[775px]" />
+
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -84,9 +87,9 @@ const GetStarted = () => {
 
             <Link
               href="/signin"
-              className="block w-full py-3 bg-white mt-5 xl:mt-7.5 rounded-full text-center"
+              className="block w-full py-3 bg-surface-raised mt-5 xl:mt-7.5 rounded-full text-center"
             >
-              <span className="type-control font-bold text-[#E99532]">
+              <span className="type-control font-bold text-accent">
                 {t("getStart")}
               </span>
             </Link>
@@ -100,7 +103,7 @@ const GetStarted = () => {
 const Step = ({ title, desc }: { title: string; desc: string }) => {
   return (
     <li>
-      <h4 className="type-card-title font-semibold text-black/60">
+      <h4 className="type-card-title font-semibold text-content/60">
         {title}
       </h4>
       <p className="type-body font-medium text-white">

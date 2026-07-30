@@ -11,7 +11,7 @@ const ProgressBar = ({
 }) => {
   return (
     <div
-      className="rounded-full bg-[#EEF2F7] overflow-hidden"
+      className="rounded-full bg-[var(--color-palette-eef2f7)] overflow-hidden"
       style={{ height: height }}
     >
       <motion.div

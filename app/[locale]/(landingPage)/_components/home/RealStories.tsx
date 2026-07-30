@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import RealStoriesWave from "@/app/[locale]/components/illustrations/RealStoriesWave";
+import { PointerIcon } from "@/app/[locale]/components/icons/PointerIcon";
 
 const RealStories = () => {
   const t = useTranslations();
@@ -34,7 +36,7 @@ const RealStories = () => {
             whileInView={{ opacity: 0.8, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 1, ease: "easeInOut" }}
-            className="absolute end-0 top-0 pointer-events-none"
+            className="absolute inset-e-0 top-0 pointer-events-none"
           >
             <Image
               src="/icons/qouteTop.svg"
@@ -51,7 +53,7 @@ const RealStories = () => {
           className="
           real-stories-panel relative isolate
           w-full
-          bg-[#C8DCBF]
+          bg-(--color-palette-c8dcbf)
           rounded-3xl md:rounded-[60px]
           px-8 pt-12 pb-3 md:p-12
           flex flex-col-reverse md:flex-row
@@ -60,6 +62,8 @@ const RealStories = () => {
           gap-8 md:gap-10
         "
         >
+          <RealStoriesWave className="real-stories-wave pointer-events-none absolute inset-0 z-0 hidden size-full text-surface md:block" />
+
           {/* Text Side */}
           <div className="real-stories-content flex flex-col items-start max-w-xl">
             <div className="flex flex-col gap-5 md:gap-7">
@@ -77,7 +81,7 @@ const RealStories = () => {
                   className="rotate-180 w-20 md:w-30 h-auto"
                 />
               </motion.div>
-              <p className="flex flex-col gap-5 text-base font-medium text-[#4F4F4F] sm:gap-7 sm:text-lg md:text-xl lg:text-[22px]">
+              <p className="flex flex-col gap-5 text-base font-medium text-content-muted sm:gap-7 sm:text-lg md:text-xl lg:text-[22px]">
                 <span>{t("stories.realStoriesFromPeople")}</span>
                 <span>{t("stories.beOneOfThemBookYourSession")}</span>
               </p>
@@ -89,14 +93,14 @@ const RealStories = () => {
                 className="
                 w-full
                 px-7 md:px-12 
-                py-3 
+                py-4
                 rounded-full 
                 text-white
                 cursor-pointer 
                 type-control
                 font-medium 
-                bg-[#4D8E32] 
-                hover:bg-[#347716] 
+                bg-brand
+                hover:bg-brand-hover
                 transition-colors duration-300
                 whitespace-nowrap
               "
@@ -111,12 +115,8 @@ const RealStories = () => {
                   ease: "easeInOut",
                 }}
               >
-                <Image
-                  src="/icons/pointer.svg"
-                  alt="pointer"
-                  width={190}
-                  height={150}
-                  className={`w-20 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0 ${
+                <PointerIcon
+                  className={`text-surface w-20 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0 ${
                     isArabic ? "md:scale-x-[-1]" : ""
                   }`}
                 />

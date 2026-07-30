@@ -37,7 +37,7 @@ const PricingPage = () => {
         "
         >
           <span>{t("transparentAnd")}</span> <br />
-          <span className="text-[#4D8E32]">{t("affordablePricing")}</span>
+          <span className="text-brand">{t("affordablePricing")}</span>
         </motion.h2>
 
         <motion.p
@@ -49,7 +49,7 @@ const PricingPage = () => {
           px-8 mt-5 text-base
           sm:text-lg
           md:text-xl
-          text-gray-700
+          text-content-muted
         "
         >
           {t("pricingDescription")}

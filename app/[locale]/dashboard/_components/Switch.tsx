@@ -30,8 +30,8 @@ const Switch = ({
     }
   };
 
-  const bgColorActive = activeBgColor ? activeBgColor : "#E99532";
-  const bgColorDeactive = deactiveBgColor ? deactiveBgColor : "#A4A4A4";
+  const bgColorActive = activeBgColor ? activeBgColor : "var(--color-palette-e99532)";
+  const bgColorDeactive = deactiveBgColor ? deactiveBgColor : "var(--color-palette-a4a4a4)";
 
   return (
     <motion.button
@@ -53,7 +53,7 @@ const Switch = ({
           stiffness: 500,
           damping: 35,
         }}
-        className="size-5 rounded-full bg-white"
+        className="size-5 rounded-full bg-surface-raised"
       />
     </motion.button>
   );

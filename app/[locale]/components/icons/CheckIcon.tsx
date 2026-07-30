@@ -11,8 +11,8 @@ const CheckIcon = () => {
         fillRule="evenodd"
         clipRule="evenodd"
         d="M0.5 5.5L2.16667 3.83333L5.5 7.16667L12.1667 0.5L13.8333 2.16667L5.5 10.5L0.5 5.5Z"
-        fill="#4D8E32"
-        stroke="#4D8E32"
+        fill="var(--color-palette-4d8e32)"
+        stroke="var(--color-palette-4d8e32)"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

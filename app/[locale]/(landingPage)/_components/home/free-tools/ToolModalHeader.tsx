@@ -1,26 +1,29 @@
-import Image from "next/image";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
+import type { ReactNode } from "react";
 
 const ToolModalHeader = ({
   toolName,
-  toolIconSrc,
+  toolIcon,
   onClose,
 }: {
   toolName: string;
-  toolIconSrc: string;
+  toolIcon: ReactNode;
   onClose: () => void;
 }) => {
   return (
-    <div className="flex justify-between items-center gap-7.5 w-full">
-      <div className="size-12 flex justify-center items-center rounded-2xl bg-[#C8DCBF]">
-        <Image src={toolIconSrc} alt="" width={30} height={30} />
+    <div className="flex w-full items-center justify-between gap-7.5">
+      <div className="flex size-13 shrink-0 items-center justify-center rounded-full bg-(--color-palette-c8dcbf)">
+        {toolIcon}
       </div>
-      <p className="type-card-title text-center font-semibold">{toolName}</p>
+      <p className="min-w-0 flex-1 text-center text-lg leading-snug font-semibold sm:text-xl">
+        {toolName}
+      </p>
       <button
+        type="button"
         onClick={onClose}
-        className="hover:bg-gray-100 transition-colors duration-200 p-3 rounded-full cursor-pointer"
+        className="shrink-0 cursor-pointer rounded-full p-3 transition-colors duration-200 hover:bg-surface-neutral"
       >
-        <CloseIcon className="text-gray-500" width="16" height="16" />
+        <CloseIcon className="text-content-subtle" width="16" height="16" />
       </button>
     </div>
   );

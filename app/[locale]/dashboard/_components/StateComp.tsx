@@ -4,36 +4,36 @@ const StateComp = ({ state = "inactive" }: { state: string }) => {
   const t = useTranslations("dashboard");
   const states = {
     active: {
-      bg: "#E4FFF6",
-      text: "#00AE41",
+      bg: "var(--color-status-active-surface)",
+      text: "var(--color-status-active-text)",
     },
     inactive: {
-      bg: "#DC262633",
-      text: "#DC2626",
+      bg: "var(--color-status-inactive-surface)",
+      text: "var(--color-status-inactive-text)",
     },
     pending: {
-      bg: "#FCEFE0",
-      text: "#E99532",
+      bg: "var(--color-status-pending-surface)",
+      text: "var(--color-status-pending-text)",
     },
     full: {
-      bg: "#D5E6FF",
-      text: "#0066FF",
+      bg: "var(--color-status-info-surface)",
+      text: "var(--color-status-info-text)",
     },
     trial: {
-      bg: "#00000033",
-      text: "#4B5563",
+      bg: "var(--color-status-neutral-surface)",
+      text: "var(--color-status-neutral-text)",
     },
     basic: {
-      bg: "#2563EB33",
-      text: "#2563EB",
+      bg: "var(--color-status-info-surface)",
+      text: "var(--color-status-info-text)",
     },
     premium: {
-      bg: "#7C3AED33",
-      text: "#7C3AED",
+      bg: "var(--color-status-premium-surface)",
+      text: "var(--color-status-premium-text)",
     },
     expired: {
-      bg: "#FCEFE0",
-      text: "#E99532",
+      bg: "var(--color-status-pending-surface)",
+      text: "var(--color-status-pending-text)",
     },
   };
 

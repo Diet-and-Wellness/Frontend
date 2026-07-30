@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { FormSkeleton } from "@/app/[locale]/components/Public/Skeletons";
+import { BlogFormSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 
 const container = {
   hidden: { opacity: 0 },
@@ -56,27 +56,25 @@ const EditBlogPage = () => {
       <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-3">
           <div className="type-body-lg flex items-center gap-2">
-            <p className="text-[#A4A4A4]">{t("contentAndBlogs")}</p>
+            <p className="text-content-placeholder">{t("contentAndBlogs")}</p>
             <RightArrowIcon />
             <p>{t("editBlogBreadcrumb")}</p>
           </div>
           <h3 className="type-page-title font-bold">{t("editBlog")}</h3>
-          <p className="type-body-lg text-[#4F4F4F]">
+          <p className="type-body-lg text-content-muted">
             {t("manageBlogs")}
           </p>
         </div>
         <button
           onClick={backToMainBlogsPage}
-          className="flex items-center justify-center gap-3 rounded-full border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2 sm:w-fit"
+          className="flex min-h-13 items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-fit"
         >
           <ArrowIcon className="direction-aware-back-icon" />
           <p className="type-control font-semibold">{t("backToBlogs")}</p>
         </button>
       </motion.div>
       {isLoading ? (
-        <div className="mt-10">
-          <FormSkeleton />
-        </div>
+        <BlogFormSkeleton />
       ) : (
         blog && <BlogForm mood="edit" blog={blog} />
       )}

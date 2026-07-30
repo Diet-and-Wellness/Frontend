@@ -13,28 +13,28 @@ interface FocusAreaCardProps {
 
 const STATUS = {
   Excellent: {
-    color: "#22C55E",
-    bg: "#F0FDF4",
+    color: "var(--color-palette-22c55e)",
+    bg: "var(--color-palette-f0fdf4)",
   },
 
   Good: {
-    color: "#65A30D",
-    bg: "#F7FEE7",
+    color: "var(--color-palette-65a30d)",
+    bg: "var(--color-palette-f7fee7)",
   },
 
   Average: {
-    color: "#F59E0B",
-    bg: "#FFFBEB",
+    color: "var(--color-palette-f59e0b)",
+    bg: "var(--color-palette-fffbeb)",
   },
 
   ["Needs Improvement"]: {
-    color: "#F97316",
-    bg: "#FFF7ED",
+    color: "var(--color-palette-f97316)",
+    bg: "var(--color-palette-fff7ed)",
   },
 
   ["Needs Attention"]: {
-    color: "#EF4444",
-    bg: "#FEF2F2",
+    color: "var(--color-palette-ef4444)",
+    bg: "var(--color-palette-fef2f2)",
   },
 };
 
@@ -63,7 +63,7 @@ const AssessmentInsightCard = ({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full flex-col justify-between gap-3 rounded-2xl border border-[#E1E7EF] bg-white p-5 text-start transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4D8E32] hover:shadow-sm cursor-pointer"
+      className="flex w-full flex-col justify-between gap-3 rounded-2xl border border-line bg-surface-raised p-5 text-start transition-all duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-sm cursor-pointer"
     >
       <div className="flex justify-between items-center">
         <div
@@ -98,13 +98,13 @@ const AssessmentInsightCard = ({
 
       <div className="space-y-3">
         <div className="flex justify-between items-center">
-          <span className="type-meta text-[#4F4F4F]">{t("score")}</span>
+          <span className="type-meta text-content-muted">{t("score")}</span>
           <span className="type-meta font-semibold">{score}%</span>
         </div>
         <ProgressBar score={score} bgColor={ui.color} />
       </div>
 
-      <p className="type-label line-clamp-2 text-[#595959]">
+      <p className="type-label line-clamp-2 text-content-muted">
         {description}
       </p>
     </button>

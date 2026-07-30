@@ -8,7 +8,7 @@ const LeaveAssessmentIllustration = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="56" cy="56" r="54" fill="#F1F8EE" />
+      <circle cx="56" cy="56" r="54" fill="var(--color-palette-f1f8ee)" />
       <circle cx="56" cy="56" r="45" fill="white" />
 
       <rect
@@ -18,7 +18,7 @@ const LeaveAssessmentIllustration = () => {
         height="72"
         rx="12"
         fill="white"
-        stroke="#4D8E32"
+        stroke="var(--color-palette-4d8e32)"
         strokeWidth="3.5"
       />
       <rect
@@ -27,13 +27,13 @@ const LeaveAssessmentIllustration = () => {
         width="24"
         height="11"
         rx="5.5"
-        fill="#DDEED6"
-        stroke="#4D8E32"
+        fill="var(--color-palette-ddeed6)"
+        stroke="var(--color-palette-4d8e32)"
         strokeWidth="3"
       />
       <path
         d="M37 40H61M37 49H56M37 76H47"
-        stroke="#B4C9AC"
+        stroke="var(--color-palette-b4c9ac)"
         strokeWidth="3.5"
         strokeLinecap="round"
       />
@@ -44,9 +44,9 @@ const LeaveAssessmentIllustration = () => {
         width="30"
         height="13"
         rx="6.5"
-        fill="#EEF7EB"
+        fill="var(--color-palette-eef7eb)"
       />
-      <circle cx="43" cy="63.5" r="5.5" fill="#4D8E32" />
+      <circle cx="43" cy="63.5" r="5.5" fill="var(--color-palette-4d8e32)" />
       <path
         d="M40.5 63.5L42.3 65.3L46 61.6"
         stroke="white"
@@ -56,14 +56,14 @@ const LeaveAssessmentIllustration = () => {
       />
       <path
         d="M52 63.5H59"
-        stroke="#4D8E32"
+        stroke="var(--color-palette-4d8e32)"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
 
       <path
         d="M70 78H90M90 78L83 71M90 78L83 85"
-        stroke="#E99532"
+        stroke="var(--color-palette-e99532)"
         strokeWidth="4.5"
         strokeLinecap="round"
         strokeLinejoin="round"

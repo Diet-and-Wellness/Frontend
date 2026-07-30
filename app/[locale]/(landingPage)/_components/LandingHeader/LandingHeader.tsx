@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
 
 const LandingNavBar = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -36,10 +37,12 @@ const LandingNavBar = () => {
       <div className="mx-auto flex w-[90%] items-center justify-between py-2">
         <Logo href={"/"} />
         <NavList tabs={tabs} />
-        <button
-          onClick={menuToggle}
-          className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
-        >
+        <div className="flex items-center gap-2.5">
+          <ThemeSwitch />
+          <button
+            onClick={menuToggle}
+            className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
+          >
           <AnimatePresence mode="wait">
             {isMenuVisible ? (
               <motion.div
@@ -75,7 +78,8 @@ const LandingNavBar = () => {
               </motion.div>
             )}
           </AnimatePresence>
-        </button>
+          </button>
+        </div>
       </div>
       <AnimatePresence>
         {isMenuVisible && (

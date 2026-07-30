@@ -23,7 +23,7 @@ const PricePlan = ({ plan }: PricePlanProps) => {
       }}
       className={`
         w-full max-w-sm
-        rounded-3xl bg-[#E99532]
+        rounded-3xl bg-accent
         ${plan.mostPopular ? "p-1 shadow-xl" : ""}
       `}
     >
@@ -36,18 +36,18 @@ const PricePlan = ({ plan }: PricePlanProps) => {
       <div
         className={`
           flex flex-col gap-4 sm:gap-5
-          rounded-3xl bg-white
+          rounded-3xl bg-surface-raised
           p-5 sm:p-6
           ${!plan.mostPopular ? "shadow-xl" : ""}
         `}
       >
         {/* Header */}
         <div>
-          <h3 className="text-lg sm:text-xl font-bold text-black">
+          <h3 className="text-lg sm:text-xl font-bold text-content">
             {plan.displayName}
           </h3>
 
-          <p className="mt-1 text-xs sm:text-sm text-[#4F4F4F]">
+          <p className="mt-1 text-xs sm:text-sm text-content-muted">
             {t("pricing.subscriptionDuration")} {plan.durationInDays}{" "}
             {t("pricing.day")}
           </p>
@@ -55,10 +55,10 @@ const PricePlan = ({ plan }: PricePlanProps) => {
 
         {/* Price */}
         <p className="flex items-end gap-2">
-          <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-black">
+          <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-content">
             {plan.price}
           </span>
-          <span className="pb-1 text-sm sm:text-base font-medium text-[#4F4F4F]">
+          <span className="pb-1 text-sm sm:text-base font-medium text-content-muted">
             {plan.currency === "EGP" ? t("pricing.egp") : plan.currency}
             {" / "}
             {t("pricing.month")}
@@ -73,7 +73,7 @@ const PricePlan = ({ plan }: PricePlanProps) => {
         />
 
         {/* Note */}
-        <p className="text-xs sm:text-sm leading-5 sm:leading-6 font-light text-[#4F4F4F]">
+        <p className="text-xs sm:text-sm leading-5 sm:leading-6 font-light text-content-muted">
           {plan.planNote}
         </p>
 
@@ -90,8 +90,8 @@ const PricePlan = ({ plan }: PricePlanProps) => {
             active:scale-98
             ${
               plan.mostPopular
-                ? "bg-[#E99532] hover:bg-[#d88524]"
-                : "bg-[#4D8E32] hover:bg-[#387b1b]"
+                ? "bg-accent hover:bg-accent-hover"
+                : "bg-brand hover:bg-brand-hover"
             }
           `}
         >
@@ -123,7 +123,7 @@ const ListItem = ({
       height={18}
       className="min-w-5 sm:min-w-6"
     />
-    <p className="text-sm sm:text-base leading-5 sm:leading-6 text-black">
+    <p className="text-sm sm:text-base leading-5 sm:leading-6 text-content">
       {children}
     </p>
   </li>

@@ -9,7 +9,7 @@ const PulseIcon = () => {
     >
       <path
         d="M10 13.3333H0V10H10V0H13.3333V10H23.3333V13.3333H13.3333V23.3333H10V13.3333Z"
-        fill="#E99532"
+        fill="var(--color-palette-e99532)"
       />
     </svg>
   );

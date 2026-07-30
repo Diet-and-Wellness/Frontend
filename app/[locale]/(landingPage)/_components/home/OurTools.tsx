@@ -12,6 +12,10 @@ import { useRouter } from "next/navigation";
 import { assessmentApi } from "@/app/[locale]/api/endpoints/assessment.api";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import { hasAssessmentDraft } from "@/app/[locale]/utils/assessmentDraft";
+import BmiCalculatorIcon from "@/app/[locale]/components/icons/BmiCalculatorIcon";
+import IdealWeightIcon from "@/app/[locale]/components/icons/IdealWeightIcon";
+import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
+import NutritionAnalysisIcon from "@/app/[locale]/components/icons/NutritionAnalysisIcon";
 
 const OurTools = () => {
   const t = useTranslations();
@@ -85,7 +89,7 @@ const OurTools = () => {
   const toolsList = [
     {
       isFree: true,
-      toolIconSrc: "/icons/bmi.svg",
+      ToolIcon: BmiCalculatorIcon,
       toolName: t("tools.bmiCalculator.name"),
       toolDesc: t("tools.bmiCalculator.description"),
       href: "/",
@@ -93,7 +97,7 @@ const OurTools = () => {
     },
     {
       isFree: true,
-      toolIconSrc: "/icons/weightCalc.svg",
+      ToolIcon: IdealWeightIcon,
       toolName: t("tools.perfectWeightCalculator.name"),
       toolDesc: t("tools.perfectWeightCalculator.description"),
       href: "/",
@@ -101,7 +105,7 @@ const OurTools = () => {
     },
     {
       isFree: true,
-      toolIconSrc: "/icons/CalCalc.svg",
+      ToolIcon: CalorieCalculatorIcon,
       toolName: t("tools.calorieCalculator.name"),
       toolDesc: t("tools.calorieCalculator.description"),
       href: "/",
@@ -109,7 +113,7 @@ const OurTools = () => {
     },
     {
       isFree: false,
-      toolIconSrc: "/icons/NutritionAnalysis.svg",
+      ToolIcon: NutritionAnalysisIcon,
       toolName: t("tools.nutritionAnalysis.name"),
       toolDesc: t("tools.nutritionAnalysis.description"),
       href: "/",
@@ -131,7 +135,7 @@ const OurTools = () => {
       ltr:md:bg-right rtl:md:bg-left md:bg-bottom
       bg-contain
       lg:bg-contain
-      md:bg-[length:100%_auto]
+      md:bg-size-[100%_auto]
       bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
       <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-25">
@@ -170,18 +174,18 @@ const OurTools = () => {
           transition={{ duration: 0.7, ease: "easeInOut" }}
           className="max-w-2xl flex flex-col gap-4 md:gap-6"
         >
-          <p className="type-display font-bold text-[#E99532]">
+          <p className="type-display font-bold text-accent">
             {t("tools.empoweringYouOnTheJourneyOnWellness")}
           </p>
 
-          <p className="type-body-lg max-w-sm text-[#4F4F4F] sm:max-w-xl">
+          <p className="type-body-lg max-w-sm text-content-muted sm:max-w-xl">
             {t("tools.startWithOurFreeCalculators")}
           </p>
         </motion.div>
 
         {/* Tools */}
         <div className="flex flex-col gap-6 md:gap-8">
-          <p className="type-section-title font-bold text-[#E99532]">
+          <p className="type-section-title font-bold text-accent">
             {t("tools.tryOurTools")}
           </p>
 
@@ -199,7 +203,7 @@ const OurTools = () => {
               <Tool
                 key={index}
                 isFree={tool.isFree}
-                toolIconSrc={tool.toolIconSrc}
+                ToolIcon={tool.ToolIcon}
                 toolName={tool.toolName}
                 toolDesc={tool.toolDesc}
                 onTry={tool.onTry}

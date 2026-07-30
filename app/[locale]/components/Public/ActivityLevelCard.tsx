@@ -32,18 +32,20 @@ const ActivityLevelCard = ({
   return (
     <button
       onClick={selectActivityLevelHandler}
-      className={`grid min-h-24 w-full grid-cols-[2rem_minmax(0,1fr)] items-center gap-3 rounded-2xl px-4 py-3 text-start ring transition-all duration-150 cursor-pointer sm:min-h-26 sm:px-5 ${isSelected ? "ring-2 ring-[#4D8E32] bg-[#E4EEE0]" : "ring-[#D5D5D5]"}`}
+      className={`grid min-h-16 w-full grid-cols-[2rem_minmax(0,1fr)] items-center gap-2.5 rounded-2xl px-4 py-1.5 text-start ring transition-all duration-150 cursor-pointer sm:min-h-18 sm:px-5 ${isSelected ? "ring-2 ring-brand bg-[var(--color-palette-e4eee0)]" : "ring-line-strong"}`}
     >
       <span className="flex size-8 shrink-0 items-center justify-center">
         {getActivityLevelIcon()}
       </span>
       <div className="flex min-w-0 flex-col items-start gap-0.5 text-start">
         <p
-          className={`type-control font-semibold leading-tight ${isSelected ? "text-gray-800" : "text-[#666]"}`}
+          className={`text-sm font-semibold leading-tight ${isSelected ? "text-content-strong" : "text-content-muted"}`}
         >
           {level}
         </p>
-        <p className="type-label leading-snug text-[#8E8E8E]">{description}</p>
+        <p className="whitespace-nowrap text-[0.8125rem] leading-tight text-content-subtle">
+          {description}
+        </p>
       </div>
     </button>
   );

@@ -70,7 +70,7 @@ const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
             damping: 18,
           }}
         >
-          <div className="flex min-h-0 max-h-[calc(100%-1.5rem)] w-full max-w-full justify-center overflow-y-auto overscroll-contain">
+          <div className="flex min-h-0 max-h-[85dvh] w-full max-w-full justify-center overflow-hidden">
             <div className="flex w-full max-w-full justify-center">{children}</div>
           </div>
         </motion.div>

@@ -77,7 +77,7 @@ const SpecialistProfileTab = () => {
     >
       <motion.form
         onSubmit={handleSubmit(saveChanges)}
-        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
+        className="my-6 flex w-full max-w-160 flex-col gap-6 rounded-2xl border border-line bg-surface p-5 sm:my-10 sm:gap-7.5 sm:p-7.5"
       >
         <div className="flex flex-col gap-2.5">
           <label htmlFor="firstname" className="type-label w-fit">
@@ -87,7 +87,7 @@ const SpecialistProfileTab = () => {
             id="firstname"
             placeholder={t("dashboard.firstName")}
             defaultValue={me.firstName}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
             {...register("firstName", { required: "First name is required" })}
           />
           {errors.firstName && <Error msg={errors.firstName.message} />}
@@ -101,7 +101,7 @@ const SpecialistProfileTab = () => {
             id="lastname"
             placeholder={t("dashboard.lastName")}
             defaultValue={me.lastName}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
             {...register("lastName", { required: "Last name is required" })}
           />
           {errors.lastName && <Error msg={errors.lastName.message} />}
@@ -115,7 +115,7 @@ const SpecialistProfileTab = () => {
             id="phone"
             placeholder={t("dashboard.phoneNumber")}
             defaultValue={me.phone}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-[#4D8E32] focus:ring-2 transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-brand focus:ring-2 transition-all duration-150"
             {...register("phone", { required: "Phone number is required" })}
           />
           {errors.phone && <Error msg={errors.phone.message} />}
@@ -130,7 +130,7 @@ const SpecialistProfileTab = () => {
             readOnly
             placeholder={t("dashboard.email")}
             value={me.email}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] bg-gray-100"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong bg-surface-neutral"
           />
         </div>
 
@@ -143,13 +143,13 @@ const SpecialistProfileTab = () => {
             id="speciality"
             placeholder={t("dashboard.specialty")}
             value={me.specialistInfo.specialization}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] bg-gray-100"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong bg-surface-neutral"
           />
         </div>
 
         <button
           disabled={updateProfileMutation.isPending}
-          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-[#E99532] px-7.5 font-semibold text-white cursor-pointer"
+          className="type-control mt-5 flex min-h-12.5 items-center justify-center rounded-full bg-accent px-7.5 font-semibold text-white cursor-pointer"
         >
           {updateProfileMutation.isPending ? (
             <Spinner spinnerSize={30} />

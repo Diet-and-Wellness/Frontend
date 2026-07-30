@@ -17,8 +17,8 @@ const Features = () => {
       img: "/images/FreeTools.webp",
       checkPointIcon: "/icons/checkpoint_green.svg",
       imgStyle: "md:w-55 md:end-0 md:-top-20 lg:w-90 lg:end-5 lg:-top-30",
-      bgStyle: "bg-[#CBE4C0]",
-      textStyle: "text-[#2E551E]",
+      bgStyle: "bg-[var(--color-palette-cbe4c0)]",
+      textStyle: "text-brand-deep",
     },
     {
       title: t("personalizedPlan.title"),
@@ -26,7 +26,7 @@ const Features = () => {
       img: "/images/PrivateSpecialist.webp",
       checkPointIcon: "/icons/checkpoint_white.svg",
       imgStyle: "md:w-70 md:end-0 md:-top-25 lg:w-120 lg:end-0 lg:-top-30",
-      bgStyle: "bg-[#4D8E32]",
+      bgStyle: "bg-brand",
       textStyle: "text-white",
     },
     {
@@ -36,7 +36,7 @@ const Features = () => {
       checkPointIcon: "/icons/checkpoint_white.svg",
       imgStyle:
         "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
-      bgStyle: "bg-[#3A6B26]",
+      bgStyle: "bg-brand-hover",
       textStyle: "text-white",
     },
   ];
@@ -56,11 +56,11 @@ const Features = () => {
         transition={{ duration: 1 }}
         className="mt-20 max-w-xl lg:max-w-2xl mx-auto text-center px-10 lg:px-4"
       >
-        <h2 className="type-display font-medium text-black">
+        <h2 className="type-display font-medium text-content">
           {t("exploreOurFeatures")}
         </h2>
 
-        <p className="type-body-lg mt-5 text-black">
+        <p className="type-body-lg mt-5 text-content">
           {t("healthGuidanceDescription")}
         </p>
 

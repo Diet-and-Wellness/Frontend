@@ -22,7 +22,7 @@ const Socials = () => {
           height={45}
           className="w-10 h-auto lg:w-15"
         />
-        <p className="text-[#e99532] text-[22px] lg:text-[24px] font-bold">
+        <p className="text-accent text-[22px] lg:text-[24px] font-bold">
           {t("brand.brandName")}
         </p>
       </Link>

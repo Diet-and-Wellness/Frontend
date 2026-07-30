@@ -3,11 +3,11 @@
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { getCleanPathname } from "@/app/[locale]/utils/getCleanPathname";
-import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useMe } from "@/app/[locale]/hooks/useMe";
+import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
 
 type tabType = { label: string; href: string };
 
@@ -64,18 +64,16 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
     return pathname.startsWith(href);
   };
 
-  const toggleLanguageOptions = () => setShowLanguageOptions((value) => !value);
-
   const switchToEnglish = () => {
     const isArabic = locale === "ar";
     if (isArabic) router.replace(pathnameWithLang.replace("/ar", "/en"));
-    toggleLanguageOptions();
+    setShowLanguageOptions(false);
   };
 
   const switchToArabic = () => {
     const isEnglish = locale === "en";
     if (isEnglish) router.replace(pathnameWithLang.replace("/en", "/ar"));
-    toggleLanguageOptions();
+    setShowLanguageOptions(false);
   };
 
   const handleCustomerTools = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -96,7 +94,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
       <ul
         className="
         xl:flex items-center self-center gap-1 
-        rounded-full border-2 border-[#3a6b26] p-1"
+        rounded-full border-2 border-brand-hover p-1"
       >
         {tabs.map((tab) => (
           <Tab
@@ -110,45 +108,58 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
 
       <div className="flex flex-row justify-center items-center gap-3">
         <div
-          onMouseEnter={toggleLanguageOptions}
-          onMouseLeave={toggleLanguageOptions}
+          onMouseEnter={() => setShowLanguageOptions(true)}
+          onMouseLeave={() => setShowLanguageOptions(false)}
           className="relative"
         >
-          <div className="rounded-4xl px-5 py-2 border-2 border-[#e1e7ef79] flex flex-row gap-2.5 cursor-pointer hover:bg-white transition-colors duration-200">
-            <Image
-              width={24}
-              height={24}
-              src="/icons/grommet-icons-language.svg"
-              alt="langauge change icon"
-            />
-            <span className="text-[20px] font-bold text-[#1B3212]">{"En"}</span>
-          </div>
+          <button
+            type="button"
+            aria-haspopup="menu"
+            aria-expanded={showLanguageOptions}
+            onClick={() => setShowLanguageOptions((current) => !current)}
+            className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface-muted px-5 py-2 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft"
+          >
+            <LanguageIcon className="size-5.5" />
+            <span className="text-lg font-semibold">
+              {locale === "en" ? "En" : "ع"}
+            </span>
+          </button>
 
           <AnimatePresence>
             {showLanguageOptions && (
-              <motion.div
-                initial={{ opacity: 0, top: 50 }}
-                animate={{ opacity: 1, top: 70 }}
-                exit={{ opacity: 0, top: 50 }}
-                className={`p-3 rounded-xl bg-white flex flex-col gap-2 absolute shadow-[0_0_10px_0px_rgba(0,0,0,0.1)]`}
-              >
-                <button
-                  onClick={switchToEnglish}
-                  className={`min-w-40 p-1.5 text-center rounded-lg text-[20px] font-medium
-                    ${locale === "en" ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
-                    ${locale === "ar" && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
+              <div className="absolute right-0 top-full z-50 pt-2">
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.16, ease: "easeOut" }}
+                  className="flex flex-col gap-2 rounded-2xl border border-line bg-surface-raised p-2 shadow-[0_8px_24px_rgba(0,0,0,0.14)]"
                 >
-                  English
-                </button>
-                <button
-                  onClick={switchToArabic}
-                  className={`min-w-40 p-1.5 text-center rounded-lg text-[20px] font-bold 
-                    ${locale === "ar" ? "bg-[#3a6b261e] text-[#3A6B26]" : "bg-white"} 
-                    ${locale === "en" && "hover:bg-gray-100 transition-colors duration-200 cursor-pointer"}`}
-                >
-                  العربية
-                </button>
-              </motion.div>
+                  <button
+                    role="menuitem"
+                    onClick={switchToEnglish}
+                    className={`min-w-40 cursor-pointer rounded-xl p-2 text-center text-base font-medium transition-colors ${
+                      locale === "en"
+                        ? "bg-brand-soft text-brand"
+                        : "hover:bg-surface-neutral"
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    role="menuitem"
+                    onClick={switchToArabic}
+                    className={`min-w-40 cursor-pointer rounded-xl p-2 text-center text-base font-semibold transition-colors ${
+                      locale === "ar"
+                        ? "bg-brand-soft text-brand"
+                        : "hover:bg-surface-neutral"
+                    }`}
+                  >
+                    العربية
+                  </button>
+                </motion.div>
+              </div>
             )}
           </AnimatePresence>
         </div>
@@ -158,11 +169,11 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
           onClick={me?.role === "customer" ? handleCustomerTools : undefined}
           scroll
           className="
-          group border-2 border-[#3a6b26] px-8 py-2 cursor-pointer
-          hover:bg-[#3a6b26] lg:flex self-center rounded-full
-          transition-all duration-300 active:scale-95"
+          group flex min-h-11 cursor-pointer items-center self-center rounded-full
+          border border-line bg-surface-muted px-8 py-2
+          transition-all duration-200 hover:border-brand hover:bg-brand-soft active:scale-95"
         >
-          <span className="text-xl font-semibold text-[#3a6b26] group-hover:text-white transition-colors duration-300">
+          <span className="text-lg font-semibold text-brand transition-colors">
             {cta.label}
           </span>
         </Link>
@@ -183,10 +194,14 @@ const Tab = ({
   return (
     <Link href={href} className="rounded-full">
       <li
-        className={`rounded-full cursor-pointer px-5 py-1.5 text-[20px] font-semibold text-[#3a6b26]
+        className={`rounded-full cursor-pointer px-5 py-1.5 text-[20px] font-semibold text-brand-hover
            transition-all duration-300 ease-in-out
-           hover:bg-[#3a6b26] hover:text-white
-           focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a6b26] focus-visible:ring-offset-2 ${isActive ? "bg-[#3a6b26] text-white shadow-sm" : ""}`}
+           hover:bg-brand-hover hover:text-brand-contrast
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-hover focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
+             isActive
+               ? "bg-brand-hover text-surface shadow-sm"
+               : "text-brand-hover"
+           }`}
       >
         {label}
       </li>

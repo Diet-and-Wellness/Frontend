@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import DashboardHeader from "./_components/Header";
-import SideBar from "./_components/SideBar";
-import { motion } from "framer-motion";
+import SideBar, {
+  dashboardShellTransition,
+} from "./_components/SideBar";
+import { MotionConfig, motion } from "framer-motion";
 import { useMe } from "../hooks/useMe";
 import { getCleanPathname } from "../utils/getCleanPathname";
 import { DashboardLogoLoader } from "../components/Public/Skeletons";
@@ -46,21 +48,25 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-[#F9F9F9] pb-18 md:pb-0">
-      <SideBar
-        collapsed={collapsed}
-        toggleCollapse={toggleCollapse}
-        role={me?.role}
-      />
+    <MotionConfig reducedMotion="user">
+      <div className="relative flex min-h-screen flex-col bg-surface-muted pb-[calc(4.5rem+env(safe-area-inset-bottom))] md:pb-0">
+        <SideBar
+          collapsed={collapsed}
+          toggleCollapse={toggleCollapse}
+          role={me?.role}
+        />
 
-      <motion.div
-        initial={false}
-        className={`mt-16 flex flex-1 px-4 py-5 sm:px-5 md:mt-14.5 md:px-7.5 md:py-7.5 md:transition-[margin-inline-start] md:duration-250 md:ease-in-out ${collapsed ? "md:ms-25" : "md:ms-64"}`}
-      >
-        <DashboardHeader collapsed={collapsed} />
-        {children}
-      </motion.div>
-    </div>
+        <motion.div
+          initial={false}
+          animate={{ marginInlineStart: collapsed ? 100 : 256 }}
+          transition={dashboardShellTransition}
+          className="mt-20 flex flex-1 px-4 py-5 sm:px-5 md:px-7.5 md:py-7.5 max-md:ms-0!"
+        >
+          <DashboardHeader collapsed={collapsed} />
+          {children}
+        </motion.div>
+      </div>
+    </MotionConfig>
   );
 };
 

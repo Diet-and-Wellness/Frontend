@@ -1,6 +1,6 @@
 const Spinner = ({
   spinnerSize = 40,
-  borderColor = "#fff",
+  borderColor = "var(--color-palette-fff)",
 }: {
   spinnerSize?: number;
   borderColor?: string;

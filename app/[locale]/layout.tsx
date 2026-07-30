@@ -2,6 +2,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { cookies } from "next/headers";
 
 import type { Metadata } from "next";
 
@@ -10,6 +11,7 @@ import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
 import { Cairo, Roboto } from "next/font/google";
 
 import "./globals.css";
+import { ThemeProvider } from "@/app/[locale]/components/Theme/ThemeProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -44,15 +46,23 @@ export default async function IndexLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   const messages = await getMessages();
+  const savedTheme = (await cookies()).get("diet-wellness-theme")?.value;
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
 
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} data-scroll-behavior="smooth" dir={direction}>
+    <html
+      lang={locale}
+      data-scroll-behavior="smooth"
+      data-theme={initialTheme}
+      dir={direction}
+      suppressHydrationWarning
+    >
       <body className={locale === "ar" ? cairo.className : roboto.className}>
         <ReactQueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
+            <ThemeProvider initialTheme={initialTheme}>{children}</ThemeProvider>
           </NextIntlClientProvider>
         </ReactQueryProvider>
       </body>

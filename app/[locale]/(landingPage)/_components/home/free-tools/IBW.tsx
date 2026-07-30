@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import GenderCard from "@/app/[locale]/components/Public/GenderCard";
 import CTA from "./CTAFreeToolsResult";
 import ToolModalHeader from "./ToolModalHeader";
+import IdealWeightIcon from "@/app/[locale]/components/icons/IdealWeightIcon";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
 import { useTranslations } from "next-intl";
 
@@ -70,7 +71,7 @@ const IBW = ({
 
   return (
     <ModalWrapper>
-      <div className="flex w-[min(100%,30rem)] flex-col gap-5">
+      <div className="flex w-[min(100%,34rem)] flex-col gap-5">
         <AnimatePresence mode="wait">
           {showResult ? (
             <IbwResult
@@ -131,15 +132,17 @@ const IbwForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
     >
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("idealWeightTitle")}
-        toolIconSrc="/icons/weightCalc.svg"
+        toolIcon={<IdealWeightIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
+      </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <GenderCard
             selectGenderHandler={() => setGender("male")}
@@ -157,7 +160,7 @@ const IbwForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("height")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -174,7 +177,7 @@ const IbwForm = ({
               className="w-full outline-none"
               placeholder={t("enterHeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
+            <p className="type-label text-content-muted">{t("cm")}</p>
           </div>
         </div>
 
@@ -182,7 +185,7 @@ const IbwForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("weight")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -199,28 +202,29 @@ const IbwForm = ({
               className="w-full outline-none"
               placeholder={t("enterWeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
+            <p className="type-label text-content-muted">{t("kg")}</p>
           </div>
         </div>
       </div>
 
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
       <button
         disabled={!showResultBtnActive}
         onClick={handleCalculateIBW}
         className={`
             rounded-full
             min-h-12
-            shrink-0
             type-control
             font-semibold
-            mt-2.5
+            w-full
             transition-colors 
-            ${showResultBtnActive ? "bg-[#4D8E32] text-white hover:bg-[#337516] cursor-pointer" : "bg-gray-300 text-white cursor-not-allowed"}
+            ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
       >
         <p className="">{t("seeResult")}</p>
       </button>
+      </div>
     </motion.div>
   );
 };
@@ -246,49 +250,55 @@ const IbwResult = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col items-center gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
     >
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("idealWeightTitle")}
-        toolIconSrc="/icons/weightCalc.svg"
+        toolIcon={<IdealWeightIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
+      </div>
 
-      <p className="type-body text-[#4F4F4F] font-medium">
+      <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
+      <p className="type-body text-content-muted font-medium">
         {t("idealWeightRange")}
       </p>
 
-      <p className="text-3xl font-semibold text-[#4D8E32] sm:text-4xl">
+      <p className="text-3xl font-semibold text-brand sm:text-4xl">
         {ibwResult?.idealWeightRange.min} — {ibwResult?.idealWeightRange.max}{" "}
         {t("kg")}
       </p>
 
-      <div className="w-full bg-[#EDF4EB] px-7.5 py-4 rounded-2xl border border-[#4D8E32] flex flex-col justify-center items-center gap-1.5">
+      <div className="w-full bg-brand-soft px-7.5 py-4 rounded-2xl border border-brand flex flex-col justify-center items-center gap-1.5">
         <p className="type-card-title font-medium">{t("idealWeight")}</p>
-        <p className="type-card-title font-bold text-[#4D8E32]">
+        <p className="type-card-title font-bold text-brand">
           {ibwResult?.idealWeight} <span>{t("kg")}</span>
         </p>
       </div>
 
-      <div className="mb-5 w-full bg-[#FDF4EB] px-7.5 py-4 rounded-2xl border border-[#E99532] flex flex-col justify-center items-center gap-1.5">
-        <p className="type-body font-medium text-[#4D8E32]">
+      <div className="mb-5 w-full bg-accent-softer px-7.5 py-4 rounded-2xl border border-accent flex flex-col justify-center items-center gap-1.5">
+        <p className="type-body font-medium text-brand">
           {t("idealWeightDifference", {
             difference: ibwResult?.difference ?? 0,
             position: t(`weightPosition.${status}`),
           })}
         </p>
-        <p className="type-label font-medium text-[#4F4F4F]">
+        <p className="type-label font-medium text-content-muted">
           {t("idealWeightRecommendation", {
             action: t(`weightAction.${action}`),
             difference: ibwResult?.difference ?? 0,
           })}
         </p>
       </div>
+      </div>
 
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
       <CTA
         tryAgainHanlder={tryAgainHandler}
         getFullAssessment={onGetFullAnalysis}
       />
+      </div>
     </motion.div>
   );
 };

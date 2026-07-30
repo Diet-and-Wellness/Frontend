@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { easeInOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import DashboardIcon from "../../components/icons/DashboardIcon";
 import CustomersIcon from "../../components/icons/CustomersIcon";
@@ -37,7 +37,7 @@ const SideBar = ({
             label: t("dashboard"),
             icon: (
               <DashboardIcon
-                className={`${pathname === "/dashboard/admin" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin",
@@ -47,7 +47,7 @@ const SideBar = ({
             label: t("specialists"),
             icon: (
               <SpecialistsIcon
-                className={`${pathname === "/dashboard/admin/specialists" || pathname.startsWith("/dashboard/admin/specialists/") ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/specialists" || pathname.startsWith("/dashboard/admin/specialists/") ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/specialists",
@@ -59,7 +59,7 @@ const SideBar = ({
             label: t("customers"),
             icon: (
               <CustomersIcon
-                className={`${pathname === "/dashboard/admin/customers" || pathname.startsWith("/dashboard/customers") ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/customers" || pathname.startsWith("/dashboard/customers") ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/customers",
@@ -71,7 +71,7 @@ const SideBar = ({
             label: t("contentAndBlogs"),
             icon: (
               <BlogsIcon
-                className={`${pathname === "/dashboard/admin/blogs" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/blogs" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/blogs",
@@ -81,7 +81,7 @@ const SideBar = ({
           //   label: "Recipes",
           //   icon: (
           //     <RecipesIcon
-          //       className={`${pathname === "/dashboard/admin/recipes" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+          //       className={`${pathname === "/dashboard/admin/recipes" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
           //     />
           //   ),
           //   href: "/dashboard/admin/recipes",
@@ -91,7 +91,7 @@ const SideBar = ({
             label: t("feedback"),
             icon: (
               <FeedbackIcon
-                className={`${pathname === "/dashboard/admin/feedback" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/feedback" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/feedback",
@@ -101,7 +101,7 @@ const SideBar = ({
             label: t("settings"),
             icon: (
               <SettingsIcon
-                className={`${pathname === "/dashboard/admin/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/admin/settings" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/admin/settings",
@@ -113,7 +113,7 @@ const SideBar = ({
             label: t("dashboard"),
             icon: (
               <DashboardIcon
-                className={`${isSpecialistDashboardActive ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${isSpecialistDashboardActive ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/specialist",
@@ -123,7 +123,7 @@ const SideBar = ({
             label: t("settings"),
             icon: (
               <SettingsIcon
-                className={`${pathname === "/dashboard/specialist/settings" ? "text-[#E99532]" : "text-black"} group-hover:text-[#E99532] transition-colors duration-150`}
+                className={`${pathname === "/dashboard/specialist/settings" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
               />
             ),
             href: "/dashboard/specialist/settings",
@@ -134,82 +134,65 @@ const SideBar = ({
   return (
     <>
       <motion.aside
-      initial={false}
-      animate={{
-        width: collapsed ? 100 : 256,
-      }}
-      transition={{
-        duration: 0.25,
-        ease: easeInOut,
-      }}
-      className="
-      hidden md:block
-      fixed inset-s-0 bottom-0 top-0
-      bg-[#FFFEFD]
-      overflow-y-scroll hide-scrollbar
-      border-e border-[#e1e7ef88]
-    "
+        initial={false}
+        animate={{ width: collapsed ? 100 : 256 }}
+        transition={dashboardShellTransition}
+        className="fixed inset-s-0 top-0 bottom-0 hidden overflow-x-hidden overflow-y-scroll border-e border-line bg-surface md:block hide-scrollbar"
       >
-      <div className={"flex items-center justify-center px-5 py-3 max-h-17"}>
-        {collapsed ? (
-          <div
-            onClick={toggleCollapse}
-            className="group relative size-12 cursor-pointer rounded-full hover:bg-gray-100"
-          >
+        <div className="flex max-h-17 items-center px-6 py-3">
+          <div className="group relative h-12 w-full">
             <Image
               src="/icons/logo.svg"
               alt="logo"
               width={50}
               height={50}
-              className="
-              absolute inset-0 m-auto
-              transition-all duration-200
-              group-hover:opacity-0
-              group-hover:scale-75
-            "
+              className={`absolute inset-s-0 top-1/2 -translate-y-1/2 transition-[opacity,transform] duration-200 ${
+                collapsed
+                  ? "group-hover:scale-75 group-hover:opacity-0"
+                  : ""
+              }`}
             />
-            <Collapse
-              className="
-              absolute place-self-center top-3.5 m-auto
-              text-gray-500
-              opacity-0 scale-75
-              transition-all duration-200
-              group-hover:opacity-100
-              group-hover:scale-100
-            "
-            />
-          </div>
-        ) : (
-          <div className="w-full flex justify-between items-center">
-            <Image src="/icons/logo.svg" alt="logo" width={50} height={50} />
-            <div
+            <motion.button
+              type="button"
               onClick={toggleCollapse}
-              className="size-12 rounded-full flex justify-center items-center cursor-pointer hover:bg-gray-100"
+              aria-label={collapsed ? t("expandSidebar") : t("collapseSidebar")}
+              initial={false}
+              animate={{
+                opacity: collapsed ? 0 : 1,
+                scale: collapsed ? 0.8 : 1,
+              }}
+              whileHover={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="absolute inset-e-0 top-0 flex size-12 cursor-pointer items-center justify-center rounded-full text-content-subtle hover:bg-surface-neutral"
             >
-              <Collapse className="text-gray-500" />
-            </div>
+              <Collapse
+                className={`transition-transform duration-300 ${
+                  collapsed ? "rotate-180" : ""
+                }`}
+              />
+            </motion.button>
           </div>
-        )}
-      </div>
+        </div>
 
-      <nav className="px-5 py-2.5">
-        <ul className="flex flex-col gap-2.5">
-          {sidebarList.map((item, index) => (
-            <SideBarItem
-              key={index}
-              label={item.label}
-              icon={item.icon}
-              href={item.href}
-              isActive={item.isActive}
-            />
-          ))}
-        </ul>
-      </nav>
+        <nav className="px-5 py-2.5">
+          <ul className="flex flex-col gap-2.5">
+            {sidebarList.map((item) => (
+              <SideBarItem
+                key={item.href}
+                label={item.label}
+                icon={item.icon}
+                href={item.href}
+                isActive={item.isActive}
+                collapsed={collapsed}
+              />
+            ))}
+          </ul>
+        </nav>
       </motion.aside>
 
       <nav
         aria-label="Dashboard navigation"
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-[#E1E7EF] bg-[#FFFEFD] px-2 pb-[env(safe-area-inset-bottom)] pt-1.5 md:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface px-2 pt-1.5 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:hidden"
       >
         <ul className="flex items-center justify-around gap-1 overflow-x-auto">
           {sidebarList.map((item) => (
@@ -217,7 +200,7 @@ const SideBar = ({
               <Link
                 href={item.href}
                 aria-label={item.label}
-                className={`group flex size-12 items-center justify-center rounded-xl transition-colors ${item.isActive ? "bg-[#FCEFE0]" : "bg-transparent"}`}
+                className={`group flex size-12 items-center justify-center rounded-xl transition-colors ${item.isActive ? "bg-accent-soft" : "bg-transparent"}`}
               >
                 <span className="min-w-6">{item.icon}</span>
                 <span className="sr-only">{item.label}</span>
@@ -235,16 +218,18 @@ const SideBarItem = ({
   icon,
   href,
   isActive,
+  collapsed,
 }: {
   label: string;
   icon: React.ReactNode;
   href: string;
   isActive: boolean;
+  collapsed: boolean;
 }) => {
   return (
     <Link href={href} className="w-full overflow-hidden">
       <div
-        className={`relative group p-2 ps-5 ${isActive ? "bg-[#FCEFE0]" : "bg-white"} hover:bg-[#FCEFE0] transition-colors duration-200 flex flex-row items-center gap-3`}
+        className={`relative group p-2 ps-5 ${isActive ? "bg-accent-soft" : "bg-surface-raised"} hover:bg-accent-soft transition-colors duration-200 flex flex-row items-center gap-3`}
       >
         <div
           className={`
@@ -254,7 +239,7 @@ const SideBarItem = ({
             -translate-y-1/2
             w-4
             h-10
-            bg-[#E99532]
+            bg-accent
             rounded-full
 
             ${isActive ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"}
@@ -269,7 +254,19 @@ const SideBarItem = ({
 
         <div className="min-w-6">{icon}</div>
 
-        <div className="overflow-hidden whitespace-nowrap">
+        <motion.div
+          initial={false}
+          animate={{
+            width: collapsed ? 0 : "auto",
+            opacity: collapsed ? 0 : 1,
+          }}
+          transition={{
+            duration: collapsed ? 0.16 : 0.22,
+            delay: collapsed ? 0 : 0.08,
+            ease: "easeOut",
+          }}
+          className="overflow-hidden whitespace-nowrap"
+        >
           <p
             className={`
             type-control
@@ -279,10 +276,15 @@ const SideBarItem = ({
           >
             {label}
           </p>
-        </div>
+        </motion.div>
       </div>
     </Link>
   );
+};
+
+export const dashboardShellTransition = {
+  duration: 0.32,
+  ease: [0.4, 0, 0.2, 1] as [number, number, number, number],
 };
 
 export default SideBar;

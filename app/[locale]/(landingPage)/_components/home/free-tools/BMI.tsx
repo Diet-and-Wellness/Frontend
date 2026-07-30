@@ -6,8 +6,10 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CTA from "./CTAFreeToolsResult";
 import ToolModalHeader from "./ToolModalHeader";
+import BmiCalculatorIcon from "@/app/[locale]/components/icons/BmiCalculatorIcon";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
 import { useTranslations } from "next-intl";
+import { visualColors } from "@/app/[locale]/styles/colors";
 
 const pageVariants = {
   hidden: {
@@ -73,7 +75,7 @@ const BMI = ({
 
   return (
     <ModalWrapper>
-      <div className="flex w-[min(100%,30rem)] flex-col gap-4">
+      <div className="flex w-[min(100%,34rem)] flex-col gap-4">
         <AnimatePresence mode="wait">
           {showResult ? (
             <BmiResult
@@ -135,20 +137,22 @@ const BmiForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col gap-6 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:gap-7.5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
     >
-      <ToolModalHeader
-        toolName={t("bmiTitle")}
-        toolIconSrc="/icons/bmi.svg"
-        onClose={onClose}
-      />
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
+        <ToolModalHeader
+          toolName={t("bmiTitle")}
+          toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
+          onClose={onClose}
+        />
+      </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="flex flex-col gap-2.5">
           <label htmlFor="" className="type-label font-medium">
             {t("height")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -165,7 +169,7 @@ const BmiForm = ({
               className="w-full outline-none"
               placeholder={t("enterHeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("cm")}</p>
+            <p className="type-label text-content-muted">{t("cm")}</p>
           </div>
         </div>
 
@@ -173,7 +177,7 @@ const BmiForm = ({
           <label htmlFor="" className="type-label font-medium">
             {t("weight")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
             <input
               type="number"
               inputMode="decimal"
@@ -190,28 +194,29 @@ const BmiForm = ({
               className="w-full outline-none"
               placeholder={t("enterWeight")}
             />
-            <p className="type-label text-[#4F4F4F]">{t("kg")}</p>
+            <p className="type-label text-content-muted">{t("kg")}</p>
           </div>
         </div>
       </div>
 
-      <button
-        disabled={!showResultBtnActive}
-        onClick={handleCalculateBMI}
-        className={`
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
+        <button
+          disabled={!showResultBtnActive}
+          onClick={handleCalculateBMI}
+          className={`
             rounded-full
             min-h-12
-            shrink-0
             type-control
             font-semibold
-            mt-2.5
+            w-full
             transition-colors 
-            ${showResultBtnActive ? "bg-[#4D8E32] text-white hover:bg-[#337516] cursor-pointer" : "bg-gray-300 text-white cursor-not-allowed"}
+            ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
-      >
-        <p className="">{t("seeResult")}</p>
-      </button>
+        >
+          <p className="">{t("seeResult")}</p>
+        </button>
+      </div>
     </motion.div>
   );
 };
@@ -237,71 +242,86 @@ const BmiResult = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[calc(100dvh-1.5rem)] min-h-0 flex-col items-center gap-5 overflow-y-auto overscroll-contain rounded-2xl bg-[#FFFEFD] p-5 sm:p-7.5"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
     >
-      <ToolModalHeader
-        toolName={t("bmiTitle")}
-        toolIconSrc="/icons/bmi.svg"
-        onClose={onClose}
-      />
-
-      <div className="flex flex-col justify-center items-center gap-1">
-        <p className="type-card-title font-medium">{t("bmiScore")}</p>
-        <p className="text-3xl font-bold text-[#4D8E32] sm:text-4xl">{bmiResult?.bmi}</p>
-        <p
-          className={`type-card-title ${bmiResult?.status === "Normal" ? "text-[#337516]" : "text-[#E99532]"} font-medium`}
-        >
-          {t(`bmiStatus.${bmiResult?.status ?? "Normal"}`)}
-        </p>
+      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
+        <ToolModalHeader
+          toolName={t("bmiTitle")}
+          toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
+          onClose={onClose}
+        />
       </div>
 
-      <ReactSpeedometer
-        value={bmiResult ? Math.min(bmiResult.bmi, 40) : 10}
-        minValue={10}
-        maxValue={40}
-        segments={4}
-        customSegmentStops={[10, 18.5, 25, 30, 40]}
-        segmentColors={["#7ED957", "#3CCF4E", "#F6C343", "#F44336"]}
-        needleColor="#1F1F1F"
-        needleHeightRatio={0.6}
-        currentValueText=""
-        textColor="#333"
-        ringWidth={30}
-        width={300}
-        height={180}
-        valueTextFontSize="0px"
-      />
-
-      <div className="w-full rounded-2xl border border-[#4D8E32] px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-[#EDF4EB]">
-        <p className="type-label font-medium">{t("healthyBmiRange")}</p>
-        <p className="type-card-title font-semibold text-[#4D8E32]">
-          {HEALTHY_MIN} — {HEALTHY_MAX}{" "}
-          <span className="type-label font-medium text-gray-900">kg/m²</span>
-        </p>
-      </div>
-
-      {bmiResult?.status === "Normal" || (
-        <div className="w-full rounded-2xl border border-[#E99532] px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-[#FDF4EB]">
-          <p className="type-label font-medium">
-            {t("bmiDifference", {
-              difference: bmiResult?.differenceFromHealthy ?? 0,
-              position: t(`weightPosition.${direction}`),
-            })}
+      <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
+        <div className="flex flex-col justify-center items-center gap-1">
+          <p className="type-card-title font-medium">{t("bmiScore")}</p>
+          <p className="text-3xl font-bold text-brand sm:text-4xl">
+            {bmiResult?.bmi}
           </p>
-          <p className="type-label text-gray-900">
-            {t("bmiRecommendation", {
-              action: t(`weightAction.${action}`),
-              from: bmiResult?.weightRange?.from ?? "",
-              to: bmiResult?.weightRange?.to ?? "",
-            })}
+          <p
+            className={`type-card-title ${bmiResult?.status === "Normal" ? "text-(--color-palette-337516)" : "text-accent"} font-medium`}
+          >
+            {t(`bmiStatus.${bmiResult?.status ?? "Normal"}`)}
           </p>
         </div>
-      )}
 
-      <CTA
-        tryAgainHanlder={tryAgainHandler}
-        getFullAssessment={onGetFullAnalysis}
-      />
+        <ReactSpeedometer
+          value={bmiResult ? Math.min(bmiResult.bmi, 40) : 10}
+          minValue={10}
+          maxValue={40}
+          segments={4}
+          customSegmentStops={[10, 18.5, 25, 30, 40]}
+          segmentColors={[
+            visualColors.bmiLow,
+            visualColors.bmiNormal,
+            visualColors.bmiHigh,
+            visualColors.bmiVeryHigh,
+          ]}
+          needleColor={visualColors.gaugeNeedle}
+          needleHeightRatio={0.6}
+          currentValueText=""
+          textColor={visualColors.gaugeText}
+          ringWidth={30}
+          width={300}
+          height={180}
+          valueTextFontSize="0px"
+        />
+
+        <div className="w-full rounded-2xl border border-brand px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-brand-soft">
+          <p className="type-label font-medium">{t("healthyBmiRange")}</p>
+          <p className="type-card-title font-semibold text-brand">
+            {HEALTHY_MIN} — {HEALTHY_MAX}{" "}
+            <span className="type-label font-medium text-content-strong">
+              kg/m²
+            </span>
+          </p>
+        </div>
+
+        {bmiResult?.status === "Normal" || (
+          <div className="w-full rounded-2xl border border-accent px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-accent-softer">
+            <p className="type-label font-medium">
+              {t("bmiDifference", {
+                difference: bmiResult?.differenceFromHealthy ?? 0,
+                position: t(`weightPosition.${direction}`),
+              })}
+            </p>
+            <p className="type-label text-content-strong">
+              {t("bmiRecommendation", {
+                action: t(`weightAction.${action}`),
+                from: bmiResult?.weightRange?.from ?? "",
+                to: bmiResult?.weightRange?.to ?? "",
+              })}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
+        <CTA
+          tryAgainHanlder={tryAgainHandler}
+          getFullAssessment={onGetFullAnalysis}
+        />
+      </div>
     </motion.div>
   );
 };

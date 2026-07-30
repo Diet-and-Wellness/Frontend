@@ -10,6 +10,9 @@ import { TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Pagination from "../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const TABLE_HEADERS = [
   "Name",
@@ -23,27 +26,35 @@ const TABLE_HEADERS = [
 ];
 
 const ClientsPage = () => {
-  const getCustomers = async (): Promise<Customer[]> => {
+  const [page, setPage] = useState(1);
+
+  const getCustomers = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
-      page: 1,
-      limit: 20,
+      page,
+      limit: 5,
     });
 
-    return data?.data ?? [];
+    return parsePaginatedResponse<Customer>(data, page, 5);
   };
 
-  const { data: customers, isLoading } = useQuery({
-    queryKey: ["customers"],
+  const {
+    data: customersPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["customers", page],
     queryFn: getCustomers,
+    placeholderData: (previousData) => previousData,
   });
+  const customers = customersPage?.items ?? [];
 
   return (
     <section className="flex w-full flex-col gap-5">
       {/* Header */}
       <div>
         <h2 className="type-page-title mb-3 font-bold sm:mb-4">Customers</h2>
-        <p className="type-body-lg font-light text-[#4F4F4F]">
+        <p className="type-body-lg font-light text-content-muted">
           Manage and view all client profiles.
         </p>
       </div>
@@ -59,14 +70,14 @@ const ClientsPage = () => {
       {isLoading ? (
         <TableSkeleton columns={8} />
       ) : (
-        <div className="w-full overflow-x-auto rounded-2xl border border-[#E1E7EF] bg-white">
-          <table className="min-w-full divide-y divide-[#E1E7EF]">
-            <thead className="bg-[#FCFCFC]">
+        <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised">
+          <table className="min-w-full divide-y divide-line">
+            <thead className="bg-surface-subtle">
               <tr>
                 {TABLE_HEADERS.map((header) => (
                   <th
                     key={header}
-                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-[#4F4F4F]"
+                    className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-content-muted"
                   >
                     {header}
                   </th>
@@ -74,7 +85,7 @@ const ClientsPage = () => {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-[#E1E7EF] bg-[#FFFEFD]">
+            <tbody className="divide-y divide-line bg-surface">
               {customers?.map((customer) => (
                 <CustomerRow key={customer.id} customer={customer} />
               ))}
@@ -82,18 +93,28 @@ const ClientsPage = () => {
           </table>
         </div>
       )}
+
+      {customers.length > 0 && customersPage && (
+        <Pagination
+          currentPage={page}
+          totalPages={customersPage.totalPages}
+          hasNextPage={customersPage.hasNextPage}
+          isFetching={isFetching}
+          onPageChange={setPage}
+        />
+      )}
     </section>
   );
 };
 
 const SearchInput = () => {
   return (
-    <div className="flex w-full items-center gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-4 py-2.5 sm:w-95">
-      <SearchIcon className="text-[#4F4F4F]" />
+    <div className="flex w-full items-center gap-3 rounded-xl border border-line bg-surface px-4 py-2.5 sm:w-95">
+      <SearchIcon className="text-content-muted" />
       <input
         type="text"
         placeholder="Search clients..."
-        className="w-full text-base outline-none placeholder:text-[#A4A4A4]"
+        className="w-full text-base outline-none placeholder:text-content-placeholder"
       />
     </div>
   );
@@ -101,7 +122,7 @@ const SearchInput = () => {
 
 const FilterButton = ({ label }: { label: string }) => {
   return (
-    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
+    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-line bg-surface px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
       <p className="type-control font-light">{label}</p>
       <ChevronDownIcon />
     </button>
@@ -112,16 +133,16 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
   const t = useTranslations("dashboard");
   const router = useRouter();
   return (
-    <tr className="type-table font-light text-[#4F4F4F] transition-colors">
+    <tr className="type-table font-light text-content-muted transition-colors">
       {/* Name */}
       <TableCell>
         <div className="flex items-center gap-3">
-          <div className="flex size-8 items-center justify-center rounded-full bg-[#FCEFE0]">
-            <span className="type-meta font-medium text-[#E99532]">
+          <div className="flex size-8 items-center justify-center rounded-full bg-accent-soft">
+            <span className="type-meta font-medium text-accent">
               {`${customer.firstName.at(0)}${customer.lastName.at(0)}`}
             </span>
           </div>
-          <span className="text-black">{`${customer.firstName} ${customer.lastName}`}</span>
+          <span className="text-content">{`${customer.firstName} ${customer.lastName}`}</span>
         </div>
       </TableCell>
 
@@ -154,10 +175,10 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       <TableCell>
         <button
           onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
-          className="flex cursor-pointer items-center gap-2 text-[#E99532] hover:underline"
+          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
-            <ViewLinkIcon className="text-[#E99532]" />
+            <ViewLinkIcon className="text-accent" />
           </div>
           <span>{t("viewAnswers")}</span>
         </button>
@@ -165,8 +186,8 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
 
       {/* Specialist */}
       <TableCell>
-        <button className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-[#E1E7EF] bg-[#FFFEFD] px-5 py-2.5 cursor-pointer">
-          <span className="type-label whitespace-nowrap text-[#A4A4A4]">
+        <button className="flex min-w-50 items-center justify-center gap-5 rounded-xl border border-line bg-surface px-5 py-2.5 cursor-pointer">
+          <span className="type-label whitespace-nowrap text-content-placeholder">
             Select Specialist
           </span>
           <ChevronDownIcon />

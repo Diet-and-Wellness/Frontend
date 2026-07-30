@@ -15,6 +15,16 @@ import Blog from "@/app/[locale]/components/Blogs/Blog";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
+const getRecommendationScore = (value: string) => {
+  let score = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    score = (score * 31 + value.charCodeAt(index)) >>> 0;
+  }
+
+  return score;
+};
+
 const BlogDetails = () => {
   const t = useTranslations("blogs");
   const pathname = usePathname();
@@ -25,8 +35,16 @@ const BlogDetails = () => {
 
   const { data: blogs, isLoading: isBlogsLoading } = useBlogs();
 
-  const filteredBlogs = useMemo(() => {
-    return blogs?.filter((blg: BlogResponse) => blg.slug !== slug);
+  const recommendedBlogs = useMemo(() => {
+    return blogs
+      .filter((candidate: BlogResponse) => candidate.slug !== slug)
+      .map((candidate: BlogResponse) => ({
+        blog: candidate,
+        score: getRecommendationScore(`${slug}:${candidate.id}`),
+      }))
+      .sort((first, second) => first.score - second.score)
+      .slice(0, 3)
+      .map(({ blog: candidate }) => candidate);
   }, [blogs, slug]);
 
   return (
@@ -38,7 +56,7 @@ const BlogDetails = () => {
           width={1000}
           height={1000}
           quality={100}
-          className={`mt-20 lg:mt-25 bg-no-repeat w-[92.5%] md:w-[75%] max-h-170 bg-center object-cover bg-green-500 min-h-80 md:min-h-120 lg:min-h-140 max-w-[92.5%] mx-auto rounded-4xl`}
+          className="mx-auto mt-20 min-h-80 max-h-170 w-[92.5%] max-w-[92.5%] rounded-4xl bg-[var(--color-palette-f4f4f2)] object-cover md:min-h-120 md:w-[75%] lg:mt-25 lg:min-h-140"
         />
       )}
 
@@ -48,11 +66,11 @@ const BlogDetails = () => {
         <div className="flex flex-col gap-7.5 w-[90%] md:max-w-[70%] mx-auto py-7.5 lg:py-10">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-3 sm:gap-5">
-              <p className="type-body-lg font-medium text-[#3E7228]">
+              <p className="type-body-lg font-medium text-brand-dark">
                 {formatDate(blog.createdAt)}
               </p>
 
-              <div className="bg-[#E99532] rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
+              <div className="bg-accent rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
                 <Image
                   width={20}
                   height={20}
@@ -67,7 +85,7 @@ const BlogDetails = () => {
               </div>
             </div>
             <div className="flex items-center gap-1.5">
-              <p className="type-body font-medium text-[#4F4F4F]">
+              <p className="type-body font-medium text-content-muted">
                 {t("viewedBy", { count: blog.viewCount })}
               </p>
               <ViewIcon />
@@ -78,11 +96,11 @@ const BlogDetails = () => {
             {blog.title}
           </h5>
 
-          <p className="type-body-lg max-w-6xl font-medium text-[#4F4F4F]">
+          <p className="type-body-lg max-w-6xl font-medium text-content-muted">
             {blog.description}
           </p>
 
-          <p className="type-body max-w-6xl whitespace-pre-wrap text-[#4F4F4F]">
+          <p className="type-body max-w-6xl whitespace-pre-wrap text-content-muted">
             {blog.content}
           </p>
 
@@ -90,11 +108,11 @@ const BlogDetails = () => {
             <CardGridSkeleton cards={3} className="mt-10" />
           ) : (
             <div className="mt-10 max-w-full mx-auto">
-              <h4 className="type-section-title mb-5 font-medium text-[#3E7228] lg:mb-10">
+              <h4 className="type-card-title mb-5 font-medium text-brand-dark lg:mb-10">
                 {t("youMayAlsoLike")}
               </h4>
               <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
-                {filteredBlogs?.map((blog: BlogResponse) => (
+                {recommendedBlogs.map((blog: BlogResponse) => (
                   <Blog key={blog.id} type="landing" blog={blog} />
                 ))}
               </div>

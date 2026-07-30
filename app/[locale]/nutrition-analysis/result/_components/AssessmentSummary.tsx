@@ -1,6 +1,7 @@
 import { GrainGradient } from "@paper-design/shaders-react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { visualColors } from "@/app/[locale]/styles/colors";
 
 export type AssessmentStatus = {
   label: string;
@@ -28,17 +29,17 @@ export default function AssessmentSummary({
       <GrainGradient
         width="100%"
         height="100%"
-        colors={["#f7a969", "#ffbc85"]}
-        colorBack="#98E694"
+        colors={[visualColors.gradientOrange, visualColors.gradientPeach]}
+        colorBack={visualColors.gradientGreen}
         softness={0.7}
         intensity={0.6}
         noise={0}
         speed={5}
         className="flex justify-center items-center"
       >
-        <div className="flex w-full flex-col items-center justify-center gap-2.5 bg-white/40 p-6 text-center backdrop-blur-xs sm:p-8 md:p-12">
+        <div className="flex w-full flex-col items-center justify-center gap-2.5 bg-surface-raised/40 p-6 text-center backdrop-blur-xs sm:p-8 md:p-12">
           <h3 className="type-display font-bold">{t("summaryTitle")}</h3>
-          <p className="type-body-lg text-[#4F4F4F]">
+          <p className="type-body-lg text-content-muted">
             {t("summarySubtitle")}
           </p>
 
@@ -51,13 +52,13 @@ export default function AssessmentSummary({
               transition={{ duration: 0.5 }}
               width="220"
               height="220"
-              className="size-full rounded-full bg-white shadow-xs"
+              className="size-full rounded-full bg-surface-raised shadow-xs"
             >
               <circle
                 cx="110"
                 cy="110"
                 r="90"
-                stroke="#ECECEC"
+                stroke="var(--color-palette-ececec)"
                 strokeWidth="14"
                 fill="none"
               />
@@ -94,7 +95,7 @@ export default function AssessmentSummary({
             </p>
           </div>
 
-          <p className="type-body mt-5 text-center text-[#4F4F4F] sm:px-12 md:px-30">
+          <p className="type-body mt-5 text-center text-content-muted sm:px-12 md:px-30">
             {status.description}
           </p>
         </div>

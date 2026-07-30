@@ -110,7 +110,7 @@ const AdminDashboardIndex = () => {
         dashboardStat?.clients?.thisMonth,
         dashboardStat?.clients?.total,
       ),
-      icon: <CustomersIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+      icon: <CustomersIcon className="text-accent" strokeWidth={"1.67"} />,
     },
     {
       statType: t("activeSpecialists"),
@@ -119,7 +119,7 @@ const AdminDashboardIndex = () => {
         dashboardStat?.specialists?.activeThisMonth,
         dashboardStat?.specialists?.active,
       ),
-      icon: <SpecialistsIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+      icon: <SpecialistsIcon className="text-accent" strokeWidth={"1.67"} />,
     },
     {
       statType: t("publishedArticles"),
@@ -128,7 +128,7 @@ const AdminDashboardIndex = () => {
         dashboardStat?.articles?.activeThisMonth,
         dashboardStat?.articles?.active,
       ),
-      icon: <BlogsIcon className="text-[#E99532]" strokeWidth={"1.67"} />,
+      icon: <BlogsIcon className="text-accent" strokeWidth={"1.67"} />,
     },
     {
       statType: t("activeSubscriptions"),
@@ -137,7 +137,7 @@ const AdminDashboardIndex = () => {
         dashboardStat?.subscriptions?.activeThisMonth,
         dashboardStat?.subscriptions?.active,
       ),
-      icon: <StatArrow className="text-[#E99532]" strokeWidth={"1.67"} />,
+      icon: <StatArrow className="text-accent" strokeWidth={"1.67"} />,
     },
   ];
 
@@ -149,8 +149,8 @@ const AdminDashboardIndex = () => {
       className="w-full"
     >
       <motion.div variants={item} className="mb-6 sm:mb-7.5">
-        <h2 className="type-page-title mb-3 font-bold text-black sm:mb-4">{t("dashboard")}</h2>
-        <p className="type-body-lg font-light text-[#4F4F4F]">
+        <h2 className="type-page-title mb-3 font-bold text-content sm:mb-4">{t("dashboard")}</h2>
+        <p className="type-body-lg font-light text-content-muted">
           {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
       </motion.div>
@@ -209,7 +209,7 @@ const AdminDashboardIndex = () => {
 const DashboardStatCardSkeleton = () => (
   <div
     aria-busy="true"
-    className="flex flex-col justify-between gap-7.5 rounded-2xl border border-[#E1E7EF] bg-white p-4 md:p-5"
+    className="flex flex-col justify-between gap-7.5 rounded-2xl border border-line bg-surface-raised p-4 md:p-5"
   >
     <div className="flex items-start justify-between">
       <Skeleton className="size-12 rounded-2xl" />
@@ -233,7 +233,7 @@ const RecentUsersSkeleton = ({
 }) => (
   <div
     aria-busy="true"
-    className="flex flex-col gap-5 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-5"
+    className="flex flex-col gap-5 rounded-2xl border border-line bg-surface p-5"
   >
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
@@ -247,7 +247,7 @@ const RecentUsersSkeleton = ({
       {Array.from({ length: 5 }, (_, index) => (
         <div
           key={index}
-          className="flex items-start justify-between rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-3"
+          className="flex items-start justify-between rounded-2xl border border-line bg-surface p-3"
         >
           <div className="flex items-start gap-4">
             <Skeleton className="size-10 rounded-full!" />
@@ -274,15 +274,15 @@ const RecentUsersList = ({
 }: RecentUsersListProps) => {
   const t = useTranslations("dashboard");
   return (
-    <div className="flex w-full flex-col gap-5 rounded-2xl border border-[#E1E7EF] bg-[#FFFEFD] p-4 sm:p-5">
+    <div className="flex w-full flex-col gap-5 rounded-2xl border border-line bg-surface p-4 sm:p-5">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-3 items-center">
           {usersListType === "specialists" ? (
-            <SpecialistIcon className="text-[#E99532]" strokeWidth="1.67" />
+            <SpecialistIcon className="text-accent" strokeWidth="1.67" />
           ) : (
-            <CustomersIcon className="text-[#E99532]" strokeWidth="1.67" />
+            <CustomersIcon className="text-accent" strokeWidth="1.67" />
           )}
-          <p className="type-card-title font-extrabold text-black">
+          <p className="text-lg leading-tight font-extrabold text-content sm:text-xl">
             {usersListType === "specialists"
               ? t("recentSpecialists")
               : t("recentCustomers")}
@@ -296,7 +296,7 @@ const RecentUsersList = ({
               : "admin/customers"
           }
         >
-          <span className="type-control font-medium text-[#E99532] underline">
+          <span className="text-sm font-medium text-accent underline sm:text-[0.9375rem]">
             {t("viewAll")}
           </span>
         </Link>

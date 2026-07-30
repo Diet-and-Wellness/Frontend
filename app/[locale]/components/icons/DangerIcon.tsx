@@ -24,8 +24,8 @@ const DangerIcon = () => {
           y2="39.0371"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FFCD0F" />
-          <stop offset="1" stopColor="#FE8401" />
+          <stop stopColor="var(--color-palette-ffcd0f)" />
+          <stop offset="1" stopColor="var(--color-palette-fe8401)" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1577_7646"
@@ -35,8 +35,8 @@ const DangerIcon = () => {
           y2="31.1078"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#4A4A4A" />
-          <stop offset="1" stopColor="#212121" />
+          <stop stopColor="var(--color-palette-4a4a4a)" />
+          <stop offset="1" stopColor="var(--color-palette-212121)" />
         </linearGradient>
       </defs>
     </svg>

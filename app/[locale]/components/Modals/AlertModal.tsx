@@ -21,25 +21,26 @@ const AlertModal = ({
   const t = useTranslations("dashboard");
   return (
     <ModalWrapper>
-      <div className="relative w-[clamp(18rem,90vw,25rem)] rounded-2xl bg-[#FFFEFD] p-5 sm:w-[min(100%,22.5rem)] sm:p-7.5">
-        <div className="flex justify-end absolute end-3 top-3">
+      <div className="relative flex max-h-[85dvh] w-[clamp(18rem,90vw,25rem)] flex-col overflow-hidden rounded-2xl bg-surface sm:w-[min(100%,22.5rem)]">
+        <div className="absolute end-3 top-3 z-10 flex justify-end">
           <button
             onClick={closeModal}
-            className="hover:bg-gray-100 transition-colors duration-200 justify-end place-self-end p-3 rounded-full cursor-pointer"
+            className="hover:bg-surface-neutral transition-colors duration-200 justify-end place-self-end p-3 rounded-full cursor-pointer"
           >
-            <CloseIcon className="text-gray-600" height="16" width="16" />
+            <CloseIcon className="text-content-muted" height="16" width="16" />
           </button>
         </div>
-        <div className="flex flex-col justify-center items-center gap-5">
+        <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto overscroll-contain p-5 pb-3 sm:p-7.5 sm:pb-4">
           {illustrator}
-          <p className="type-body-lg text-center font-light text-[#4F4F4F]">
+          <p className="type-body-lg text-center font-light text-content-muted">
             {note}
           </p>
-          <div className="flex flex-col gap-2.5 w-full">
+        </div>
+        <div className="flex w-full shrink-0 flex-col gap-2.5 border-t border-line bg-surface p-5 pt-3 sm:px-7.5 sm:pb-7.5 sm:pt-4">
             <button
               disabled={pending}
               onClick={confirm}
-              className="type-control flex min-h-11 w-full items-center justify-center rounded-full bg-[#DC2626] font-medium text-[#FDFDFD] cursor-pointer"
+              className="type-control flex min-h-11 w-full items-center justify-center rounded-full bg-danger font-medium text-surface-raised cursor-pointer"
             >
               {pending ? (
                 <Spinner spinnerSize={25} />
@@ -50,11 +51,10 @@ const AlertModal = ({
             <button
               disabled={pending}
               onClick={closeModal}
-              className="type-control min-h-11 w-full rounded-full border border-[#E1E7EF] bg-[#FFFEFD] font-medium text-black cursor-pointer"
+              className="type-control min-h-11 w-full rounded-full border border-line bg-surface font-medium text-content cursor-pointer"
             >
               {t("cancel")}
             </button>
-          </div>
         </div>
       </div>
     </ModalWrapper>

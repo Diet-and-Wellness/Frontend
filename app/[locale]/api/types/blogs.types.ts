@@ -4,6 +4,12 @@ export interface GetAllPublishedBlogsRequest {
   sortBy?: string;
 }
 
+export interface GetAllBlogsRequest {
+  page: number;
+  limit: number;
+  status?: string;
+}
+
 export interface CategoryId {
   id: string;
 }

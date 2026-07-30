@@ -21,10 +21,10 @@ const Subscribe = () => {
         className="
           flex items-center gap-2 sm:gap-3
           rounded-xl border border-white/40
-          bg-white/20 px-3 sm:px-4 py-2.5 sm:py-3
+          bg-surface-raised/20 px-3 sm:px-4 py-2.5 sm:py-3
           backdrop-blur-md
           transition-all duration-300
-          focus-within:border-white/70 focus-within:bg-white/30
+          focus-within:border-white/70 focus-within:bg-surface-raised/30
         "
       >
         <input

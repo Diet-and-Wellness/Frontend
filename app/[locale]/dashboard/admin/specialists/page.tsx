@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import StateComp from "../../_components/StateComp";
 import Dots from "@/app/[locale]/components/icons/Dots";
 import { AnimatePresence, motion } from "framer-motion";
@@ -18,6 +19,8 @@ import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Link from "next/link";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import { useTranslations } from "next-intl";
+import Pagination from "../../_components/Pagination";
+import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 
 const container = {
   hidden: { opacity: 0 },
@@ -50,6 +53,7 @@ const tableContainer = {
 
 const SpecialistsPage = () => {
   const t = useTranslations("dashboard");
+  const [page, setPage] = useState(1);
   const [openedMenuId, setOpenedMenuId] = useState<string | null>(null);
   const [showCreateSpecialistModal, setShowCreateSpecialistModal] =
     useState<boolean>(false);
@@ -86,6 +90,10 @@ const SpecialistsPage = () => {
       await profileApi.deleteProfile(specialistDeletion.specialistId ?? "");
     },
     onSuccess: async () => {
+      if (page > 1 && specialists.length === 1) {
+        setPage(page - 1);
+      }
+
       await Promise.all([
         queryClient.invalidateQueries({
           queryKey: ["specialists"],
@@ -137,19 +145,25 @@ const SpecialistsPage = () => {
     onSuccess: () => validateCache(),
   });
 
-  const getSpecialists = async (): Promise<SpecialistDTO[]> => {
+  const getSpecialists = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "specialist",
-      limit: 20,
-      page: 1,
+      limit: 5,
+      page,
     });
-    return data?.data ?? [];
+    return parsePaginatedResponse<SpecialistDTO>(data, page, 5);
   };
 
-  const { data: specialists, isLoading } = useQuery({
-    queryKey: ["specialists"],
+  const {
+    data: specialistsPage,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["specialists", page],
     queryFn: getSpecialists,
+    placeholderData: (previousData) => previousData,
   });
+  const specialists = specialistsPage?.items ?? [];
 
   return (
     <motion.section
@@ -185,16 +199,16 @@ const SpecialistsPage = () => {
       <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("specialists")}</h2>
-          <p className="type-body-lg font-light text-[#4F4F4F]">
+          <p className="type-body-lg font-light text-content-muted">
             {t("manageSpecialists")}
           </p>
         </div>
         <button
           onClick={() => setShowCreateSpecialistModal(true)}
-          className="flex w-full justify-center rounded-full bg-[#E99532] px-5 py-2.5 transition duration-150 cursor-pointer hover:bg-[#e28010] sm:w-auto"
+          className="flex w-full justify-center rounded-full bg-accent px-5 py-2.5 transition duration-150 cursor-pointer hover:bg-accent-hover sm:w-auto"
         >
-          <PlusIcon className="text-white" />
-          <p className="type-control font-medium text-[#FFFEFD]">
+          <PlusIcon className="text-accent-contrast" />
+          <p className="type-control font-medium text-surface">
             {t("addSpecialist")}
           </p>
         </button>
@@ -204,12 +218,12 @@ const SpecialistsPage = () => {
       {isLoading ? (
         <TableSkeleton columns={7} />
       ) : (specialists?.length ?? 0) > 0 ? (
-        <div className="min-w-full overflow-x-auto border border-[#E1E7EF] rounded-2xl bg-[#FFFEFD]">
+        <div className="min-w-full overflow-x-auto border border-line rounded-2xl bg-surface">
           <motion.table
             variants={container}
-            className="min-w-full divide-y divide-[#E1E7EF]"
+            className="min-w-full divide-y divide-line"
           >
-            <thead className="bg-[#FCFCFC]">
+            <thead className="bg-surface-subtle">
               <tr>
                 <TableHeaderCell>{t("name")}</TableHeaderCell>
 
@@ -237,7 +251,7 @@ const SpecialistsPage = () => {
 
             <motion.tbody
               variants={tableContainer}
-              className="divide-y divide-[#E1E7EF] bg-[#fffdfe]"
+              className="divide-y divide-line bg-surface-raised"
             >
               {specialists?.map((specialist) => (
                 <SpecialistRow
@@ -257,6 +271,16 @@ const SpecialistsPage = () => {
         <EmptyComp
           title={t("noSpecialistsYet")}
           description={t("noSpecialistsDescription")}
+        />
+      )}
+
+      {specialists.length > 0 && specialistsPage && (
+        <Pagination
+          currentPage={page}
+          totalPages={specialistsPage.totalPages}
+          hasNextPage={specialistsPage.hasNextPage}
+          isFetching={isFetching}
+          onPageChange={setPage}
         />
       )}
     </motion.section>
@@ -280,19 +304,95 @@ const SpecialistRow = ({
 }) => {
   const t = useTranslations("dashboard");
   const isOpened = openedMenuId === specialist.id;
+  const actionsButtonRef = useRef<HTMLButtonElement>(null);
+  const actionsMenuRef = useRef<HTMLDivElement>(null);
+  const [menuPosition, setMenuPosition] = useState({
+    top: 0,
+    left: 0,
+    openAbove: false,
+  });
 
   const toggleOpenedMenu = () => {
-    setOpenedMenuId((prev) => (prev === specialist.id ? null : specialist.id));
+    if (isOpened) {
+      setOpenedMenuId(null);
+      return;
+    }
+
+    const buttonRect = actionsButtonRef.current?.getBoundingClientRect();
+
+    if (buttonRect) {
+      const viewportPadding = 8;
+      const menuWidth = Math.min(256, window.innerWidth - viewportPadding * 2);
+      const estimatedMenuHeight = 190;
+      const spaceBelow = window.innerHeight - buttonRect.bottom;
+      const openAbove =
+        spaceBelow < estimatedMenuHeight + viewportPadding &&
+        buttonRect.top > spaceBelow;
+
+      setMenuPosition({
+        top: openAbove
+          ? buttonRect.top - viewportPadding
+          : buttonRect.bottom + viewportPadding,
+        left: Math.min(
+          Math.max(
+            buttonRect.right - menuWidth,
+            viewportPadding,
+          ),
+          window.innerWidth - menuWidth - viewportPadding,
+        ),
+        openAbove,
+      });
+    }
+
+    setOpenedMenuId(specialist.id);
   };
+
+  useEffect(() => {
+    if (!isOpened) return;
+
+    const closeMenuOnOutsideInteraction = (event: PointerEvent) => {
+      const target = event.target as Node;
+
+      if (
+        actionsButtonRef.current?.contains(target) ||
+        actionsMenuRef.current?.contains(target)
+      ) {
+        return;
+      }
+
+      setOpenedMenuId(null);
+    };
+
+    const closeMenuOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpenedMenuId(null);
+        actionsButtonRef.current?.focus();
+      }
+    };
+
+    const closeMenuOnViewportChange = () => setOpenedMenuId(null);
+
+    document.addEventListener("pointerdown", closeMenuOnOutsideInteraction);
+    document.addEventListener("keydown", closeMenuOnEscape);
+    window.addEventListener("resize", closeMenuOnViewportChange);
+    window.addEventListener("scroll", closeMenuOnViewportChange, true);
+
+    return () => {
+      document.removeEventListener("pointerdown", closeMenuOnOutsideInteraction);
+      document.removeEventListener("keydown", closeMenuOnEscape);
+      window.removeEventListener("resize", closeMenuOnViewportChange);
+      window.removeEventListener("scroll", closeMenuOnViewportChange, true);
+    };
+  }, [isOpened, setOpenedMenuId]);
 
   return (
     <motion.tr
       layout
       variants={item}
-      className="type-table font-light text-[#4F4F4F] transition-colors"
+      className="type-table font-light text-content-muted transition-colors"
     >
       <TableCell>
-        <span className="text-black">{`${specialist.firstName} ${specialist.lastName}`}</span>
+        <span className="text-content">{`${specialist.firstName} ${specialist.lastName}`}</span>
       </TableCell>
 
       <TableCell>{specialist.specialistInfo.specialization}</TableCell>
@@ -313,40 +413,70 @@ const SpecialistRow = ({
 
       <TableCell className="relative">
         <button
+          ref={actionsButtonRef}
+          type="button"
           onClick={toggleOpenedMenu}
-          className="flex size-10 items-center justify-center place-self-center cursor-pointer hover:bg-gray-100 rounded-full"
+          aria-expanded={isOpened}
+          aria-haspopup="menu"
+          className="flex size-10 items-center justify-center place-self-center cursor-pointer hover:bg-surface-neutral rounded-full"
         >
-          <Dots className="text-black" />
+          <Dots className="text-content" />
         </button>
-        <AnimatePresence>
-          {isOpened && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="border border-[#E1E7EF] rounded-2xl bg-white absolute shadow-[0_2px_10px_0px_#00000026] z-20 top-15 inset-e-8"
-            >
+        {typeof document !== "undefined" && createPortal(
+          <AnimatePresence>
+            {isOpened && (
+              <div
+                className="fixed z-50 w-64 max-w-[calc(100vw-1rem)]"
+                style={{
+                  top: menuPosition.top,
+                  left: menuPosition.left,
+                  transform: menuPosition.openAbove
+                    ? "translateY(-100%)"
+                    : undefined,
+                }}
+              >
+                <motion.div
+                  ref={actionsMenuRef}
+                  role="menu"
+                  initial={{
+                    opacity: 0,
+                    y: menuPosition.openAbove ? 12 : -12,
+                  }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{
+                    opacity: 0,
+                    y: menuPosition.openAbove ? 12 : -12,
+                  }}
+                  className="rounded-2xl border border-line bg-surface-raised shadow-[0_2px_10px_0px_var(--color-palette-00000026)]"
+                >
               <div className="p-3.5 flex flex-col gap-3.5">
                 <Link
                   href={`/dashboard/admin/specialists/${specialist.id}/clients`}
+                  role="menuitem"
+                  onClick={() => setOpenedMenuId(null)}
                   className="w-full flex items-center gap-2.5 cursor-pointer"
                 >
-                  <MenuIcon className="text-black" />
-                  <p className="type-label font-light text-black">
+                  <MenuIcon className="text-content" />
+                  <p className="type-label font-light text-content">
                     {t("viewClientList")}
                   </p>
                 </Link>
                 <button
-                  onClick={openAlertModal}
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    setOpenedMenuId(null);
+                    openAlertModal();
+                  }}
                   className="w-full flex items-center gap-2.5 cursor-pointer"
                 >
-                  <TrashIcon className="text-[#DC2626]" />
-                  <p className="type-label font-light text-[#DC2626]">
+                  <TrashIcon className="text-danger" />
+                  <p className="type-label font-light text-danger">
                     {t("deleteSpecialist")}
                   </p>
                 </button>
               </div>
-              <div className="flex items-center gap-3 border-t border-t-[#E1E7EF] p-3.5">
+              <div className="flex items-center gap-3 border-t border-t-line p-3.5">
                 <Switch
                   isOn={specialist.specialistInfo.status === "active"}
                   activate={activate}
@@ -354,9 +484,12 @@ const SpecialistRow = ({
                 />
                 <span>{t("activateSpecialist")}</span>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>,
+          document.body,
+        )}
       </TableCell>
     </motion.tr>
   );
@@ -371,7 +504,7 @@ const TableHeaderCell = ({
 }) => {
   return (
     <th
-      className={`whitespace-nowrap px-6 py-4 text-start text-[#4F4F4F] font-light ${className}`}
+      className={`whitespace-nowrap px-6 py-4 text-start text-content-muted font-light ${className}`}
     >
       {children}
     </th>
@@ -387,7 +520,7 @@ const TableCell = ({
 }) => {
   return (
     <td
-      className={`whitespace-nowrap px-6 py-4 text-start text-[#4F4F4F] font-light ${className}`}
+      className={`whitespace-nowrap px-6 py-4 text-start text-content-muted font-light ${className}`}
     >
       {children}
     </td>

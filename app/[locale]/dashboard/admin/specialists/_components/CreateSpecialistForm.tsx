@@ -56,16 +56,16 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
   const isSubmitDisabled = !isValid || createSpecialistMutation.isPending;
 
   return (
-    <div className="flex max-h-[calc(100dvh-1.5rem)] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-[#fffdfd]">
+    <div className="flex max-h-[85dvh] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-surface-raised">
       <div className="flex shrink-0 items-center justify-between px-5 pt-5 sm:px-7.5 sm:pt-7.5">
         <h4 className="type-card-title text-center font-semibold">
           {t("dashboard.addSpecialist")}
         </h4>
         <button
           onClick={closeModal}
-          className="hover:bg-gray-100 transition-colors duration-150 p-3 rounded-full cursor-pointer place-self-end"
+          className="hover:bg-surface-neutral transition-colors duration-150 p-3 rounded-full cursor-pointer place-self-end"
         >
-          <CloseIcon className="text-gray-600" height="18" width="18" />
+          <CloseIcon className="text-content-muted" height="18" width="18" />
         </button>
       </div>
 
@@ -81,7 +81,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="firstname"
             placeholder={t("dashboard.firstName")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("firstName", { required: "First name is required" })}
           />
           {errors.firstName && <Error msg={errors.firstName.message} />}
@@ -94,7 +94,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="lastname"
             placeholder={t("dashboard.lastName")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("lastName", { required: "Last name is required" })}
           />
           {errors.lastName && <Error msg={errors.lastName.message} />}
@@ -107,7 +107,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="email"
             placeholder={t("dashboard.email")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("email", { required: "Email is required" })}
           />
           {errors.email && <Error msg={errors.email.message} />}
@@ -120,7 +120,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="phone"
             placeholder={t("dashboard.phoneNumber")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("phone", { required: "Phone number is required" })}
           />
           {errors.phone && <Error msg={errors.phone.message} />}
@@ -133,7 +133,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="speciality"
             placeholder={t("dashboard.specialty")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("speciality", { required: "Speciality is required" })}
           />
           {errors.speciality && <Error msg={errors.speciality.message} />}
@@ -148,7 +148,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
             min={0}
             id="experienceYears"
             placeholder={t("dashboard.experienceYears")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("experienceYears", {
               required: "Experience years is required",
             })}
@@ -165,7 +165,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
           <input
             id="password"
             placeholder={t("placeholders.password")}
-            className="px-3 py-2 rounded-xl border-none outline-none ring ring-[#D5D5D5] focus:ring-2 focus:ring-[#4D8E32] transition-all duration-150"
+            className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong focus:ring-2 focus:ring-brand transition-all duration-150"
             {...register("password", {
               required: "Password is required",
             })}
@@ -175,13 +175,13 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
 
         </div>
 
-        <div className="shrink-0 border-t border-[#E1E7EF] bg-[#fffdfd] p-5 sm:px-7.5 sm:py-5">
+        <div className="shrink-0 border-t border-line bg-surface-raised p-5 sm:px-7.5 sm:py-5">
           <button
             disabled={isSubmitDisabled}
             className={`type-control flex min-h-12.5 w-full items-center justify-center rounded-full px-7.5 font-semibold transition-colors ${
               isSubmitDisabled
-                ? "cursor-not-allowed bg-gray-300 text-gray-500"
-                : "cursor-pointer bg-[#E99532] text-white hover:bg-[#D98622]"
+                ? "cursor-not-allowed bg-line-strong text-content-subtle"
+                : "cursor-pointer bg-accent text-white hover:bg-accent-hover"
             }`}
           >
             {createSpecialistMutation.isPending ? (

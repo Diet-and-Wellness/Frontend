@@ -25,24 +25,24 @@ const CaloriesCard = ({
       cardName: t("maintenance"),
       target: t("maintenanceTarget"),
       note: t("maintenanceNote"),
-      caloriesColor: "#475569",
-      cardBackground: "#F8F8F8",
+      caloriesColor: "var(--color-palette-475569)",
+      cardBackground: "var(--color-palette-f8f8f8)",
       icon: <MaintenanceIcon />,
     },
     loss: {
       cardName: t("fatLoss"),
       target: t("fatLossTarget"),
       note: t("lossNote"),
-      caloriesColor: "#4D8E32",
-      cardBackground: "#F1F9EF",
+      caloriesColor: "var(--color-palette-4d8e32)",
+      cardBackground: "var(--color-palette-f1f9ef)",
       icon: <LossIcon />,
     },
     gain: {
       cardName: t("muscleGain"),
       target: t("muscleGainTarget"),
       note: t("gainNote"),
-      caloriesColor: "#E99532",
-      cardBackground: "#FDF4EB",
+      caloriesColor: "var(--color-palette-e99532)",
+      cardBackground: "var(--color-palette-fdf4eb)",
       icon: <GainIcon />,
     },
   } as const;
@@ -50,7 +50,7 @@ const CaloriesCard = ({
   const { cardName, target, note, caloriesColor, cardBackground, icon } =
     caloriesCardData[type];
 
-  const cardClassName = `flex h-full w-full flex-col justify-between gap-3.5 rounded-4xl p-5 ring transition-all duration-150 ${isActive ? "ring-2 ring-[#4D8E32]" : "ring-[#EDEDED]"} ${clickable ? "cursor-pointer" : ""}`;
+  const cardClassName = `flex h-full w-full flex-col justify-between gap-3.5 rounded-4xl p-5 ring transition-all duration-150 ${isActive ? "ring-2 ring-brand" : "ring-line-soft"} ${clickable ? "cursor-pointer" : ""}`;
 
   const cardContent = (
     <>
@@ -64,7 +64,7 @@ const CaloriesCard = ({
 
         <div className="flex min-w-0 flex-col items-end gap-1 text-end">
           <p className="type-label font-medium leading-tight">{cardName}</p>
-          <p className="type-meta leading-5 text-[#4F4F4F]">{target}</p>
+          <p className="type-meta leading-5 text-content-muted">{target}</p>
         </div>
       </div>
 
@@ -87,11 +87,11 @@ const CaloriesCard = ({
         >
           {calories}
         </motion.p>
-        <p className="type-label text-[#4F4F4F]">{t("kcalDay")}</p>
+        <p className="type-label text-content-muted">{t("kcalDay")}</p>
       </div>
 
       <p
-        className="type-label w-full rounded-2xl px-6 py-3.5 text-start text-[#4F4F4F]"
+        className="type-label w-full rounded-2xl px-6 py-3.5 text-start text-content-muted"
         style={{ backgroundColor: cardBackground }}
       >
         {note}

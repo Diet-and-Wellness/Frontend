@@ -145,9 +145,9 @@ const AboutUsPage = () => {
               visible: { opacity: 1, y: 0 },
             }}
             whileTap={{ scale: 0.98 }}
-            whileHover={{ background: "#3a6b26" }}
+            whileHover={{ background: "var(--color-palette-3a6b26)" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="type-control mt-5 w-full rounded-4xl bg-[#3a6b26e0] py-3 font-medium text-white cursor-pointer sm:w-80"
+            className="type-control mt-5 w-full rounded-4xl bg-[var(--color-palette-3a6b26e0)] py-3 font-medium text-white cursor-pointer sm:w-80"
           >
             {t("aboutUs.getStartedNow")}
           </motion.button>

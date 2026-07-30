@@ -91,7 +91,7 @@ const PersonalDataForm = ({
         <h3 className="type-page-title font-semibold">
           {t("analysis.personalData")}
         </h3>
-        <p className="type-body text-[#4F4F4F]">
+        <p className="type-body text-content-muted">
           {t("analysis.personalDataDescription")}
         </p>
       </div>
@@ -102,7 +102,7 @@ const PersonalDataForm = ({
             <label className="type-label font-medium">
               {t("calculators.age")}
             </label>
-            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
               <input
                 type="number"
                 min={1}
@@ -115,7 +115,7 @@ const PersonalDataForm = ({
                 className="w-full outline-none"
                 placeholder={t("calculators.enterAge")}
               />
-              <p className="type-label text-[#4F4F4F]">
+              <p className="type-label text-content-muted">
                 {t("calculators.year")}
               </p>
             </div>
@@ -125,7 +125,7 @@ const PersonalDataForm = ({
             <label className="type-label font-medium">
               {t("calculators.height")}
             </label>
-            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
               <input
                 type="number"
                 inputMode="decimal"
@@ -139,7 +139,7 @@ const PersonalDataForm = ({
                 className="w-full outline-none"
                 placeholder={t("calculators.enterHeight")}
               />
-              <p className="type-label text-[#4F4F4F]">
+              <p className="type-label text-content-muted">
                 {t("calculators.cm")}
               </p>
             </div>
@@ -149,7 +149,7 @@ const PersonalDataForm = ({
             <label className="type-label font-medium">
               {t("calculators.weight")}
             </label>
-            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
               <input
                 type="number"
                 inputMode="decimal"
@@ -163,7 +163,7 @@ const PersonalDataForm = ({
                 className="w-full outline-none"
                 placeholder={t("calculators.enterWeight")}
               />
-              <p className="type-label text-[#4F4F4F]">
+              <p className="type-label text-content-muted">
                 {t("calculators.kg")}
               </p>
             </div>
@@ -173,7 +173,7 @@ const PersonalDataForm = ({
             <label className="type-label font-medium">
               {t("analysis.location")}
             </label>
-            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-gray-300 focus-within:ring-[#4D8E32] focus-within:ring-2 rounded-xl">
+            <div className="px-3.5 py-3 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
               <input
                 type="text"
                 onChange={(event) => setLocation(event.target.value)}
@@ -238,7 +238,7 @@ const PersonalDataForm = ({
       <button
         disabled={!showResultBtnActive}
         onClick={() => updateProfileMutation.mutate()}
-        className={`type-control mt-2.5 flex h-13.5 w-full items-center justify-center rounded-full px-6 font-semibold transition-colors sm:px-10 ${showResultBtnActive ? "bg-[#4D8E32] text-white hover:bg-[#337516] cursor-pointer" : "bg-gray-300 text-white cursor-not-allowed"}`}
+        className={`type-control mt-2.5 flex h-13.5 w-full items-center justify-center rounded-full px-6 font-semibold transition-colors sm:px-10 ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}`}
       >
         {t("analysis.startAssessment")}
       </button>

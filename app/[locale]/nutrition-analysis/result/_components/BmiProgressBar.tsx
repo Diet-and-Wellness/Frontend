@@ -19,7 +19,7 @@ const BMIProgress = ({ value, min = 10, max = 40 }: BMIProgressProps) => {
           className="w-full h-3 rounded-full"
           style={{
             background:
-              "linear-gradient(90deg,#ff5b4d 0%,#f7a34b 30%,#eef35a 50%,#9dd56f 75%,#49c38c 100%)",
+              "linear-gradient(90deg,var(--color-palette-ff5b4d) 0%,var(--color-palette-f7a34b) 30%,var(--color-palette-eef35a) 50%,var(--color-palette-9dd56f) 75%,var(--color-palette-49c38c) 100%)",
           }}
         />
 

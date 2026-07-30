@@ -10,7 +10,7 @@ const Tab = ({
   return (
     <button
       onClick={onClick}
-      className={`type-control p-2.5 cursor-pointer ${isActive ? "text-[#E99532] shadow-[0_2px_0_0_#E99532]" : "text-[#4F4F4F]"} transition-all duration-300`}
+      className={`cursor-pointer p-2.5 text-base font-medium sm:text-lg ${isActive ? "text-accent shadow-[0_2px_0_0_var(--color-palette-e99532)]" : "text-content-muted"} transition-all duration-300`}
     >
       {label}
     </button>

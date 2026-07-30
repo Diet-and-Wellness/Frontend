@@ -58,36 +58,36 @@ export default function ResultPage() {
     if (percentage >= 90) {
       status = {
         label: t("excellent"),
-        color: "#22C55E",
-        bgColor: "#F0FDF4",
+        color: "var(--color-palette-22c55e)",
+        bgColor: "var(--color-palette-f0fdf4)",
         description: t("excellentDescription"),
       };
     } else if (percentage >= 75) {
       status = {
         label: t("good"),
-        color: "#65A30D",
-        bgColor: "#F7FEE7",
+        color: "var(--color-palette-65a30d)",
+        bgColor: "var(--color-palette-f7fee7)",
         description: t("goodDescription"),
       };
     } else if (percentage >= 60) {
       status = {
         label: t("average"),
-        color: "#F59E0B",
-        bgColor: "#FFFBEB",
+        color: "var(--color-palette-f59e0b)",
+        bgColor: "var(--color-palette-fffbeb)",
         description: t("averageDescription"),
       };
     } else if (percentage >= 40) {
       status = {
         label: t("needsImprovement"),
-        color: "#F97316",
-        bgColor: "#FFF7ED",
+        color: "var(--color-palette-f97316)",
+        bgColor: "var(--color-palette-fff7ed)",
         description: t("needsImprovementDescription"),
       };
     } else {
       status = {
         label: t("needsAttention"),
-        color: "#EF4444",
-        bgColor: "#FEF2F2",
+        color: "var(--color-palette-ef4444)",
+        bgColor: "var(--color-palette-fef2f2)",
         description: t("needsAttentionDescription"),
       };
     }
@@ -168,7 +168,7 @@ export default function ResultPage() {
 
         <div className="relative">
           {false && (
-            <div className="absolute inset-0 bg-linear-to-b from-white/50 to-black/20 backdrop-blur-sm z-50">
+            <div className="absolute inset-0 bg-linear-to-b from-surface-raised/50 to-black/20 backdrop-blur-sm z-50">
               <PayToAccessCard />
             </div>
           )}

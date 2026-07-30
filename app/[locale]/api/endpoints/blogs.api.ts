@@ -2,6 +2,7 @@ import apiClient from "../index";
 import type {
   BlogId,
   GetAllPublishedBlogsRequest,
+  GetAllBlogsRequest,
   UpdateBlogStatusRequest,
   CategoryId,
   Slug,
@@ -25,8 +26,13 @@ export const blogsApi = {
   createNewBlog: (data: FormData) => {
     return apiClient.post("/articles/admin", data);
   },
-  getAllBlogs: () => {
-    return apiClient.get("/articles/admin?status=all");
+  getAllBlogs: (params: GetAllBlogsRequest) => {
+    return apiClient.get("/articles/admin", {
+      params: {
+        status: "all",
+        ...params,
+      },
+    });
   },
   updateBlog: (blogId: BlogId, data: FormData) => {
     return apiClient.put(`/articles/admin/${blogId}`, data);
