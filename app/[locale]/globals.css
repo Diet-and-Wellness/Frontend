@@ -482,7 +482,7 @@ body {
 
 @media (min-width: 1024px) {
   .type-display {
-    font-size: 3.75rem;
+    font-size: 3.25rem;
   }
 
   .type-section-title {
@@ -494,7 +494,7 @@ body {
   }
 
   .type-card-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .type-body {
@@ -507,7 +507,7 @@ body {
 
   .type-label,
   .type-control {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 
   .type-meta {

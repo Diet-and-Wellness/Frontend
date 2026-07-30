@@ -185,14 +185,14 @@ const AssessmentPage = () => {
   const nextBtnEnabled = isLastQuestion
     ? Boolean(
         currentSectionId &&
-          answers[currentSectionId]?.[section?.questions[0]?.id]?.text?.trim() &&
-          !submitFormMutation.isPending,
+        answers[currentSectionId]?.[section?.questions[0]?.id]?.text?.trim() &&
+        !submitFormMutation.isPending,
       )
     : Boolean(
         currentSectionId &&
-          section?.questions.every((question: AssessmentQuestion) =>
-            Boolean(answers[currentSectionId]?.[question.id]),
-          ),
+        section?.questions.every((question: AssessmentQuestion) =>
+          Boolean(answers[currentSectionId]?.[question.id]),
+        ),
       );
 
   const nextHandler = () => {

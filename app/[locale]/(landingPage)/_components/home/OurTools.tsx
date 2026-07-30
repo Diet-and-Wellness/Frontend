@@ -138,7 +138,7 @@ const OurTools = () => {
       md:bg-size-[100%_auto]
       bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
-      <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-25">
+      <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-10">
         <AnimatePresence mode="wait">
           {showBmiModal && (
             <BMI onClose={closeBmiModal} onGetFullAnalysis={getFullAnalysis} />
@@ -172,7 +172,7 @@ const OurTools = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="max-w-2xl flex flex-col gap-4 md:gap-6"
+          className="max-w-2xl flex flex-col gap-4 md:gap-5"
         >
           <p className="type-display font-bold text-accent">
             {t("tools.empoweringYouOnTheJourneyOnWellness")}

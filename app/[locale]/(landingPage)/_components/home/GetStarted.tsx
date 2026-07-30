@@ -35,7 +35,7 @@ const GetStarted = () => {
         bg-accent
         rounded-3xl md:rounded-4xl overflow-hidden"
       >
-        <GetStartedWave className="get-started-wave pointer-events-none absolute start-0 top-0 z-0 hidden h-auto w-[500px] text-surface md:block lg:w-[680px] xl:w-[775px]" />
+        <GetStartedWave className="get-started-wave pointer-events-none absolute inset-s-0 top-0 z-0 hidden h-auto w-125 text-surface md:block lg:w-170 xl:w-193.75" />
 
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -103,12 +103,10 @@ const GetStarted = () => {
 const Step = ({ title, desc }: { title: string; desc: string }) => {
   return (
     <li>
-      <h4 className="type-card-title font-semibold text-content/60">
+      <h4 className="type-card-title font-semibold text-content/60 mb-1.5">
         {title}
       </h4>
-      <p className="type-body font-medium text-white">
-        {desc}
-      </p>
+      <p className="type-body font-medium text-white">{desc}</p>
     </li>
   );
 };

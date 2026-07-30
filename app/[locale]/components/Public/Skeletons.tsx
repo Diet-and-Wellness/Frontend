@@ -44,7 +44,10 @@ export const TableSkeleton = ({
         {Array.from({ length: columns }, (_, index) => (
           <Skeleton
             key={index}
-            className={joinClasses("h-4 max-w-full", index === 0 ? "w-4/5" : "w-3/5")}
+            className={joinClasses(
+              "h-4 max-w-full",
+              index === 0 ? "w-4/5" : "w-3/5",
+            )}
           />
         ))}
       </div>
@@ -190,61 +193,62 @@ export const PricingPlansSkeleton = () => (
       const isPopular = index === 1;
 
       return (
-      <li
-        key={index}
-        className={joinClasses(
-          "w-full max-w-sm rounded-3xl",
-          isPopular
-            ? "bg-[var(--color-skeleton-feature-surface)] p-1"
-            : "",
-        )}
-      >
-        {isPopular && (
-          <div className="mx-auto my-2 h-3 w-28 rounded-full bg-surface-raised/70" />
-        )}
-
-        <div
+        <li
+          key={index}
           className={joinClasses(
-            "flex flex-col gap-4 rounded-3xl bg-surface-raised p-5 sm:gap-5 sm:p-6",
-            !isPopular ? "shadow-xl" : "",
+            "w-full max-w-sm rounded-3xl",
+            isPopular ? "bg-(--color-skeleton-feature-surface) p-1" : "",
           )}
         >
-          <div className="space-y-2">
-            <Skeleton className="h-6 w-2/5" />
-            <Skeleton className="h-4 w-1/2" />
-          </div>
+          {isPopular && (
+            <div className="mx-auto my-2 h-3 w-28 rounded-full bg-surface-raised/70" />
+          )}
 
-          <div className="flex items-end gap-2">
-            <Skeleton className="h-10 w-1/3" />
-            <Skeleton className="mb-1 h-4 w-1/4" />
-          </div>
+          <div
+            className={joinClasses(
+              "flex flex-col gap-4 rounded-3xl bg-surface-raised p-5 sm:gap-5 sm:p-6",
+              !isPopular ? "shadow-xl" : "",
+            )}
+          >
+            <div className="space-y-2">
+              <Skeleton className="h-6 w-2/5" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
 
-          <div className="flex flex-col gap-3">
-            {Array.from({ length: benefitCount + 2 }, (_, itemIndex) => (
-              <div key={itemIndex} className="flex items-start gap-2 sm:gap-3">
-                <Skeleton className="size-5 shrink-0 rounded-full sm:size-6" />
-                <Skeleton
-                  className={joinClasses(
-                    "h-5",
-                    itemIndex % 3 === 0
-                      ? "w-4/5"
-                      : itemIndex % 3 === 1
-                        ? "w-2/3"
-                        : "w-3/4",
-                  )}
-                />
-              </div>
-            ))}
-          </div>
+            <div className="flex items-end gap-2">
+              <Skeleton className="h-10 w-1/3" />
+              <Skeleton className="mb-1 h-4 w-1/4" />
+            </div>
 
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-4/5" />
-          </div>
+            <div className="flex flex-col gap-3">
+              {Array.from({ length: benefitCount + 2 }, (_, itemIndex) => (
+                <div
+                  key={itemIndex}
+                  className="flex items-start gap-2 sm:gap-3"
+                >
+                  <Skeleton className="size-5 shrink-0 rounded-full sm:size-6" />
+                  <Skeleton
+                    className={joinClasses(
+                      "h-5",
+                      itemIndex % 3 === 0
+                        ? "w-4/5"
+                        : itemIndex % 3 === 1
+                          ? "w-2/3"
+                          : "w-3/4",
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
 
-          <Skeleton className="mt-2 h-10 w-full rounded-full sm:mt-3 sm:h-12" />
-        </div>
-      </li>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-4/5" />
+            </div>
+
+            <Skeleton className="mt-2 h-10 w-full rounded-full sm:mt-3 sm:h-12" />
+          </div>
+        </li>
       );
     })}
   </ul>
@@ -323,7 +327,7 @@ export const PersonalDataFormSkeleton = () => (
 export const AssessmentQuestionsSkeleton = () => (
   <AssessmentPageSkeletonShell>
     <div className="mx-auto flex w-full flex-col gap-5 px-4 sm:w-[95%] sm:px-0">
-      <div className="sticky top-0 z-50 flex flex-col gap-2 bg-surface-raised py-5">
+      <div className="sticky top-0 z-50 flex flex-col gap-2 bg-surface py-5">
         <Skeleton className="h-4 w-24" />
         <div className="flex items-center justify-between">
           <Skeleton className="h-10 w-20" />
@@ -350,7 +354,7 @@ export const AssessmentQuestionsSkeleton = () => (
         ))}
       </div>
 
-      <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-line bg-surface-raised py-4 sm:gap-5 sm:border-transparent sm:py-7">
+      <div className="sticky bottom-0 flex items-center justify-between gap-3 border-t border-line bg-surface py-4 sm:gap-5 sm:border-transparent sm:py-7">
         <Skeleton className="h-12 flex-1 rounded-full sm:w-28 sm:flex-none" />
         <Skeleton className="h-12 flex-1 rounded-full sm:w-36 sm:flex-none" />
       </div>
@@ -452,7 +456,7 @@ export const AnalysisResultSkeleton = () => (
           <Skeleton className="size-45 shrink-0 rounded-full" />
           <div className="flex flex-1 flex-col gap-5">
             {Array.from({ length: 3 }, (_, index) => (
-            <div key={index} className="flex items-center gap-4 sm:gap-7.5">
+              <div key={index} className="flex items-center gap-4 sm:gap-7.5">
                 <div className="flex flex-1 flex-col gap-2">
                   <Skeleton className="h-5 w-28" />
                   <Skeleton className="h-3 w-full rounded-full" />

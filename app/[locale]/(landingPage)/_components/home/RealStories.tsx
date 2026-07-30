@@ -98,7 +98,7 @@ const RealStories = () => {
                 text-white
                 cursor-pointer 
                 type-control
-                font-medium 
+                font-semibold 
                 bg-brand
                 hover:bg-brand-hover
                 transition-colors duration-300
@@ -116,7 +116,7 @@ const RealStories = () => {
                 }}
               >
                 <PointerIcon
-                  className={`text-surface w-20 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0 ${
+                  className={`text-surface w-0 md:w-32 lg:w-44 h-auto rotate-45 md:rotate-0 ${
                     isArabic ? "md:scale-x-[-1]" : ""
                   }`}
                 />

@@ -89,12 +89,12 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
 
   return (
     <div
-      className={`min-w-[70%] hidden xl:flex-row xl:flex xl:justify-between xl:items-center gap-3`}
+      className={`min-w-[70%] hidden xl:flex-row xl:flex xl:justify-between xl:items-center gap-15`}
     >
       <ul
         className="
         xl:flex items-center self-center gap-1 
-        rounded-full border-2 border-brand-hover p-1"
+        rounded-full border border-line p-1 bg-surface-muted bg-surface-muted text-content-subtle transition-colors"
       >
         {tabs.map((tab) => (
           <Tab
@@ -194,7 +194,7 @@ const Tab = ({
   return (
     <Link href={href} className="rounded-full">
       <li
-        className={`rounded-full cursor-pointer px-5 py-1.5 text-[20px] font-semibold text-brand-hover
+        className={`rounded-full cursor-pointer px-5 py-1.5 text-[18px] font-semibold text-brand-hover
            transition-all duration-300 ease-in-out
            hover:bg-brand-hover hover:text-brand-contrast
            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-hover focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${

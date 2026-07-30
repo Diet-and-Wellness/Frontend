@@ -15,7 +15,7 @@ const Hero = () => {
   const router = useRouter();
 
   return (
-    <section className="relative overflow-hidden bg-surface pt-15 sm:pt-22 md:pt-25 xl:pt-30">
+    <section className="relative overflow-hidden bg-surface md:pt-15 xl:pt-20">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

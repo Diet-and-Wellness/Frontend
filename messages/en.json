@@ -101,9 +101,7 @@
     "newsletterDescription": "Subscribe to our newsletter and unlock a world of exclusive benefits. Be the first to know about our latest nutrition tips and recipes, special promotions, and exciting updates."
   },
   "brand": {
-    "brandName": "Diet & Wellness",
-    "diet": "D&",
-    "wellness": "W"
+    "brandName": "Diet & Wellness"
   },
   "placeholders": {
     "enterYourEmail": "Enter your email",
@@ -134,15 +132,51 @@
     "passwordPlaceholder": "Enter your password"
   },
   "calculators": {
-    "height": "Height", "weight": "Weight", "age": "Age", "year": "year", "cm": "cm", "kg": "kg", "activityLevel": "Activity level",
-    "male": "Male", "female": "Female", "low": "Low", "moderate": "Moderate", "high": "High", "extreme": "Extreme",
-    "enterAge": "Enter your age", "enterHeight": "Enter your height", "enterWeight": "Enter your weight",
-    "littleExercise": "Little or no exercise", "exerciseModerate": "Exercise 1–3 days/week", "exerciseHigh": "Exercise 4–6 days/week", "intenseActivity": "Daily intense activity",
-    "seeResult": "See Result", "tryAgain": "Try Again", "fullAnalysis": "Get Full Analysis",
-    "bmiTitle": "Body Mass Index Calculator", "bmiScore": "Your BMI Score", "healthyBmiRange": "Healthy BMI Range", "calorieTitle": "Calorie Calculator", "dailyCalorieNeeds": "Your Daily Calorie Needs", "estimatedValues": "These are estimated values. Actual needs may vary.",
-    "bmiStatus": {"Underweight": "Underweight", "Normal": "Normal", "Overweight": "Overweight", "Obesity": "Obesity"},
-    "weightAction": {"Losing": "Losing", "Maintaining": "Maintaining", "Gaining": "Gaining"},
-    "weightPosition": {"above": "above", "below": "below", "healthy": "within"},
+    "height": "Height",
+    "weight": "Weight",
+    "age": "Age",
+    "year": "year",
+    "cm": "cm",
+    "kg": "kg",
+    "activityLevel": "Activity level",
+    "male": "Male",
+    "female": "Female",
+    "low": "Low",
+    "moderate": "Moderate",
+    "high": "High",
+    "extreme": "Extreme",
+    "enterAge": "Enter your age",
+    "enterHeight": "Enter your height",
+    "enterWeight": "Enter your weight",
+    "littleExercise": "Little or no exercise",
+    "exerciseModerate": "Exercise 1–3 days/week",
+    "exerciseHigh": "Exercise 4–6 days/week",
+    "intenseActivity": "Daily intense activity",
+    "seeResult": "See Result",
+    "tryAgain": "Try Again",
+    "fullAnalysis": "Get Full Analysis",
+    "bmiTitle": "Body Mass Index Calculator",
+    "bmiScore": "Your BMI Score",
+    "healthyBmiRange": "Healthy BMI Range",
+    "calorieTitle": "Calorie Calculator",
+    "dailyCalorieNeeds": "Your Daily Calorie Needs",
+    "estimatedValues": "These are estimated values. Actual needs may vary.",
+    "bmiStatus": {
+      "Underweight": "Underweight",
+      "Normal": "Normal",
+      "Overweight": "Overweight",
+      "Obesity": "Obesity"
+    },
+    "weightAction": {
+      "Losing": "Losing",
+      "Maintaining": "Maintaining",
+      "Gaining": "Gaining"
+    },
+    "weightPosition": {
+      "above": "above",
+      "below": "below",
+      "healthy": "within"
+    },
     "aboveNormalBy": "Above normal by",
     "belowNormalBy": "Below normal by",
     "withinHealthyRange": "Within the healthy range",
@@ -153,9 +187,17 @@
     "idealWeight": "Ideal Weight",
     "idealWeightDifference": "You’re {difference} kg {position} your ideal weight.",
     "idealWeightRecommendation": "{action} about {difference} kg can help you achieve a healthier weight.",
-    "maintenance": "Maintenance", "calories": "Calories", "fatLoss": "Fat Loss", "muscleGain": "Muscle Gain", "kcalDay": "kcal per day",
-    "maintenanceTarget": "Maintain your current weight", "fatLossTarget": "Lose about 0.5 kg per week", "muscleGainTarget": "Gain about 0.5 kg per week",
-    "maintenanceNote": "Calories to maintain your current weight", "lossNote": "A 500 kcal daily deficit for healthy weight loss", "gainNote": "A 500 kcal daily surplus for healthy weight gain"
+    "maintenance": "Maintenance",
+    "calories": "Calories",
+    "fatLoss": "Fat Loss",
+    "muscleGain": "Muscle Gain",
+    "kcalDay": "kcal per day",
+    "maintenanceTarget": "Maintain your current weight",
+    "fatLossTarget": "Lose about 0.5 kg per week",
+    "muscleGainTarget": "Gain about 0.5 kg per week",
+    "maintenanceNote": "Calories to maintain your current weight",
+    "lossNote": "A 500 kcal daily deficit for healthy weight loss",
+    "gainNote": "A 500 kcal daily surplus for healthy weight gain"
   },
   "aboutUs": {
     "enjoyableLiving": "Enjoyable Living",

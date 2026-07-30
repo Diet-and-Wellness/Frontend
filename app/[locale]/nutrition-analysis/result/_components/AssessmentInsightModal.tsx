@@ -63,7 +63,7 @@ const AssessmentInsightModal = ({
       >
         <div className="flex flex-col shrink-0 items-start justify-between gap-1 border-b border-line p-5 sm:p-6 md:px-7.5">
           <div className="flex justify-between items-center w-full">
-            <p className="mb-1 text-sm text-content-muted">
+            <p className="mb-1 text-lg text-content-muted">
               {t("sectionDetails")}
             </p>
             <button

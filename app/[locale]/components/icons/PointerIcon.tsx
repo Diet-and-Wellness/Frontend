@@ -3,10 +3,9 @@ export const PointerIcon = ({ className }: { className: string }) => {
     <div className={className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="191"
-        height="162"
-        fill="none"
         viewBox="0 0 191 162"
+        fill="none"
+        className="w-full h-full"
       >
         <path
           fill="currentColor"
