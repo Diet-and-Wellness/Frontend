@@ -142,7 +142,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
           onClick={() => setShowMenu((prev) => !prev)}
           aria-expanded={showMenu}
           aria-haspopup="menu"
-          className="flex cursor-pointer items-center gap-2 rounded-xl border border-line px-2 py-2 sm:gap-3"
+          className="flex cursor-pointer items-center gap-2 rounded-xl border border-line bg-surface-muted px-2 py-2 sm:gap-3 transition-colors hover:border-brand"
         >
           <div className="size-9 bg-accent rounded-xl flex justify-center items-center relative">
             <div className="size-3 bg-brand absolute rounded-full -top-0.5 -inset-e-0.5 shadow-[0_0_0_2px_var(--color-surface)]"></div>

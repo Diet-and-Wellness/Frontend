@@ -93,7 +93,8 @@ const AssessmentAnswersPage = () => {
   const sections = getSubmissionSections(submission);
   const submittedAt = getSubmissionDate(submission);
   const dateLocale = locale === "ar" ? "ar-EG" : "en-US";
-  const customerName = `${customer?.firstName ?? ""} ${customer?.lastName ?? ""}`.trim();
+  const customerName =
+    `${customer?.firstName ?? ""} ${customer?.lastName ?? ""}`.trim();
 
   if (isMeLoading || isCustomerLoading || isSubmissionLoading) {
     return <AssessmentAnswersSkeleton />;
@@ -129,8 +130,8 @@ const AssessmentAnswersPage = () => {
         </button>
       </header>
 
-      <section className="overflow-hidden rounded-3xl border border-[var(--color-palette-d9e9d2)] bg-surface-raised">
-        <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-[var(--color-palette-fffaf4)] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
+      <section className="overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">
+        <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-(--color-palette-fffaf4) p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
           <div className="flex items-center gap-4">
             <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white ring-4 ring-white">
               {getInitials(customer?.firstName, customer?.lastName)}
@@ -139,7 +140,9 @@ const AssessmentAnswersPage = () => {
               <h2 className="type-card-title font-bold text-content-strong">
                 {customerName || t("customer")}
               </h2>
-              <p className="type-body mt-1 text-content-muted">{customer?.email}</p>
+              <p className="type-body mt-1 text-content-muted">
+                {customer?.email}
+              </p>
             </div>
           </div>
 
@@ -230,9 +233,9 @@ const AssessmentSectionAnswers = ({
   const sectionTitle = getLocalizedValue(section.sectionTitle, locale);
 
   return (
-    <article className="overflow-hidden rounded-3xl border border-[var(--color-palette-e4eae1)] bg-surface-raised">
-      <header className="flex items-center gap-3 border-b border-[var(--color-palette-e4eae1)] bg-linear-to-r from-[var(--color-palette-f6fbf4)] to-surface-raised px-5 py-4 sm:px-6">
-        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand font-bold text-white">
+    <article className="overflow-hidden rounded-3xl border border-(--color-palette-e4eae1) bg-surface-raised">
+      <header className="flex items-center gap-3 border-b border-(--color-palette-e4eae1) bg-linear-to-r from-(--color-palette-f6fbf4) to-surface-raised px-5 py-4 sm:px-6">
+        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white">
           {sectionIndex + 1}
         </span>
         <h3 className="type-card-title font-semibold text-content-strong">
@@ -240,7 +243,7 @@ const AssessmentSectionAnswers = ({
         </h3>
       </header>
 
-      <div className="divide-y divide-[var(--color-palette-eef0f2)] bg-surface">
+      <div className="divide-y divide-(--color-palette-eef0f2) bg-surface">
         {section.answers.map((answer, answerIndex) => (
           <QuestionAnswer
             key={answer.questionId}
@@ -266,8 +269,7 @@ const QuestionAnswer = ({
     answer.answerText || answer.choiceText,
     locale,
   );
-  const isWrittenResponse =
-    Boolean(answer.answerText) && answerValue !== "—";
+  const isWrittenResponse = Boolean(answer.answerText) && answerValue !== "—";
 
   return (
     <div className="flex flex-col gap-3.5 px-5 py-5 sm:px-6">
@@ -286,11 +288,11 @@ const QuestionAnswer = ({
           </p>
         </div>
       ) : (
-        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-[var(--color-palette-dcecd6)] bg-[var(--color-palette-f7fbf5)] px-3.5 py-3">
+        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-(--color-palette-dcecd6) bg-(--color-palette-f7fbf5) px-3.5 py-3">
           <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-raised">
             <CheckIcon />
           </span>
-          <p className="type-label pt-0.5 font-semibold text-[var(--color-palette-2e641b)]">
+          <p className="type-label pt-0.5 font-semibold text-(--color-palette-2e641b)">
             {answerValue}
           </p>
         </div>
@@ -329,8 +331,8 @@ const AssessmentAnswersSkeleton = () => (
       <Skeleton className="h-13 w-full rounded-full md:w-36" />
     </header>
 
-    <section className="min-w-0 overflow-hidden rounded-3xl border border-[var(--color-palette-d9e9d2)] bg-surface-raised">
-      <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-[var(--color-palette-fffaf4)] p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
+    <section className="min-w-0 overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">
+      <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-(--color-palette-fffaf4) p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
         <div className="flex min-w-0 items-center gap-4">
           <Skeleton className="size-16 shrink-0 rounded-full!" />
           <div className="flex min-w-0 flex-1 flex-col gap-2.5">
@@ -369,13 +371,13 @@ const AssessmentAnswersSkeleton = () => (
         {Array.from({ length: 4 }, (_, sectionIndex) => (
           <article
             key={sectionIndex}
-            className="min-w-0 overflow-hidden rounded-3xl border border-[var(--color-palette-e4eae1)] bg-surface-raised"
+            className="min-w-0 overflow-hidden rounded-3xl border border-(--color-palette-e4eae1) bg-surface-raised"
           >
-            <div className="flex min-w-0 items-center gap-3 border-b border-[var(--color-palette-e4eae1)] bg-linear-to-r from-[var(--color-palette-f6fbf4)] to-surface-raised px-5 py-4 sm:px-6">
+            <div className="flex min-w-0 items-center gap-3 border-b border-(--color-palette-e4eae1) bg-linear-to-r from-(--color-palette-f6fbf4) to-surface-raised px-5 py-4 sm:px-6">
               <Skeleton className="size-9 shrink-0 rounded-xl" />
               <Skeleton className="h-6 w-full max-w-52" />
             </div>
-            <div className="divide-y divide-[var(--color-palette-eef0f2)] bg-surface">
+            <div className="divide-y divide-(--color-palette-eef0f2) bg-surface">
               {Array.from({ length: 2 }, (_, answerIndex) => (
                 <AssessmentAnswerRowSkeleton
                   key={answerIndex}
@@ -406,7 +408,7 @@ const AssessmentAnswerRowSkeleton = ({ written }: { written: boolean }) => (
         <Skeleton className="h-4 w-4/5" />
       </div>
     ) : (
-      <div className="ms-0 flex min-w-0 items-center gap-2.5 rounded-2xl border border-[var(--color-palette-dcecd6)] bg-[var(--color-palette-f7fbf5)] px-3.5 py-3 min-[360px]:ms-10">
+      <div className="ms-0 flex min-w-0 items-center gap-2.5 rounded-2xl border border-(--color-palette-dcecd6) bg-(--color-palette-f7fbf5) px-3.5 py-3 min-[360px]:ms-10">
         <Skeleton className="size-6 shrink-0 rounded-full" />
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Skeleton className="h-5 w-2/3 max-w-full" />

@@ -53,7 +53,10 @@ const EditBlogPage = () => {
       animate="show"
       className="w-full"
     >
-      <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
+      <motion.div
+        variants={item}
+        className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between"
+      >
         <div className="flex flex-col gap-3">
           <div className="type-body-lg flex items-center gap-2">
             <p className="text-content-placeholder">{t("contentAndBlogs")}</p>
@@ -61,13 +64,11 @@ const EditBlogPage = () => {
             <p>{t("editBlogBreadcrumb")}</p>
           </div>
           <h3 className="type-page-title font-bold">{t("editBlog")}</h3>
-          <p className="type-body-lg text-content-muted">
-            {t("manageBlogs")}
-          </p>
+          <p className="type-body-lg text-content-muted">{t("manageBlogs")}</p>
         </div>
         <button
           onClick={backToMainBlogsPage}
-          className="flex min-h-13 items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-fit"
+          className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
         >
           <ArrowIcon className="direction-aware-back-icon" />
           <p className="type-control font-semibold">{t("backToBlogs")}</p>

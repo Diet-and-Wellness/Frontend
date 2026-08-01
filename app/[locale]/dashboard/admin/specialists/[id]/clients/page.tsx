@@ -156,7 +156,7 @@ const SpecialistClientsPage = () => {
             </div>
             <button
               onClick={backToSpecialistHandler}
-              className="flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-auto"
+              className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
             >
               <ArrowIcon className="direction-aware-back-icon" />
               <p className="type-control font-semibold">
