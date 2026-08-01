@@ -72,7 +72,7 @@ const AssignSpecialistModal = ({
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: ["specialists", page],
+    queryKey: ["specialistsToAssign", page],
     queryFn: getSpecialists,
     placeholderData: (previousData) => previousData,
   });
@@ -117,7 +117,11 @@ const AssignSpecialistModal = ({
               onClick={onClose}
               className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
             >
-              <CloseIcon className="text-content-subtle" width="16" height="16" />
+              <CloseIcon
+                className="text-content-subtle"
+                width="16"
+                height="16"
+              />
             </button>
           </div>
 
