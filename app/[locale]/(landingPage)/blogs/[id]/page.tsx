@@ -56,7 +56,7 @@ const BlogDetails = () => {
           width={1000}
           height={1000}
           quality={100}
-          className="mx-auto mt-20 min-h-80 max-h-170 w-[92.5%] max-w-[92.5%] rounded-4xl bg-[var(--color-palette-f4f4f2)] object-cover md:min-h-120 md:w-[75%] lg:mt-25 lg:min-h-140"
+          className="mx-auto mt-20 min-h-80 max-h-170 w-[92.5%] max-w-[92.5%] rounded-4xl bg-(--color-palette-f4f4f2) object-cover md:min-h-120 md:w-[75%] lg:mt-25 lg:min-h-140"
         />
       )}
 
@@ -92,9 +92,7 @@ const BlogDetails = () => {
             </div>
           </div>
 
-          <h5 className="type-page-title font-semibold">
-            {blog.title}
-          </h5>
+          <h5 className="type-page-title font-semibold">{blog.title}</h5>
 
           <p className="type-body-lg max-w-6xl font-medium text-content-muted">
             {blog.description}
@@ -107,16 +105,18 @@ const BlogDetails = () => {
           {isBlogsLoading ? (
             <CardGridSkeleton cards={3} className="mt-10" />
           ) : (
-            <div className="mt-10 max-w-full mx-auto">
-              <h4 className="type-card-title mb-5 font-medium text-brand-dark lg:mb-10">
-                {t("youMayAlsoLike")}
-              </h4>
-              <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
-                {recommendedBlogs.map((blog: BlogResponse) => (
-                  <Blog key={blog.id} type="landing" blog={blog} />
-                ))}
+            recommendedBlogs.length > 0 && (
+              <div className="mt-10 max-w-full mx-auto">
+                <h4 className="type-card-title mb-5 font-medium text-brand-dark lg:mb-10">
+                  {t("youMayAlsoLike")}
+                </h4>
+                <div className="w-full grid place-self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7.5 md:gap-5 lg:gap-7.5 justify-between">
+                  {recommendedBlogs.map((blog: BlogResponse) => (
+                    <Blog key={blog.id} type="landing" blog={blog} />
+                  ))}
+                </div>
               </div>
-            </div>
+            )
           )}
         </div>
       )}

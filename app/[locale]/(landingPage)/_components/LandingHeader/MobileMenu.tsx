@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { getCleanPathname } from "@/app/[locale]/utils/getCleanPathname";
 import { useLocale, useTranslations } from "next-intl";
 import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type tabType = { label: string; href: string };
 
@@ -20,6 +21,8 @@ const MobileMenu = ({
 
   const pathnameWithLang = usePathname();
 
+  const queryClient = useQueryClient();
+
   const t = useTranslations();
   const locale = useLocale();
   const slideOffset = locale === "ar" ? "-100%" : "100%";
@@ -33,13 +36,30 @@ const MobileMenu = ({
     return pathname.startsWith(href);
   };
 
-  const handleLanguageSwitch = () => {
-    if (isArabic) {
-      router.replace(pathnameWithLang.replace("/ar", "/en"));
-    } else {
-      router.replace(pathnameWithLang.replace("/en", "/ar"));
-    }
+  const switchLanguage = () => switchLanguageMutation.mutate();
+
+  const validateCachedData = () => {
+    queryClient.removeQueries({
+      queryKey: ["pricingPlans"],
+    });
+    queryClient.removeQueries({
+      queryKey: ["landingBlogs"],
+    });
+    queryClient.removeQueries({
+      queryKey: ["publishedBlogs"],
+    });
   };
+
+  const switchLanguageMutation = useMutation({
+    mutationFn: async () => {
+      if (isArabic) {
+        router.replace(pathnameWithLang.replace("/ar", "/en"));
+      } else {
+        router.replace(pathnameWithLang.replace("/en", "/ar"));
+      }
+    },
+    onSuccess: validateCachedData,
+  });
 
   const closeMenu = () => {
     setIsMenuVisible(false);
@@ -66,7 +86,7 @@ const MobileMenu = ({
       </ul>
 
       <button
-        onClick={handleLanguageSwitch}
+        onClick={switchLanguage}
         className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface-muted px-5 py-2 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft"
       >
         <LanguageIcon className="size-5.5" />

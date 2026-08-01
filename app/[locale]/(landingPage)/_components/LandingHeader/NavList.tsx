@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type tabType = { label: string; href: string };
 
@@ -17,6 +18,8 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
   const locale = useLocale();
   const [showLanguageOptions, setShowLanguageOptions] = useState(false);
   const t = useTranslations();
+
+  const queryClient = useQueryClient();
 
   const { data: me } = useMe();
 
@@ -64,17 +67,41 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
     return pathname.startsWith(href);
   };
 
-  const switchToEnglish = () => {
-    const isArabic = locale === "ar";
-    if (isArabic) router.replace(pathnameWithLang.replace("/ar", "/en"));
+  const switchToArabic = () => switchToArabicMutation.mutate();
+
+  const switchToEnglish = () => switchToEnglishMutation.mutate();
+
+  const validateCachedData = () => {
     setShowLanguageOptions(false);
+
+    queryClient.removeQueries({
+      queryKey: ["pricingPlans"],
+    });
+
+    queryClient.removeQueries({
+      queryKey: ["landingBlogs"],
+    });
+
+    queryClient.removeQueries({
+      queryKey: ["publishedBlogs"],
+    });
   };
 
-  const switchToArabic = () => {
-    const isEnglish = locale === "en";
-    if (isEnglish) router.replace(pathnameWithLang.replace("/en", "/ar"));
-    setShowLanguageOptions(false);
-  };
+  const switchToEnglishMutation = useMutation({
+    mutationFn: async () => {
+      const isArabic = locale === "ar";
+      if (isArabic) router.replace(pathnameWithLang.replace("/ar", "/en"));
+    },
+    onSuccess: validateCachedData,
+  });
+
+  const switchToArabicMutation = useMutation({
+    mutationFn: async () => {
+      const isEnglish = locale === "en";
+      if (isEnglish) router.replace(pathnameWithLang.replace("/en", "/ar"));
+    },
+    onSuccess: validateCachedData,
+  });
 
   const handleCustomerTools = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (pathname === "/") {
