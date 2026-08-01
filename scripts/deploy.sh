@@ -48,10 +48,10 @@ for attempt in {1..15}; do
   sleep 2
 done
 if [[ "$healthy" != true ]]; then
-  pm2 logs diet-wellness-frontend --lines 80 --nostream || true
+  pm2 logs frontend --lines 80 --nostream || true
   echo "Health check failed: $HEALTH_URL" >&2
   exit 1
 fi
 
-pm2 status diet-wellness-frontend
+pm2 status frontend
 stage "Deployment completed"

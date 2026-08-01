@@ -13,7 +13,7 @@ Nginx :80/:443
     `-- api.example.com  -> backend on 127.0.0.1:5000
 ```
 
-PM2 manages Node.js; Nginx handles public HTTP/HTTPS. This repository supplies `diet-wellness-frontend` on port 3000 using standard `next start`.
+PM2 manages Node.js; Nginx handles public HTTP/HTTPS. This repository supplies `frontend` on port 3000 using standard `next start`.
 
 ## 2. Values the user must replace
 
@@ -178,7 +178,7 @@ mkdir -p logs
 pm2 start ecosystem.config.cjs
 pm2 save
 curl --fail http://127.0.0.1:3000/api/health
-pm2 logs diet-wellness-frontend --lines 100 --nostream
+pm2 logs frontend --lines 100 --nostream
 ```
 
 Prove the manual deployment before Actions. Standard `next start` was retained; standalone copying is unnecessary for this single-server install.
@@ -292,8 +292,8 @@ Ignored `.env.production` remains. A later normal deployment returns to `origin/
 
 ```bash
 pm2 status
-pm2 logs diet-wellness-frontend --lines 200
-pm2 describe diet-wellness-frontend
+pm2 logs frontend --lines 200
+pm2 describe frontend
 journalctl -u pm2-deploy --since today
 nginx -t
 systemctl status nginx
