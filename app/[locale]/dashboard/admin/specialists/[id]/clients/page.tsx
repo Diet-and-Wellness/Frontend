@@ -323,7 +323,9 @@ const CustomerRow = ({
           aria-disabled={!customer.lastNote}
           tabIndex={customer.lastNote ? 0 : -1}
           onClick={() => {
-            if (customer.lastNote) onViewNote(customer.lastNote);
+            if (!!customer.lastNote) {
+              onViewNote(customer.lastNote);
+            }
           }}
           className={
             customer.lastNote
