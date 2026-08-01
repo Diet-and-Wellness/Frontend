@@ -156,7 +156,7 @@ export interface NoteWriter {
   firstName: string;
   lastName: string;
   email: string;
-  role: "specialist";
+  role: "specialist" | "admin";
 }
 
 export interface Attachment {
