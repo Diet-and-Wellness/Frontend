@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Production deployment
+
+See [docs/HOSTINGER_VPS_DEPLOYMENT.md](docs/HOSTINGER_VPS_DEPLOYMENT.md) for the Hostinger Ubuntu, PM2, Nginx, HTTPS, and GitHub Actions deployment procedure. The public API URL belongs in the VPS `.env.production` and is embedded during `next build`.
+
 ## Getting Started
 
 First, run the development server:
