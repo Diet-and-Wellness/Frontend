@@ -4,7 +4,6 @@ import { ChangeEvent, useState } from "react";
 import { notesApi } from "@/app/[locale]/api/endpoints/notes.api";
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import PenIcon from "@/app/[locale]/components/icons/Pen";
-import SaveIcon from "@/app/[locale]/components/icons/SaveIcon";
 import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -104,9 +103,11 @@ const NoteModal = ({
         )}
       </AnimatePresence>
 
-      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface border border-line">
         <div className="flex shrink-0 items-center justify-between border-b border-line px-4 py-4 sm:px-7.5">
-          <p className="type-card-title font-medium text-content-strong">{t("note")}</p>
+          <p className="type-card-title font-medium text-content-strong">
+            {t("note")}
+          </p>
           <button
             disabled={isLoading}
             onClick={onClose}
@@ -117,18 +118,18 @@ const NoteModal = ({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto p-4 overscroll-contain sm:px-7.5">
-        {mode === "view" ? (
-          <p className="type-body w-full whitespace-pre-wrap">
-            {currentNote}
-          </p>
-        ) : (
-          <textarea
-            value={note}
-            onChange={noteChangeHandler}
-            placeholder={t("addNote")}
-            className="min-h-50 w-full resize-none rounded-2xl p-3.5 text-base outline-none ring ring-line-strong transition-all duration-150 placeholder:text-line-strong focus:ring-2 focus:ring-brand"
-          />
-        )}
+          {mode === "view" ? (
+            <p className="type-body w-full whitespace-pre-wrap">
+              {currentNote}
+            </p>
+          ) : (
+            <textarea
+              value={note}
+              onChange={noteChangeHandler}
+              placeholder={t("addNote")}
+              className="min-h-50 w-full resize-none rounded-2xl p-3.5 text-base outline-none ring ring-line-strong transition-all duration-150 placeholder:text-line-strong focus:ring-2 focus:ring-brand"
+            />
+          )}
         </div>
 
         <div className="flex shrink-0 items-center justify-between border-t border-line bg-surface p-4 sm:px-7.5">
@@ -140,11 +141,7 @@ const NoteModal = ({
                   onClick={() => setShowAlertModal(true)}
                   className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-red-50"
                 >
-                  <TrashIcon
-                    width={22}
-                    height={22}
-                    className="text-danger"
-                  />
+                  <TrashIcon width={22} height={22} className="text-danger" />
                 </button>
               )}
               {mode === "view" && (
@@ -160,16 +157,13 @@ const NoteModal = ({
               <button
                 disabled={saveBtnDisabled}
                 onClick={!!currentNote ? updateNoteHandler : addNoteHandler}
-                className={`px-5 h-10 rounded-full flex justify-center items-center gap-4 ${isLoading || saveBtnDisabled ? "bg-line-strong text-content-subtle" : ""} ${saveBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"} bg-[var(--color-palette-4e8e321a)] transition-colors duration-150`}
+                className={`px-5 h-10 rounded-full flex justify-center items-center gap-4 ${isLoading || saveBtnDisabled ? "bg-line-strong text-content-subtle" : ""} ${saveBtnDisabled ? "cursor-not-allowed" : "cursor-pointer"} bg-(--color-palette-4e8e321a) transition-colors duration-150`}
               >
                 {isLoading ? (
                   <Spinner spinnerSize={25} />
                 ) : (
                   <div className="flex items-center gap-2.5">
                     <p className="type-control font-medium">{t("save")}</p>
-                    <SaveIcon
-                      className={`shrink-0 ${saveBtnDisabled ? "text-content-subtle" : "text-brand"}`}
-                    />
                   </div>
                 )}
               </button>

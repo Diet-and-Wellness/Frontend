@@ -106,7 +106,7 @@ const AssignSpecialistModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[85dvh] w-[min(100%,30rem)] flex-col justify-start overflow-hidden rounded-2xl bg-surface">
+      <div className="flex max-h-[85dvh] w-[min(100%,30rem)] flex-col justify-start overflow-hidden rounded-2xl bg-surface border border-line">
         <div className="flex shrink-0 flex-col gap-3 border-b border-line p-5">
           <div className="flex justify-between items-center">
             <p className="type-card-title font-medium text-content-strong">

@@ -147,9 +147,7 @@ const SideBar = ({
               width={50}
               height={50}
               className={`absolute inset-s-0 top-1/2 -translate-y-1/2 transition-[opacity,transform] duration-200 ${
-                collapsed
-                  ? "group-hover:scale-75 group-hover:opacity-0"
-                  : ""
+                collapsed ? "group-hover:scale-75 group-hover:opacity-0" : ""
               }`}
             />
             <motion.button
@@ -268,11 +266,7 @@ const SideBarItem = ({
           className="overflow-hidden whitespace-nowrap"
         >
           <p
-            className={`
-            type-control
-            ${isActive ? "font-extrabold" : "font-medium"}
-            group-hover:font-extrabold
-          `}
+            className={`type-control ${isActive ? "font-extrabold" : "font-medium"}`}
           >
             {label}
           </p>

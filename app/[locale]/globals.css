@@ -78,6 +78,10 @@
   --color-danger-soft: #fef2f2;
   --color-warning: #f59e0b;
   --color-info: #2563eb;
+
+  --color-footer: #2d5a3d;
+  --color-footer-content: #ffffff;
+  --color-footer-content-muted: #ffffffcc;
 }
 
 /* Primitive colors used by charts, illustrations, overlays, and other
@@ -270,9 +274,9 @@
   --color-skeleton-base: #273029;
   --color-skeleton-highlight: #3a463d;
   --color-skeleton-feature-surface: #51371f;
-  --color-feature-one: #273b24;
-  --color-feature-two: #31502b;
-  --color-feature-three: #243d21;
+  --color-feature-one: #31452d;
+  --color-feature-two: #4d7440;
+  --color-feature-three: #274122;
 
   --color-success: #5bd483;
   --color-success-soft: #173624;
@@ -310,6 +314,10 @@
   --color-palette-ececec: #354138;
   --color-palette-fffaf4: #2b261f;
   --color-palette-ffe7e7: #3a2424;
+
+  --color-footer: #1b211c;
+  --color-footer-content: #f5f7f4;
+  --color-footer-content-muted: #bbc4ba;
 }
 
 /* ------------------------------
@@ -482,7 +490,7 @@ body {
 
 @media (min-width: 1024px) {
   .type-display {
-    font-size: 3.25rem;
+    font-size: 3rem;
   }
 
   .type-section-title {
@@ -507,7 +515,7 @@ body {
 
   .type-label,
   .type-control {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
   .type-meta {
@@ -712,7 +720,6 @@ button:disabled svg {
     max-width: 58%;
     margin-inline-end: auto;
   }
-
 }
 
 [dir="rtl"] .real-stories-quote-art {

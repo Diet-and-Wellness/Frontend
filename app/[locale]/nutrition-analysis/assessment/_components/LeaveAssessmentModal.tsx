@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import LeaveAssessmentIllustration from "./LeaveAssessmentIllustration";
 
 type LeaveAssessmentModalProps = {
-  onClose: () => void;
-  onConfirm: () => void;
+  onClose?: () => void;
+  onConfirm?: () => void;
 };
 
 const LeaveAssessmentModal = ({
@@ -22,12 +22,12 @@ const LeaveAssessmentModal = ({
         aria-labelledby="leave-assessment-title"
         aria-modal="true"
         role="dialog"
-        className="relative flex max-h-[85dvh] w-[min(100%,30rem)] flex-col overflow-hidden rounded-2xl bg-surface shadow-2xl"
+        className="relative flex max-h-[85dvh] w-[min(100%,30rem)] flex-col overflow-hidden rounded-2xl bg-surface shadow-2xl border border-line"
       >
         <button
           aria-label={t("close")}
           onClick={onClose}
-          className="absolute end-3 top-3 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
+          className="absolute inset-e-3 top-3 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
         >
           <CloseIcon className="text-current" width="16" height="16" />
         </button>
@@ -46,22 +46,21 @@ const LeaveAssessmentModal = ({
               {t("exitAssessmentDescription")}
             </p>
           </div>
-
         </div>
 
-        <div className="flex w-full shrink-0 flex-col gap-2.5 border-t border-line bg-surface p-6 sm:px-7.5">
-            <button
-              onClick={onConfirm}
-              className="type-control min-h-12 w-full rounded-full bg-brand px-5 font-semibold text-white transition-colors hover:bg-brand-hover cursor-pointer"
-            >
-              {t("saveAndExit")}
-            </button>
-            <button
-              onClick={onClose}
-              className="type-control min-h-12 w-full rounded-full border border-line bg-surface-raised px-5 font-semibold text-content-muted transition-colors hover:bg-surface-muted cursor-pointer"
-            >
-              {t("stayInAssessment")}
-            </button>
+        <div className="flex w-full shrink-0 flex-col gap-2.5 bg-surface p-6 sm:px-7.5">
+          <button
+            onClick={onConfirm}
+            className="type-control min-h-12 w-full rounded-full bg-brand px-5 font-semibold text-white transition-colors hover:bg-brand-hover cursor-pointer"
+          >
+            {t("saveAndExit")}
+          </button>
+          <button
+            onClick={onClose}
+            className="type-control min-h-12 w-full rounded-full border border-line bg-surface-raised px-5 font-semibold text-content-muted transition-colors hover:bg-surface-muted cursor-pointer"
+          >
+            {t("stayInAssessment")}
+          </button>
         </div>
       </div>
     </ModalWrapper>

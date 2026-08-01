@@ -1,9 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { SubscriptionPlanResponse } from "@/app/[locale]/api/types/subscription.types";
+import { Badge } from "@/app/[locale]/components/icons/BadgeIcon";
+import { Date } from "@/app/[locale]/components/icons/DateIcon";
+import { Calender } from "@/app/[locale]/components/icons/CalenderIcon";
 
 type PricePlanProps = {
   plan: SubscriptionPlanResponse;
@@ -112,17 +114,11 @@ const ListItem = ({
   icon,
   children,
 }: {
-  icon: string;
+  icon: React.ReactElement;
   children: React.ReactNode;
 }) => (
   <li className="flex items-start gap-2 sm:gap-3">
-    <Image
-      src={icon}
-      alt=""
-      width={18}
-      height={18}
-      className="min-w-5 sm:min-w-6"
-    />
+    {icon}
     <p className="text-sm sm:text-base leading-5 sm:leading-6 text-content">
       {children}
     </p>
@@ -136,16 +132,24 @@ const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
   return (
     <ul className="flex flex-col  gap-3">
       {benefitList?.map((benefit) => (
-        <ListItem key={benefit} icon="/icons/Badge.svg">
+        <ListItem
+          key={benefit}
+          icon={<Badge className="text-brand min-w-5 sm:min-w-6 h-auto" />}
+        >
           {benefit}
         </ListItem>
       ))}
 
-      <ListItem icon="/icons/date.svg">
-        <span className="font-medium">{t("daysWord")}</span> {localizedDays?.join(" — ")}
+      <ListItem
+        icon={<Date className="text-brand min-w-5 sm:min-w-6 h-auto" />}
+      >
+        <span className="font-medium">{t("daysWord")}</span>{" "}
+        {localizedDays?.join(" — ")}
       </ListItem>
 
-      <ListItem icon="/icons/clock.svg">
+      <ListItem
+        icon={<Calender className="text-brand min-w-5 sm:min-w-6 h-auto" />}
+      >
         <span className="font-medium">{t("responseTimePerDay")}</span>
         {respTime} {t("hours")}
       </ListItem>

@@ -26,7 +26,7 @@ const GetStarted = () => {
   ];
 
   return (
-    <section className="">
+    <section>
       <div
         className="
         landing-get-started relative isolate mx-auto max-w-[90%]

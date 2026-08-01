@@ -21,7 +21,7 @@ const ViewNoteModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+      <div className="flex max-h-[85dvh] w-[min(100%,35rem)] flex-col overflow-hidden rounded-2xl bg-surface border border-line">
         <div className="flex shrink-0 items-center justify-between border-b border-line px-5 py-4 sm:px-7.5">
           <div className="flex items-start gap-2.5">
             <div className="size-10 rounded-full bg-accent-soft flex justify-center items-center">

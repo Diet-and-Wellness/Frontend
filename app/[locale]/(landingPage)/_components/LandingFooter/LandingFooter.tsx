@@ -24,9 +24,8 @@ const LandingFooter = () => {
   ];
 
   return (
-    <footer className="w-full bg-[var(--color-palette-2d5a3d)] py-12">
-      <div className="mx-auto w-[90%] flex flex-col gap-12">
-        {/* Layout */}
+    <footer className="w-full bg-footer py-12 text-footer-content">
+      <div className="mx-auto flex w-[90%] flex-col gap-12">
         <div className="flex flex-col gap-10 sm:flex-row sm:flex-wrap sm:justify-between">
           <Socials />
           <QuickLinks title={t("footer.quickLinks")} linksList={quicklinks} />
@@ -34,8 +33,7 @@ const LandingFooter = () => {
           <Subscribe />
         </div>
 
-        {/* Footer bottom */}
-        <p className="text-center text-white/80 text-sm md:text-lg font-extralight">
+        <p className="text-center text-sm font-extralight text-footer-content-muted md:text-lg">
           {t("footer.copyright")}
         </p>
       </div>

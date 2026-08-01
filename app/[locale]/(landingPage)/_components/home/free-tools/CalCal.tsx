@@ -146,15 +146,13 @@ const CalCalForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface border border-line"
     >
-      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("calorieTitle")}
         toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
-      </div>
 
       <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
@@ -247,42 +245,42 @@ const CalCalForm = ({
             {t("activityLevel")}
           </p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3">
-          <ActivityLevelCard
-            level={t("low")}
-            description={t("littleExercise")}
-            isSelected={activityLevel === "low"}
-            selectActivityLevelHandler={() => setActivityLevel("low")}
-          />
+            <ActivityLevelCard
+              level={t("low")}
+              description={t("littleExercise")}
+              isSelected={activityLevel === "low"}
+              selectActivityLevelHandler={() => setActivityLevel("low")}
+            />
 
-          <ActivityLevelCard
-            level={t("moderate")}
-            description={t("exerciseModerate")}
-            isSelected={activityLevel === "moderate"}
-            selectActivityLevelHandler={() => setActivityLevel("moderate")}
-          />
+            <ActivityLevelCard
+              level={t("moderate")}
+              description={t("exerciseModerate")}
+              isSelected={activityLevel === "moderate"}
+              selectActivityLevelHandler={() => setActivityLevel("moderate")}
+            />
 
-          <ActivityLevelCard
-            level={t("high")}
-            description={t("exerciseHigh")}
-            isSelected={activityLevel === "high"}
-            selectActivityLevelHandler={() => setActivityLevel("high")}
-          />
+            <ActivityLevelCard
+              level={t("high")}
+              description={t("exerciseHigh")}
+              isSelected={activityLevel === "high"}
+              selectActivityLevelHandler={() => setActivityLevel("high")}
+            />
 
-          <ActivityLevelCard
-            level={t("extreme")}
-            description={t("intenseActivity")}
-            isSelected={activityLevel === "extreme"}
-            selectActivityLevelHandler={() => setActivityLevel("extreme")}
-          />
+            <ActivityLevelCard
+              level={t("extreme")}
+              description={t("intenseActivity")}
+              isSelected={activityLevel === "extreme"}
+              selectActivityLevelHandler={() => setActivityLevel("extreme")}
+            />
           </div>
         </div>
       </div>
 
       <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
-      <button
-        disabled={!showResultBtnActive}
-        onClick={handleCalculateCalories}
-        className={`
+        <button
+          disabled={!showResultBtnActive}
+          onClick={handleCalculateCalories}
+          className={`
             rounded-full
             min-h-12
             type-control
@@ -292,9 +290,9 @@ const CalCalForm = ({
             ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
-      >
-        <p className="">{t("seeResult")}</p>
-      </button>
+        >
+          <p className="">{t("seeResult")}</p>
+        </button>
       </div>
     </motion.div>
   );
@@ -318,51 +316,49 @@ const CalCalResult = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[85dvh] min-h-0 w-full flex-col overflow-hidden rounded-2xl bg-surface"
+      className="flex max-h-[85dvh] min-h-0 w-full flex-col overflow-hidden rounded-2xl bg-surface border border-line"
     >
-      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
       <ToolModalHeader
         toolName={t("calorieTitle")}
         toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
         onClose={onClose}
       />
-      </div>
 
       <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
-      <div className="flex justify-center items-center gap-5">
-        <div className="p-2.5 bg-[var(--color-palette-f2f7f0)] rounded-full flex justify-center items-center">
-          <BarsIcon />
+        <div className="flex justify-center items-center gap-5">
+          <div className="p-2.5 bg-(--color-palette-f2f7f0) rounded-full flex justify-center items-center">
+            <BarsIcon />
+          </div>
+          <p className="type-card-title text-center font-medium text-brand-dark">
+            {t("dailyCalorieNeeds")}
+          </p>
         </div>
-        <p className="type-card-title text-center font-medium text-brand-dark">
-          {t("dailyCalorieNeeds")}
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          <CaloriesCard
+            type="maintenance"
+            calories={calcalResult?.maintenanceCalories ?? 0}
+          />
+          <CaloriesCard
+            type="loss"
+            calories={calcalResult?.fatLossCalories ?? 0}
+          />
+          <CaloriesCard
+            type="gain"
+            calories={calcalResult?.muscleGainCalories ?? 0}
+          />
+        </div>
+
+        <p className="type-label rounded-xl bg-brand-softer px-5 py-3 text-center font-medium text-content-muted">
+          {t("estimatedValues")}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-        <CaloriesCard
-          type="maintenance"
-          calories={calcalResult?.maintenanceCalories ?? 0}
-        />
-        <CaloriesCard
-          type="loss"
-          calories={calcalResult?.fatLossCalories ?? 0}
-        />
-        <CaloriesCard
-          type="gain"
-          calories={calcalResult?.muscleGainCalories ?? 0}
-        />
-      </div>
-
-      <p className="type-label rounded-xl bg-brand-softer px-5 py-3 text-center font-medium text-content-muted">
-        {t("estimatedValues")}
-      </p>
-      </div>
-
       <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
-      <CTA
-        tryAgainHanlder={tryAgainHandler}
-        getFullAssessment={onGetFullAnalysis}
-      />
+        <CTA
+          tryAgainHanlder={tryAgainHandler}
+          getFullAssessment={onGetFullAnalysis}
+        />
       </div>
     </motion.div>
   );

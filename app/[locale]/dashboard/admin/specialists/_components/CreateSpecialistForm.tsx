@@ -56,7 +56,7 @@ const CreateSpecialistForm = ({ closeModal }: { closeModal: () => void }) => {
   const isSubmitDisabled = !isValid || createSpecialistMutation.isPending;
 
   return (
-    <div className="flex max-h-[85dvh] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-surface-raised">
+    <div className="flex max-h-[85dvh] w-[min(100%,32.5rem)] flex-col overflow-hidden rounded-2xl bg-surface-raised border border-line">
       <div className="flex shrink-0 items-center justify-between px-5 pt-5 sm:px-7.5 sm:pt-7.5">
         <h4 className="type-card-title text-center font-semibold">
           {t("dashboard.addSpecialist")}

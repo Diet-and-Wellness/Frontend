@@ -11,7 +11,7 @@ const ToolModalHeader = ({
   onClose: () => void;
 }) => {
   return (
-    <div className="flex w-full items-center justify-between gap-7.5">
+    <div className="shrink-0 border-b border-line px-4 py-3 sm:px-5 sm:py-3.5 flex w-full items-center justify-between gap-2">
       <div className="flex size-13 shrink-0 items-center justify-center rounded-full bg-(--color-palette-c8dcbf)">
         {toolIcon}
       </div>

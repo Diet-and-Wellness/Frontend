@@ -21,8 +21,8 @@ const AlertModal = ({
   const t = useTranslations("dashboard");
   return (
     <ModalWrapper>
-      <div className="relative flex max-h-[85dvh] w-[clamp(18rem,90vw,25rem)] flex-col overflow-hidden rounded-2xl bg-surface sm:w-[min(100%,22.5rem)]">
-        <div className="absolute end-3 top-3 z-10 flex justify-end">
+      <div className="relative flex max-h-[85dvh] w-[clamp(18rem,90vw,25rem)] flex-col overflow-hidden rounded-2xl bg-surface sm:w-[min(100%,22.5rem)] border border-line">
+        <div className="absolute inset-e-3 top-3 z-10 flex justify-end">
           <button
             onClick={closeModal}
             className="hover:bg-surface-neutral transition-colors duration-200 justify-end place-self-end p-3 rounded-full cursor-pointer"
@@ -36,7 +36,7 @@ const AlertModal = ({
             {note}
           </p>
         </div>
-        <div className="flex w-full shrink-0 flex-col gap-2.5 border-t border-line bg-surface p-5 pt-3 sm:px-7.5 sm:pb-7.5 sm:pt-4">
+        <div className="flex w-full shrink-0 flex-col gap-2.5 bg-surface p-5 pt-3 sm:px-7.5 sm:pb-7.5 sm:pt-4">
             <button
               disabled={pending}
               onClick={confirm}

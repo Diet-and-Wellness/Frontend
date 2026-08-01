@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import type { ComponentType, SVGProps } from "react";
@@ -26,10 +25,10 @@ const Tool = ({
 
   return (
     <motion.li
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: "easeInOut" }}
+      transition={{ duration: 0.8 }}
       className={`
       group
       w-full h-full
@@ -38,9 +37,9 @@ const Tool = ({
       p-4 sm:p-5
       border-2
       ${isFree ? "bg-brand-soft" : "bg-accent-soft"}
-      ${isFree ? "border-[var(--color-palette-c8dcbf)]" : "border-[var(--color-palette-f8debf)]"}
+      ${isFree ? "border-(--color-palette-c8dcbf)" : "border-(--color-palette-f8debf)"}
       rounded-4xl
-      ${isFree ? "hover:bg-[var(--color-tool-free-hover)]" : "hover:bg-[var(--color-tool-premium-hover)]"}
+      ${isFree ? "hover:bg-(--color-tool-free-hover)" : "hover:bg-(--color-tool-premium-hover)"}
       hover:scale-103
       transition-all duration-300
       `}
@@ -48,7 +47,7 @@ const Tool = ({
       {/* Top */}
       <div className="flex justify-between items-start">
         <div
-          className={`p-2.5 sm:p-3 rounded-2xl ${isFree ? "bg-[var(--color-palette-c8dcbf)]" : "bg-[var(--color-palette-f8debf)]"} flex items-center justify-center group-hover:bg-brand-soft transition-colors duration-300`}
+          className={`p-2.5 sm:p-3 rounded-2xl ${isFree ? "bg-(--color-palette-c8dcbf) group-hover:bg-brand-soft" : "bg-(--color-palette-f8debf) group-hover:bg-accent-soft"} flex items-center justify-center transition-colors duration-300`}
         >
           <ToolIcon className="size-9 text-content sm:size-10 group-hover:rotate-15 transition-transform duration-300" />
         </div>

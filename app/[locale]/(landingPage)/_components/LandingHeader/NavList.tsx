@@ -85,6 +85,10 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
     queryClient.removeQueries({
       queryKey: ["publishedBlogs"],
     });
+
+    queryClient.removeQueries({
+      queryKey: ["assessment-result"],
+    });
   };
 
   const switchToEnglishMutation = useMutation({

@@ -59,13 +59,27 @@ const AssessmentInsightModal = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="assessment-insight-title"
-        className="relative flex max-h-[85dvh] w-full flex-col overflow-hidden rounded-3xl bg-surface sm:w-[min(42rem,calc(100vw-2rem))]"
+        className="relative flex max-h-[85dvh] w-full flex-col overflow-hidden rounded-3xl bg-surface sm:w-[min(42rem,calc(100vw-2rem))] border border-line"
       >
-        <div className="flex flex-col shrink-0 items-start justify-between gap-1 border-b border-line p-5 sm:p-6 md:px-7.5">
-          <div className="flex justify-between items-center w-full">
-            <p className="mb-1 text-lg text-content-muted">
-              {t("sectionDetails")}
-            </p>
+        <div className="flex flex-col shrink-0 items-start justify-between gap-1 border-b border-line px-5 py-4">
+          <div className="flex justify-between items-start w-full">
+            <div className="flex min-w-0 items-center gap-3.5">
+              <div
+                className="flex size-12 shrink-0 items-center justify-center rounded-full"
+                style={{ background: ui.bg, color: ui.color }}
+              >
+                <GoalIcon />
+              </div>
+              <div className="min-w-0">
+                <h2
+                  id="assessment-insight-title"
+                  className="wrap-break-word text-lg font-bold text-content sm:text-xl"
+                >
+                  {section.sectionTitle}
+                </h2>
+              </div>
+            </div>
+
             <button
               type="button"
               onClick={onClose}
@@ -78,22 +92,6 @@ const AssessmentInsightModal = ({
                 height="16"
               />
             </button>
-          </div>
-          <div className="flex min-w-0 items-center gap-3.5">
-            <div
-              className="flex size-12 shrink-0 items-center justify-center rounded-full"
-              style={{ background: ui.bg, color: ui.color }}
-            >
-              <GoalIcon />
-            </div>
-            <div className="min-w-0">
-              <h2
-                id="assessment-insight-title"
-                className="wrap-break-word text-lg font-bold text-content sm:text-xl"
-              >
-                {section.sectionTitle}
-              </h2>
-            </div>
           </div>
         </div>
 

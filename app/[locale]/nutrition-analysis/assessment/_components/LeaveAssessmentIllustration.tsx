@@ -9,7 +9,7 @@ const LeaveAssessmentIllustration = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="56" cy="56" r="54" fill="var(--color-palette-f1f8ee)" />
-      <circle cx="56" cy="56" r="45" fill="white" />
+      <circle cx="56" cy="56" r="45" fill="transparent" />
 
       <rect
         x="25"

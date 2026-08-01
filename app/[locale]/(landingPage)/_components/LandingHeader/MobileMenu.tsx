@@ -42,11 +42,17 @@ const MobileMenu = ({
     queryClient.removeQueries({
       queryKey: ["pricingPlans"],
     });
+
     queryClient.removeQueries({
       queryKey: ["landingBlogs"],
     });
+
     queryClient.removeQueries({
       queryKey: ["publishedBlogs"],
+    });
+
+    queryClient.removeQueries({
+      queryKey: ["assessment-result"],
     });
   };
 

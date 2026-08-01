@@ -137,15 +137,13 @@ const BmiForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface border border-line"
     >
-      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
-        <ToolModalHeader
-          toolName={t("bmiTitle")}
-          toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
-          onClose={onClose}
-        />
-      </div>
+      <ToolModalHeader
+        toolName={t("bmiTitle")}
+        toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
+        onClose={onClose}
+      />
 
       <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="flex flex-col gap-2.5">
@@ -242,15 +240,13 @@ const BmiResult = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface"
+      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface border border-line"
     >
-      <div className="shrink-0 border-b border-line p-5 sm:px-7.5 sm:py-5">
-        <ToolModalHeader
-          toolName={t("bmiTitle")}
-          toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
-          onClose={onClose}
-        />
-      </div>
+      <ToolModalHeader
+        toolName={t("bmiTitle")}
+        toolIcon={<BmiCalculatorIcon className="size-7.5 text-content" />}
+        onClose={onClose}
+      />
 
       <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
         <div className="flex flex-col justify-center items-center gap-1">

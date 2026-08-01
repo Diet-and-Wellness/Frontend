@@ -14,11 +14,11 @@ const AssessmentHeader = ({
   return (
     <header className="mx-auto flex w-full max-w-260 items-center justify-between gap-4 border-b border-b-line px-4 py-4 sm:px-5 sm:py-5">
       <h2 className="type-card-title font-medium text-content">{title}</h2>
-      <div className="flex shrink-0 items-center gap-3">
+      <div className="flex shrink-0 items-center gap-3 md:gap-5">
         <ThemeSwitch />
         <button
           onClick={onClose}
-          className="type-control shrink-0 font-semibold text-accent cursor-pointer"
+          className="shrink-0 cursor-pointer items-center rounded-full border border-line bg-surface-muted px-5 py-2 text-accent font-medium transition-colors hover:border-brand"
         >
           {closeLabel ?? t("cancel")}
         </button>

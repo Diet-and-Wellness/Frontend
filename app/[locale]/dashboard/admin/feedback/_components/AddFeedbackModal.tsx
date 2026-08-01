@@ -69,7 +69,7 @@ const AddFeedbackModal = ({
 
   return (
     <ModalWrapper>
-      <div className="flex max-h-[85dvh] w-[min(100%,37.5rem)] flex-col overflow-hidden rounded-2xl bg-surface">
+      <div className="flex max-h-[85dvh] w-[min(100%,37.5rem)] flex-col overflow-hidden rounded-2xl bg-surface border border-line">
         <div className="flex shrink-0 items-center justify-between gap-3 border-b border-line px-5 py-4 sm:px-7.5">
           <h4 className="type-card-title font-bold">{t("uploadFeedback")}</h4>
 
@@ -238,7 +238,7 @@ const ScreenshotTypeCard = ({
 
       <p
         className={`type-card-title ${
-          selected ? "text-[var(--color-palette-8c591e)] font-semibold" : "text-content"
+          selected ? "text-(--color-palette-8c591e) font-semibold" : "text-content"
         }`}
       >
         {title}

@@ -149,7 +149,9 @@ const AdminDashboardIndex = () => {
       className="w-full"
     >
       <motion.div variants={item} className="mb-6 sm:mb-7.5">
-        <h2 className="type-page-title mb-3 font-bold text-content sm:mb-4">{t("dashboard")}</h2>
+        <h2 className="type-page-title mb-3 font-bold text-content sm:mb-4">
+          {t("dashboard")}
+        </h2>
         <p className="type-body-lg font-light text-content-muted">
           {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
@@ -274,7 +276,7 @@ const RecentUsersList = ({
 }: RecentUsersListProps) => {
   const t = useTranslations("dashboard");
   return (
-    <div className="flex w-full flex-col gap-5 rounded-2xl border border-line bg-surface p-4 sm:p-5">
+    <div className="flex w-full flex-col gap-5 rounded-2xl border border-line hover:border-brand transition-colors bg-surface p-4 sm:p-5">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-3 items-center">
           {usersListType === "specialists" ? (

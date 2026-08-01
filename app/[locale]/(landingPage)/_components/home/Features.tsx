@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
+import { Checkout } from "@/app/[locale]/components/icons/CheckoutIcon";
 
 const Features = () => {
   const t = useTranslations("features");
@@ -15,29 +16,30 @@ const Features = () => {
       title: t("healthAssessment.title"),
       points: t.raw("healthAssessment.points"),
       img: "/images/FreeTools.webp",
-      checkPointIcon: "/icons/checkpoint_green.svg",
+      checkPointIcon: <Checkout className="text-content w-5 xl:w-7 h-auto" />,
       imgStyle: "md:w-55 md:end-0 md:-top-20 lg:w-90 lg:end-5 lg:-top-30",
-      bgStyle: "bg-[var(--color-palette-cbe4c0)]",
-      textStyle: "text-brand-deep",
+      bgStyle: "bg-feature-one",
+      textStyle: "text-content",
     },
     {
       title: t("personalizedPlan.title"),
       points: t.raw("personalizedPlan.points"),
       img: "/images/PrivateSpecialist.webp",
-      checkPointIcon: "/icons/checkpoint_white.svg",
+      checkPointIcon: (
+        <Checkout className="text-brand-contrast w-5 xl:w-7 h-auto" />
+      ),
       imgStyle: "md:w-70 md:end-0 md:-top-25 lg:w-120 lg:end-0 lg:-top-30",
-      bgStyle: "bg-brand",
-      textStyle: "text-white",
+      bgStyle: "bg-feature-two",
+      textStyle: "text-brand-contrast",
     },
     {
       title: t("ongoingSupport.title"),
       points: t.raw("ongoingSupport.points"),
       img: "/images/HelpAndSupport.webp",
-      checkPointIcon: "/icons/checkpoint_white.svg",
-      imgStyle:
-        "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
-      bgStyle: "bg-brand-hover",
-      textStyle: "text-white",
+      checkPointIcon: <Checkout className="text-content w-5 xl:w-7 h-auto" />,
+      imgStyle: "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
+      bgStyle: "bg-feature-three",
+      textStyle: "text-content  ",
     },
   ];
 
@@ -109,7 +111,7 @@ type featurePropType = {
   img: string;
   imgStyle: string;
   bgStyle: string;
-  checkPointIcon: string;
+  checkPointIcon: React.ReactElement;
   textStyle: string;
 };
 
@@ -169,25 +171,16 @@ const FeatureCard = ({
       >
         {/* Content */}
         <div className="feature-card-content relative z-10 flex max-w-4xl flex-col justify-center gap-7 md:max-w-[62%] lg:gap-10">
-          <h3
-            className={`type-display font-bold ${feature.textStyle}`}
-          >
+          <h3 className={`type-display font-bold ${feature.textStyle}`}>
             {feature.title}
           </h3>
 
           <ul className="flex flex-col gap-4 md:gap-5 lg:gap-8">
             {feature.points.map((point, index) => (
-              <li key={index} className="flex flex-row gap-3 items-start">
-                <Image
-                  src={feature.checkPointIcon}
-                  alt="feature"
-                  width={700}
-                  height={600}
-                  className="w-5 h-7 lg:w-6 lg:h-7 xl:w-9.5 xl:h-8"
-                />
-
+              <li key={index} className="flex flex-row gap-3 items-center">
+                {feature.checkPointIcon}
                 <p
-                  className={`text-base font-medium sm:text-lg lg:text-xl xl:text-[24px] ${feature.textStyle}`}
+                  className={`text-base font-medium sm:text-lg lg:text-xl xl:text-[22px] ${feature.textStyle}`}
                 >
                   {point}
                 </p>
