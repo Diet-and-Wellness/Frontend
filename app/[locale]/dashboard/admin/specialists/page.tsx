@@ -148,7 +148,7 @@ const SpecialistsPage = () => {
   const getSpecialists = async () => {
     const { data } = await profileApi.searchProfiles({
       role: "specialist",
-      limit: 5,
+      limit: 20,
       page,
     });
     return parsePaginatedResponse<SpecialistDTO>(data, page, 5);
@@ -196,9 +196,14 @@ const SpecialistsPage = () => {
       </AnimatePresence>
 
       {/* Header */}
-      <motion.div variants={item} className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between">
+      <motion.div
+        variants={item}
+        className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between"
+      >
         <div>
-          <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("specialists")}</h2>
+          <h2 className="type-page-title mb-3 font-bold sm:mb-4">
+            {t("specialists")}
+          </h2>
           <p className="type-body-lg font-light text-content-muted">
             {t("manageSpecialists")}
           </p>
@@ -334,10 +339,7 @@ const SpecialistRow = ({
           ? buttonRect.top - viewportPadding
           : buttonRect.bottom + viewportPadding,
         left: Math.min(
-          Math.max(
-            buttonRect.right - menuWidth,
-            viewportPadding,
-          ),
+          Math.max(buttonRect.right - menuWidth, viewportPadding),
           window.innerWidth - menuWidth - viewportPadding,
         ),
         openAbove,
@@ -378,7 +380,10 @@ const SpecialistRow = ({
     window.addEventListener("scroll", closeMenuOnViewportChange, true);
 
     return () => {
-      document.removeEventListener("pointerdown", closeMenuOnOutsideInteraction);
+      document.removeEventListener(
+        "pointerdown",
+        closeMenuOnOutsideInteraction,
+      );
       document.removeEventListener("keydown", closeMenuOnEscape);
       window.removeEventListener("resize", closeMenuOnViewportChange);
       window.removeEventListener("scroll", closeMenuOnViewportChange, true);
@@ -422,74 +427,75 @@ const SpecialistRow = ({
         >
           <Dots className="text-content" />
         </button>
-        {typeof document !== "undefined" && createPortal(
-          <AnimatePresence>
-            {isOpened && (
-              <div
-                className="fixed z-50 w-64 max-w-[calc(100vw-1rem)]"
-                style={{
-                  top: menuPosition.top,
-                  left: menuPosition.left,
-                  transform: menuPosition.openAbove
-                    ? "translateY(-100%)"
-                    : undefined,
-                }}
-              >
-                <motion.div
-                  ref={actionsMenuRef}
-                  role="menu"
-                  initial={{
-                    opacity: 0,
-                    y: menuPosition.openAbove ? 12 : -12,
+        {typeof document !== "undefined" &&
+          createPortal(
+            <AnimatePresence>
+              {isOpened && (
+                <div
+                  className="fixed z-50 w-64 max-w-[calc(100vw-1rem)]"
+                  style={{
+                    top: menuPosition.top,
+                    left: menuPosition.left,
+                    transform: menuPosition.openAbove
+                      ? "translateY(-100%)"
+                      : undefined,
                   }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{
-                    opacity: 0,
-                    y: menuPosition.openAbove ? 12 : -12,
-                  }}
-                  className="rounded-2xl border border-line bg-surface-raised shadow-[0_2px_10px_0px_var(--color-palette-00000026)]"
                 >
-              <div className="p-3.5 flex flex-col gap-3.5">
-                <Link
-                  href={`/dashboard/admin/specialists/${specialist.id}/clients`}
-                  role="menuitem"
-                  onClick={() => setOpenedMenuId(null)}
-                  className="w-full flex items-center gap-2.5 cursor-pointer"
-                >
-                  <MenuIcon className="text-content" />
-                  <p className="type-label font-light text-content">
-                    {t("viewClientList")}
-                  </p>
-                </Link>
-                <button
-                  type="button"
-                  role="menuitem"
-                  onClick={() => {
-                    setOpenedMenuId(null);
-                    openAlertModal();
-                  }}
-                  className="w-full flex items-center gap-2.5 cursor-pointer"
-                >
-                  <TrashIcon className="text-danger" />
-                  <p className="type-label font-light text-danger">
-                    {t("deleteSpecialist")}
-                  </p>
-                </button>
-              </div>
-              <div className="flex items-center gap-3 border-t border-t-line p-3.5">
-                <Switch
-                  isOn={specialist.specialistInfo.status === "active"}
-                  activate={activate}
-                  deactivate={deactivate}
-                />
-                <span>{t("activateSpecialist")}</span>
-              </div>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>,
-          document.body,
-        )}
+                  <motion.div
+                    ref={actionsMenuRef}
+                    role="menu"
+                    initial={{
+                      opacity: 0,
+                      y: menuPosition.openAbove ? 12 : -12,
+                    }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{
+                      opacity: 0,
+                      y: menuPosition.openAbove ? 12 : -12,
+                    }}
+                    className="rounded-2xl border border-line bg-surface-raised shadow-[0_2px_10px_0px_var(--color-palette-00000026)]"
+                  >
+                    <div className="p-3.5 flex flex-col gap-3.5">
+                      <Link
+                        href={`/dashboard/admin/specialists/${specialist.id}/clients`}
+                        role="menuitem"
+                        onClick={() => setOpenedMenuId(null)}
+                        className="w-full flex items-center gap-2.5 cursor-pointer"
+                      >
+                        <MenuIcon className="text-content" />
+                        <p className="type-label font-light text-content">
+                          {t("viewClientList")}
+                        </p>
+                      </Link>
+                      <button
+                        type="button"
+                        role="menuitem"
+                        onClick={() => {
+                          setOpenedMenuId(null);
+                          openAlertModal();
+                        }}
+                        className="w-full flex items-center gap-2.5 cursor-pointer"
+                      >
+                        <TrashIcon className="text-danger" />
+                        <p className="type-label font-light text-danger">
+                          {t("deleteSpecialist")}
+                        </p>
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-3 border-t border-t-line p-3.5">
+                      <Switch
+                        isOn={specialist.specialistInfo.status === "active"}
+                        activate={activate}
+                        deactivate={deactivate}
+                      />
+                      <span>{t("activateSpecialist")}</span>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+            </AnimatePresence>,
+            document.body,
+          )}
       </TableCell>
     </motion.tr>
   );

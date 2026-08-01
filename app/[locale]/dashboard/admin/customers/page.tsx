@@ -64,7 +64,7 @@ const CustomersPage = () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page,
-      limit: 5,
+      limit: 20,
     });
 
     return parsePaginatedResponse<Customer>(data, page, 5);
@@ -152,14 +152,19 @@ const CustomersPage = () => {
 
       {/* Header */}
       <motion.div variants={item}>
-        <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("customers")}</h2>
+        <h2 className="type-page-title mb-3 font-bold sm:mb-4">
+          {t("customers")}
+        </h2>
         <p className="type-body-lg font-light text-content-muted">
           {t("manageCustomers")}
         </p>
       </motion.div>
 
       {/* Filters */}
-      <motion.div variants={item} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+      <motion.div
+        variants={item}
+        className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5"
+      >
         <SearchInput />
         <FilterButton label={t("allStatuses")} />
         <FilterButton label={t("allPlans")} />
@@ -176,7 +181,16 @@ const CustomersPage = () => {
           >
             <thead className="bg-surface-subtle">
               <tr>
-                {["name", "email", "phone", "weightProgress", "heightCm", "subscription", "linkToAnswers", "assignToSpecialist"].map((header) => (
+                {[
+                  "name",
+                  "email",
+                  "phone",
+                  "weightProgress",
+                  "heightCm",
+                  "subscription",
+                  "linkToAnswers",
+                  "assignToSpecialist",
+                ].map((header) => (
                   <th
                     key={header}
                     className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-content-muted"
@@ -284,7 +298,9 @@ const CustomerRow = ({
       {/* Answers */}
       <TableCell>
         <button
-          onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
+          onClick={() =>
+            router.push(`/dashboard/customers/${customer.id}/answers`)
+          }
           className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">

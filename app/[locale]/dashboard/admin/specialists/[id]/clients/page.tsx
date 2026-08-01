@@ -3,7 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Customer, LastNote } from "@/app/[locale]/api/types/profile.types";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
-import { Skeleton, TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
+import {
+  Skeleton,
+  TableSkeleton,
+} from "@/app/[locale]/components/Public/Skeletons";
 import { useParams, useRouter } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
@@ -71,7 +74,7 @@ const SpecialistClientsPage = () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page,
-      limit: 5,
+      limit: 20,
       assignedSpecialistId: specialistId,
     });
 
@@ -126,7 +129,9 @@ const SpecialistClientsPage = () => {
           >
             <div className="flex flex-col gap-5">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="type-body text-content-placeholder">{t("specialists")}</p>
+                <p className="type-body text-content-placeholder">
+                  {t("specialists")}
+                </p>
                 <RightArrowIcon />
                 <p className="type-body">
                   {t("doctorName", {
@@ -142,7 +147,9 @@ const SpecialistClientsPage = () => {
                 </h3>
                 <div className="px-4 py-2 rounded-2xl bg-accent-soft">
                   <p className="type-label font-semibold text-accent">
-                    {t("totalClients", { count: specialist?.assignedCustomersCount ?? 0 })}
+                    {t("totalClients", {
+                      count: specialist?.assignedCustomersCount ?? 0,
+                    })}
                   </p>
                 </div>
               </div>
@@ -152,7 +159,9 @@ const SpecialistClientsPage = () => {
               className="flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-auto"
             >
               <ArrowIcon className="direction-aware-back-icon" />
-              <p className="type-control font-semibold">{t("backToSpecialists")}</p>
+              <p className="type-control font-semibold">
+                {t("backToSpecialists")}
+              </p>
             </button>
           </motion.div>
 
@@ -161,7 +170,15 @@ const SpecialistClientsPage = () => {
               <table className="min-w-full divide-y divide-line">
                 <thead className="bg-surface-subtle">
                   <tr>
-                    {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
+                    {[
+                      "name",
+                      "email",
+                      "phone",
+                      "weightProgress",
+                      "heightCm",
+                      "linkToAnswers",
+                      "note",
+                    ].map((header) => (
                       <th
                         key={header}
                         className="type-table whitespace-nowrap px-6 py-4 text-start font-light text-content-muted"
@@ -289,7 +306,9 @@ const CustomerRow = ({
 
       <TableCell>
         <button
-          onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
+          onClick={() =>
+            router.push(`/dashboard/customers/${customer.id}/answers`)
+          }
           className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
@@ -309,7 +328,7 @@ const CustomerRow = ({
           className={
             customer.lastNote
               ? "cursor-pointer text-content-muted"
-              : "cursor-default text-[var(--color-palette-c4cbd4)]"
+              : "cursor-default text-(--color-palette-c4cbd4)"
           }
         >
           <NoteIcon />

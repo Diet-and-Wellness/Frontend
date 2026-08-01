@@ -6,10 +6,7 @@ export type PaginatedResult<T> = {
   hasNextPage: boolean;
 };
 
-const getPositiveNumber = (
-  sources: PaginationMetadata[],
-  keys: string[],
-) => {
+const getPositiveNumber = (sources: PaginationMetadata[], keys: string[]) => {
   for (const source of sources) {
     for (const key of keys) {
       const value = Number(source[key]);
@@ -38,11 +35,7 @@ export const parsePaginatedResponse = <T>(
       ? (response.data as T[])
       : [];
 
-  const metadataSources = [
-    response.pagination,
-    response.meta,
-    response,
-  ].filter(
+  const metadataSources = [response.pagination, response.meta, response].filter(
     (value): value is PaginationMetadata =>
       Boolean(value) && typeof value === "object" && !Array.isArray(value),
   );

@@ -45,7 +45,7 @@ const SpecialistDashboardIndex = () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page,
-      limit: 5,
+      limit: 20,
     });
 
     return parsePaginatedResponse<Customer>(data, page, 5);
@@ -152,7 +152,7 @@ const SpecialistDashboardIndex = () => {
             </p>
           </div>
         </div>
-        <p className="type-body-lg text-[var(--color-palette-65758b)]">
+        <p className="type-body-lg text-(--color-palette-65758b)">
           {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
       </div>
@@ -166,7 +166,15 @@ const SpecialistDashboardIndex = () => {
           <table className="min-w-full divide-y divide-line">
             <thead className="bg-surface-subtle">
               <tr>
-                {["name", "email", "phone", "weightProgress", "heightCm", "linkToAnswers", "note"].map((header) => (
+                {[
+                  "name",
+                  "email",
+                  "phone",
+                  "weightProgress",
+                  "heightCm",
+                  "linkToAnswers",
+                  "note",
+                ].map((header) => (
                   <th
                     key={header}
                     className="type-table whitespace-nowrap px-6 py-4 text-left font-light text-content-muted"

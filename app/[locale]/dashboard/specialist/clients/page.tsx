@@ -32,7 +32,7 @@ const ClientsPage = () => {
     const { data } = await profileApi.searchProfiles({
       role: "customer",
       page,
-      limit: 5,
+      limit: 20,
     });
 
     return parsePaginatedResponse<Customer>(data, page, 5);
