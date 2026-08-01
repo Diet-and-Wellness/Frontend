@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-readonly APP_DIR="/var/www/example-frontend"
+readonly APP_DIR="/var/www/frontend"
 readonly BRANCH="main"
 readonly HEALTH_URL="http://127.0.0.1:3000/api/health"
 
