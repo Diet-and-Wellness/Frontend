@@ -1,9 +1,11 @@
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 type LinkItem = {
   href?: string;
   onTry?: () => void;
+  loading?: boolean;
   title: string;
 };
 
@@ -34,6 +36,7 @@ const QuickLinks = ({ title, linksList }: QuickLinksProps) => {
             linkTitle={link.title}
             href={link.href}
             onTry={link.onTry}
+            loading={link.loading ?? false}
           />
         ))}
       </nav>
@@ -45,9 +48,10 @@ type LinkCompProps = {
   href?: string;
   onTry?: () => void;
   linkTitle: string;
+  loading?: boolean;
 };
 
-const LinkComp = ({ onTry, href, linkTitle }: LinkCompProps) => {
+const LinkComp = ({ onTry, loading, href, linkTitle }: LinkCompProps) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -61,11 +65,13 @@ const LinkComp = ({ onTry, href, linkTitle }: LinkCompProps) => {
   return (
     <button
       onClick={handleClick}
-      className="
+      disabled={loading}
+      className={`
         group inline-flex items-center gap-2
         transition-all duration-300
-        hover:translate-x-1
-      "
+        cursor-pointer
+        ${loading ? "" : "cursor-pointer hover:translate-x-1"}
+      `}
     >
       <Image
         src="/icons/arrow-right.svg"
@@ -81,9 +87,10 @@ const LinkComp = ({ onTry, href, linkTitle }: LinkCompProps) => {
           font-extralight text-white
           transition-colors duration-300
           group-hover:text-white/80
+          flex items-center gap-1.5
         "
       >
-        {linkTitle}
+        {linkTitle} {loading && <Spinner spinnerSize={18} />}
       </span>
     </button>
   );

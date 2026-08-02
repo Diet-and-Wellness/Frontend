@@ -27,6 +27,7 @@ const LandingFooter = () => {
   const [showCalCalModal, setShowCalCalModal] = useState(false);
   const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
     useState(false);
+  const [checkingAssessment, setCheckingAssessment] = useState(false);
 
   const tryBmiCalc = () => {
     setShowBmiModal(true);
@@ -62,6 +63,7 @@ const LandingFooter = () => {
     setShowCalCalModal(false);
 
     if (me?.id) {
+      setCheckingAssessment(true);
       try {
         const { data } = await assessmentApi.getAssessmentsResult();
 
@@ -69,14 +71,13 @@ const LandingFooter = () => {
           router.push("/nutrition-analysis/result");
           return;
         }
-      } catch {
-        // No completed result is a valid state when the user has not finished yet.
-      }
+      } catch {}
 
       if (hasAssessmentDraft(me.id)) {
         router.push("/nutrition-analysis/assessment");
         return;
       }
+      setCheckingAssessment(false);
     }
 
     setShowBeforeStartAssessmentModal(true);
@@ -104,6 +105,7 @@ const LandingFooter = () => {
     {
       onTry: tryFullAssessment,
       title: t("tools.nutritionAnalysis.name"),
+      loading: checkingAssessment,
     },
   ];
 
