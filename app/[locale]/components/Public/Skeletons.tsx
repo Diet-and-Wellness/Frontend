@@ -256,7 +256,7 @@ export const PricingPlansSkeleton = () => (
 
 export const BlogDetailsSkeleton = () => (
   <div aria-busy="true" className="min-h-screen min-w-full">
-    <Skeleton className="mx-auto mt-20 min-h-80 w-[92.5%] rounded-4xl md:min-h-120 md:w-[75%]" />
+    <Skeleton className="mx-auto mt-25 min-h-90 w-[92.5%] rounded-4xl md:min-h-170 md:w-[75%]" />
     <div className="mx-auto flex w-[90%] flex-col gap-7.5 py-7.5 md:max-w-[70%] lg:py-10">
       <div className="flex justify-between gap-5">
         <Skeleton className="h-6 w-1/4" />
