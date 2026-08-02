@@ -18,7 +18,7 @@ const AssessmentHeader = ({
         <ThemeSwitch />
         <button
           onClick={onClose}
-          className="shrink-0 cursor-pointer items-center rounded-full border border-line bg-surface-muted px-5 py-2 text-accent font-medium transition-colors hover:border-brand"
+          className="shrink-0 cursor-pointer items-center rounded-full border border-line bg-surface-muted px-5 py-1.5 text-accent font-medium transition-colors hover:border-brand"
         >
           {closeLabel ?? t("cancel")}
         </button>

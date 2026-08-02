@@ -1,11 +1,11 @@
 "use client";
 
 import BlogForm from "../_components/BlogForm";
-import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { BackButton } from "../../_components/BackToBtn";
 
 const container = {
   hidden: { opacity: 0 },
@@ -52,13 +52,10 @@ const AddNewBlogPage = () => {
           <h3 className="type-page-title font-bold">{t("addNewBlog")}</h3>
           <p className="type-body-lg text-content-muted">{t("manageBlogs")}</p>
         </div>
-        <button
-          onClick={backToMainBlogsPage}
-          className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
-        >
-          <ArrowIcon className="direction-aware-back-icon" />
-          <p className="type-control font-semibold">{t("backToBlogs")}</p>
-        </button>
+        <BackButton
+          text={t("backToBlogs")}
+          clickHandler={backToMainBlogsPage}
+        />
       </motion.div>
 
       <BlogForm mood="new" />

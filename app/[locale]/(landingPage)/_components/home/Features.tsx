@@ -39,7 +39,7 @@ const Features = () => {
       checkPointIcon: <Checkout className="text-content w-5 xl:w-7 h-auto" />,
       imgStyle: "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
       bgStyle: "bg-feature-three",
-      textStyle: "text-content  ",
+      textStyle: "text-content",
     },
   ];
 

@@ -18,7 +18,7 @@ const CTA = ({
         onClick={tryAgainHanlder}
         className="type-control flex h-12 items-center justify-center gap-2.5 rounded-full border border-brand px-7.5 py-2.5 font-semibold text-brand cursor-pointer"
       >
-        <RedoIcon />
+        <RedoIcon className="w-5 md:w-6 h-auto" />
         <span>{t("tryAgain")}</span>
       </button>
 
@@ -28,7 +28,7 @@ const CTA = ({
       >
         <span>{t("fullAnalysis")}</span>
         <div className={locale === "ar" ? "" : "rotate-y-180"}>
-          <ArrowIcon />
+          <ArrowIcon className="w-3 md:w-3.5 h-auto" />
         </div>
       </button>
     </div>

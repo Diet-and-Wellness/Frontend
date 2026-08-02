@@ -27,10 +27,10 @@ const AssessmentActions = ({
         className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-full px-4 ring-2 sm:flex-none sm:px-7.5 ${backBtnDisabled ? "ring-line-strong cursor-not-allowed" : "ring-accent cursor-pointer"}`}
       >
         <ArrowIcon
-          className={`shrink-0 ${backBtnDisabled ? "text-content-subtle" : "text-accent"} ${isArabic ? "rotate-y-180" : ""}`}
+          className={`shrink-0 w-3 md:w-3.5 h-auto ${backBtnDisabled ? "text-content-subtle" : "text-accent"} ${isArabic ? "rotate-y-180" : ""}`}
         />
         <span
-          className={`type-control font-medium ${backBtnDisabled ? "text-content-subtle" : "text-accent"}`}
+          className={`type-control font-semibold ${backBtnDisabled ? "text-content-subtle" : "text-accent"}`}
         >
           {t("back")}
         </span>
@@ -42,12 +42,12 @@ const AssessmentActions = ({
         className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-full px-4 sm:flex-none sm:px-7.5 ${nextBtnDisabled ? "bg-line-strong cursor-not-allowed" : "bg-brand cursor-pointer"}`}
       >
         <span
-          className={`type-control font-medium ${nextBtnDisabled ? "text-content-subtle" : "text-surface-raised"}`}
+          className={`type-control font-semibold ${nextBtnDisabled ? "text-content-subtle" : "text-surface-raised"}`}
         >
           {isLastQuestion ? t("submit") : t("next")}
         </span>
         <ArrowIcon
-          className={`shrink-0 ${nextBtnDisabled ? "text-content-subtle" : "text-surface-raised"} ${isArabic ? "" : "rotate-y-180"}`}
+          className={`shrink-0 w-3 md:w-3.5 h-auto ${nextBtnDisabled ? "text-content-subtle" : "text-surface-raised"} ${isArabic ? "" : "rotate-y-180"}`}
         />
       </button>
     </div>
