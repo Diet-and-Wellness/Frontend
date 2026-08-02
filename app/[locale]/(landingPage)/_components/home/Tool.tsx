@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import type { ComponentType, SVGProps } from "react";
 import { Leaf } from "@/app/[locale]/components/icons/LeafIcon";
 import { Diamond } from "@/app/[locale]/components/icons/DiamondIcon";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 type toolPropsType = {
   isFree: boolean;
@@ -12,6 +13,7 @@ type toolPropsType = {
   toolName: string;
   toolDesc: string;
   onTry: () => void;
+  loading?: boolean;
 };
 
 const Tool = ({
@@ -20,6 +22,7 @@ const Tool = ({
   toolName,
   toolDesc,
   onTry,
+  loading,
 }: toolPropsType) => {
   const t = useTranslations();
 
@@ -87,8 +90,8 @@ const Tool = ({
       <button
         onClick={onTry}
         className={`
-            py-2.5
-            md:py-3
+            h-11
+            md:h-12
             border-2 ${isFree ? "border-brand" : "border-accent"}
             rounded-full
             ${isFree ? "text-brand" : "text-accent"}
@@ -98,9 +101,14 @@ const Tool = ({
             group-hover:bg-surface-raised
             active:scale-98
             cursor-pointer
+            flex justify-center items-center
         `}
       >
-        {t("tools.tryNow")}
+        {loading ? (
+          <Spinner spinnerSize={26} borderColor={"brannd"} />
+        ) : (
+          t("tools.tryNow")
+        )}
       </button>
     </motion.li>
   );

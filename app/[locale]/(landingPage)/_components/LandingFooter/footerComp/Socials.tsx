@@ -3,10 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 const socialLinks = [
-  { href: "/", icon: "/icons/facebook.svg", alt: "Facebook" },
-  { href: "/", icon: "/icons/twitter.svg", alt: "Twitter" },
-  { href: "/", icon: "/icons/insta.svg", alt: "Instagram" },
-  { href: "/", icon: "/icons/youtube.svg", alt: "YouTube" },
+  {
+    href: "https://www.facebook.com/share/1AQvvZeg6o/?mibextid=wwXIfr",
+    icon: "/icons/facebook.svg",
+    alt: "Facebook",
+  },
+  // { href: "/", icon: "/icons/twitter.svg", alt: "Twitter" },
+  {
+    href: "https://www.instagram.com/diet_a_wellness?igsh=M2ZkeHc3OWNranQy",
+    icon: "/icons/insta.svg",
+    alt: "Instagram",
+  },
+  // { href: "/", icon: "/icons/youtube.svg", alt: "YouTube" },
 ];
 
 const Socials = () => {
@@ -27,7 +35,6 @@ const Socials = () => {
         </p>
       </Link>
 
-      {/* Text */}
       <p
         className="
         text-sm sm:text-base md:text-lg lg:text-xl
@@ -39,7 +46,6 @@ const Socials = () => {
         {t("footer.footerMessage")}
       </p>
 
-      {/* Social Icons */}
       <nav
         aria-label="Social media links"
         className="flex items-center gap-4 sm:gap-5"

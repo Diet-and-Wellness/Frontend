@@ -1,8 +1,11 @@
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type LinkItem = {
-  href: string;
+  href?: string;
+  onTry?: () => void;
+  loading?: boolean;
   title: string;
 };
 
@@ -14,12 +17,10 @@ type QuickLinksProps = {
 const QuickLinks = ({ title, linksList }: QuickLinksProps) => {
   return (
     <section className="flex flex-col gap-3 sm:gap-4 lg:max-w-[32.5%]">
-      {/* Title */}
       <h4 className="text-base sm:text-lg md:text-xl font-medium text-white">
         {title}
       </h4>
 
-      {/* Divider */}
       <Image
         src="/icons/zigzag.svg"
         alt="Decorative divider"
@@ -28,10 +29,15 @@ const QuickLinks = ({ title, linksList }: QuickLinksProps) => {
         className="sm:w-15"
       />
 
-      {/* Links */}
       <nav className="flex flex-col items-start gap-3 sm:gap-4 md:gap-5">
         {linksList.map((link) => (
-          <LinkComp key={link.title} href={link.href} linkTitle={link.title} />
+          <LinkComp
+            key={link.title}
+            linkTitle={link.title}
+            href={link.href}
+            onTry={link.onTry}
+            loading={link.loading ?? false}
+          />
         ))}
       </nav>
     </section>
@@ -39,21 +45,34 @@ const QuickLinks = ({ title, linksList }: QuickLinksProps) => {
 };
 
 type LinkCompProps = {
-  href: string;
+  href?: string;
+  onTry?: () => void;
   linkTitle: string;
+  loading?: boolean;
 };
 
-const LinkComp = ({ href, linkTitle }: LinkCompProps) => {
+const LinkComp = ({ onTry, loading, href, linkTitle }: LinkCompProps) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (!!href) {
+      router.replace(href);
+    } else if (!!onTry) {
+      onTry();
+    } else return;
+  };
+
   return (
-    <Link
-      href={href}
-      className="
+    <button
+      onClick={handleClick}
+      disabled={loading}
+      className={`
         group inline-flex items-center gap-2
         transition-all duration-300
-        hover:translate-x-1
-      "
+        cursor-pointer
+        ${loading ? "" : "cursor-pointer hover:translate-x-1"}
+      `}
     >
-      {/* Icon */}
       <Image
         src="/icons/arrow-right.svg"
         alt=""
@@ -62,18 +81,18 @@ const LinkComp = ({ href, linkTitle }: LinkCompProps) => {
         className="sm:w-3.5 transition-transform duration-300 group-hover:translate-x-1"
       />
 
-      {/* Text */}
       <span
         className="
           text-sm sm:text-base md:text-[18px]
           font-extralight text-white
           transition-colors duration-300
           group-hover:text-white/80
+          flex items-center gap-1.5
         "
       >
-        {linkTitle}
+        {linkTitle} {loading && <Spinner spinnerSize={18} />}
       </span>
-    </Link>
+    </button>
   );
 };
 
