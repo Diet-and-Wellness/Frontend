@@ -236,7 +236,7 @@ const AssessmentPage = () => {
     return (
       <div className="mx-auto w-full max-w-230">
         <AssessmentHeader
-          title={t("analysis.title")}
+          title={t("tools.nutritionAnalysis.name")}
           closeLabel={t("analysis.exitAssessment")}
           onClose={() => setIsLeaveModalOpen(true)}
         />
@@ -258,7 +258,7 @@ const AssessmentPage = () => {
   return (
     <div className="mx-auto w-full max-w-230">
       <AssessmentHeader
-        title={t("analysis.title")}
+        title={t("tools.nutritionAnalysis.name")}
         closeLabel={t("analysis.exitAssessment")}
         onClose={() => setIsLeaveModalOpen(true)}
       />

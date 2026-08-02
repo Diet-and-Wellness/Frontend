@@ -9,7 +9,6 @@ import type {
 } from "@/app/[locale]/api/types/assessment.types";
 import type { Customer } from "@/app/[locale]/api/types/profile.types";
 import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
-import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import CheckIcon from "@/app/[locale]/components/icons/CheckIcon";
 import DateIcon from "@/app/[locale]/components/icons/Date";
 import { useMe } from "@/app/[locale]/hooks/useMe";
@@ -18,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect } from "react";
+import { BackButton } from "../../../admin/_components/BackToBtn";
 
 type SubmissionPayload = AssessmentSubmission & {
   result?: AssessmentSubmission;
@@ -120,14 +120,10 @@ const AssessmentAnswersPage = () => {
             </p>
           </div>
         </div>
-
-        <button
-          onClick={() => router.back()}
-          className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
-        >
-          <ArrowIcon className="direction-aware-back-icon" />
-          <span>{t("backToClients")}</span>
-        </button>
+        <BackButton
+          text={t("backToClients")}
+          clickHandler={() => router.back()}
+        />
       </header>
 
       <section className="overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">

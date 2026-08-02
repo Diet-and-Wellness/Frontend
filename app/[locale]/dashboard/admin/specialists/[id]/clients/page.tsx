@@ -15,10 +15,10 @@ import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import ViewNoteModal from "./_components/ViewNoteModal";
 import { useState } from "react";
-import ArrowIcon from "@/app/[locale]/components/icons/ArrowIcon";
 import { useTranslations } from "next-intl";
 import Pagination from "../../../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
+import { BackButton } from "../../../_components/BackToBtn";
 
 const container = {
   hidden: { opacity: 0 },
@@ -154,15 +154,10 @@ const SpecialistClientsPage = () => {
                 </div>
               </div>
             </div>
-            <button
-              onClick={backToSpecialistHandler}
-              className="type-control flex min-h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 font-semibold text-content-muted transition-colors hover:bg-surface-muted md:w-fit"
-            >
-              <ArrowIcon className="direction-aware-back-icon" />
-              <p className="type-control font-semibold">
-                {t("backToSpecialists")}
-              </p>
-            </button>
+            <BackButton
+              text={t("backToSpecialists")}
+              clickHandler={backToSpecialistHandler}
+            />
           </motion.div>
 
           {(customers?.length ?? 0) > 0 ? (
