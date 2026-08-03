@@ -526,6 +526,7 @@
     "hours": "hours",
     "egp": "EGP",
     "mostPopularPlan": "MOST POPULAR PLAN",
-    "responseTimePerDay": "Response time per day: "
+    "responseTimePerDay": "Response time per day: ",
+    "forever": "Forever"
   }
 }

@@ -1,6 +1,6 @@
 export type Currency = "EGP";
 
-export type PlanType = "subscription_plan";
+export type PlanType = "subscription_plan" | "one_time_offer";
 
 export type ActiveDay =
   | "sunday"
@@ -46,9 +46,7 @@ export interface SubscriptionPlanRequest {
   planNote: string;
 }
 
-export interface SubscriptionId {
-  id: string;
-}
+export type SubscriptionId = string;
 
 export interface GetMySubscriptionHistoryRequest {
   limit?: number;
@@ -57,3 +55,5 @@ export interface GetMySubscriptionHistoryRequest {
 export interface UserSubscriptionId {
   userSubscriptionId: string;
 }
+
+export type SubscriptionType = "subscription_plan" | "one_time_offer";

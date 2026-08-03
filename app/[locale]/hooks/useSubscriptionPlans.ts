@@ -9,6 +9,7 @@ export const useSubscriptionPlans = () => {
 };
 
 const getAllPricingPlan = async () => {
-  const { data } = await subscriptionApi.getAllSubscriptions();
+  const { data } =
+    await subscriptionApi.getAllSubscriptions("subscription_plan");
   return data?.data ?? [];
 };

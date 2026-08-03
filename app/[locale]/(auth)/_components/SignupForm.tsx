@@ -8,6 +8,8 @@ import Error from "../../components/Public/Error";
 import Label from "../../components/Public/Label";
 import Spinner from "../../components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 type FormData = {
   firstName: string;
@@ -19,15 +21,27 @@ type FormData = {
 
 const SignupForm = () => {
   const t = useTranslations();
+
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
-  const onSubmit = async (data: FormData) => {
-    await authApi.signup(data);
+  const onSubmit = (formData: FormData) => {
+    signupMutation.mutate(formData);
   };
+
+  const signupMutation = useMutation({
+    mutationFn: async (formData: FormData) => {
+      await authApi.signup(formData);
+    },
+    onSuccess: () => {
+      router.replace("/signin");
+    },
+  });
 
   const inputClassName =
     "text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 focus:border-brand-hover transition";
@@ -46,12 +60,8 @@ const SignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
-      {/* Title */}
-      <h3 className="type-display font-extrabold">
-        {t("auth.createAccount")}
-      </h3>
+     <h3 className="type-display font-extrabold">{t("auth.createAccount")}</h3>
 
-      {/* First Name */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.firstName")} isRequired={true} />
 
@@ -64,7 +74,6 @@ const SignupForm = () => {
         {errors.firstName && <Error msg={errors.firstName.message} />}
       </div>
 
-      {/* Last Name */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.lastName")} isRequired={true} />
 
@@ -77,7 +86,6 @@ const SignupForm = () => {
         {errors.lastName && <Error msg={errors.lastName.message} />}
       </div>
 
-      {/* Email */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.email")} isRequired={true} />
 
@@ -97,7 +105,6 @@ const SignupForm = () => {
         {errors.email && <Error msg={errors.email.message} />}
       </div>
 
-      {/* Phone */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.phoneNumber")} isRequired={true} />
 
@@ -112,7 +119,6 @@ const SignupForm = () => {
         {errors.phone && <Error msg={errors.phone.message} />}
       </div>
 
-      {/* Password */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.password")} isRequired={true} />
 
@@ -132,17 +138,15 @@ const SignupForm = () => {
         {errors.password && <Error msg={errors.password.message} />}
       </div>
 
-      {/* Button */}
       <button
         type="submit"
         disabled={isSubmitting}
         className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
-        {isSubmitting ? <Spinner /> : t("auth.signUp")}
+        {isSubmitting ? <Spinner spinnerSize={30} /> : t("auth.signUp")}
       </button>
 
-      {/* Footer */}
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center items-center">
         <p className="type-label font-medium">{t("auth.noAccount")}</p>
         <Link href={"/signin"}>
           <span className="type-label text-brand font-semibold underline transition">

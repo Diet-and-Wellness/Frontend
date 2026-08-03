@@ -4,15 +4,27 @@ import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
+import { useMe } from "@/app/[locale]/hooks/useMe";
+import LogoutIcon from "@/app/[locale]/components/icons/LogoutIcon";
 
-const LandingNavBar = () => {
+const LandingNavBar = ({
+  onClickLogout,
+  isLoggingout,
+}: {
+  onClickLogout: () => void;
+  isLoggingout: boolean;
+}) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
 
-  const t = useTranslations("");
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  const profileButtonRef = useRef<HTMLButtonElement>(null);
+
+  const t = useTranslations();
 
   const tabs = [
     { label: t("navList.links.home"), href: "/" },
@@ -30,16 +42,56 @@ const LandingNavBar = () => {
     };
   }, [isMenuVisible]);
 
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenuOnOutsideInteraction = (event: PointerEvent) => {
+      const target = event.target as Node;
+
+      if (
+        profileButtonRef.current?.contains(target) ||
+        profileMenuRef.current?.contains(target)
+      ) {
+        return;
+      }
+
+      setShowMenu(false);
+    };
+
+    const closeMenuOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowMenu(false);
+        profileButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", closeMenuOnOutsideInteraction);
+    document.addEventListener("keydown", closeMenuOnEscape);
+
+    return () => {
+      document.removeEventListener(
+        "pointerdown",
+        closeMenuOnOutsideInteraction,
+      );
+      document.removeEventListener("keydown", closeMenuOnEscape);
+    };
+  }, [showMenu]);
+
+  const { data: me } = useMe();
+
   const menuToggle = () => setIsMenuVisible((value) => !value);
 
   return (
     <nav className="fixed top-0 z-50 w-full backdrop-blur-xl">
       <div className="mx-auto flex w-[90%] items-center justify-between py-2">
         <Logo href={"/"} />
+
         <div className="flex items-center gap-5">
           <NavList tabs={tabs} />
-          <div className="flex items-center gap-2.5">
+
+          <div className="flex items-center gap-3">
             <ThemeSwitch />
+
             <button
               onClick={menuToggle}
               className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
@@ -80,9 +132,55 @@ const LandingNavBar = () => {
                 )}
               </AnimatePresence>
             </button>
+
+            {!!me && (
+              <button
+                ref={profileButtonRef}
+                type="button"
+                onClick={() => setShowMenu((prev) => !prev)}
+                aria-expanded={showMenu}
+                aria-haspopup="menu"
+                className="cursor-pointer rounded-full border-2 border-accent-contrast bg-surface-muted transition-colors"
+              >
+                <div className="size-9 bg-accent rounded-full flex justify-center items-center relative">
+                  <div className="size-3 bg-brand absolute rounded-full -top-0.5 -inset-e-0.5 shadow-[0_0_0_2px_var(--color-accent-contrast)]"></div>
+                  <span className="type-meta font-bold text-accent-contrast">
+                    {me?.firstName?.at(0)}
+                    {me?.lastName?.at(0)}
+                  </span>
+                </div>
+              </button>
+            )}
+
+            <AnimatePresence>
+              {showMenu && (
+                <motion.div
+                  ref={profileMenuRef}
+                  role="menu"
+                  initial={{ opacity: 0, top: 50 }}
+                  animate={{ opacity: 1, top: 65 }}
+                  exit={{ opacity: 0, top: 50 }}
+                  className="absolute inset-e-4 flex flex-col gap-2 rounded-lg border border-line bg-surface p-2 shadow-[0_0_10px_0px_rgba(0,0,0,0.1)] sm:inset-e-15"
+                >
+                  <button
+                    type="button"
+                    role="menuitem"
+                    disabled={isLoggingout}
+                    onClick={onClickLogout}
+                    className={`min-w-40 p-2 text-center flex items-center gap-3 cursor-pointer hover:bg-surface-neutral transition-colors duration-150 rounded-lg`}
+                  >
+                    <LogoutIcon className="text-danger" />
+                    <p className="type-control text-danger">
+                      {t("dashboard.logout")}
+                    </p>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
+
       <AnimatePresence>
         {isMenuVisible && (
           <MobileMenu setIsMenuVisible={setIsMenuVisible} tabs={tabs} />

@@ -66,12 +66,8 @@ const SigninForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
-      {/* Title */}
-      <h3 className="type-display font-extrabold">
-        {t("auth.signIn")}
-      </h3>
+      <h3 className="type-display font-extrabold">{t("auth.signIn")}</h3>
 
-      {/* Email */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.email")} isRequired={true} />
 
@@ -91,7 +87,6 @@ const SigninForm = () => {
         {errors.email && <Error msg={errors.email.message} />}
       </div>
 
-      {/* Password */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.password")} isRequired={true} />
 
@@ -111,17 +106,19 @@ const SigninForm = () => {
         {errors.password && <Error msg={errors.password.message} />}
       </div>
 
-      {/* Button */}
       <button
         type="submit"
         disabled={loginMutation.isPending}
         className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
-        {loginMutation.isPending ? <Spinner spinnerSize={30} /> : t("auth.signIn")}
+        {loginMutation.isPending ? (
+          <Spinner spinnerSize={30} />
+        ) : (
+          t("auth.signIn")
+        )}
       </button>
 
-      {/* Footer */}
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-3 justify-center items-center">
         <p className="type-label font-medium">{t("auth.noAccount")}</p>
         <Link href="/signup">
           <span className="type-label text-brand font-semibold underline transition">
