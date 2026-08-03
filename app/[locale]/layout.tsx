@@ -3,15 +3,13 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { cookies } from "next/headers";
-
 import type { Metadata } from "next";
-
-import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
-
 import { Cairo, Roboto } from "next/font/google";
 
-import "./globals.css";
+import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
 import { ThemeProvider } from "@/app/[locale]/components/Theme/ThemeProvider";
+
+import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -25,7 +23,9 @@ const cairo = Cairo({
   display: "swap",
 });
 
-const baseUrl = "https://diet-wellness.vercel.app";
+const baseUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://diet-wellness.vercel.app"
+).replace(/\/$/, "");
 
 const metadataContent = {
   en: {
@@ -34,6 +34,7 @@ const metadataContent = {
       "Improve your health with smart nutrition tools, personalized assessments, calorie calculators, wellness insights, and professional specialist support.",
     imageAlt: "Diet and Wellness health and nutrition platform",
   },
+
   ar: {
     title: "دايت آند ويلنس",
     description:
@@ -46,12 +47,12 @@ type Locale = keyof typeof metadataContent;
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{
+    locale: string;
+  }>;
 };
 
-export async function generateMetadata({
-  params,
-}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
@@ -62,19 +63,28 @@ export async function generateMetadata({
   const content = metadataContent[currentLocale];
 
   const pageUrl = `${baseUrl}/${currentLocale}`;
-  const imageUrl = `${baseUrl}/images/social-preview.png`;
+
+  const imageUrl = `${baseUrl}/images/social-review.png`;
 
   return {
     metadataBase: new URL(baseUrl),
 
-    title: content.title,
+    title: {
+      default: content.title,
+      template: `%s | ${content.title}`,
+    },
+
     description: content.description,
+
+    applicationName: "Diet and Wellness",
 
     alternates: {
       canonical: pageUrl,
+
       languages: {
         en: `${baseUrl}/en`,
         ar: `${baseUrl}/ar`,
+        "x-default": `${baseUrl}/en`,
       },
     },
 
@@ -82,16 +92,19 @@ export async function generateMetadata({
       type: "website",
       url: pageUrl,
       siteName: "Diet and Wellness",
-      locale: currentLocale === "ar" ? "ar_EG" : "en_US",
-      alternateLocale: currentLocale === "ar" ? ["en_US"] : ["ar_EG"],
       title: content.title,
       description: content.description,
+      locale: currentLocale === "ar" ? "ar_EG" : "en_US",
+      alternateLocale: currentLocale === "ar" ? ["en_US"] : ["ar_EG"],
+
       images: [
         {
           url: imageUrl,
+          secureUrl: imageUrl,
           width: 1200,
           height: 630,
           alt: content.imageAlt,
+          type: "image/png",
         },
       ],
     },
@@ -100,7 +113,18 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: content.title,
       description: content.description,
-      images: [imageUrl],
+
+      images: [
+        {
+          url: imageUrl,
+          alt: content.imageAlt,
+        },
+      ],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -115,17 +139,18 @@ export default async function IndexLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   const messages = await getMessages();
-  const savedTheme = (await cookies()).get("diet-wellness-theme")?.value;
-  const initialTheme = savedTheme === "dark" ? "dark" : "light";
 
+  const savedTheme = (await cookies()).get("diet-wellness-theme")?.value;
+
+  const initialTheme = savedTheme === "dark" ? "dark" : "light";
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
     <html
       lang={locale}
+      dir={direction}
       data-scroll-behavior="smooth"
       data-theme={initialTheme}
-      dir={direction}
       suppressHydrationWarning
     >
       <body className={locale === "ar" ? cairo.className : roboto.className}>
