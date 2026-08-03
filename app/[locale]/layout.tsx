@@ -62,7 +62,7 @@ export async function generateMetadata({
   const content = metadataContent[currentLocale];
 
   const pageUrl = `${baseUrl}/${currentLocale}`;
-  const imageUrl = `${baseUrl}/images/social-preview.jpg`;
+  const imageUrl = `${baseUrl}/images/social-preview.png`;
 
   return {
     metadataBase: new URL(baseUrl),
