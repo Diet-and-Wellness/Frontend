@@ -13,7 +13,7 @@ Nginx :80/:443
     `-- api.example.com  -> backend on 127.0.0.1:5000
 ```
 
-PM2 manages Node.js; Nginx handles public HTTP/HTTPS. This repository supplies `diet-wellness-frontend` on port 3000 using standard `next start`.
+PM2 manages Node.js; Nginx handles public HTTP/HTTPS. This repository supplies `frontend` on port 3000 using standard `next start`.
 
 ## 2. Values the user must replace
 
@@ -24,7 +24,7 @@ PM2 manages Node.js; Nginx handles public HTTP/HTTPS. This repository supplies `
 | `GITHUB_OWNER` | GitHub owner |
 | `Diet-Wellness`, `nutrition-be` | Actual frontend/backend repository names |
 | Frontend/backend ports | `3000` / `5000` |
-| Deploy directories | `/var/www/example-frontend`, `/var/www/example-backend` |
+| Deploy directories | `/var/www/frontend`, `/var/www/backend` |
 | Node version | `20.19.5` from `.nvmrc` |
 
 ## 3. Initial root login
@@ -116,8 +116,8 @@ Run exactly the sudo command PM2 prints, then later run `pm2 start ecosystem.con
 As root:
 
 ```bash
-mkdir -p /var/www/example-frontend /var/www/example-backend
-chown -R deploy:deploy /var/www/example-frontend /var/www/example-backend
+mkdir -p /var/www/frontend /var/www/backend
+chown -R deploy:deploy /var/www/frontend /var/www/backend
 ```
 
 ## 11. Give the VPS read access to GitHub
@@ -152,24 +152,24 @@ Compare GitHub's officially published host-key fingerprints with `ssh-keyscan gi
 ## 12. Clone the repository
 
 ```bash
-git clone git@github-frontend:GITHUB_OWNER/Diet-Wellness.git /var/www/example-frontend
-git clone git@github-backend:GITHUB_OWNER/nutrition-be.git /var/www/example-backend
+git clone git@github-frontend:GITHUB_OWNER/Diet-Wellness.git /var/www/frontend
+git clone git@github-backend:GITHUB_OWNER/nutrition-be.git /var/www/backend
 ```
 
 ## 13. Create production environment files
 
 ```bash
-cd /var/www/example-frontend
+cd /var/www/frontend
 cp .env.example .env.production
 chmod 600 .env.production
 ```
 
-Set `NEXT_PUBLIC_API_URL=https://api.example.com/api`. This is intentionally public, browser-visible, and embedded during `next build`; never put secrets in `NEXT_PUBLIC_*`, and rebuild after changing it. The backend separately needs mode-600 `/var/www/example-backend/.env`, including `FRONTEND_URL=https://example.com`; see its `.env.example`. Never commit either production file.
+Set `NEXT_PUBLIC_API_URL=https://api.example.com/api`. This is intentionally public, browser-visible, and embedded during `next build`; never put secrets in `NEXT_PUBLIC_*`, and rebuild after changing it. The backend separately needs mode-600 `/var/www/backend/.env`, including `FRONTEND_URL=https://example.com`; see its `.env.example`. Never commit either production file.
 
 ## 14. First manual build and launch
 
 ```bash
-cd /var/www/example-frontend
+cd /var/www/frontend
 export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"; nvm use
 npm ci
 npm run lint
@@ -178,7 +178,7 @@ mkdir -p logs
 pm2 start ecosystem.config.cjs
 pm2 save
 curl --fail http://127.0.0.1:3000/api/health
-pm2 logs diet-wellness-frontend --lines 100 --nostream
+pm2 logs frontend --lines 100 --nostream
 ```
 
 Prove the manual deployment before Actions. Standard `next start` was retained; standalone copying is unnecessary for this single-server install.
@@ -277,7 +277,7 @@ push/merge to main
 This is an in-place, non-atomic deployment. Find a healthy SHA and run:
 
 ```bash
-cd /var/www/example-frontend
+cd /var/www/frontend
 git fetch origin
 git reset --hard HEALTHY_COMMIT_SHA
 npm ci
@@ -292,8 +292,8 @@ Ignored `.env.production` remains. A later normal deployment returns to `origin/
 
 ```bash
 pm2 status
-pm2 logs diet-wellness-frontend --lines 200
-pm2 describe diet-wellness-frontend
+pm2 logs frontend --lines 200
+pm2 describe frontend
 journalctl -u pm2-deploy --since today
 nginx -t
 systemctl status nginx
@@ -301,7 +301,7 @@ tail -f /var/log/nginx/access.log /var/log/nginx/error.log
 curl -v http://127.0.0.1:3000/api/health
 curl -v https://example.com/api/health
 dig +short example.com api.example.com
-git -C /var/www/example-frontend remote -v
+git -C /var/www/frontend remote -v
 ssh -T github-frontend
 ss -ltnp | grep ':3000'
 ```
