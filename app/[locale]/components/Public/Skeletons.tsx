@@ -563,7 +563,7 @@ export const BlogEditorPageSkeleton = () => (
   </div>
 );
 
-export const DashboardLogoLoader = () => (
+export const LogoLoader = () => (
   <div
     aria-busy="true"
     className="flex min-h-screen items-center justify-center bg-surface-muted"
