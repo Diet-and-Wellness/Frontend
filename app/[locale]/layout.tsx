@@ -23,9 +23,7 @@ const cairo = Cairo({
   display: "swap",
 });
 
-const baseUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://diet-wellness.vercel.app"
-).replace(/\/$/, "");
+const baseUrl = "https://diet-n-wellness.com";
 
 const metadataContent = {
   en: {
@@ -84,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `${baseUrl}/en`,
         ar: `${baseUrl}/ar`,
-        "x-default": `${baseUrl}/en`,
+        "x-default": `${baseUrl}/ar`,
       },
     },
 
