@@ -3,22 +3,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import DashboardHeader from "./_components/Header";
-import SideBar, {
-  dashboardShellTransition,
-} from "./_components/SideBar";
+import SideBar, { dashboardShellTransition } from "./_components/SideBar";
 import { MotionConfig, motion } from "framer-motion";
 import { useMe } from "../hooks/useMe";
 import { getCleanPathname } from "../utils/getCleanPathname";
-import { DashboardLogoLoader } from "../components/Public/Skeletons";
+import { LogoLoader } from "../components/Public/Skeletons";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const router = useRouter();
 
-  const { data, isLoading } = useMe();
-
-  const me = data;
+  const { data: me, isLoading } = useMe();
 
   const toggleCollapse = () => {
     setCollapsed((prev) => !prev);
@@ -44,7 +40,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   }, [me, isLoading, router]);
 
   if (isLoading || !me) {
-    return <DashboardLogoLoader />;
+    return <LogoLoader />;
   }
 
   return (

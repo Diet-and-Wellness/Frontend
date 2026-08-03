@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import DateIcon from "../icons/Date";
 import PenIcon from "../icons/Pen";
