@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const pageUrl = `${baseUrl}/${currentLocale}`;
 
-  const imageUrl = `${baseUrl}/images/social-peview2.png`;
+  const imageUrl = `${baseUrl}/images/social-preview.png`;
 
   return {
     metadataBase: new URL(baseUrl),
