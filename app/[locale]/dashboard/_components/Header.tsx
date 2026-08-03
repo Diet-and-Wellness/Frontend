@@ -25,9 +25,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
 
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-  const data = useMe();
-
-  const me = data?.data ?? {};
+  const { data: me } = useMe();
 
   const queryClient = useQueryClient();
 

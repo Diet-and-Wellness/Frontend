@@ -21,6 +21,7 @@ import {
   PersonalizedInsightCard,
 } from "./_components/ResultPaywall";
 import { useTranslations } from "next-intl";
+import { subscriptionApi } from "../../api/endpoints/subscription.api";
 
 const visibleCategories = [
   "Excellent",
@@ -44,6 +45,19 @@ export default function ResultPage() {
       },
       enabled: !!me?.id,
     });
+
+  const { isLoading: checkingAccessabilityStatus, data: accessabilityStatus } =
+    useQuery({
+      queryKey: ["result-accessability", me?.id],
+      queryFn: async () => {
+        const { data } =
+          await subscriptionApi.getAssessmentResultAccessability();
+        return data.data;
+      },
+      enabled: !!me?.id,
+    });
+
+  console.log(accessabilityStatus);
 
   const summary = useMemo(() => {
     const radius = 90;
@@ -150,11 +164,15 @@ export default function ResultPage() {
   const sectionsByCategory = groupAssessmentSectionsByStatus(
     assessmentResult?.sectionResults,
   );
-  const loading = isLoadingMe || isLoadingAssessmentResult;
+
+  const loading =
+    isLoadingMe || isLoadingAssessmentResult || checkingAccessabilityStatus;
 
   if (loading) {
     return <AnalysisResultSkeleton />;
   }
+
+  console.log(accessabilityStatus?.hasAccess);
 
   return (
     <>
@@ -167,7 +185,7 @@ export default function ResultPage() {
         <AssessmentSummary {...summary} />
 
         <div className="relative">
-          {false && (
+          {accessabilityStatus.hasAccess || (
             <div className="absolute inset-0 bg-linear-to-b from-surface-raised/50 to-black/20 backdrop-blur-sm z-50">
               <PayToAccessCard />
             </div>

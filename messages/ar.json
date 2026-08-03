@@ -662,6 +662,7 @@
     "hours": "ساعة",
     "egp": "جنيه مصري",
     "mostPopularPlan": "الباقة الأكثر طلبًا",
-    "responseTimePerDay": "مدة الاستجابة يوميًا: "
+    "responseTimePerDay": "مدة الاستجابة يوميًا: ",
+    "forever": "مدى الحياة"
   }
 }

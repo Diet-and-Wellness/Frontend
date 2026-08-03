@@ -6,6 +6,10 @@ import { SubscriptionPlanResponse } from "@/app/[locale]/api/types/subscription.
 import { Badge } from "@/app/[locale]/components/icons/BadgeIcon";
 import { Date } from "@/app/[locale]/components/icons/DateIcon";
 import { Calender } from "@/app/[locale]/components/icons/CalenderIcon";
+import { subscriptionApi } from "@/app/[locale]/api/endpoints/subscription.api";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 
 type PricePlanProps = {
   plan: SubscriptionPlanResponse;
@@ -13,6 +17,26 @@ type PricePlanProps = {
 
 const PricePlan = ({ plan }: PricePlanProps) => {
   const t = useTranslations();
+
+  const [preparing, setPreparing] = useState(false);
+
+  const router = useRouter();
+
+  const purchaseHandler = async () => {
+    try {
+      setPreparing(true);
+      const { data } = await subscriptionApi.purchaseSubscription(plan.id);
+      const responseData = await data.data;
+      if (!!responseData.checkoutUrl) {
+        router.replace(responseData.checkoutUrl);
+      }
+    } catch {
+    } finally {
+      setPreparing(false);
+    }
+  };
+
+  const isOneTimePlan = plan.type === "one_time_offer";
 
   return (
     <motion.li
@@ -43,53 +67,53 @@ const PricePlan = ({ plan }: PricePlanProps) => {
           ${!plan.mostPopular ? "shadow-xl" : ""}
         `}
       >
-        {/* Header */}
         <div>
           <h3 className="text-lg sm:text-xl font-bold text-content">
             {plan.displayName}
           </h3>
 
           <p className="mt-1 text-xs sm:text-sm text-content-muted">
-            {t("pricing.subscriptionDuration")} {plan.durationInDays}{" "}
-            {t("pricing.day")}
+            {t("pricing.subscriptionDuration")}{" "}
+            {isOneTimePlan
+              ? t("pricing.forever")
+              : `${plan.durationInDays} ${t("pricing.day")}`}
           </p>
         </div>
 
-        {/* Price */}
         <p className="flex items-end gap-2">
           <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-content">
             {plan.price}
           </span>
           <span className="pb-1 text-sm sm:text-base font-medium text-content-muted">
             {plan.currency === "EGP" ? t("pricing.egp") : plan.currency}
-            {" / "}
-            {t("pricing.month")}
+            {!isOneTimePlan && ` / ${t("pricing.month")}`}
           </span>
         </p>
 
-        {/* Benefits */}
         <BenefitsList
+          isOneTimePlan={isOneTimePlan}
           benefitList={plan.features}
           days={plan.activeDays}
           respTime={plan.responseTimeInHours}
         />
 
-        {/* Note */}
         <p className="text-xs sm:text-sm leading-5 sm:leading-6 font-light text-content-muted">
           {plan.planNote}
         </p>
 
-        {/* CTA */}
         <button
+          disabled={preparing}
+          onClick={purchaseHandler}
           className={`
             mt-2 sm:mt-3
             rounded-full
-            px-4 py-2.5 sm:py-3
+            px-4 h-11 md:h-12
             text-sm sm:text-base
             font-medium text-white
             cursor-pointer
             transition-all duration-300
             active:scale-98
+            flex justify-center items-center
             ${
               plan.mostPopular
                 ? "bg-accent hover:bg-accent-hover"
@@ -97,7 +121,7 @@ const PricePlan = ({ plan }: PricePlanProps) => {
             }
           `}
         >
-          {t("getStarted.getStart")}
+          {preparing ? <Spinner spinnerSize={26} /> : t("getStarted.getStart")}
         </button>
       </div>
     </motion.li>
@@ -108,6 +132,7 @@ type BenefitsListProps = {
   benefitList: string[];
   days: string[];
   respTime: number;
+  isOneTimePlan: boolean;
 };
 
 const ListItem = ({
@@ -125,7 +150,12 @@ const ListItem = ({
   </li>
 );
 
-const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
+const BenefitsList = ({
+  isOneTimePlan,
+  benefitList,
+  days,
+  respTime,
+}: BenefitsListProps) => {
   const t = useTranslations("pricing");
   const localizedDays = days?.map((day) => t(`days.${day}`));
 
@@ -140,19 +170,23 @@ const BenefitsList = ({ benefitList, days, respTime }: BenefitsListProps) => {
         </ListItem>
       ))}
 
-      <ListItem
-        icon={<Date className="text-brand min-w-5 sm:min-w-6 h-auto" />}
-      >
-        <span className="font-medium">{t("daysWord")}</span>{" "}
-        {localizedDays?.join(" — ")}
-      </ListItem>
+      {isOneTimePlan || (
+        <ListItem
+          icon={<Date className="text-brand min-w-5 sm:min-w-6 h-auto" />}
+        >
+          <span className="font-medium">{t("daysWord")}</span>{" "}
+          {localizedDays?.join(" — ")}
+        </ListItem>
+      )}
 
-      <ListItem
-        icon={<Calender className="text-brand min-w-5 sm:min-w-6 h-auto" />}
-      >
-        <span className="font-medium">{t("responseTimePerDay")}</span>
-        {respTime} {t("hours")}
-      </ListItem>
+      {isOneTimePlan || (
+        <ListItem
+          icon={<Calender className="text-brand min-w-5 sm:min-w-6 h-auto" />}
+        >
+          <span className="font-medium">{t("responseTimePerDay")}</span>
+          {respTime} {t("hours")}
+        </ListItem>
+      )}
     </ul>
   );
 };

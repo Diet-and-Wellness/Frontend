@@ -148,7 +148,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
             aria-haspopup="menu"
             aria-expanded={showLanguageOptions}
             onClick={() => setShowLanguageOptions((current) => !current)}
-            className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface-muted px-5 py-2 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft"
+            className="flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-line bg-surface-muted px-5 py-1.5 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft"
           >
             <LanguageIcon className="size-5.5" />
             <span className="text-lg font-semibold">
@@ -201,7 +201,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
           scroll
           className="
           group flex min-h-11 cursor-pointer items-center self-center rounded-full
-          border border-line bg-surface-muted px-8 py-2
+          border border-line bg-surface-muted px-8 py-1.5
           transition-all duration-200 hover:border-brand hover:bg-brand-soft active:scale-95"
         >
           <span className="text-lg font-semibold text-brand transition-colors">
