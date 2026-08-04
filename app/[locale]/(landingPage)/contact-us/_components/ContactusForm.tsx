@@ -59,17 +59,14 @@ const ContactusForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
-      {/* Title */}
       <motion.h3 className="type-display font-extrabold">
         {t("contactUs.contactUs")}
       </motion.h3>
 
-      {/* Description */}
       <motion.p className="type-body mb-5 font-medium text-content-muted">
         {t("contactUs.contactDescription")}
       </motion.p>
 
-      {/* Full Name */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.fullName")} isRequired />
 
@@ -85,7 +82,6 @@ const ContactusForm = () => {
         {errors.name && <Error msg={errors.name.message} />}
       </div>
 
-      {/* Email */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.email")} isRequired />
 
@@ -105,7 +101,6 @@ const ContactusForm = () => {
         {errors.email && <Error msg={errors.email.message} />}
       </div>
 
-      {/* Phone */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.phoneNumber")} isRequired />
 
@@ -121,7 +116,6 @@ const ContactusForm = () => {
         {errors.phone && <Error msg={errors.phone.message} />}
       </div>
 
-      {/* Message */}
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.message")} isRequired />
 
@@ -142,13 +136,16 @@ const ContactusForm = () => {
         {errors.message && <Error msg={errors.message.message} />}
       </div>
 
-      {/* Button */}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
+        className="type-control mt-4 flex h-12.5 items-center justify-center rounded-4xl bg-accent font-semibold text-white cursor-pointer"
       >
-        {isSubmitting ? <Spinner /> : t("placeholders.sendMessage")}
+        {isSubmitting ? (
+          <Spinner spinnerSize={26} />
+        ) : (
+          t("placeholders.sendMessage")
+        )}
       </button>
     </motion.form>
   );

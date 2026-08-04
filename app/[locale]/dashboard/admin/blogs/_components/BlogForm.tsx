@@ -187,7 +187,7 @@ const BlogForm = ({ mood, blog }: { mood: string; blog?: BlogResponse }) => {
         <button
           type="submit"
           disabled={!canPublish}
-          className={`${!canPublish ? "cursor-not-allowed bg-line-strong text-content-subtle" : "cursor-pointer bg-accent"} type-control mt-4 flex h-13 items-center justify-center rounded-4xl font-medium text-white`}
+          className={`${!canPublish ? "cursor-not-allowed bg-line-strong text-content-subtle" : "cursor-pointer bg-accent"} type-control mt-4 flex h-12.5 items-center justify-center rounded-4xl font-medium text-white`}
         >
           {addNewBlogMutation.isPending ? (
             <Spinner spinnerSize={30} />

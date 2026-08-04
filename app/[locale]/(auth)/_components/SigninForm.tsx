@@ -109,7 +109,7 @@ const SigninForm = () => {
       <button
         type="submit"
         disabled={loginMutation.isPending}
-        className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
+        className="type-control mt-4 flex h-12.5 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
         {loginMutation.isPending ? (
           <Spinner spinnerSize={30} />

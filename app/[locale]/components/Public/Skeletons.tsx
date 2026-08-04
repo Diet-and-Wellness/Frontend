@@ -319,7 +319,7 @@ export const PersonalDataFormSkeleton = () => (
         </div>
       </div>
 
-      <Skeleton className="mt-2.5 h-13.5 w-full rounded-full" />
+      <Skeleton className="mt-2.5 h-12.5 w-full rounded-full" />
     </div>
   </AssessmentPageSkeletonShell>
 );
@@ -504,7 +504,7 @@ export const FormSkeleton = () => (
         <Skeleton className="h-12 w-full rounded-md" />
       </div>
     ))}
-    <Skeleton className="mt-2 h-13 w-full rounded-4xl" />
+    <Skeleton className="mt-2 h-12.5 w-full rounded-4xl" />
   </div>
 );
 
@@ -526,7 +526,7 @@ export const BlogFormSkeleton = () => (
         <Skeleton className="h-80 w-full rounded-xl" />
       </div>
 
-      <Skeleton className="mt-4 h-13 w-full rounded-4xl" />
+      <Skeleton className="mt-4 h-12.5 w-full rounded-4xl" />
     </div>
 
     <div className="order-first flex min-h-75 min-w-0 w-full flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-content-muted bg-surface p-5 sm:min-h-90 sm:p-7.5 lg:order-0 lg:col-span-2">
@@ -553,7 +553,7 @@ export const BlogEditorPageSkeleton = () => (
         <Skeleton className="h-6 w-72 max-w-full" />
       </div>
 
-      <div className="flex min-h-13 items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-42">
+      <div className="flex min-h-12.5 items-center justify-center gap-3 rounded-full border border-line bg-surface px-5 py-2.5 sm:w-42">
         <Skeleton className="size-5 rounded-full" />
         <Skeleton className="h-5 w-24" />
       </div>
