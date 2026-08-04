@@ -3,10 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import type {
-  AssessmentSectionResult,
-  MacroResult,
-} from "../../api/types/assessment.types";
+import type { MacroResult } from "../../api/types/assessment.types";
 import { assessmentApi } from "../../api/endpoints/assessment.api";
 import AssessmentHeader from "../_components/AssessmentHeader";
 import { AnalysisResultSkeleton } from "../../components/Public/Skeletons";
@@ -23,7 +20,7 @@ import {
   PayToAccessCard,
   PersonalizedInsightCard,
 } from "./_components/ResultPaywall";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { subscriptionApi } from "../../api/endpoints/subscription.api";
 
 const visibleCategories = [
@@ -33,7 +30,7 @@ const visibleCategories = [
   "Needs Attention",
 ] as const;
 
-const assessmentPreviewSections: AssessmentSectionResult[] = [
+const assessmentPreviewSections_En = [
   {
     sectionTitle: "Your Goal and Current State",
     section: "preview-goal-current-state",
@@ -216,10 +213,189 @@ const assessmentPreviewSections: AssessmentSectionResult[] = [
   },
 ];
 
+const assessmentPreviewSections_Ar = [
+  {
+    sectionTitle: "هدفك الحالي ووضعك الصحي",
+    section: "preview-goal-current-state",
+    sectionScore: 1,
+    result: {
+      label: "ممتاز",
+      description:
+        "هذه معاينة توضيحية لكيفية ظهور هذا القسم بعد الحصول على التحليل الكامل.",
+      recommendations: [
+        "سيقدم لك التقرير الكامل تحليلاً شخصيًا يعتمد على أهدافك الحالية، وتجاربك السابقة مع الوزن، وحالتك الصحية الفعلية. النتائج الظاهرة هنا ليست مبنية على إجاباتك الحقيقية.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "نشاطك البدني وروتينك اليومي",
+    section: "preview-physical-activity",
+    sectionScore: 0.58,
+    result: {
+      label: "متوسط",
+      description: "هذا مثال توضيحي فقط لإظهار شكل التقرير النهائي.",
+      recommendations: [
+        "سيقيّم تقريرك الحقيقي مستوى نشاطك اليومي، وعدد مرات ممارسة الرياضة، والحركة خلال اليوم، ويقدم توصيات مخصصة بناءً على إجاباتك.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "النوم والترطيب والطاقة اليومية",
+    section: "preview-sleep-hydration-energy",
+    sectionScore: 0.46,
+    result: {
+      label: "متوسط",
+      description:
+        "التحليل الحقيقي لهذا القسم غير متاح قبل فتح التقرير الكامل.",
+      recommendations: [
+        "سيحلل التقرير الشخصي جودة نومك، وكمية المياه التي تشربها، ومستوى نشاطك اليومي، وتأثير ذلك على صحتك والتزامك بالخطة الغذائية.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الشهية وتنظيم مواعيد الوجبات",
+    section: "preview-appetite-meal-timing",
+    sectionScore: 0.64,
+    result: {
+      label: "جيد",
+      description:
+        "البيانات المعروضة هنا لأغراض المعاينة فقط وليست ناتجة عن تقييمك.",
+      recommendations: [
+        "سيعرض التقرير الحقيقي تحليلاً لأنماط الجوع، والفترات بين الوجبات، والشهية المسائية، مع توصيات تناسب أسلوب حياتك.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "علاقتك بالطعام ومدى الالتزام",
+    section: "preview-food-relationship-adherence",
+    sectionScore: 0.41,
+    result: {
+      label: "يحتاج إلى تحسين",
+      description: "هذا القسم عبارة عن نموذج توضيحي ولا يعكس نتيجتك الحقيقية.",
+      recommendations: [
+        "سيكشف التقرير الشخصي العوامل التي تؤثر على التزامك، مثل الدافع، والضغوط النفسية، والعادات الغذائية، مع اقتراحات مناسبة لحالتك.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "عاداتك الغذائية اليومية",
+    section: "preview-daily-eating-habits",
+    sectionScore: 0.69,
+    result: {
+      label: "جيد",
+      description: "هذا مجرد مثال لإظهار شكل التقرير النهائي.",
+      recommendations: [
+        "سيقيّم التقرير الحقيقي جودة وجباتك، وتناول البروتين والخضروات، واعتمادك على الطعام المنزلي أو الوجبات الخارجية.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الهضم واستجابة الجسم للطعام",
+    section: "preview-digestion-food-response",
+    sectionScore: 0.53,
+    result: {
+      label: "متوسط",
+      description: "النتيجة والتوصية المعروضتان هنا مجرد أمثلة توضيحية.",
+      recommendations: [
+        "سيقوم التقرير الكامل بتحليل الراحة الهضمية، والانتفاخ، وانتظام الهضم، وأي أعراض مرتبطة بأنواع معينة من الطعام.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الحالة النفسية والأكل العاطفي",
+    section: "preview-psychological-emotional-eating",
+    sectionScore: 0.37,
+    result: {
+      label: "يحتاج إلى اهتمام",
+      description: "هذه المعاينة لا تمثل تقييمك النفسي أو علاقتك بالأكل.",
+      recommendations: [
+        "سيحلل التقرير الشخصي تأثير التوتر والمشاعر على الشهية، وعلاقة الأكل بالحالة النفسية، مع توصيات تناسب نمطك الشخصي.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "تنظيم الوجبات والشعور بالشبع",
+    section: "preview-meal-organization-fullness",
+    sectionScore: 0.61,
+    result: {
+      label: "جيد",
+      description: "مثال توضيحي لشكل هذا القسم في التقرير الكامل.",
+      recommendations: [
+        "سيقيّم التقرير انتظام وجباتك، والإفطار، وعدد الوجبات اليومية، والشعور بالشبع، ودور البروتين والألياف في تحسين التحكم بالشهية.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الرغبة في الحلويات والوجبات الخفيفة",
+    section: "preview-cravings-sweets-snacks",
+    sectionScore: 0.44,
+    result: {
+      label: "يحتاج إلى تحسين",
+      description: "تم إنشاء هذه النتيجة لأغراض العرض فقط.",
+      recommendations: [
+        "سيحلل التقرير الحقيقي مدى تكرار الرغبة في الحلويات، وأوقاتها، وأسبابها، مع تقديم حلول عملية تناسب حالتك.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الاستعداد للتغيير والاستمرارية",
+    section: "preview-readiness-continuity",
+    sectionScore: 0.76,
+    result: {
+      label: "جيد",
+      description:
+        "هذا المحتوى توضيحي فقط، بينما تبقى نتيجتك الحقيقية محفوظة حتى فتح التقرير.",
+      recommendations: [
+        "سيقيّم التقرير مستوى استعدادك للتغيير، والعوائق التي قد تواجهك، والعوامل التي تساعدك على الاستمرار وتحقيق أهدافك.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "قسم خاص بالإناث",
+    section: "preview-female-only",
+    sectionScore: 0.57,
+    result: {
+      label: "متوسط",
+      description:
+        "هذا القسم معروض كنموذج توضيحي فقط ولا يعتمد على بيانات شخصية.",
+      recommendations: [
+        "عند الحاجة، سيحلل التقرير تأثير الدورة الشهرية على الشهية، والرغبة في الحلويات، واحتباس السوائل، والتغيرات المؤقتة في الوزن.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "الدافع والصورة الذاتية",
+    section: "preview-motivation-body-image",
+    sectionScore: 0.67,
+    result: {
+      label: "جيد",
+      description: "هذا مجرد نموذج يوضح شكل التقرير النهائي.",
+      recommendations: [
+        "سيستعرض التقرير الحقيقي مستوى الدافع لديك، ونظرتك لصورة جسمك، وتوقعاتك، والعوامل التي تساعدك على بناء نمط حياة صحي ومستدام.",
+      ],
+    },
+    answers: [],
+  },
+];
+
 export default function ResultPage() {
   const [preparing, setPreparing] = useState(false);
 
   const t = useTranslations("analysis");
+
+  const isArabic = useLocale() === "ar";
 
   const router = useRouter();
 
@@ -381,7 +557,9 @@ export default function ResultPage() {
   const sectionsByCategory = groupAssessmentSectionsByStatus(
     assessmentResult?.sectionResults?.length > 0
       ? assessmentResult.sectionResults
-      : assessmentPreviewSections,
+      : isArabic
+        ? assessmentPreviewSections_Ar
+        : assessmentPreviewSections_En,
   );
 
   const loading =
