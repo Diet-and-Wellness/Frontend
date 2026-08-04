@@ -27,7 +27,7 @@ const SignupForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = (formData: FormData) => {
@@ -60,7 +60,7 @@ const SignupForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
     >
-     <h3 className="type-display font-extrabold">{t("auth.createAccount")}</h3>
+      <h3 className="type-display font-extrabold">{t("auth.createAccount")}</h3>
 
       <div className="flex flex-col gap-2">
         <Label text={t("placeholders.firstName")} isRequired={true} />
@@ -140,10 +140,14 @@ const SignupForm = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={signupMutation.isPending}
         className="type-control mt-4 flex h-13 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
       >
-        {isSubmitting ? <Spinner spinnerSize={30} /> : t("auth.signUp")}
+        {signupMutation.isPending ? (
+          <Spinner spinnerSize={30} />
+        ) : (
+          t("auth.signUp")
+        )}
       </button>
 
       <div className="flex gap-3 justify-center items-center">
