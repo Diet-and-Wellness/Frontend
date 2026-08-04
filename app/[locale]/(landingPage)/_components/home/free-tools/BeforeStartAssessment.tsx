@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import DangerIcon from "@/app/[locale]/components/icons/DangerIcon";
 import ArrowDownIcon from "@/app/[locale]/components/icons/ArrowDownIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 
 const unsupportedConditions = [
   "Active cancer undergoing treatment",
@@ -169,44 +169,39 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
               {t("beforeStart")}
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
-          >
-            <CloseIcon className="text-content-subtle" width="16" height="16" />
-          </button>
+          <CloseBtn onClose={onClose} />
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
-        <p className="type-body text-content-muted">
-          {t("medicalConditionsIntro")}
-        </p>
+          <p className="type-body text-content-muted">
+            {t("medicalConditionsIntro")}
+          </p>
 
-        <p className="type-body text-content-muted">
-          {t("medicalConditionsWarning")}
-        </p>
+          <p className="type-body text-content-muted">
+            {t("medicalConditionsWarning")}
+          </p>
 
-        <MedicalConditionsDropDown />
+          <MedicalConditionsDropDown />
 
-        <div className="flex items-center gap-2.5">
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={isChecked}
-            onChange={(e) => setIsChecked(e.target.checked)}
-            className="size-4.5 accent-brand cursor-pointer"
-          />
-          <label htmlFor="checkbox" className="type-label cursor-pointer">
-            {t("confirmMedicalConditions")}
-          </label>
-        </div>
+          <div className="flex items-center gap-2.5">
+            <input
+              id="checkbox"
+              type="checkbox"
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+              className="size-4.5 accent-brand cursor-pointer"
+            />
+            <label htmlFor="checkbox" className="type-label cursor-pointer">
+              {t("confirmMedicalConditions")}
+            </label>
+          </div>
         </div>
 
         <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
-        <button
-          disabled={!isChecked}
-          onClick={goToAssessmentPage}
-          className={`
+          <button
+            disabled={!isChecked}
+            onClick={goToAssessmentPage}
+            className={`
             rounded-full
             h-12
             w-full
@@ -217,9 +212,9 @@ const BeforeStartAssessment = ({ onClose }: { onClose: () => void }) => {
             ${isChecked ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}
             }
             `}
-        >
-          <p className="">{t("continueToAssessment")}</p>
-        </button>
+          >
+            <p className="">{t("continueToAssessment")}</p>
+          </button>
         </div>
       </div>
     </ModalWrapper>
@@ -244,9 +239,10 @@ const MedicalConditionsDropDown = () => {
     setSearchTerm(event.target.value);
   };
 
-  const medicalConditions = locale === "ar"
-    ? (t.raw("medicalConditions") as string[])
-    : unsupportedConditions;
+  const medicalConditions =
+    locale === "ar"
+      ? (t.raw("medicalConditions") as string[])
+      : unsupportedConditions;
 
   const filteredMedicalConditions = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
@@ -271,9 +267,7 @@ const MedicalConditionsDropDown = () => {
       }}
       className="relative flex flex-col"
     >
-      <p className="font-medium mb-3">
-        {t("unsupportedConditions")}
-      </p>
+      <p className="font-medium mb-3">{t("unsupportedConditions")}</p>
 
       <motion.div
         layout

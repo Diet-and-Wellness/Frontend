@@ -125,7 +125,6 @@
   --color-palette-4f4f4f: #4f4f4f;
   --color-palette-595959: #595959;
   --color-palette-5b8ff9: #5b8ff9;
-  --color-palette-65758b: #65758b;
   --color-palette-65a30d: #65a30d;
   --color-palette-666: #666;
   --color-palette-6b6b6b: #6b6b6b;
@@ -280,8 +279,10 @@
 
   --color-success: #5bd483;
   --color-success-soft: #173624;
-  --color-danger: #ff7373;
+  --color-danger: #e66b6b;
   --color-danger-soft: #3a2020;
+  --color-status-inactive-text: #e66b6b;
+  --color-status-inactive-surface: #3a201f;
   --color-warning: #f7bd53;
   --color-info: #78a8ff;
 

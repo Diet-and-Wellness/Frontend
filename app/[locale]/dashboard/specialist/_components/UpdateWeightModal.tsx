@@ -2,12 +2,12 @@
 
 import { ChangeEvent, useState } from "react";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 
 const UpdateWeightModal = ({
   customerId,
@@ -74,12 +74,7 @@ const UpdateWeightModal = ({
           <p className="type-card-title font-semibold">
             {t("dashboard.updateClientProgress")}
           </p>
-          <button
-            onClick={onClose}
-            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
-          >
-            <CloseIcon className="text-content-subtle" width="16" height="16" />
-          </button>
+          <CloseBtn onClose={onClose} />
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4 overscroll-contain sm:p-5">

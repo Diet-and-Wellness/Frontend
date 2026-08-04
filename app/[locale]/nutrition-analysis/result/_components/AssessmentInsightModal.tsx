@@ -1,8 +1,8 @@
 "use client";
 
 import type { AssessmentSectionResult } from "@/app/[locale]/api/types/assessment.types";
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import GoalIcon from "@/app/[locale]/components/icons/GoalIcon";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import ProgressBar from "@/app/[locale]/components/Public/ProgressBar";
 import { normalizeAssessmentStatus } from "@/app/[locale]/utils/groupAssessmentSectionsByStatus";
@@ -79,19 +79,7 @@ const AssessmentInsightModal = ({
                 </h2>
               </div>
             </div>
-
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label={t("close")}
-              className="shrink-0 rounded-full p-3 text-content-subtle transition-colors hover:bg-surface-neutral cursor-pointer"
-            >
-              <CloseIcon
-                className="text-content-subtle"
-                width="16"
-                height="16"
-              />
-            </button>
+            <CloseBtn onClose={onClose} />
           </div>
         </div>
 
