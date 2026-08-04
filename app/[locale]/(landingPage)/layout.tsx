@@ -26,9 +26,9 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   const { isLoading } = useMe();
 
   const logoutMutation = useMutation({
-    mutationFn: () => authApi.logout(),
+    mutationFn: async () => await authApi.logout(),
     onSuccess: () => {
-      console.log("got here ..!");
+      closeLogoutModalHandler();
       queryClient.clear();
       router.replace("/signin");
     },

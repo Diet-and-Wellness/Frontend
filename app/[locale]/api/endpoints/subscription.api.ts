@@ -24,7 +24,7 @@ export const subscriptionApi = {
   deactivateSubscription: (subscriptionId: SubscriptionId) => {
     return apiClient.delete(`subscriptions/admin/${subscriptionId}`);
   },
-  getAllSubscriptions: (type: SubscriptionType) => {
+  getSubscriptionsOfType: (type: SubscriptionType) => {
     return apiClient.get(`/subscriptions?type=${type}`);
   },
   getMySubscriptionStatus: () => {

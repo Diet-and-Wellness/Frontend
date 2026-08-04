@@ -10,6 +10,6 @@ export const useSubscriptionPlans = () => {
 
 const getAllPricingPlan = async () => {
   const { data } =
-    await subscriptionApi.getAllSubscriptions("subscription_plan");
+    await subscriptionApi.getSubscriptionsOfType("subscription_plan");
   return data?.data ?? [];
 };

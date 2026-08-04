@@ -3,7 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { MacroResult } from "../../api/types/assessment.types";
+import type {
+  AssessmentSectionResult,
+  MacroResult,
+} from "../../api/types/assessment.types";
 import { assessmentApi } from "../../api/endpoints/assessment.api";
 import AssessmentHeader from "../_components/AssessmentHeader";
 import { AnalysisResultSkeleton } from "../../components/Public/Skeletons";
@@ -30,10 +33,198 @@ const visibleCategories = [
   "Needs Attention",
 ] as const;
 
+const assessmentPreviewSections: AssessmentSectionResult[] = [
+  {
+    sectionTitle: "Your Goal and Current State",
+    section: "preview-goal-current-state",
+    sectionScore: 1,
+    result: {
+      label: "Excellent",
+      description:
+        "A general preview of how this section may appear after completing your analysis.",
+      recommendations: [
+        "Your personalized result will explain how clearly defined goals, previous weight changes, and current expectations may affect your progress. Unlock the full analysis to receive recommendations based on your actual assessment answers.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Your Physical Activity and Daily Routine",
+    section: "preview-physical-activity",
+    sectionScore: 0.58,
+    result: {
+      label: "Average",
+      description:
+        "This is sample content provided only to demonstrate the analysis layout.",
+      recommendations: [
+        "Your real report will assess your exercise frequency, daily movement, sitting time, and activity patterns. The displayed score is not calculated from your answers.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Your Sleep, Hydration and Daily Energy",
+    section: "preview-sleep-hydration-energy",
+    sectionScore: 0.46,
+    result: {
+      label: "Average",
+      description:
+        "Your actual sleep, hydration, and energy assessment is currently locked.",
+      recommendations: [
+        "The full report will examine how your sleep quality, water intake, and daily energy may influence appetite, recovery, and adherence. Unlock your results to view your personal evaluation.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Appetite and Meal Timing",
+    section: "preview-appetite-meal-timing",
+    sectionScore: 0.64,
+    result: {
+      label: "Good",
+      description:
+        "Preview data only. This result is not based on your assessment.",
+      recommendations: [
+        "Your personalized analysis will evaluate hunger patterns, meal spacing, evening appetite, and eating triggers to provide recommendations tailored to your routine.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Your Relationship with Food and Adherence",
+    section: "preview-food-relationship-adherence",
+    sectionScore: 0.41,
+    result: {
+      label: "Needs Improvement",
+      description:
+        "This section is shown as a visual preview and does not reflect your real result.",
+      recommendations: [
+        "The unlocked report will identify patterns that may affect consistency, including restriction, loss of motivation, emotional triggers, and difficulty maintaining dietary changes.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Your Daily Eating Habits",
+    section: "preview-daily-eating-habits",
+    sectionScore: 0.69,
+    result: {
+      label: "Good",
+      description:
+        "Sample section content used to preview the full assessment experience.",
+      recommendations: [
+        "Your real analysis will review meal quality, protein intake, vegetables, food preparation habits, and reliance on meals outside the home.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Digestion and Food Response",
+    section: "preview-digestion-food-response",
+    sectionScore: 0.53,
+    result: {
+      label: "Average",
+      description: "The score and recommendation below are examples only.",
+      recommendations: [
+        "The full result will evaluate digestive comfort, bloating, bowel regularity, and possible food-related symptoms based on the answers you submitted.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Psychological State and Emotional Eating",
+    section: "preview-psychological-emotional-eating",
+    sectionScore: 0.37,
+    result: {
+      label: "Needs Attention",
+      description:
+        "This preview does not represent your psychological or emotional eating result.",
+      recommendations: [
+        "Your personalized report will explore the relationship between emotions, stress, appetite, self-judgment, and eating behavior without using this sample score.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Meal Organization and Fullness",
+    section: "preview-meal-organization-fullness",
+    sectionScore: 0.61,
+    result: {
+      label: "Good",
+      description:
+        "A visual example of the section format shown in the complete report.",
+      recommendations: [
+        "Your actual evaluation will examine meal regularity, breakfast habits, number of meals, fullness, protein, and fiber to identify areas that may support appetite control.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Cravings for Sweets and Snacks",
+    section: "preview-cravings-sweets-snacks",
+    sectionScore: 0.44,
+    result: {
+      label: "Needs Improvement",
+      description: "This score is randomly assigned for preview purposes.",
+      recommendations: [
+        "The unlocked report will analyze the frequency, timing, intensity, and triggers of cravings and provide practical recommendations based on your actual responses.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Readiness for Change and Continuity",
+    section: "preview-readiness-continuity",
+    sectionScore: 0.76,
+    result: {
+      label: "Good",
+      description:
+        "Preview content only. Your true readiness score remains protected.",
+      recommendations: [
+        "Your personalized result will assess motivation, obstacles, support needs, and the conditions that may help you maintain progress over time.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Female Only Section",
+    section: "preview-female-only",
+    sectionScore: 0.57,
+    result: {
+      label: "Average",
+      description:
+        "This section is displayed only as a sample and is not based on personal data.",
+      recommendations: [
+        "Where applicable, the complete report will assess appetite, cravings, fluid retention, and weight fluctuations related to the menstrual cycle.",
+      ],
+    },
+    answers: [],
+  },
+  {
+    sectionTitle: "Motivation and Body Image",
+    section: "preview-motivation-body-image",
+    sectionScore: 0.67,
+    result: {
+      label: "Good",
+      description:
+        "This is a generic demonstration of the final report format.",
+      recommendations: [
+        "Your actual report will explore motivation, body image, expectations, and the questions that matter most to you when building a sustainable wellness plan.",
+      ],
+    },
+    answers: [],
+  },
+];
+
 export default function ResultPage() {
+  const [preparing, setPreparing] = useState(false);
+
   const t = useTranslations("analysis");
+
   const router = useRouter();
+
   const [activeMacroGoal, setActiveMacroGoal] = useState<MacroGoal>("fatloss");
+
   const { data: me, isLoading: isLoadingMe } = useMe();
 
   const { data: assessmentResult, isLoading: isLoadingAssessmentResult } =
@@ -57,7 +248,33 @@ export default function ResultPage() {
       enabled: !!me?.id,
     });
 
-  console.log(accessabilityStatus);
+  const redirectToCheckout = async () => {
+    try {
+      setPreparing(true);
+      const { data: subscriptionsResponse } =
+        await subscriptionApi.getSubscriptionsOfType("one_time_offer");
+
+      const planId = subscriptionsResponse?.data?.[0]?.id;
+
+      if (!planId) {
+        throw new Error("No one-time assessment plan was found.");
+      }
+
+      const { data: purchaseResponse } =
+        await subscriptionApi.purchaseSubscription(planId);
+
+      const checkoutUrl = purchaseResponse?.data?.checkoutUrl;
+
+      if (!checkoutUrl) {
+        throw new Error("Checkout URL was not returned.");
+      }
+
+      window.location.assign(checkoutUrl);
+    } catch {
+    } finally {
+      setPreparing(false);
+    }
+  };
 
   const summary = useMemo(() => {
     const radius = 90;
@@ -162,7 +379,9 @@ export default function ResultPage() {
   }, [activeMacroGoal, calories]);
 
   const sectionsByCategory = groupAssessmentSectionsByStatus(
-    assessmentResult?.sectionResults,
+    assessmentResult?.sectionResults?.length > 0
+      ? assessmentResult.sectionResults
+      : assessmentPreviewSections,
   );
 
   const loading =
@@ -172,22 +391,29 @@ export default function ResultPage() {
     return <AnalysisResultSkeleton />;
   }
 
-  console.log(accessabilityStatus?.hasAccess);
+  const goHomeHandler = () => {
+    router.replace("/");
+  };
 
   return (
     <>
       <AssessmentHeader
         title={t("title")}
         closeLabel={t("backToHome")}
-        onClose={() => router.replace("/")}
+        onClose={goHomeHandler}
       />
+
       <div className="mt-8 flex flex-col gap-10 sm:mt-12 sm:gap-15">
         <AssessmentSummary {...summary} />
 
         <div className="relative">
           {accessabilityStatus.hasAccess || (
             <div className="absolute inset-0 bg-linear-to-b from-surface-raised/50 to-black/20 backdrop-blur-sm z-50">
-              <PayToAccessCard />
+              <PayToAccessCard
+                onClickPay={redirectToCheckout}
+                onClose={goHomeHandler}
+                loading={preparing}
+              />
             </div>
           )}
 
@@ -203,6 +429,7 @@ export default function ResultPage() {
 
             {visibleCategories.map((category) => {
               const sections = sectionsByCategory?.[category] ?? [];
+
               if (sections.length === 0) return null;
 
               return (

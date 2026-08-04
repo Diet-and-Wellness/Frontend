@@ -151,7 +151,10 @@ export default async function IndexLayout({ children, params }: Props) {
       data-theme={initialTheme}
       suppressHydrationWarning
     >
-      <body className={locale === "ar" ? cairo.className : roboto.className}>
+      <body
+        suppressHydrationWarning
+        className={locale === "ar" ? cairo.className : roboto.className}
+      >
         <ReactQueryProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ThemeProvider initialTheme={initialTheme}>

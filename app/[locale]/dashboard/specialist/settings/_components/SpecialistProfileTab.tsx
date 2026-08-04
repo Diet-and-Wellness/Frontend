@@ -142,7 +142,7 @@ const SpecialistProfileTab = () => {
             readOnly
             id="speciality"
             placeholder={t("dashboard.specialty")}
-            value={me.specialistInfo.specialization}
+            value={me.specialistInfo?.specialization}
             className="px-3 py-2 rounded-xl border-none outline-none ring ring-line-strong bg-surface-neutral"
           />
         </div>

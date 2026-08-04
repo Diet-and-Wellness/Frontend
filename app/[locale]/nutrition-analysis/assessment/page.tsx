@@ -15,7 +15,7 @@ import {
   type AssessmentAnswers,
   readAssessmentDraft,
 } from "@/app/[locale]/utils/assessmentDraft";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -37,6 +37,8 @@ const AssessmentPage = () => {
   const [isDraftRestored, setIsDraftRestored] = useState(false);
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
   const hasSubmittedAssessment = useRef(false);
+
+  const queryClient = useQueryClient();
 
   const { data: assessment, isLoading: assessmentIsLoading } = useAssessment();
   const { data: me, isLoading: isLoadingUser } = useMe();
@@ -152,6 +154,8 @@ const AssessmentPage = () => {
       hasSubmittedAssessment.current = true;
       if (me?.id) clearAssessmentDraft(me.id);
       router.replace("/nutrition-analysis/result");
+      queryClient.removeQueries({ queryKey: ["section"] });
+      queryClient.removeQueries({ queryKey: ["assessment"] });
     },
   });
 
