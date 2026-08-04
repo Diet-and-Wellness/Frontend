@@ -57,30 +57,51 @@ const LandingFooter = () => {
     setShowBeforeStartAssessmentModal(false);
   };
 
-  const getFullAnalysis = async () => {
+  const closeCalculatorModals = () => {
     setShowBmiModal(false);
     setShowIbwModal(false);
     setShowCalCalModal(false);
+  };
 
-    if (me?.id) {
-      setCheckingAssessment(true);
-      try {
-        const { data } = await assessmentApi.getAssessmentsResult();
+  const redirectToAssessmentFlow = async (customerId: string) => {
+    try {
+      const { data } = await assessmentApi.getAssessmentsResult();
 
-        if (data?.data) {
-          router.push("/nutrition-analysis/result");
-          return;
-        }
-      } catch {}
-
-      if (hasAssessmentDraft(me.id)) {
-        router.push("/nutrition-analysis/assessment");
+      if (data?.data) {
+        router.push("/nutrition-analysis/result");
         return;
       }
-      setCheckingAssessment(false);
+    } catch (error) {
+      console.error("Failed to get assessment result:", error);
     }
 
-    setShowBeforeStartAssessmentModal(true);
+    const destination = hasAssessmentDraft(customerId)
+      ? "/nutrition-analysis/assessment"
+      : "/nutrition-analysis/assessment";
+
+    router.push(destination);
+  };
+
+  const getFullAnalysis = async () => {
+    closeCalculatorModals();
+
+    if (!me) {
+      router.replace("/signin");
+      return;
+    }
+
+    if (me.role !== "customer") {
+      return;
+    }
+
+    try {
+      setCheckingAssessment(true);
+      await redirectToAssessmentFlow(me.id);
+    } catch (error) {
+      console.error("Failed to open full analysis:", error);
+    } finally {
+      setCheckingAssessment(false);
+    }
   };
 
   const tryFullAssessment = () => {

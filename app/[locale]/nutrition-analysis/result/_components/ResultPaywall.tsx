@@ -1,6 +1,7 @@
 import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import LockerIcon from "@/app/[locale]/components/icons/LockerIcon";
 import SparklesIcon from "@/app/[locale]/components/icons/Sparkles";
+import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
 
 export function PersonalizedInsightCard() {
@@ -17,7 +18,9 @@ export function PersonalizedInsightCard() {
           <div className="size-12 rounded-full bg-surface-raised/15 flex items-center justify-center">
             <SparklesIcon />
           </div>
-          <h2 className="type-card-title font-bold">{t("personalizedInsight")}</h2>
+          <h2 className="type-card-title font-bold">
+            {t("personalizedInsight")}
+          </h2>
         </div>
 
         <p className="type-body w-full text-white/95">
@@ -32,12 +35,20 @@ export function PersonalizedInsightCard() {
   );
 }
 
-export function PayToAccessCard() {
+export function PayToAccessCard({
+  onClickPay,
+  onClose,
+  loading,
+}: {
+  onClickPay: () => void;
+  onClose: () => void;
+  loading: boolean;
+}) {
   return (
     <div className="bg-surface p-7.5 rounded-3xl max-w-110 shadow-xs sticky top-1/4 mt-40 place-self-center flex flex-col justify-between items-center gap-4">
       <div className="flex justify-end absolute inset-e-4 top-4">
         <button
-          onClick={() => {}}
+          onClick={onClose}
           className="hover:bg-surface-neutral transition-colors duration-200 justify-end place-self-end p-3 rounded-full cursor-pointer"
         >
           <CloseIcon className="text-content-muted" height="16" width="16" />
@@ -51,10 +62,15 @@ export function PayToAccessCard() {
         Get detailed recommendations, results and personalized insights.
       </p>
       <button
-        onClick={() => {}}
-        className="type-control mt-2.5 min-h-12 w-full rounded-full border border-line bg-accent font-semibold text-surface-raised cursor-pointer"
+        disabled={loading}
+        onClick={onClickPay}
+        className="type-control mt-2.5 min-h-12 w-full rounded-full border border-line bg-accent font-semibold text-surface-raised cursor-pointer flex justify-center items-center"
       >
-        Unlock For 25 EGP
+        {loading ? (
+          <Spinner spinnerSize={26} />
+        ) : (
+          <span className="">Unlock For 25 EGP</span>
+        )}
       </button>
     </div>
   );

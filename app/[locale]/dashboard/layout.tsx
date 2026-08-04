@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import DashboardHeader from "./_components/Header";
 import SideBar, { dashboardShellTransition } from "./_components/SideBar";
 import { MotionConfig, motion } from "framer-motion";
@@ -28,13 +28,17 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (!isLoading && me) {
       const pathname = getCleanPathname(window.location.pathname);
-      if (me.role === "admin" && pathname.startsWith("/dashboard/specialist")) {
-        router.replace("/dashboard/admin/");
-        return;
+
+      if (me.role === "customer") {
+        notFound();
       }
+
+      if (me.role === "admin" && pathname.startsWith("/dashboard/specialist")) {
+        notFound();
+      }
+
       if (me.role === "specialist" && pathname.startsWith("/dashboard/admin")) {
-        router.replace("/dashboard/specialist/");
-        return;
+        notFound();
       }
     }
   }, [me, isLoading, router]);
