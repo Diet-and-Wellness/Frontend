@@ -2,7 +2,6 @@
 
 import { ChangeEvent, useState } from "react";
 import { notesApi } from "@/app/[locale]/api/endpoints/notes.api";
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import PenIcon from "@/app/[locale]/components/icons/Pen";
 import TrashIcon from "@/app/[locale]/components/icons/TrashIcon";
 import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
@@ -13,6 +12,7 @@ import AlertModal from "@/app/[locale]/components/Modals/AlertModal";
 import TrashIllustrator from "@/app/[locale]/components/icons/TrashIllustrator";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 
 const NoteModal = ({
   customerId,
@@ -108,13 +108,7 @@ const NoteModal = ({
           <p className="type-card-title font-medium text-content-strong">
             {t("note")}
           </p>
-          <button
-            disabled={isLoading}
-            onClick={onClose}
-            className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
-          >
-            <CloseIcon className="text-content-subtle" width="16" height="16" />
-          </button>
+          <CloseBtn onClose={onClose} disabled={isLoading} />
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto p-4 overscroll-contain sm:px-7.5">
@@ -139,9 +133,9 @@ const NoteModal = ({
                 <button
                   disabled={isLoading}
                   onClick={() => setShowAlertModal(true)}
-                  className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-red-50"
+                  className="size-10 rounded-full flex justify-center items-center cursor-pointer bg-danger-soft"
                 >
-                  <TrashIcon width={22} height={22} className="text-danger" />
+                  <TrashIcon width={23} height={23} className="text-danger" />
                 </button>
               )}
               {mode === "view" && (

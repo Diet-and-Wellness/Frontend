@@ -14,8 +14,16 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!isLoading && me) {
-      router.replace("/");
-      return;
+      if (me.role === "customer") {
+        router.replace("/");
+        return;
+      } else if (me.role === "admin") {
+        router.replace("/dashboard/admin");
+        return;
+      } else if (me.role === "specialist") {
+        router.replace("/dashboard/specialist");
+        return;
+      }
     }
   }, [me, isLoading, router]);
 

@@ -145,13 +145,15 @@ const SpecialistClientsPage = () => {
                     name: `${specialist?.firstName} ${specialist?.lastName}`,
                   })}
                 </h3>
-                <div className="px-4 py-2 rounded-2xl bg-accent-soft">
-                  <p className="type-label font-semibold text-accent">
-                    {t("totalClients", {
-                      count: specialist?.assignedCustomersCount ?? 0,
-                    })}
-                  </p>
-                </div>
+                {!!specialist?.assignedCustomersCount && (
+                  <div className="px-4 py-2 rounded-2xl bg-accent-soft">
+                    <p className="type-label font-semibold text-accent">
+                      {t("totalClients", {
+                        count: specialist.assignedCustomersCount,
+                      })}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
             <BackButton

@@ -18,6 +18,36 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Pagination from "../_components/Pagination";
 import { parsePaginatedResponse } from "../../utils/pagination";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+  },
+} as const;
+
+const item = {
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+} as const;
+
+const tableContainer = {
+  hidden: { opacity: 0, y: 10 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+} as const;
 
 const SpecialistDashboardIndex = () => {
   const t = useTranslations("dashboard");
@@ -115,7 +145,12 @@ const SpecialistDashboardIndex = () => {
   };
 
   return (
-    <div className="w-full">
+    <motion.section
+      initial="hidden"
+      animate="show"
+      variants={container}
+      className="w-full"
+    >
       <AnimatePresence mode="wait">
         {noteModal.isVisible && (
           <NoteModal
@@ -141,7 +176,7 @@ const SpecialistDashboardIndex = () => {
         )}
       </AnimatePresence>
 
-      <div className="flex flex-col gap-4">
+      <motion.div variants={item} className="flex flex-col gap-4">
         <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
           <h3 className="type-page-title font-bold">
             Dr. {`${me.firstName} ${me.lastName}`}
@@ -152,10 +187,10 @@ const SpecialistDashboardIndex = () => {
             </p>
           </div>
         </div>
-        <p className="type-body-lg text-(--color-palette-65758b)">
+        <p className="type-body-lg text-content-muted">
           {t("welcomeBack", { name: me.firstName ?? "" })}
         </p>
-      </div>
+      </motion.div>
 
       {isLoading ? (
         <div className="mt-10">
@@ -163,7 +198,10 @@ const SpecialistDashboardIndex = () => {
         </div>
       ) : (customers?.length ?? 0) > 0 ? (
         <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised mt-10">
-          <table className="min-w-full divide-y divide-line">
+          <motion.table
+            variants={container}
+            className="min-w-full divide-y divide-line"
+          >
             <thead className="bg-surface-subtle">
               <tr>
                 {[
@@ -185,7 +223,10 @@ const SpecialistDashboardIndex = () => {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-line bg-surface">
+            <motion.tbody
+              variants={tableContainer}
+              className="divide-y divide-line bg-surface"
+            >
               {customers?.map((customer) => (
                 <CustomerRow
                   key={customer.id}
@@ -211,8 +252,8 @@ const SpecialistDashboardIndex = () => {
                   }}
                 />
               ))}
-            </tbody>
-          </table>
+            </motion.tbody>
+          </motion.table>
         </div>
       ) : (
         <EmptyComp
@@ -230,7 +271,7 @@ const SpecialistDashboardIndex = () => {
           onPageChange={setPage}
         />
       )}
-    </div>
+    </motion.section>
   );
 };
 
@@ -253,7 +294,11 @@ const CustomerRow = ({
 }) => {
   const t = useTranslations("dashboard");
   return (
-    <tr className="type-table font-light text-content-muted transition-colors">
+    <motion.tr
+      layout
+      variants={item}
+      className="type-table font-light text-content-muted transition-colors"
+    >
       <TableCell>
         <div className="flex items-center gap-3">
           <div className="flex size-8 items-center justify-center rounded-full bg-accent-soft">
@@ -324,6 +369,6 @@ const CustomerRow = ({
           </p>
         </button>
       </TableCell>
-    </tr>
+    </motion.tr>
   );
 };

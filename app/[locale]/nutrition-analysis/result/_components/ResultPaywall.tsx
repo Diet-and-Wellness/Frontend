@@ -1,6 +1,6 @@
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import LockerIcon from "@/app/[locale]/components/icons/LockerIcon";
 import SparklesIcon from "@/app/[locale]/components/icons/Sparkles";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
 
@@ -47,12 +47,7 @@ export function PayToAccessCard({
   return (
     <div className="bg-surface p-7.5 rounded-3xl max-w-110 shadow-xs sticky top-1/4 mt-40 place-self-center flex flex-col justify-between items-center gap-4">
       <div className="flex justify-end absolute inset-e-4 top-4">
-        <button
-          onClick={onClose}
-          className="hover:bg-surface-neutral transition-colors duration-200 justify-end place-self-end p-3 rounded-full cursor-pointer"
-        >
-          <CloseIcon className="text-content-muted" height="16" width="16" />
-        </button>
+        <CloseBtn onClose={onClose} />
       </div>
       <div className="size-16 bg-accent-softer flex justify-center items-center rounded-full">
         <LockerIcon />

@@ -195,7 +195,6 @@ const SpecialistsPage = () => {
         )}
       </AnimatePresence>
 
-      {/* Header */}
       <motion.div
         variants={item}
         className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between"
@@ -219,7 +218,6 @@ const SpecialistsPage = () => {
         </button>
       </motion.div>
 
-      {/* Table */}
       {isLoading ? (
         <TableSkeleton columns={7} />
       ) : (specialists?.length ?? 0) > 0 ? (

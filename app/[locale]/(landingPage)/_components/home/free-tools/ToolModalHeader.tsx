@@ -1,4 +1,4 @@
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 import type { ReactNode } from "react";
 
 const ToolModalHeader = ({
@@ -18,13 +18,7 @@ const ToolModalHeader = ({
       <p className="min-w-0 flex-1 text-center text-lg leading-snug font-semibold sm:text-xl">
         {toolName}
       </p>
-      <button
-        type="button"
-        onClick={onClose}
-        className="shrink-0 cursor-pointer rounded-full p-3 transition-colors duration-200 hover:bg-surface-neutral"
-      >
-        <CloseIcon className="text-content-subtle" width="16" height="16" />
-      </button>
+      <CloseBtn onClose={onClose} />
     </div>
   );
 };

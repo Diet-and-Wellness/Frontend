@@ -9,10 +9,10 @@ import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { SpecialistDTO } from "@/app/[locale]/api/types/profile.types";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
-import CloseIcon from "@/app/[locale]/components/icons/CloseIcon";
 import { useTranslations } from "next-intl";
 import Pagination from "../../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
+import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 
 const container = {
   hidden: { opacity: 0 },
@@ -112,17 +112,7 @@ const AssignSpecialistModal = ({
             <p className="type-card-title font-medium text-content-strong">
               {t("assignCustomer")}
             </p>
-
-            <button
-              onClick={onClose}
-              className="hover:bg-surface-neutral transition-colors duration-200 p-3 rounded-full cursor-pointer"
-            >
-              <CloseIcon
-                className="text-content-subtle"
-                width="16"
-                height="16"
-              />
-            </button>
+            <CloseBtn onClose={onClose} />
           </div>
 
           <div className="w-full px-4 py-2.5 bg-surface-muted rounded-xl flex items-center gap-3 border border-line">
