@@ -238,7 +238,7 @@ const PersonalDataForm = ({
       <button
         disabled={!showResultBtnActive}
         onClick={() => updateProfileMutation.mutate()}
-        className={`type-control mt-2.5 flex h-13.5 w-full items-center justify-center rounded-full px-6 font-semibold transition-colors sm:px-10 ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}`}
+        className={`type-control mt-2.5 flex h-12.5 w-full items-center justify-center rounded-full px-6 font-semibold transition-colors sm:px-10 ${showResultBtnActive ? "bg-brand text-white hover:bg-brand-hover cursor-pointer" : "bg-line-strong text-white cursor-not-allowed"}`}
       >
         {t("analysis.startAssessment")}
       </button>

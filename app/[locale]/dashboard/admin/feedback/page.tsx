@@ -150,7 +150,7 @@ const FeedbackManagementPage = () => {
               </p>
 
               <div
-                className={`h-2 w-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-accent-soft" : "bg-[var(--color-palette-e4eee0)]"} rounded-full mt-2.5 overflow-hidden`}
+                className={`h-2 w-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-accent-soft" : "bg-(--color-palette-e4eee0)"} rounded-full mt-2.5 overflow-hidden`}
               >
                 <motion.div
                   className={`h-full ${feedbackList.length < MAX_FEEDBACKS_COUNT ? "bg-accent" : "bg-brand"} rounded-full`}

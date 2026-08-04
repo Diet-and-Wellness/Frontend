@@ -324,7 +324,7 @@ const AssessmentAnswersSkeleton = () => (
           <Skeleton className="h-5 w-full max-w-100" />
         </div>
       </div>
-      <Skeleton className="h-13 w-full rounded-full md:w-36" />
+      <Skeleton className="h-12.5 w-full rounded-full md:w-36" />
     </header>
 
     <section className="min-w-0 overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">
