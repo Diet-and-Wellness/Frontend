@@ -472,7 +472,12 @@
     "goodDescription": "You're doing well overall. A few small improvements can make your nutrition habits even stronger.",
     "averageDescription": "Your nutrition is fairly balanced, but there are several areas that could benefit from healthier daily habits.",
     "needsImprovementDescription": "Some of your eating habits may be limiting your progress. Focus on making consistent, healthier choices over time.",
-    "needsAttentionDescription": "Your results suggest several nutrition habits that may require immediate attention. Consider reviewing your eating patterns and seeking guidance from a qualified nutrition professional if needed."
+    "needsAttentionDescription": "Your results suggest several nutrition habits that may require immediate attention. Consider reviewing your eating patterns and seeking guidance from a qualified nutrition professional if needed.",
+    "paywall": {
+      "title": "Unlock Your Full Analysis",
+      "description": "Get detailed recommendations, complete results, and personalized insights based on your assessment.",
+      "unlockButton": "Unlock for {price} EGP"
+    }
   },
   "pricing": {
     "transparentAnd": "Transparent and",

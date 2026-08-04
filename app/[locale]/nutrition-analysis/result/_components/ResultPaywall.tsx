@@ -6,18 +6,21 @@ import { useTranslations } from "next-intl";
 
 export function PersonalizedInsightCard() {
   const t = useTranslations("analysis");
+
   return (
     <div className="relative overflow-hidden rounded-3xl bg-(--color-palette-4e9636) p-5 text-white sm:rounded-[48px] sm:p-7.5">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-s-0 bottom-0 size-80 rounded-full bg-(--color-palette-2d6120) blur-[120px] opacity-70" />
-        <div className="absolute inset-e-1/4 top-0 w-[320px] h-80 rounded-full bg-(--color-palette-7bc85a) blur-[120px] opacity-20" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-s-0 bottom-0 size-80 rounded-full bg-(--color-palette-2d6120) opacity-70 blur-[120px]" />
+
+        <div className="absolute inset-e-1/4 top-0 h-80 w-[320px] rounded-full bg-(--color-palette-7bc85a) opacity-20 blur-[120px]" />
       </div>
 
       <div className="relative z-10 flex flex-col gap-5">
         <div className="flex items-center gap-4">
-          <div className="size-12 rounded-full bg-surface-raised/15 flex items-center justify-center">
+          <div className="flex size-12 items-center justify-center rounded-full bg-surface-raised/15">
             <SparklesIcon />
           </div>
+
           <h2 className="type-card-title font-bold">
             {t("personalizedInsight")}
           </h2>
@@ -27,7 +30,7 @@ export function PersonalizedInsightCard() {
           {t("personalizedInsightText")}
         </p>
 
-        <button className="type-control place-self-start w-full rounded-full bg-surface-raised px-6 py-3 font-semibold text-brand cursor-pointer sm:w-auto sm:px-15">
+        <button className="type-control w-full cursor-pointer place-self-start rounded-full bg-surface-raised px-6 py-3 font-semibold text-brand sm:w-auto sm:px-15">
           {t("bookSpecialist")}
         </button>
       </div>
@@ -44,27 +47,35 @@ export function PayToAccessCard({
   onClose: () => void;
   loading: boolean;
 }) {
+  const t = useTranslations("analysis.paywall");
+
   return (
-    <div className="bg-surface p-7.5 rounded-3xl max-w-110 shadow-xs sticky top-1/4 mt-40 place-self-center flex flex-col justify-between items-center gap-4">
-      <div className="flex justify-end absolute inset-e-4 top-4">
+    <div className="sticky top-1/4 mt-40 flex max-w-110 flex-col items-center justify-between gap-4 place-self-center rounded-3xl bg-surface p-7.5 shadow-xs border border-line">
+      <div className="absolute inset-e-4 top-4 flex justify-end">
         <CloseBtn onClose={onClose} />
       </div>
-      <div className="size-16 bg-accent-softer flex justify-center items-center rounded-full">
+
+      <div className="flex size-16 items-center justify-center rounded-full bg-accent-softer">
         <LockerIcon />
       </div>
-      <p className="type-card-title font-semibold">Unlock Your Full Request</p>
-      <p className="type-body text-center text-content-muted">
-        Get detailed recommendations, results and personalized insights.
+
+      <p className="type-card-title text-center font-semibold text-content">
+        {t("title")}
       </p>
+
+      <p className="type-body text-center text-content-muted">
+        {t("description")}
+      </p>
+
       <button
         disabled={loading}
         onClick={onClickPay}
-        className="type-control mt-2.5 min-h-12 w-full rounded-full border border-line bg-accent font-semibold text-surface-raised cursor-pointer flex justify-center items-center"
+        className="type-control mt-2.5 flex min-h-12 w-full cursor-pointer items-center justify-center rounded-full border border-line bg-accent font-semibold text-accent-contrast"
       >
         {loading ? (
           <Spinner spinnerSize={26} />
         ) : (
-          <span className="">Unlock For 25 EGP</span>
+          <span>{t("unlockButton", { price: 25 })}</span>
         )}
       </button>
     </div>
