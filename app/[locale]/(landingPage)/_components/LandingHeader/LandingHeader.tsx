@@ -92,6 +92,25 @@ const LandingNavBar = ({
           <div className="flex items-center gap-3">
             <ThemeSwitch />
 
+            {!!me && (
+              <button
+                ref={profileButtonRef}
+                type="button"
+                onClick={() => setShowMenu((prev) => !prev)}
+                aria-expanded={showMenu}
+                aria-haspopup="menu"
+                className="cursor-pointer rounded-full border-2 border-accent-contrast bg-surface-muted transition-colors"
+              >
+                <div className="size-9 bg-accent rounded-full flex justify-center items-center relative">
+                  <div className="size-3 bg-brand absolute rounded-full -top-0.5 -inset-e-0.5 shadow-[0_0_0_2px_var(--color-accent-contrast)]"></div>
+                  <span className="type-meta font-bold text-accent-contrast">
+                    {me?.firstName?.at(0)}
+                    {me?.lastName?.at(0)}
+                  </span>
+                </div>
+              </button>
+            )}
+
             <button
               onClick={menuToggle}
               className="xl:hidden cursor-pointer relative h-10.5 w-10.5"
@@ -132,25 +151,6 @@ const LandingNavBar = ({
                 )}
               </AnimatePresence>
             </button>
-
-            {!!me && (
-              <button
-                ref={profileButtonRef}
-                type="button"
-                onClick={() => setShowMenu((prev) => !prev)}
-                aria-expanded={showMenu}
-                aria-haspopup="menu"
-                className="cursor-pointer rounded-full border-2 border-accent-contrast bg-surface-muted transition-colors"
-              >
-                <div className="size-9 bg-accent rounded-full flex justify-center items-center relative">
-                  <div className="size-3 bg-brand absolute rounded-full -top-0.5 -inset-e-0.5 shadow-[0_0_0_2px_var(--color-accent-contrast)]"></div>
-                  <span className="type-meta font-bold text-accent-contrast">
-                    {me?.firstName?.at(0)}
-                    {me?.lastName?.at(0)}
-                  </span>
-                </div>
-              </button>
-            )}
 
             <AnimatePresence>
               {showMenu && (
