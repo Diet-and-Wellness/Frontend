@@ -18,7 +18,7 @@ const Welcome = ({ msg }: { msg: string }) => {
         className="
           font-extrabold 
           text-[24px] sm:text-[28px] md:text-[32px] lg:text-[38px] 
-          text-[var(--color-palette-45802d)]
+          text-(--color-palette-45802d)
           text-center 
           mt-6 sm:mt-8 md:mt-10
           leading-snug

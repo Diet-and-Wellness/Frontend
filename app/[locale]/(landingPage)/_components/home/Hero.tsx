@@ -1,5 +1,5 @@
 "use client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   ImageComparison,
   ImageComparisonImage,
@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 
 const Hero = () => {
   const t = useTranslations();
+
+  const locale = useLocale();
 
   const router = useRouter();
 
@@ -26,12 +28,20 @@ const Hero = () => {
         <div className="h-full md:hidden">
           <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
-              src="/images/fit-small.webp"
+              src={
+                locale === "en"
+                  ? "/images/fit-small.webp"
+                  : "/images/fit-small_ar.webp"
+              }
               alt="After"
               position="left"
             />
             <ImageComparisonImage
-              src="/images/fat-small.webp"
+              src={
+                locale === "en"
+                  ? "/images/fat-small.webp"
+                  : "/images/fat-small_ar.webp"
+              }
               alt="Before"
               position="right"
             />
@@ -41,12 +51,12 @@ const Hero = () => {
         <div className="hidden h-full md:block">
           <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
-              src="/images/fit.webp"
+              src={locale === "en" ? "/images/fit.webp" : "/images/fit_ar.webp"}
               alt="After"
               position="left"
             />
             <ImageComparisonImage
-              src="/images/fat.webp"
+              src={locale === "en" ? "/images/fat.webp" : "/images/fat_ar.webp"}
               alt="Before"
               position="right"
             />
