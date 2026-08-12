@@ -10,6 +10,7 @@ import { useTranslations } from "next-intl";
 import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import LogoutIcon from "@/app/[locale]/components/icons/LogoutIcon";
+import ProfileAvatar from "@/app/[locale]/components/Public/ProfileAvatar";
 
 const LandingNavBar = ({
   onClickLogout,
@@ -99,15 +100,15 @@ const LandingNavBar = ({
                 onClick={() => setShowMenu((prev) => !prev)}
                 aria-expanded={showMenu}
                 aria-haspopup="menu"
+                aria-label={`${me.firstName} ${me.lastName}`.trim()}
                 className="cursor-pointer rounded-full border-2 border-accent-contrast bg-surface-muted transition-colors"
               >
-                <div className="size-9 bg-accent rounded-full flex justify-center items-center relative">
-                  <div className="size-3 bg-brand absolute rounded-full -top-0.5 -inset-e-0.5 shadow-[0_0_0_2px_var(--color-accent-contrast)]"></div>
-                  <span className="type-meta font-bold text-accent-contrast">
-                    {me?.firstName?.at(0)}
-                    {me?.lastName?.at(0)}
-                  </span>
-                </div>
+                <ProfileAvatar
+                  avatarUrl={me.avatarUrl}
+                  firstName={me.firstName}
+                  lastName={me.lastName}
+                  statusRingClassName="shadow-[0_0_0_2px_var(--color-accent-contrast)]"
+                />
               </button>
             )}
 

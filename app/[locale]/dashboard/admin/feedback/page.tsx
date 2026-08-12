@@ -25,7 +25,7 @@ type DeleteModalState = {
   selectedFeedbackId: string;
 };
 
-const MAX_FEEDBACKS_COUNT = 6;
+const MAX_FEEDBACKS_COUNT = 12;
 
 const containerVariants = {
   hidden: { opacity: 0 },
