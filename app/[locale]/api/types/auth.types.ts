@@ -3,11 +3,40 @@ export interface LoginRequest {
   password: string;
 }
 
+export type AuthRole = "customer" | "specialist" | "admin";
+
+export interface AuthUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string | null;
+  avatarUrl?: string | null;
+  role: AuthRole;
+}
+
+export interface GoogleAuthRequest {
+  credential: string;
+}
+
+export interface GoogleAuthMeta {
+  isNewUser: boolean;
+  needsProfileCompletion: boolean;
+  passwordLoginAvailable: boolean;
+}
+
+export interface GoogleAuthResponse {
+  success: true;
+  data: AuthUser;
+  meta?: GoogleAuthMeta;
+}
+
 export interface SignupRequest {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  country: string;
   password: string;
 }
 
@@ -23,8 +52,20 @@ export interface ForgetPasswordRequest {
   email: string;
 }
 
-export interface ResetPasswordRequest {
+export interface VerifyResetOtpRequest {
   email: string;
-  code: string;
-  password: string;
+  otp: string;
+}
+
+export interface VerifyResetOtpResponse {
+  message: string;
+  data: {
+    resetToken: string;
+    expiresAt: string;
+  };
+}
+
+export interface ResetPasswordRequest {
+  resetToken: string;
+  newPassword: string;
 }

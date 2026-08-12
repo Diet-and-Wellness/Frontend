@@ -1,44 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Link, useRouter } from "@/i18n/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { authApi } from "../../api/endpoints/auth.api";
-import Error from "../../components/Public/Error";
-import Label from "../../components/Public/Label";
-import Spinner from "../../components/Public/LoadingSpinner";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
+import type {
+  GoogleAuthResponse,
+  LoginRequest,
+} from "../../api/types/auth.types";
+import AuthField from "./auth/AuthField";
+import AuthSubmitButton from "./auth/AuthSubmitButton";
+import FormAlert from "./auth/FormAlert";
+import GoogleAuthButton from "./auth/GoogleAuthButton";
+import PasswordField from "./auth/PasswordField";
+import {
+  getApiErrorCode,
+  getApiErrorMessage,
+  getApiFieldErrors,
+} from "./auth/authErrors";
+import { getGoogleAuthDestination } from "./auth/authFlow";
+import ForgotPasswordFlow from "./ForgotPasswordFlow";
 
-type FormData = {
-  email: string;
-  password: string;
-};
+type FormData = LoginRequest;
 
 const SigninForm = () => {
   const t = useTranslations();
   const router = useRouter();
-
   const queryClient = useQueryClient();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    setError,
+    formState: { errors, isValid },
+  } = useForm<FormData>({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+    defaultValues: { email: "", password: "" },
+  });
 
-  const onSubmit = (formData: FormData) => {
-    loginMutation.mutate(formData);
-  };
+  const clearServerError = () => setServerError(null);
 
   const loginMutation = useMutation({
     mutationFn: async (formData: FormData) => {
       const { data } = await authApi.login(formData);
       return data?.data ?? {};
     },
-
     onSuccess: (me) => {
       queryClient.setQueryData(["me"], me);
+
       if (me.role === "admin") {
         router.replace("/dashboard/admin");
       } else if (me.role === "specialist") {
@@ -47,83 +63,149 @@ const SigninForm = () => {
         router.replace("/");
       }
     },
+    onError: (error) => {
+      const fieldErrors = getApiFieldErrors(error);
+      if (fieldErrors.email) {
+        setError("email", { type: "server", message: fieldErrors.email });
+      }
+      if (fieldErrors.password) {
+        setError("password", {
+          type: "server",
+          message: fieldErrors.password,
+        });
+      }
+
+      setServerError(getApiErrorMessage(error, t("auth.loginFailed")));
+    },
   });
 
-  const inputClassName =
-    "text-base outline-none ring ring-line-strong placeholder:text-content-placeholder rounded-xl p-3 focus:ring-2 focus:ring-brand-hover transition-all duration-150";
+  const googleMutation = useMutation({
+    mutationFn: async (credential: string) => {
+      const { data } = await authApi.google({ credential });
+      return data;
+    },
+    onSuccess: (result: GoogleAuthResponse) => {
+      queryClient.removeQueries({ queryKey: ["me"] });
+      router.replace(getGoogleAuthDestination(result.data, result.meta));
+      router.refresh();
+    },
+    onError: (error) => {
+      const message =
+        getApiErrorCode(error) === "GOOGLE_ACCOUNT_LINK_REQUIRED"
+          ? t("auth.googleLinkRequired")
+          : getApiErrorMessage(error, t("auth.googleSignInFailed"));
+
+      setServerError(message);
+    },
+  });
+
+  const isSubmitting = loginMutation.isPending || googleMutation.isPending;
+
+  const onSubmit = (formData: FormData) => {
+    clearServerError();
+    loginMutation.mutate(formData);
+  };
+
+  if (showForgotPassword) {
+    return <ForgotPasswordFlow onBack={() => setShowForgotPassword(false)} />;
+  }
 
   return (
     <motion.form
-      initial={{
-        y: 40,
-        opacity: 0,
-      }}
-      animate={{
-        y: 0,
-        opacity: 1,
-      }}
-      transition={{ duration: 0.6 }}
+      noValidate
+      initial={{ y: 32, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full p-3 md:p-6 lg:p-10 flex flex-col gap-6"
+      className="flex w-full max-w-xl flex-col gap-5 p-3 md:p-6 lg:p-10"
     >
-      <h3 className="type-display font-extrabold">{t("auth.signIn")}</h3>
-
-      <div className="flex flex-col gap-2">
-        <Label text={t("placeholders.email")} isRequired={true} />
-
-        <input
-          type="email"
-          {...register("email", {
-            required: t("auth.emailRequired"),
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: t("auth.invalidEmail"),
-            },
-          })}
-          placeholder={t("placeholders.enterYourEmail")}
-          className={inputClassName}
-        />
-
-        {errors.email && <Error msg={errors.email.message} />}
+      <div>
+        <h1 className="type-display font-extrabold text-content-strong">
+          {t("auth.signIn")}
+        </h1>
+        <p className="type-body mt-2 text-content-muted">
+          {t("auth.loginSubtitle")}
+        </p>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Label text={t("placeholders.password")} isRequired={true} />
+      <FormAlert message={serverError} />
 
-        <input
-          type="password"
-          {...register("password", {
-            required: t("auth.passwordRequired"),
-            minLength: {
-              value: 6,
-              message: t("auth.minimumPassword"),
-            },
-          })}
-          placeholder={t("auth.passwordPlaceholder")}
-          className={inputClassName}
-        />
+      <GoogleAuthButton
+        label={t("auth.signInWithGoogle")}
+        loadingLabel={t("auth.loadingGoogle")}
+        dividerLabel={t("auth.continueWithEmail")}
+        mode="signin"
+        disabled={isSubmitting}
+        onCredential={(credential) => {
+          clearServerError();
+          googleMutation.mutate(credential);
+        }}
+        onError={() => setServerError(t("auth.googleLoadFailed"))}
+      />
 
-        {errors.password && <Error msg={errors.password.message} />}
-      </div>
+      <AuthField
+        type="email"
+        label={t("placeholders.email")}
+        required
+        autoComplete="email"
+        inputMode="email"
+        autoCapitalize="none"
+        spellCheck={false}
+        placeholder={t("placeholders.enterYourEmail")}
+        disabled={isSubmitting}
+        error={errors.email?.message}
+        registration={register("email", {
+          required: t("auth.emailRequired"),
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+            message: t("auth.invalidEmail"),
+          },
+          setValueAs: (value: string) => value.trim().toLowerCase(),
+          onChange: clearServerError,
+        })}
+      />
+
+      <PasswordField
+        label={t("placeholders.password")}
+        placeholder={t("auth.passwordPlaceholder")}
+        showLabel={t("auth.showPassword")}
+        hideLabel={t("auth.hidePassword")}
+        autoComplete="current-password"
+        disabled={isSubmitting}
+        error={errors.password?.message}
+        registration={register("password", {
+          required: t("auth.passwordRequired"),
+          onChange: clearServerError,
+        })}
+      />
+
+      <AuthSubmitButton
+        label={t("auth.signIn")}
+        pending={loginMutation.isPending}
+        disabled={!isValid || isSubmitting}
+      />
 
       <button
-        type="submit"
-        disabled={loginMutation.isPending}
-        className="type-control mt-4 flex h-12.5 items-center justify-center rounded-4xl bg-accent font-medium text-white cursor-pointer"
+        type="button"
+        onClick={() => {
+          clearServerError();
+          setShowForgotPassword(true);
+        }}
+        disabled={isSubmitting}
+        className="type-label -mt-1 cursor-pointer self-center rounded font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {loginMutation.isPending ? (
-          <Spinner spinnerSize={30} />
-        ) : (
-          t("auth.signIn")
-        )}
+        {t("auth.forgotPassword")}
       </button>
 
-      <div className="flex gap-3 justify-center items-center">
-        <p className="type-label font-medium">{t("auth.noAccount")}</p>
-        <Link href="/signup">
-          <span className="type-label text-brand font-semibold underline transition">
-            {t("auth.signUp")}
-          </span>
+      <div className="flex flex-wrap items-center justify-center gap-2 text-center">
+        <p className="type-label font-medium text-content-muted">
+          {t("auth.noAccount")}
+        </p>
+        <Link
+          href="/signup"
+          className="type-label rounded font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+        >
+          {t("auth.signUp")}
         </Link>
       </div>
     </motion.form>

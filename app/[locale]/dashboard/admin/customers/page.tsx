@@ -16,6 +16,21 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Pagination from "../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
+import FilterSelect, {
+  type FilterOption,
+} from "../../_components/FilterSelect";
+import { useDebouncedValue } from "@/app/[locale]/hooks/useDebouncedValue";
+import { useAdminSubscriptionPlans } from "@/app/[locale]/hooks/useSubscriptionPlans";
+import {
+  filterCustomers,
+  paginateCustomers,
+  type CustomerSubscriptionStatus,
+} from "./_components/customerFilters";
+
+const CUSTOMER_PAGE_SIZE = 20;
+const CUSTOMER_FETCH_SIZE = 100;
+const CUSTOMER_FETCH_BATCH_SIZE = 5;
+const MAX_CUSTOMER_PAGES = 100;
 
 const container = {
   hidden: { opacity: 0 },
@@ -49,6 +64,28 @@ const CustomersPage = () => {
   const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState<CustomerSubscriptionStatus>("");
+  const [subscriptionPlan, setSubscriptionPlan] = useState("");
+  const debouncedSearch = useDebouncedValue(search.trim());
+  const { data: subscriptionPlans = [], isLoading: arePlansLoading } =
+    useAdminSubscriptionPlans();
+  const hasActiveFilters = Boolean(
+    search || status || subscriptionPlan,
+  );
+
+  const statusOptions: FilterOption[] = [
+    { value: "", label: t("allStatuses") },
+    { value: "active", label: t("active") },
+    { value: "inactive", label: t("inactive") },
+  ];
+  const planOptions: FilterOption[] = [
+    { value: "", label: t("allPlans") },
+    ...subscriptionPlans.map((plan) => ({
+      value: plan.name,
+      label: plan.displayName,
+    })),
+  ];
 
   const [showAssignSpecialistModal, setShowAssignSpecialistModal] =
     useState<boolean>(false);
@@ -60,26 +97,106 @@ const CustomersPage = () => {
     currentSpecialistId: "",
   });
 
-  const getCustomers = async () => {
-    const { data } = await profileApi.searchProfiles({
-      role: "customer",
-      page,
-      limit: 20,
-    });
+  const getCustomerPage = async (requestPage: number, signal: AbortSignal) => {
+    const { data } = await profileApi.searchProfiles(
+      {
+        role: "customer",
+        page: requestPage,
+        limit: CUSTOMER_FETCH_SIZE,
+        ...(debouncedSearch ? { search: debouncedSearch } : {}),
+      },
+      signal,
+    );
 
-    return parsePaginatedResponse<Customer>(data, page, 5);
+    return parsePaginatedResponse<Customer>(
+      data,
+      requestPage,
+      CUSTOMER_FETCH_SIZE,
+    );
+  };
+
+  const getFilteredCustomers = async (signal: AbortSignal) => {
+    const firstPage = await getCustomerPage(1, signal);
+    const allCustomers = [...firstPage.items];
+
+    if (firstPage.totalPages && firstPage.totalPages > 1) {
+      const lastPage = Math.min(firstPage.totalPages, MAX_CUSTOMER_PAGES);
+
+      for (
+        let batchStart = 2;
+        batchStart <= lastPage;
+        batchStart += CUSTOMER_FETCH_BATCH_SIZE
+      ) {
+        const batchEnd = Math.min(
+          batchStart + CUSTOMER_FETCH_BATCH_SIZE - 1,
+          lastPage,
+        );
+        const pages = Array.from(
+          { length: batchEnd - batchStart + 1 },
+          (_, index) => batchStart + index,
+        );
+        const results = await Promise.all(
+          pages.map((requestPage) => getCustomerPage(requestPage, signal)),
+        );
+
+        results.forEach((result) => allCustomers.push(...result.items));
+      }
+    } else if (firstPage.hasNextPage) {
+      let requestPage = 2;
+      let previousPage = firstPage;
+
+      while (previousPage.hasNextPage && requestPage <= MAX_CUSTOMER_PAGES) {
+        previousPage = await getCustomerPage(requestPage, signal);
+        allCustomers.push(...previousPage.items);
+        requestPage += 1;
+      }
+    }
+
+    const uniqueCustomers = Array.from(
+      new Map(allCustomers.map((customer) => [customer.id, customer])).values(),
+    );
+
+    return filterCustomers(uniqueCustomers, { status, subscriptionPlan });
   };
 
   const {
-    data: customersPage,
+    data: filteredCustomers = [],
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: ["customers", page],
-    queryFn: getCustomers,
-    placeholderData: (previousData) => previousData,
+    queryKey: ["customers", debouncedSearch, status, subscriptionPlan],
+    queryFn: ({ signal }) => getFilteredCustomers(signal),
+    staleTime: 0,
+    gcTime: 0,
   });
-  const customers = customersPage?.items ?? [];
+  const totalPages = Math.ceil(filteredCustomers.length / CUSTOMER_PAGE_SIZE);
+  const customers = paginateCustomers(
+    filteredCustomers,
+    page,
+    CUSTOMER_PAGE_SIZE,
+  );
+
+  const updateSearch = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const updateStatus = (value: string) => {
+    setStatus(value as CustomerSubscriptionStatus);
+    setPage(1);
+  };
+
+  const updatePlan = (value: string) => {
+    setSubscriptionPlan(value);
+    setPage(1);
+  };
+
+  const clearFilters = () => {
+    setSearch("");
+    setStatus("");
+    setSubscriptionPlan("");
+    setPage(1);
+  };
 
   const closeAssignSpecialistModalHandler = () => {
     setAssignmentData({
@@ -165,16 +282,61 @@ const CustomersPage = () => {
         variants={item}
         className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5"
       >
-        <SearchInput />
-        <FilterButton label={t("allStatuses")} />
-        <FilterButton label={t("allPlans")} />
+        <SearchInput value={search} onChange={updateSearch} />
+        <FilterSelect
+          ariaLabel={t("filterByStatus")}
+          value={status}
+          options={statusOptions}
+          onChange={updateStatus}
+        />
+        <FilterSelect
+          ariaLabel={t("filterByPlan")}
+          value={subscriptionPlan}
+          options={planOptions}
+          onChange={updatePlan}
+          disabled={arePlansLoading}
+        />
+
+        <AnimatePresence>
+          {hasActiveFilters && (
+            <motion.button
+              type="button"
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              whileTap={{ scale: 0.96 }}
+              onClick={clearFilters}
+              className="flex min-h-11 w-fit cursor-pointer items-center gap-2 rounded-full px-4 text-sm font-semibold text-brand transition-colors hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                className="size-4"
+              >
+                <path
+                  d="M5 5l10 10M15 5 5 15"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              </svg>
+              {t("clearFilters")}
+            </motion.button>
+          )}
+        </AnimatePresence>
       </motion.div>
 
       {/* Table */}
       {isLoading ? (
         <TableSkeleton columns={8} />
       ) : (customers?.length ?? 0) > 0 ? (
-        <div className="w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised">
+        <div
+          className={`w-full overflow-x-auto rounded-2xl border border-line bg-surface-raised transition-opacity ${
+            isFetching ? "opacity-65" : "opacity-100"
+          }`}
+          aria-busy={isFetching}
+        >
           <motion.table
             variants={container}
             className="min-w-full divide-y divide-line"
@@ -222,16 +384,24 @@ const CustomersPage = () => {
         </div>
       ) : (
         <EmptyComp
-          title={t("noCustomersYet")}
-          description={t("noCustomersDescription")}
+          title={
+            hasActiveFilters
+              ? t("noCustomersMatchFilters")
+              : t("noCustomersYet")
+          }
+          description={
+            hasActiveFilters
+              ? t("adjustCustomerFilters")
+              : t("noCustomersDescription")
+          }
         />
       )}
 
-      {customers.length > 0 && customersPage && (
+      {filteredCustomers.length > 0 && (
         <Pagination
           currentPage={page}
-          totalPages={customersPage.totalPages}
-          hasNextPage={customersPage.hasNextPage}
+          totalPages={totalPages}
+          hasNextPage={page < totalPages}
           isFetching={isFetching}
           onPageChange={setPage}
         />
@@ -290,9 +460,14 @@ const CustomerRow = ({
 
       {/* Subscription */}
       <TableCell>
-        <StateComp
-          state={customer?.subscription?.active ? "active" : "inactive"}
-        />
+        <div className="flex min-w-36 flex-col items-start gap-1.5">
+          <span className="type-label font-medium text-content">
+            {customer.subscription?.displayName ?? t("noPlan")}
+          </span>
+          <StateComp
+            state={customer?.subscription?.active ? "active" : "inactive"}
+          />
+        </div>
       </TableCell>
 
       {/* Answers */}
@@ -332,26 +507,54 @@ const CustomerRow = ({
   );
 };
 
-const SearchInput = () => {
+const SearchInput = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) => {
   const t = useTranslations("dashboard");
   return (
-    <div className="flex w-full items-center gap-3 rounded-xl border border-line bg-surface px-4 py-2.5 sm:w-95">
+    <div className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-line bg-surface-raised px-4 py-2.5 transition-[border-color,box-shadow] focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/10 sm:w-95">
       <SearchIcon className="text-content-muted" />
       <input
         type="text"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         placeholder={t("searchClients")}
+        aria-label={t("searchClients")}
+        autoComplete="off"
         className="w-full outline-none placeholder:text-content-placeholder"
       />
+      <AnimatePresence>
+        {value && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={() => onChange("")}
+            aria-label={t("clearSearch")}
+            className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full bg-surface-neutral text-content-muted transition-colors hover:bg-brand-soft hover:text-brand"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="none"
+              className="size-3.5"
+            >
+              <path
+                d="M5 5l10 10M15 5 5 15"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
-  );
-};
-
-const FilterButton = ({ label }: { label: string }) => {
-  return (
-    <button className="flex w-full items-center justify-between gap-3 rounded-xl border border-line bg-surface px-6 py-2.5 cursor-pointer sm:w-auto sm:justify-start">
-      <p className="text-base font-light">{label}</p>
-      <ChevronDownIcon />
-    </button>
   );
 };
 

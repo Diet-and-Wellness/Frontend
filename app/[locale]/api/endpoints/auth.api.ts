@@ -5,7 +5,11 @@ import type {
   OtpRequest,
   OtpVerifyRequest,
   ForgetPasswordRequest,
+  GoogleAuthRequest,
+  GoogleAuthResponse,
   ResetPasswordRequest,
+  VerifyResetOtpRequest,
+  VerifyResetOtpResponse,
 } from "../types/auth.types";
 
 export const authApi = {
@@ -14,6 +18,9 @@ export const authApi = {
   },
   signup: (data: SignupRequest) => {
     return apiClient.post("auth/signup", data);
+  },
+  google: (data: GoogleAuthRequest) => {
+    return apiClient.post<GoogleAuthResponse>("auth/google", data);
   },
   sendOtp: (data: OtpRequest) => {
     return apiClient.post("auth/send-otp", data);
@@ -26,6 +33,9 @@ export const authApi = {
   },
   forgetPassword: (data: ForgetPasswordRequest) => {
     return apiClient.post("auth/forgot-password", data);
+  },
+  verifyResetOtp: (data: VerifyResetOtpRequest) => {
+    return apiClient.post<VerifyResetOtpResponse>("auth/verify-reset-otp", data);
   },
   resetPassword: (data: ResetPasswordRequest) => {
     return apiClient.post("auth/reset-password", data);

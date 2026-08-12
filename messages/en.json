@@ -34,7 +34,13 @@
     "hearFromRealClients": "Hear from real clients who transformed their bodies with us, improved their relationship with food, and embraced a healthier, more balanced lifestyle that truly",
     "realStoriesFromPeople": "These are real stories from people who booked sessions with our nutrition specialists and experienced life-changing transformations.",
     "beOneOfThemBookYourSession": "Be one of them — book your session with a nutrition expert today!",
-    "bookWithASpecialist": "Book with a Specialist"
+    "bookWithASpecialist": "Book with a Specialist",
+    "noFeedbackScreenshots": "Client screenshots will appear here as soon as they are published.",
+    "feedbackLoadFailed": "We couldn’t load the client stories right now. Please try again later.",
+    "previousStory": "Previous client story",
+    "nextStory": "Next client story",
+    "feedbackScreenshotAlt": "Client feedback screenshot {position}",
+    "storyPosition": "Client story {position} of {total}"
   },
   "features": {
     "exploreOurFeatures": "Explore Our Features",
@@ -129,7 +135,69 @@
     "phoneRequired": "Phone number is required",
     "passwordRequired": "Password is required",
     "minimumPassword": "Password must be at least 6 characters",
-    "passwordPlaceholder": "Enter your password"
+    "passwordPlaceholder": "Enter your password",
+    "signupSubtitle": "Create your profile and start building healthier habits that fit your life.",
+    "loginSubtitle": "Welcome back. Enter your details to continue your wellness journey.",
+    "country": "Country",
+    "selectCountry": "Select your country",
+    "searchCountries": "Search by country name or code",
+    "noCountriesFound": "No countries match your search.",
+    "countryRequired": "Please select your country",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "invalidPhone": "Enter a valid phone number",
+    "nameTooShort": "Name must contain at least 2 characters",
+    "nameTooLong": "Name cannot exceed 50 characters",
+    "passwordMinLength": "Use at least 8 characters",
+    "passwordUpperLower": "Include uppercase and lowercase letters",
+    "passwordNumber": "Include at least one number",
+    "passwordSpecial": "Include at least one special character",
+    "passwordHint": "Use 8+ characters with uppercase, lowercase, a number, and a symbol.",
+    "alreadyAccount": "Already have an account?",
+    "signInWithGoogle": "Log in with Google",
+    "signUpWithGoogle": "Sign up with Google",
+    "continueWithEmail": "or continue with email",
+    "googleUnavailable": "Google authentication is not available yet. Please continue with email for now.",
+    "loadingGoogle": "Loading Google…",
+    "googleLoadFailed": "Google sign-in could not be loaded. Check your connection and try again.",
+    "googleSignInFailed": "We couldn’t sign you in with Google. Please try again.",
+    "googleLinkRequired": "This email already has a password account. Log in with your password, then link Google from your account settings.",
+    "completeProfileTitle": "One last step",
+    "completeProfileDescription": "Add your phone number so we can finish setting up your Diet & Wellness profile.",
+    "profileCompletionStep": "Step 2 of 2",
+    "completeProfileSubmit": "Complete profile",
+    "profileCompletionFailed": "We couldn’t complete your profile. Review your phone number and try again.",
+    "sessionExpired": "Your sign-in session has expired. Please log in again.",
+    "loginFailed": "We couldn’t log you in. Check your details and try again.",
+    "signupFailed": "We couldn’t create your account. Please review your details and try again.",
+    "forgotPassword": "Forgot password?",
+    "passwordReset": "Password reset",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordDescription": "Enter the email address linked to your account and we’ll send you a verification code.",
+    "sendResetOtp": "Send OTP",
+    "resetOtpSent": "A verification code has been sent. Check your inbox and spam folder.",
+    "resetOtpRequestFailed": "We couldn’t send a verification code. Please try again.",
+    "verifyResetOtpTitle": "Enter the verification code",
+    "verifyResetOtpDescription": "Enter the 6-digit code sent to {email}.",
+    "resetOtp": "Verification code",
+    "resetOtpPlaceholder": "Enter the 6-digit code",
+    "resetOtpRequired": "Verification code is required",
+    "resetOtpInvalid": "Enter a valid 6-digit code",
+    "verifyResetOtp": "Verify OTP",
+    "resetOtpVerifyFailed": "That code is invalid or has expired. Check the code or request a new one.",
+    "resendResetOtp": "Resend code",
+    "changeEmail": "Change email",
+    "newPasswordTitle": "Create a new password",
+    "newPasswordDescription": "Choose a strong password you haven’t used for this account before.",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter your new password",
+    "resetPassword": "Reset password",
+    "resetPasswordFailed": "We couldn’t reset your password. The reset session may have expired; request a new code and try again.",
+    "resetSessionExpired": "Your password-reset session has expired. Please request a new code.",
+    "resetPasswordSuccessTitle": "Password updated",
+    "resetPasswordSuccessDescription": "Your password has been reset successfully. You can now log in with your new password.",
+    "backToSignIn": "Back to log in",
+    "startOver": "Start over"
   },
   "calculators": {
     "height": "Height",
@@ -203,18 +271,115 @@
     "enjoyableLiving": "Enjoyable Living",
     "startsWithBalancedNutrition": "Starts With Balanced Nutrition",
     "whatYouShouldKnowAboutDietAndWellness": "What you should know about Diet & Wellness",
-    "aboutDietAndWellness": "At Diet & Wellness, we believe that nutrition is not just a diet for weight loss, but a lifestyle that helps people live with better health and more energy. Our idea started from the belief that every person is unique, and therefore there is no single diet that fits everyone. We focus on fully understanding each client’s situation by learning about their lifestyle, eating habits, and medical history, then creating a personalized nutrition plan that matches their needs and goals.",
-    "weHelpOurClientsTo": "We help our clients to:",
-    "clientBenefits": [
-      "Lose or gain weight in a healthy way",
-      "Improve daily eating habits",
-      "Support digestive health",
-      "Manage certain nutrition-related health conditions",
-      "Build a sustainable, healthy lifestyle"
+    "storyParagraphs": [
+      "Founded in 2024, Diet & Wellness provides evidence-based clinical nutrition and health consultations designed to help individuals achieve their health goals in a practical and sustainable way. We believe nutrition is more than just a diet—it is a lifestyle built on science, awareness, and healthy habits.",
+      "Since our launch, we have helped 700+ clients improve their health and achieve their goals through personalized nutrition plans, professional consultations, and continuous follow-up tailored to each individual’s needs and lifestyle.",
+      "We also focus on nutrition education by sharing reliable, evidence-based content that helps correct common misconceptions and promote better health awareness, because we believe knowledge is the first step toward a healthier life."
+    ],
+    "foundedValue": "2024",
+    "foundedLabel": "Year founded",
+    "clientsValue": "700+",
+    "clientsLabel": "Clients supported",
+    "whyChooseTitle": "Why choose Diet & Wellness?",
+    "whyChooseReasons": [
+      "Evidence-based nutrition plans and consultations",
+      "700+ clients supported in achieving their health goals",
+      "Personalized plans tailored to individual needs and lifestyles",
+      "Continuous follow-up for realistic and sustainable results",
+      "A focus on long-term healthy habits rather than temporary solutions"
     ],
     "gradualChangesDescription": "At Diet & Wellness, we don’t believe in quick fixes or strict diets. Instead, we focus on gradual, lasting changes that help individuals reach their goals and maintain them.",
     "ourGoal": "Our goal is simple, to be a partner in our clients’ journey toward a healthier, more balanced life.",
-    "getStartedNow": "Get Started Now"
+    "getStartedNow": "Get Started Now",
+    "eyebrow": "Our story",
+    "videoTitle": "Wellness that fits real life",
+    "videoDescription": "Discover how thoughtful nutrition can support your energy, focus, and everyday wellbeing.",
+    "videoPlayerTitle": "How the food you eat affects your brain",
+    "purposeEyebrow": "Driven by purpose",
+    "purposeTitle": "The future of care we are building",
+    "purposeDescription": "Our direction is grounded in trusted clinical care, useful education, and healthier outcomes that last.",
+    "missionTitle": "Our Mission",
+    "missionDescription": "To provide trusted, evidence-based nutrition care while empowering individuals to improve their health through clinical nutrition, education, and sustainable lifestyle changes that lead to better long-term well-being.",
+    "visionTitle": "Our Vision",
+    "visionDescription": "To become one of the leading nutrition and wellness providers in the region by delivering professional services, promoting nutrition awareness, and contributing to a healthier, more informed community.",
+    "valuesEyebrow": "What guides us",
+    "valuesTitle": "Our values in every decision",
+    "valuesDescription": "The principles behind every plan, consultation, and conversation with our community.",
+    "values": [
+      {
+        "title": "Science",
+        "description": "We rely on the latest research and scientific recommendations."
+      },
+      {
+        "title": "Trust",
+        "description": "We provide reliable information and services with our clients’ best interests at heart."
+      },
+      {
+        "title": "Care",
+        "description": "We recognize that every individual has unique needs and circumstances."
+      },
+      {
+        "title": "Sustainability",
+        "description": "We focus on building healthy habits that can be maintained for long-term results."
+      }
+    ],
+    "journeyEyebrow": "Your next step",
+    "journeyTitle": "Start your health journey with us",
+    "journeyDescription": "Whether your goal is to improve your health, manage a medical condition, or achieve a healthy weight, the Diet & Wellness team is here to support you with evidence-based plans, professional care, and continuous guidance every step of the way.",
+    "teamEyebrow": "The people behind the plan",
+    "teamTitle": "Meet your wellness support circle",
+    "teamDescription": "Different areas of expertise, one shared purpose: helping you build healthy habits that feel personal, practical, and sustainable.",
+    "teamMembers": [
+      {
+        "name": "Dt. Abdallh Abolila",
+        "role": "Clinical Dietitian",
+        "bio": "Clinical Dietitian specializing in sports nutrition, weight management, body composition, and performance nutrition. He provides personalized, evidence-based nutrition plans tailored to each client’s goals, lifestyle, and training needs. He supports fat loss, muscle gain, healthy weight gain, recovery, and sustainable lifestyle changes.",
+        "image": "/images/team/abdallah.webp"
+      },
+      {
+        "name": "Dt. Ahmed Mahmoud",
+        "role": "CEO and a Clinical Dietitian",
+        "bio": "CEO of Diet & Wellness and Clinical Dietitian specializing in evidence-based nutrition and sustainable lifestyle change. He provides personalized nutrition plans, comprehensive assessments, and continuous follow-up tailored to each client’s goals. With certifications from institutions including Stanford University, he combines clinical expertise with the latest evidence-based practices to support long-term health and wellness.",
+        "image": "/images/team/ahmed.webp"
+      },
+      {
+        "name": "Dt. Amal Saber",
+        "role": "Clinical Dietitian",
+        "bio": "Clinical Dietitian specializing in weight management, obesity nutrition, metabolic health, and body composition. She provides personalized, evidence-based nutrition plans tailored to each client’s lifestyle, needs, and goals. She supports weight loss, healthy weight gain, insulin resistance, cholesterol management, and long-term weight maintenance through practical, sustainable nutrition strategies.",
+        "image": "/images/team/amal.webp"
+      },
+      {
+        "name": "Dt. Sara Gamal",
+        "role": "Clinical Dietitian",
+        "bio": "Clinical Dietitian specializing in chronic disease nutrition, digestive health, women’s nutrition, diabetes, and metabolic health. She provides personalized, evidence-based nutrition plans tailored to each client’s medical needs, lifestyle, and goals. She supports diabetes, insulin resistance, PCOS, gastrointestinal disorders, hypertension, and other chronic conditions through practical, sustainable nutrition strategies.",
+        "image": "/images/team/sara.webp"
+      }
+    ],
+    "faqEyebrow": "Good to know",
+    "faqTitle": "Frequently asked questions",
+    "faqDescription": "A few quick answers about our approach, our plans, and what your journey can look like.",
+    "faqs": [
+      {
+        "question": "Are Diet & Wellness plans personalized?",
+        "answer": "Yes. Recommendations are shaped around your goals, lifestyle, eating habits, preferences, and relevant health information rather than a one-size-fits-all template."
+      },
+      {
+        "question": "Do I need to follow a strict diet?",
+        "answer": "No. Our approach focuses on balanced choices and gradual changes that work with real life, not extreme restrictions or short-term fixes."
+      },
+      {
+        "question": "Can you help with both weight loss and weight gain?",
+        "answer": "Yes. A healthy plan can support weight loss, weight gain, maintenance, or simply better eating habits, depending on your individual goal."
+      },
+      {
+        "question": "How do I get started?",
+        "answer": "Begin with your nutrition assessment so we can understand your needs and give you a clearer, more personal starting point."
+      },
+      {
+        "question": "Does this replace medical advice?",
+        "answer": "No. Diet & Wellness supports healthy nutrition habits, but it does not replace diagnosis or treatment from your physician or another qualified healthcare professional."
+      }
+    ]
   },
   "blogs": {
     "minutesRead": "{count} min Read",
@@ -232,9 +397,25 @@
     "readMore": "Read More"
   },
   "contactUs": {
-    "reviewText": "Great experience with the diet program! It was easy to follow, fit well into my routine, and helped me see positive results quickly. The meals were satisfying, and the support throughout was amazing. Highly recommend!",
-    "reviewerName": "Omar Khaled",
-    "reviewerAge": "23 Years",
+    "reviews": [
+      {
+        "reviewText": "Great experience with the diet program! It was easy to follow, fit well into my routine, and helped me see positive results quickly. The meals were satisfying, and the support throughout was amazing. Highly recommend!",
+        "reviewerName": "Omar Khaled",
+        "reviewerAge": "23 Years"
+      },
+      {
+        "reviewText": "The plan felt personal from day one. I learned how to make better choices without giving up the foods I enjoy, and the regular follow-up kept me motivated and consistent.",
+        "reviewerName": "Mariam Adel",
+        "reviewerAge": "29 Years"
+      },
+      {
+        "reviewText": "I finally found an approach that works with my schedule. The guidance was practical, clear, and never restrictive. My energy improved and the results have been easy to maintain.",
+        "reviewerName": "Youssef Hassan",
+        "reviewerAge": "35 Years"
+      }
+    ],
+    "reviewCarouselLabel": "Client testimonials",
+    "reviewPosition": "Show testimonial {position} of {total}",
     "contactUs": "Contact Us",
     "contactDescription": "Please reach out to us and we will get back to you at the speed of light."
   },
@@ -288,6 +469,13 @@
     "experienceYears": "Experience Years",
     "allStatuses": "All Statuses",
     "allPlans": "All Plans",
+    "filterByStatus": "Filter customers by subscription status",
+    "filterByPlan": "Filter customers by subscription plan",
+    "clearFilters": "Clear filters",
+    "clearSearch": "Clear customer search",
+    "noCustomersMatchFilters": "No matching customers",
+    "adjustCustomerFilters": "Try a different search, status, or subscription plan.",
+    "noPlan": "No plan",
     "viewAnswers": "View Answers",
     "assessmentAnswers": "Assessment Answers",
     "assessmentAnswersDescription": "Review the client’s submitted nutrition assessment answers.",

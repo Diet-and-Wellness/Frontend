@@ -7,6 +7,7 @@ import Blog from "../../components/Blogs/Blog";
 import { CardGridSkeleton, Skeleton } from "../../components/Public/Skeletons";
 import { useBlogs } from "../../hooks/useBlogs";
 import Spinner from "../../components/Public/LoadingSpinner";
+import { useEffect, useRef } from "react";
 
 const container = {
   hidden: {},
@@ -67,6 +68,8 @@ const textVariant = {
 const BlogPage = () => {
   const t = useTranslations();
 
+  const bottomRef = useRef(null);
+
   const {
     data: blogs,
     isLoading,
@@ -75,8 +78,36 @@ const BlogPage = () => {
     isFetchingNextPage,
   } = useBlogs();
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (
+          entry.isIntersecting &&
+          !isFetchingNextPage &&
+          !isLoading &&
+          hasNextPage
+        ) {
+          console.log("User reached the bottom of the blog section");
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 0.1,
+      },
+    );
+
+    if (bottomRef.current) {
+      observer.observe(bottomRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage, isLoading]);
+
   return (
-    <section className="mb-20">
+    <section
+      className="mb-20"
+      onScrollEndCapture={() => console.log("end of the blog page")}
+    >
       <motion.div
         variants={container}
         initial="hidden"
@@ -155,31 +186,9 @@ const BlogPage = () => {
         </div>
       )}
 
-      {!isLoading && hasNextPage && (
-        <button
-          type="button"
-          disabled={isFetchingNextPage}
-          onClick={() => fetchNextPage()}
-          className="place-self-center mt-10 md:mt-15 lg:mt-20 px-8 lg:px-10 py-2.5 lg:py-3 flex flex-row gap-1 lg:gap-2 justify-center items-center rounded-4xl cursor-pointer hover:bg-(--color-palette-e994322b) border-2 border-accent transition-colors duration-200"
-        >
-          {isFetchingNextPage ? (
-            <Spinner spinnerSize={28} />
-          ) : (
-            <>
-              <p className="type-body-lg font-semibold text-accent">
-                {t("blogs.showMore")}
-              </p>
-              <Image
-                alt=""
-                src={"/icons/plus-orange.svg"}
-                width={24}
-                height={24}
-                className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
-              />
-            </>
-          )}
-        </button>
-      )}
+      <div ref={bottomRef} className="flex justify-center items-center pt-15">
+        {hasNextPage && <Spinner spinnerSize={50} borderColor={"brannd"} />}
+      </div>
     </section>
   );
 };

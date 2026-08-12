@@ -18,9 +18,10 @@ export const profileApi = {
   updateMyProfile: (data: UpdateMyProfileRequest) => {
     return apiClient.put("/profile", data);
   },
-  searchProfiles: (params: SearchProfilesRequest) => {
+  searchProfiles: (params: SearchProfilesRequest, signal?: AbortSignal) => {
     return apiClient.get("/profile/search", {
       params,
+      signal,
     });
   },
   deleteProfile: (id: UserId) => {

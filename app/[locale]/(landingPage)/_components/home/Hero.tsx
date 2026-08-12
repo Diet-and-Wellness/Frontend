@@ -75,7 +75,7 @@ const Hero = () => {
           className="flex w-full flex-col gap-3 md:w-fit"
         >
           <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-accent">
-            1k+
+            700+
           </p>
 
           <p className="type-body-lg font-bold tracking-wider text-(--color-palette-b2b2b2)">
@@ -83,6 +83,12 @@ const Hero = () => {
           </p>
 
           <motion.button
+            onClick={() => {
+              document.getElementById("feedbacks")?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }}
             whileTap={{ scale: 0.95 }}
             className="type-control pointer-events-auto rounded-full border-2 border-accent px-10 py-2 font-bold text-accent transition-all duration-300 hover:bg-accent hover:text-accent-contrast cursor-pointer"
           >

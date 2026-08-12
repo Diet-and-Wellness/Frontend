@@ -3,15 +3,59 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import { useQuery } from "@tanstack/react-query";
 import RealStoriesWave from "@/app/[locale]/components/illustrations/RealStoriesWave";
 import { PointerIcon } from "@/app/[locale]/components/icons/PointerIcon";
+import { feedbackApi } from "@/app/[locale]/api/endpoints/feedback.api";
+import type { FeedbackResponse } from "@/app/[locale]/api/types/feedback.types";
+import FeedbackCarousel, {
+  type FeedbackWithScreenshot,
+} from "./FeedbackCarousel";
+
+const getFeedbackScreenshots = async (): Promise<FeedbackWithScreenshot[]> => {
+  const { data } = await feedbackApi.getAllActiveFeedbacks({
+    page: 1,
+    limit: 20,
+  });
+  const feedbacks: FeedbackResponse[] = Array.isArray(data?.data)
+    ? data.data
+    : [];
+
+  return feedbacks
+    .filter(
+      (feedback): feedback is FeedbackWithScreenshot =>
+        !feedback.isHidden &&
+        typeof feedback.attachmentUrl === "string" &&
+        feedback.attachmentUrl.length > 0,
+    )
+    .sort((first, second) => {
+      const orderDifference = first.order - second.order;
+      if (orderDifference !== 0) return orderDifference;
+      return Date.parse(first.createdAt) - Date.parse(second.createdAt);
+    });
+};
 
 const RealStories = () => {
   const t = useTranslations();
+
   const isArabic = useLocale() === "ar";
 
+  const {
+    data: feedbacks = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["active-feedback-screenshots"],
+    queryFn: getFeedbackScreenshots,
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+  });
+
   return (
-    <section className="my-5 lg:my-20">
+    <section
+      id="feedbacks"
+      className="py-5 lg:py-20 [content-visibility:auto] [contain-intrinsic-size:700px]"
+    >
       <div className="gap-10 md:gap-15 lg:gap-25 max-w-[90%] mx-auto flex flex-col">
         {/* Header */}
         <div className="relative flex flex-col lg:flex-row justify-between gap-10">
@@ -124,20 +168,28 @@ const RealStories = () => {
             </div>
           </div>
 
-          {/* Image Side */}
+          {/* Feedback screenshot carousel */}
           <motion.div
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.7, ease: "easeInOut" }}
-            whileHover={{ y: -10 }} // subtle parallax feel
+            className="real-stories-carousel relative z-10 flex w-full justify-center md:w-auto md:min-w-88"
           >
-            <Image
-              src="/images/ScreenShot.webp"
-              alt="Screenshot"
-              width={260}
-              height={500}
-              className="min-w-50 w-65 lg:w-70 h-auto mx-0 md:mx-10"
+            <FeedbackCarousel
+              feedbacks={feedbacks}
+              isLoading={isLoading}
+              isError={isError}
+              emptyLabel={t("stories.noFeedbackScreenshots")}
+              errorLabel={t("stories.feedbackLoadFailed")}
+              previousLabel={t("stories.previousStory")}
+              nextLabel={t("stories.nextStory")}
+              imageAlt={(position) =>
+                t("stories.feedbackScreenshotAlt", { position })
+              }
+              positionLabel={(position, total) =>
+                t("stories.storyPosition", { position, total })
+              }
             />
           </motion.div>
         </div>

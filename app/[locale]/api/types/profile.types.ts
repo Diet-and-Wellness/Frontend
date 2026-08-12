@@ -24,6 +24,7 @@ export interface SearchProfilesRequest {
   page: number;
   limit: number;
   assignedSpecialistId?: string;
+  search?: string;
 }
 
 export interface CreateSpecialistRequest {
@@ -103,7 +104,7 @@ export interface Customer {
   profile: Profile;
   weight: WeightSummary;
   lastNote: LastNote;
-  subscription: Subscription;
+  subscription: Subscription | null;
 }
 
 export interface Specialist {
@@ -168,6 +169,6 @@ export interface Subscription {
   displayName: string;
   price: number;
   durationInDays: number;
-  active: boolean;
+  active?: boolean | null;
   subscriptionCount: number;
 }
