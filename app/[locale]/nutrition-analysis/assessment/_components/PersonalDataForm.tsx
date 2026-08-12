@@ -178,7 +178,7 @@ const PersonalDataForm = ({
                 type="text"
                 onChange={(event) => setLocation(event.target.value)}
                 className="w-full outline-none"
-                placeholder={t("analysis.location")}
+                placeholder={t("analysis.enterYourLocation")}
               />
             </div>
           </div>

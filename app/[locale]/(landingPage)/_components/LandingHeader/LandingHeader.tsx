@@ -91,7 +91,9 @@ const LandingNavBar = ({
           <NavList tabs={tabs} />
 
           <div className="flex items-center gap-3">
-            <ThemeSwitch />
+            <div className="hidden xl:block">
+              <ThemeSwitch />
+            </div>
 
             {!!me && (
               <button

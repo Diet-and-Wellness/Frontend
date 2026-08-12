@@ -1,6 +1,6 @@
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useRouter } from "@/i18n/navigation";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 type LinkItem = {
   href?: string;

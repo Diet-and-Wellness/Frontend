@@ -5,6 +5,7 @@ import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Checkout } from "@/app/[locale]/components/icons/CheckoutIcon";
+import { ViewBlogsCta } from "./ViewBlogsCta";
 
 const Features = () => {
   const t = useTranslations("features");
@@ -50,7 +51,6 @@ const Features = () => {
 
   return (
     <section ref={containerRef} className="relative">
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -85,7 +85,6 @@ const Features = () => {
         </motion.div>
       </motion.div>
 
-      {/* Cards */}
       <div className="relative px-5 md:px-7.5">
         {featuresList.map((feature, index) => {
           const targetScale = 1 - (featuresList.length - index) * 0.03;
@@ -100,6 +99,10 @@ const Features = () => {
             />
           );
         })}
+      </div>
+
+      <div className="md:hidden w-[90%] mx-auto mb-15">
+        <ViewBlogsCta />
       </div>
     </section>
   );
