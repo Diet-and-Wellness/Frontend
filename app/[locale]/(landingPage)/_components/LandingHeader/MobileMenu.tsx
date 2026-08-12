@@ -7,6 +7,7 @@ import { getCleanPathname } from "@/app/[locale]/utils/getCleanPathname";
 import { useLocale, useTranslations } from "next-intl";
 import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
 
 type tabType = { label: string; href: string };
 
@@ -99,14 +100,16 @@ const MobileMenu = ({
         <span className="text-lg font-semibold">{isArabic ? "En" : "ع"}</span>
       </button>
 
+      <ThemeSwitch />
+
       <Link
         href={"/signin"}
         className="
-            group border-2 border-(--color-palette-e88b60) px-15 py-3 cursor-pointer
+            group border-2 border-(--color-palette-e88b60) px-10 py-2.5 cursor-pointer
             lg:flex self-center rounded-full
             transition-all duration-300 active:scale-95"
       >
-        <span className="text-xl font-semibold text-(--color-palette-e88b60) transition-colors duration-300">
+        <span className="text-lg font-semibold text-(--color-palette-e88b60) transition-colors duration-300">
           {t("getStarted.getStart")}
         </span>
       </Link>

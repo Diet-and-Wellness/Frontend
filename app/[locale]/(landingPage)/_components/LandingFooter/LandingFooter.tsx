@@ -114,6 +114,8 @@ const LandingFooter = () => {
     { href: "/blogs", title: t("navList.links.blogs") },
     { href: "/contact-us", title: t("navList.links.contactUs") },
     { href: "/pricing", title: t("navList.links.pricing") },
+    { href: "/terms-and-conditions", title: t("terms.title") },
+    { href: "/privacy-policy", title: t("privacy.title") },
   ];
 
   const tools = [
@@ -164,7 +166,7 @@ const LandingFooter = () => {
           <Socials />
           <QuickLinks title={t("footer.quickLinks")} linksList={quicklinks} />
           <QuickLinks title={t("footer.tools")} linksList={tools} />
-          <Subscribe />
+          {/* <Subscribe /> */}
         </div>
 
         <p className="text-center text-sm font-extralight text-footer-content-muted md:text-lg">

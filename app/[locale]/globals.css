@@ -744,11 +744,17 @@ button:disabled svg {
 [dir="rtl"] .get-started-wave {
   transform: scaleX(-1);
 }
-/* Keep the official Google Identity button aligned with the auth inputs. */
+/* Keep the official Google Identity button responsive without stretching its iframe. */
+.google-auth-button > div,
+.google-auth-button iframe,
 .google-auth-button [role="button"] {
   width: 100% !important;
-  max-width: none !important;
+  max-width: 400px !important;
+  min-width: 0 !important;
+  box-sizing: border-box;
+}
+
+.google-auth-button [role="button"] {
   min-height: 50px !important;
   height: 50px !important;
-  box-sizing: border-box;
 }

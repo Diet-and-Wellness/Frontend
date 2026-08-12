@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { authApi } from "../../api/endpoints/auth.api";
 import type {
   GoogleAuthResponse,
@@ -24,9 +24,11 @@ import {
 } from "./auth/authErrors";
 import { getGoogleAuthDestination } from "./auth/authFlow";
 
-type FormData = SignupRequest;
+type FormData = SignupRequest & {
+  termsAccepted: boolean;
+};
 
-const formFieldNames: Array<keyof FormData> = [
+const formFieldNames: Array<keyof SignupRequest> = [
   "firstName",
   "lastName",
   "email",
@@ -58,13 +60,16 @@ const SignupForm = () => {
       phone: "",
       country: "",
       password: "",
+      termsAccepted: false,
     },
   });
+
+  const termsAccepted = useWatch({ control, name: "termsAccepted" });
 
   const clearServerError = () => setServerError(null);
 
   const signupMutation = useMutation({
-    mutationFn: async (formData: FormData) => {
+    mutationFn: async (formData: SignupRequest) => {
       await authApi.signup(formData);
     },
     onSuccess: () => {
@@ -104,7 +109,15 @@ const SignupForm = () => {
 
   const isSubmitting = signupMutation.isPending || googleMutation.isPending;
 
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = ({ termsAccepted: accepted, ...formData }: FormData) => {
+    if (!accepted) {
+      setError("termsAccepted", {
+        type: "required",
+        message: t("auth.termsRequired"),
+      });
+      return;
+    }
+
     clearServerError();
     signupMutation.mutate(formData);
   };
@@ -134,8 +147,16 @@ const SignupForm = () => {
         loadingLabel={t("auth.loadingGoogle")}
         dividerLabel={t("auth.continueWithEmail")}
         mode="signup"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !termsAccepted}
         onCredential={(credential) => {
+          if (!termsAccepted) {
+            setError("termsAccepted", {
+              type: "required",
+              message: t("auth.termsRequired"),
+            });
+            return;
+          }
+
           clearServerError();
           googleMutation.mutate(credential);
         }}
@@ -271,10 +292,64 @@ const SignupForm = () => {
         </p>
       )}
 
+      <div>
+        <div className="flex items-start gap-3">
+          <input
+            id="termsAccepted"
+            type="checkbox"
+            disabled={isSubmitting}
+            aria-invalid={errors.termsAccepted ? "true" : "false"}
+            aria-describedby={
+              errors.termsAccepted ? "termsAccepted-error" : undefined
+            }
+            className="mt-0.5 size-5 shrink-0 cursor-pointer rounded border-line-strong accent-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60"
+            {...register("termsAccepted", {
+              required: t("auth.termsRequired"),
+              onChange: clearServerError,
+            })}
+          />
+          <label
+            htmlFor="termsAccepted"
+            className="type-label cursor-pointer text-content-muted"
+          >
+            {t("auth.agreeToTermsPrefix")} {" "}
+            <Link
+              href="/terms-and-conditions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            >
+              {t("auth.termsAndConditions")}
+              <span className="sr-only"> {t("auth.opensInNewTab")}</span>
+            </Link>
+            {" "}{t("auth.andAcknowledge")} {" "}
+            <Link
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded font-semibold text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            >
+              {t("auth.privacyPolicy")}
+              <span className="sr-only"> {t("auth.opensInNewTab")}</span>
+            </Link>
+          </label>
+        </div>
+
+        {errors.termsAccepted?.message && (
+          <p
+            id="termsAccepted-error"
+            role="alert"
+            className="type-meta mt-1.5 text-danger"
+          >
+            {errors.termsAccepted.message}
+          </p>
+        )}
+      </div>
+
       <AuthSubmitButton
         label={t("auth.signUp")}
         pending={signupMutation.isPending}
-        disabled={!isValid || isSubmitting}
+        disabled={!isValid || !termsAccepted || isSubmitting}
       />
 
       <div className="flex flex-wrap items-center justify-center gap-2 text-center">

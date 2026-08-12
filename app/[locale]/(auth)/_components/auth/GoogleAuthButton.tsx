@@ -28,6 +28,7 @@ const GoogleAuthButton = ({
   const locale = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const initializedRef = useRef(false);
+  const renderedWidthRef = useRef(0);
   const credentialRef = useRef(onCredential);
   const errorRef = useRef(onError);
   const reportedConfigurationErrorRef = useRef(false);
@@ -44,10 +45,18 @@ const GoogleAuthButton = ({
 
     if (!container || !googleIdentity || !initializedRef.current) return;
 
-    const width = Math.max(
-      Math.floor(container.getBoundingClientRect().width),
-      200,
-    );
+    const containerWidth = Math.floor(container.getBoundingClientRect().width);
+
+    if (containerWidth <= 0) return;
+
+    // Google Identity Services supports button widths up to 400px. Rendering
+    // with the actual available width keeps the iframe from overflowing on
+    // small screens while preserving the official button's proportions.
+    const width = Math.min(containerWidth, 400);
+
+    if (renderedWidthRef.current === width && container.childElementCount > 0) {
+      return;
+    }
 
     container.replaceChildren();
     googleIdentity.renderButton(container, {
@@ -59,6 +68,7 @@ const GoogleAuthButton = ({
       text: mode === "signup" ? "signup_with" : "signin_with",
       width,
     });
+    renderedWidthRef.current = width;
     setIsReady(true);
   }, [mode]);
 
@@ -118,7 +128,7 @@ const GoogleAuthButton = ({
       >
         <div
           ref={containerRef}
-          className="google-auth-button flex h-12.5 w-full items-center justify-center overflow-hidden [&>div]:w-full! [&_iframe]:w-full!"
+          className="google-auth-button flex h-12.5 w-full items-center justify-center overflow-hidden"
         />
 
         {!isReady && (

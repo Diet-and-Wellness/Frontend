@@ -9,10 +9,12 @@ import AlertModal from "../components/Modals/AlertModal";
 import LogoutIllustrator from "../components/icons/LogoutIllustrator";
 import { useTranslations } from "next-intl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { authApi } from "../api/endpoints/auth.api";
 import { useMe } from "../hooks/useMe";
 import { LogoLoader } from "../components/Public/Skeletons";
+import AuthFooter from "../(auth)/_components/AuthFooter";
+import LegalHeader from "./_components/LandingHeader/LegalHeader";
 
 const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -22,6 +24,10 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
 
   const router = useRouter();
+  const pathname = usePathname();
+  const isLegalPage =
+    pathname.endsWith("/terms-and-conditions") ||
+    pathname.endsWith("/privacy-policy");
 
   const { isLoading } = useMe();
 
@@ -52,14 +58,18 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="landingContainer">
-      <LandingHeader
-        onClickLogout={openLogoutModalHandler}
-        isLoggingout={logoutMutation.isPending}
-      />
+      {isLegalPage ? (
+        <LegalHeader />
+      ) : (
+        <LandingHeader
+          onClickLogout={openLogoutModalHandler}
+          isLoggingout={logoutMutation.isPending}
+        />
+      )}
 
       {children}
 
-      <LandingFooter />
+      {isLegalPage ? <AuthFooter /> : <LandingFooter />}
 
       <AnimatePresence mode="wait">
         {showLogoutModal && (
