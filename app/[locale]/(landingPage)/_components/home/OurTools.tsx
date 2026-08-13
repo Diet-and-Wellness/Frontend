@@ -16,6 +16,7 @@ import BmiCalculatorIcon from "@/app/[locale]/components/icons/BmiCalculatorIcon
 import IdealWeightIcon from "@/app/[locale]/components/icons/IdealWeightIcon";
 import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
 import NutritionAnalysisIcon from "@/app/[locale]/components/icons/NutritionAnalysisIcon";
+import { ViewFeedbackCta } from "./ViewFeedbackCta";
 
 const OurTools = () => {
   const t = useTranslations();
@@ -153,7 +154,7 @@ const OurTools = () => {
       transition={{ duration: 1, ease: "easeInOut" }}
       className="landing-our-tools
       py-10 md:py-25
-      flex justify-center items-center
+      flex flex-col justify-center items-center
       bg-no-repeat
       ltr:md:bg-right rtl:md:bg-left md:bg-bottom
       bg-contain
@@ -161,6 +162,10 @@ const OurTools = () => {
       md:bg-size-[100%_auto]
       bg-none md:bg-[url('/images/dietBgImg.webp')]"
     >
+      <div className="md:hidden w-[90%] mx-auto mb-15">
+        <ViewFeedbackCta />
+      </div>
+
       <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-10">
         <AnimatePresence mode="wait">
           {showBmiModal && (

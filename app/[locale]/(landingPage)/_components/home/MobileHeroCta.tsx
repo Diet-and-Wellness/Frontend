@@ -12,18 +12,18 @@ export const MobileHeroCta = () => {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
-      className="pointer-events-auto absolute inset-x-4 bottom-20 z-20 overflow-hidden rounded-3xl border border-line/60 bg-surface-raised/92 p-4 text-content shadow-[0_20px_50px_rgba(17,24,39,0.18)] backdrop-blur-md md:hidden w-[70%] mx-auto"
+      className="pointer-events-auto absolute inset-x-4 bottom-5 z-20 overflow-hidden rounded-3xl border border-line/60 bg-surface-raised/92 p-4 text-content shadow-[0_20px_50px_rgba(17,24,39,0.18)] backdrop-blur-md md:hidden w-[90%] mx-auto"
     >
       <div
         aria-hidden="true"
-        className="absolute -end-8 -top-10 size-24 rounded-full border-[18px] border-accent/25"
+        className="absolute -inset-e-8 -top-10 size-24 rounded-full border-18 border-accent/25"
       />
 
       <div className="relative">
         <p className="type-meta font-bold uppercase tracking-[0.18em] text-accent">
           {t("eyebrow")}
         </p>
-        <h1 className="mt-1.5 max-w-70 text-xl font-extrabold leading-tight">
+        <h1 className="mt-1.5 max-w-100 text-xl font-extrabold leading-tight">
           {t("title")}
         </h1>
 

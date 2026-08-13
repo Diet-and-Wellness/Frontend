@@ -14,15 +14,15 @@ const Hero = () => {
   const locale = useLocale();
 
   return (
-    <section className="relative overflow-hidden bg-surface pt-20 max-h-200 md:max-h-265">
+    <section className="relative overflow-hidden bg-surface pt-20 max-h-260">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeInOut" }}
-        className="relative w-full overflow-hidden aspect-1/1.5 md:aspect-13/10"
+        className="w-full overflow-hidden aspect-1/1.5 md:aspect-13/10"
       >
-        <div className="h-full md:hidden">
+        <div className="h-full md:hidden relative">
           <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
               src={
@@ -45,6 +45,7 @@ const Hero = () => {
             <ImageComparisonSlider className="w-0.5 bg-surface-raised/30 backdrop-blur-xs" />
           </ImageComparison>
         </div>
+
         <div className="hidden h-full md:block">
           <ImageComparison className="h-full w-full" enableHover>
             <ImageComparisonImage
@@ -60,15 +61,23 @@ const Hero = () => {
             <ImageComparisonSlider className="w-0.5 bg-surface-raised/30 backdrop-blur-xs" />
           </ImageComparison>
         </div>
-
-        <MobileHeroCta />
       </motion.div>
 
-      <div className="pointer-events-none mx-auto mt-8 flex w-[90%] flex-col items-stretch justify-between gap-8 sm:gap-10 md:flex-row md:items-center xl:absolute xl:inset-x-0 xl:bottom-20 xl:mt-0">
+      <MobileHeroCta />
+
+      <div
+        className="
+        pointer-events-none
+        absolute bottom-5 left-1/2
+        hidden w-[90%] -translate-x-1/2
+        flex-col items-stretch justify-between gap-8
+        sm:gap-10
+        md:flex md:flex-row md:items-center
+        xl:bottom-10
+       "
+      >
         <ViewFeedbackCta />
-        <div className="hidden md:block">
-          <ViewBlogsCta />
-        </div>
+        <ViewBlogsCta />
       </div>
     </section>
   );
