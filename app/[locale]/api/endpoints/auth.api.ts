@@ -10,6 +10,7 @@ import type {
   ResetPasswordRequest,
   VerifyResetOtpRequest,
   VerifyResetOtpResponse,
+  UpdatePassword,
 } from "../types/auth.types";
 
 export const authApi = {
@@ -35,10 +36,16 @@ export const authApi = {
     return apiClient.post("auth/forgot-password", data);
   },
   verifyResetOtp: (data: VerifyResetOtpRequest) => {
-    return apiClient.post<VerifyResetOtpResponse>("auth/verify-reset-otp", data);
+    return apiClient.post<VerifyResetOtpResponse>(
+      "auth/verify-reset-otp",
+      data,
+    );
   },
   resetPassword: (data: ResetPasswordRequest) => {
     return apiClient.post("auth/reset-password", data);
+  },
+  updatePassword: (data: UpdatePassword) => {
+    return apiClient.patch("auth/password", data);
   },
   logout: () => {
     return apiClient.post("auth/logout");

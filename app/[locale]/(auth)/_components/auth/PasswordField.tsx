@@ -28,7 +28,9 @@ const PasswordField = ({
   disabled,
 }: PasswordFieldProps) => {
   const [isVisible, setIsVisible] = useState(false);
+
   const inputId = useId();
+  
   const errorId = `${inputId}-error`;
 
   return (
@@ -59,7 +61,7 @@ const PasswordField = ({
           onClick={() => setIsVisible((current) => !current)}
           whileTap={{ scale: 0.88 }}
           disabled={disabled}
-          className="absolute inset-y-0 end-1.5 my-auto flex size-10 cursor-pointer items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-brand-soft hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-brand"
+          className="absolute inset-y-0 inset-e-1.5 my-auto flex size-10 cursor-pointer items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-brand-soft hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-brand"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-5.5">
             <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
