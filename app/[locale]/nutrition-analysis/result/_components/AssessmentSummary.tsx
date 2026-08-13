@@ -83,14 +83,13 @@ export default function AssessmentSummary({
           </div>
 
           <div
-            className="mt-2.5 px-5 py-2 rounded-full flex items-center gap-2"
+            className="mt-2.5 px-5 py-2 rounded-full"
             style={{ backgroundColor: status.bgColor }}
           >
-            <div
-              className="size-2 rounded-full"
-              style={{ backgroundColor: status.color }}
-            />
-            <p className="type-label font-semibold" style={{ color: status.color }}>
+            <p
+              className="type-label font-semibold"
+              style={{ color: status.color }}
+            >
               {status.label}
             </p>
           </div>

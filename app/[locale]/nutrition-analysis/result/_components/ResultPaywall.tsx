@@ -1,5 +1,5 @@
 import LockerIcon from "@/app/[locale]/components/icons/LockerIcon";
-import SparklesIcon from "@/app/[locale]/components/icons/Sparkles";
+import { NutritionInsightIcon } from "@/app/[locale]/components/icons/NutritionInsightIcon";
 import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
@@ -11,14 +11,13 @@ export function PersonalizedInsightCard() {
     <div className="relative overflow-hidden rounded-3xl bg-(--color-palette-4e9636) p-5 text-white sm:rounded-[48px] sm:p-7.5">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-s-0 bottom-0 size-80 rounded-full bg-(--color-palette-2d6120) opacity-70 blur-[120px]" />
-
         <div className="absolute inset-e-1/4 top-0 h-80 w-[320px] rounded-full bg-(--color-palette-7bc85a) opacity-20 blur-[120px]" />
       </div>
 
       <div className="relative z-10 flex flex-col gap-5">
         <div className="flex items-center gap-4">
           <div className="flex size-12 items-center justify-center rounded-full bg-surface-raised/15">
-            <SparklesIcon />
+            <NutritionInsightIcon />
           </div>
 
           <h2 className="type-card-title font-bold">

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +10,7 @@ import type { FeedbackResponse } from "@/app/[locale]/api/types/feedback.types";
 import FeedbackCarousel, {
   type FeedbackWithScreenshot,
 } from "./FeedbackCarousel";
+import { QuoteTop } from "@/app/[locale]/components/icons/QuoteTop";
 
 const getFeedbackScreenshots = async (): Promise<FeedbackWithScreenshot[]> => {
   const { data } = await feedbackApi.getAllActiveFeedbacks({
@@ -82,13 +82,7 @@ const RealStories = () => {
             transition={{ duration: 1, ease: "easeInOut" }}
             className="absolute inset-e-0 top-0 pointer-events-none"
           >
-            <Image
-              src="/icons/qouteTop.svg"
-              alt="qoute"
-              width={315}
-              height={200}
-              className="real-stories-quote-art w-50 md:w-60 lg:w-75 h-auto"
-            />
+            <QuoteTop className="real-stories-quote-art w-50 md:w-60 lg:w-75 h-auto" />
           </motion.div>
         </div>
 
@@ -117,13 +111,7 @@ const RealStories = () => {
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                <Image
-                  src="/icons/qouteTop.svg"
-                  alt="qoute"
-                  width={105}
-                  height={65}
-                  className="rotate-180 w-20 md:w-30 h-auto"
-                />
+                <QuoteTop className="rotate-180 w-20 md:w-30 h-auto" />
               </motion.div>
               <p className="flex flex-col gap-5 text-base font-medium text-content-muted sm:gap-7 sm:text-lg md:text-xl lg:text-[22px]">
                 <span>{t("stories.realStoriesFromPeople")}</span>

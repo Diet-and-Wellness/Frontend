@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import GetStartedWave from "@/app/[locale]/components/illustrations/GetStartedWave";
+import { DecorativeArrow } from "@/app/[locale]/components/icons/DecorativeArrow";
 
 const GetStarted = () => {
   const t = useTranslations("getStarted");
@@ -59,11 +60,7 @@ const GetStarted = () => {
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="hidden self-center md:mb-25 md:block md:max-w-40 md:self-end"
           >
-            <Image
-              src={"/icons/decorative-arrow.svg"}
-              alt="arrow"
-              width={10}
-              height={10}
+            <DecorativeArrow
               className={`w-full scale-x-[-1] rotate-90 md:scale-y-[1] ${
                 isArabic ? "md:rotate-0" : "md:-rotate-90"
               }`}

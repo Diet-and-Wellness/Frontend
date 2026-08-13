@@ -21,14 +21,6 @@ const QuickLinks = ({ title, linksList }: QuickLinksProps) => {
         {title}
       </h4>
 
-      <Image
-        src="/icons/zigzag.svg"
-        alt="Decorative divider"
-        width={50}
-        height={25}
-        className="sm:w-15"
-      />
-
       <nav className="flex flex-col items-start gap-3 sm:gap-4 md:gap-5">
         {linksList.map((link) => (
           <LinkComp

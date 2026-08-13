@@ -3,7 +3,6 @@
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import NavList from "./NavList";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -11,6 +10,8 @@ import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import LogoutIcon from "@/app/[locale]/components/icons/LogoutIcon";
 import ProfileAvatar from "@/app/[locale]/components/Public/ProfileAvatar";
+import { CloseMenuIcon } from "@/app/[locale]/components/icons/CloseMenuIcon";
+import { MobileMenuIcon } from "@/app/[locale]/components/icons/MobileMenuIcon";
 
 const LandingNavBar = ({
   onClickLogout,
@@ -128,12 +129,7 @@ const LandingNavBar = ({
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="absolute inset-0"
                   >
-                    <Image
-                      width={40}
-                      height={40}
-                      src="/icons/close-icon.svg"
-                      alt="close icon"
-                    />
+                    <CloseMenuIcon />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -144,12 +140,7 @@ const LandingNavBar = ({
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="absolute inset-0"
                   >
-                    <Image
-                      width={40}
-                      height={40}
-                      src="/icons/menu-icon.svg"
-                      alt="menu icon"
-                    />
+                    <MobileMenuIcon />
                   </motion.div>
                 )}
               </AnimatePresence>

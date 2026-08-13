@@ -45,7 +45,7 @@ export default function BodyMetricsCards({
           <div className="w-full rounded-2xl py-2.5 px-4 flex flex-col gap-1.5 bg-brand-soft">
             <p className="type-label font-medium">{t("healthyRange")}</p>
             <p className="type-label font-medium text-brand">
-              {HEALTHY_MIN} — {HEALTHY_MAX} kg/m²
+              {HEALTHY_MIN} - {HEALTHY_MAX} kg/m²
             </p>
           </div>
           <div className="w-full rounded-2xl py-2.5 px-4 flex flex-col gap-1.5 bg-accent-soft">
@@ -73,7 +73,7 @@ export default function BodyMetricsCards({
         </p>
         <div className="flex gap-2.5 justify-start items-baseline">
           <p className="text-2xl font-medium text-brand sm:text-3xl lg:text-[38px]">
-            {idealWeight.idealWeightRange.min} —{" "}
+            {idealWeight.idealWeightRange.min} -{" "}
             {idealWeight.idealWeightRange.max}{" "}
             <span className="type-card-title font-light text-content-muted">kg</span>
           </p>
@@ -87,7 +87,7 @@ export default function BodyMetricsCards({
               <span className="type-label font-medium">kg</span>
             </p>
           </div>
-          <div className="size-11 rounded-full bg-[var(--color-palette-c8dcbf)] flex justify-center items-center">
+          <div className="size-11 rounded-full bg-(--color-palette-c8dcbf) flex justify-center items-center">
             <TargetIcon />
           </div>
         </div>

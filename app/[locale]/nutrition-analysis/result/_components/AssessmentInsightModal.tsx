@@ -99,13 +99,9 @@ const AssessmentInsightModal = ({
               {t("sectionInsight")}
             </h3>
             <div
-              className="flex w-fit items-center gap-2 rounded-full px-3 py-1.5"
+              className="flex w-fit items-center gap-2 rounded-full px-5 py-1.5"
               style={{ background: ui.bg, color: ui.color }}
             >
-              <span
-                className="size-2.5 rounded-full"
-                style={{ background: ui.color }}
-              />
               <span className="text-sm font-semibold">{statusLabel}</span>
             </div>
           </div>

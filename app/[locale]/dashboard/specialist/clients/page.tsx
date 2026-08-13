@@ -174,7 +174,9 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
       {/* Answers */}
       <TableCell>
         <button
-          onClick={() => router.push(`/dashboard/customers/${customer.id}/answers`)}
+          onClick={() =>
+            router.push(`/dashboard/customers/${customer.id}/answers`)
+          }
           className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
         >
           <div className="min-w-6">
