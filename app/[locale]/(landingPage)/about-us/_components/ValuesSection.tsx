@@ -48,7 +48,7 @@ const ValuesSection = ({
           <motion.article
             key={value.title}
             variants={reveal}
-            className="rounded-3xl border border-line bg-surface-raised p-6 shadow-[0_12px_38px_rgba(35,64,22,0.06)] sm:p-7"
+            className="rounded-3xl border border-line bg-surface-raised p-6 sm:p-7"
           >
             <span className="mb-7 flex size-12 items-center justify-center rounded-2xl bg-brand-soft text-brand">
               <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="size-6">

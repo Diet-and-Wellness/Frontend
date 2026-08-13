@@ -3,17 +3,14 @@ import Link from "next/link";
 
 const Logo = ({ href }: { href: string }) => {
   return (
-    <Link href={href} className="flex flex-row items-center gap-1 lg:gap-2">
+    <Link href={href}>
       <Image
         src="/icons/logo.svg"
         alt="logo"
         width={45}
         height={45}
-        className="w-11 h-auto md:w-13 lg:w-14"
+        className="w-12 h-auto md:w-14 lg:w-15"
       />
-      <p className="text-accent text-[20px] lg:text-[24px] font-bold">
-        D&<span className="text-brand">W</span>
-      </p>
     </Link>
   );
 };

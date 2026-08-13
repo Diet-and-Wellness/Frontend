@@ -6,9 +6,10 @@ export const CloseMenuIcon = () => {
       height="36"
       fill="none"
       viewBox="0 0 36 36"
+      className="w-9 h-auto"
     >
       <path
-        stroke="#234016"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
