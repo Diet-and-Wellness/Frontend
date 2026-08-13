@@ -223,44 +223,158 @@
     "switchToArabic": "Switch language to Arabic",
     "switchToEnglish": "Switch language to English",
     "sections": [
-      { "title": "Accuracy of Information", "body": "I confirm that all information I provide, including personal details, medical history, diagnoses, medications, supplements, laboratory results, allergies, pregnancy status, breastfeeding status, and all other relevant information, is accurate, complete, and truthful to the best of my knowledge." },
-      { "title": "Duty to Update Information", "body": "I agree to inform the dietitian promptly of any changes in my health condition, medications, supplements, laboratory results, pregnancy status, breastfeeding status, or any other circumstances that may affect my nutrition plan or the safety of the recommendations." },
-      { "title": "Nature of the Service", "body": "I understand that the nutrition consultation, meal plan, educational materials, and follow-up support are educational and supportive services intended to improve dietary habits, lifestyle, and overall health." },
-      { "title": "Medical Disclaimer", "body": "I understand that these services are separate from medical diagnosis, medical treatment, emergency care, hospital services, and any care that requires direct physician supervision. The services are not a substitute for consultation, diagnosis, or treatment by a licensed physician or other qualified healthcare professional." },
-      { "title": "Personalized Recommendations", "body": "I understand that all recommendations are based on the information I submit and are intended solely for my personal use." },
-      { "title": "Individual Results", "body": "I acknowledge that results vary from person to person and depend on many factors, including adherence to the plan, medical conditions, medications, sleep, stress, physical activity, genetics, and other individual differences." },
-      { "title": "No Guarantee of Results", "body": "I understand that no specific outcome, symptom improvement, laboratory change, or time-based result is guaranteed." },
-      { "title": "Success Depends on Adherence", "body": "I agree that the effectiveness of the nutrition plan depends largely on my commitment to following the recommendations and attending scheduled follow-up sessions." },
-      { "title": "Responsibility for Implementation", "body": "I accept full responsibility for deciding whether and how to implement the recommendations provided." },
-      { "title": "Consequences of Non-Compliance", "body": "I understand that failure to follow the plan, provide accurate information, disclose relevant health information, or attend follow-up sessions may limit or prevent the desired results." },
-      { "title": "Subscription Start Date", "body": "I understand that my subscription period begins on the date the nutrition plan or service is first delivered, rather than on the date of payment." },
-      { "title": "Follow-Up Time and Missed Responses", "body": "I agree to communicate and respond within the agreed follow-up schedule. Unused time, delayed responses, and missed follow-ups do not extend the subscription period unless expressly approved in writing." },
-      { "title": "Refund Policy", "body": "I understand that all fees are non-refundable once the consultation has been completed or the personalized nutrition plan has been prepared and delivered." },
-      { "title": "Intellectual Property", "body": "I agree not to copy, share, reproduce, distribute, resell, publish, or transfer the meal plan, reports, educational materials, recommendations, or any other content provided to me." },
-      { "title": "Consultation with My Physician", "body": "I understand that if I have a medical condition, am pregnant, planning pregnancy, breastfeeding, recovering from surgery, or taking prescription medications, I should consult my physician before implementing any dietary or lifestyle changes." },
-      { "title": "Pregnancy and Breastfeeding Disclosure", "body": "I agree to disclose immediately if I am pregnant, planning pregnancy, or breastfeeding. I understand that the dietitian may request medical clearance or may decline services if specialized medical supervision is required." },
-      { "title": "Conditions Outside Scope of Practice", "body": "I understand that certain complex, unstable, severe, or medically high-risk conditions fall outside the scope of these services and may require direct physician supervision, hospital-based care, or specialized medical nutrition support." },
-      { "title": "Right to Decline or Discontinue Services", "body": "I understand and agree that the dietitian and the company reserve the right to decline, postpone, suspend, or discontinue services at any time if my condition falls outside the scope of practice, if additional medical supervision is required, or if continuing services may compromise my safety." },
-      { "title": "Medical Clearance Requirement", "body": "I understand that the dietitian may request recent laboratory results, medical reports, or written approval from my treating physician before beginning or continuing services." },
-      { "title": "Emergency Situations", "body": "I understand that the dietitian and the company do not provide emergency medical services. If I experience urgent symptoms or a medical emergency, I agree to seek immediate medical attention." },
-      { "title": "Limitation of Liability", "body": "I acknowledge that the dietitian and the company are not liable for any adverse outcomes resulting from inaccurate or incomplete information provided by me, failure to follow recommendations, independent implementation of the plan, delayed communication, technical issues, or circumstances beyond their reasonable control." },
-      { "title": "Maximum Liability", "body": "If liability is established for any reason, the maximum aggregate liability of the dietitian and the company shall be limited to the amount I paid for the specific service giving rise to the claim." },
-      { "title": "Electronic Delivery", "body": "I consent to receiving my nutrition plan, educational materials, invoices, receipts, and follow-up communications through electronic means, including email, website portals, and messaging applications." },
-      { "title": "Privacy and Data Storage", "body": "I consent to the collection, secure storage, and processing of my personal and health information for the purpose of providing nutrition services and follow-up, in accordance with the Privacy Policy." },
-      { "title": "Confidentiality", "body": "I understand that my information will be treated as confidential and may be shared only with trusted service providers or when required by law." },
-      { "title": "Electronic Communication Risks", "body": "I understand that email, messaging applications, and online platforms involve inherent security and technical risks. I accept these risks." },
-      { "title": "Communication Response Times", "body": "I understand that messages are answered within reasonable business hours and that immediate responses are not guaranteed." },
-      { "title": "Third-Party Platforms", "body": "I understand that payment processors, scheduling systems, messaging applications, and other third-party platforms operate under their own terms and privacy policies." },
-      { "title": "Services for Minors", "body": "If the client is under the age of legal consent, I confirm that I am the parent or legal guardian authorized to consent to these Terms and Conditions." },
-      { "title": "Force Majeure", "body": "I understand that the dietitian and the company are not responsible for delays or interruptions caused by circumstances beyond their reasonable control, including internet outages, technical failures, natural disasters, or governmental actions." },
-      { "title": "Entire Agreement", "body": "I understand that these Terms and Conditions, together with the Privacy Policy, constitute the entire agreement between me and the service provider regarding the nutrition services." },
-      { "title": "Severability", "body": "If any provision of these Terms and Conditions is found unenforceable, the remaining provisions shall remain in full force and effect." },
-      { "title": "Governing Law", "body": "I understand that these Terms and Conditions are governed by the laws applicable in the jurisdiction where the services are provided." },
-      { "title": "Opportunity to Ask Questions", "body": "I confirm that I have had the opportunity to ask questions about the service and that my questions have been answered to my satisfaction." },
-      { "title": "Good Faith Provision", "body": "I understand that the services are provided in good faith based on the information I submit and on the professional judgment of the dietitian." },
-      { "title": "Voluntary Participation", "body": "I voluntarily choose to begin and participate in the nutrition service under these Terms and Conditions." },
-      { "title": "Acceptance of Privacy Policy", "body": "I confirm that I have read and understood the Privacy Policy and agree to the collection, use, storage, and processing of my information as described therein." },
-      { "title": "Conditions We Do Not Currently Manage", "body": "I understand that certain complex medical conditions may fall outside the scope of these services, including but not limited to active cancer, dialysis, advanced kidney disease, high-risk pregnancy, severe liver disease, heart failure, recent cardiac events, recent stroke, intensive care, tube feeding, parenteral nutrition, severe malnutrition, severe eating disorders, severe psychiatric conditions, advanced respiratory disease, acute pancreatitis, severe gastrointestinal disorders, unstable endocrine disorders, unstable diabetes, infants requiring pediatric nutrition care, severe blood disorders, active tuberculosis, sepsis, severe electrolyte disturbances, unexplained bleeding, recurrent fainting, and any serious condition that is not being monitored by a licensed physician." }
+      {
+        "title": "Accuracy of Information",
+        "body": "I confirm that all information I provide, including personal details, medical history, diagnoses, medications, supplements, laboratory results, allergies, pregnancy status, breastfeeding status, and all other relevant information, is accurate, complete, and truthful to the best of my knowledge."
+      },
+      {
+        "title": "Duty to Update Information",
+        "body": "I agree to inform the dietitian promptly of any changes in my health condition, medications, supplements, laboratory results, pregnancy status, breastfeeding status, or any other circumstances that may affect my nutrition plan or the safety of the recommendations."
+      },
+      {
+        "title": "Nature of the Service",
+        "body": "I understand that the nutrition consultation, meal plan, educational materials, and follow-up support are educational and supportive services intended to improve dietary habits, lifestyle, and overall health."
+      },
+      {
+        "title": "Medical Disclaimer",
+        "body": "I understand that these services are separate from medical diagnosis, medical treatment, emergency care, hospital services, and any care that requires direct physician supervision. The services are not a substitute for consultation, diagnosis, or treatment by a licensed physician or other qualified healthcare professional."
+      },
+      {
+        "title": "Personalized Recommendations",
+        "body": "I understand that all recommendations are based on the information I submit and are intended solely for my personal use."
+      },
+      {
+        "title": "Individual Results",
+        "body": "I acknowledge that results vary from person to person and depend on many factors, including adherence to the plan, medical conditions, medications, sleep, stress, physical activity, genetics, and other individual differences."
+      },
+      {
+        "title": "No Guarantee of Results",
+        "body": "I understand that no specific outcome, symptom improvement, laboratory change, or time-based result is guaranteed."
+      },
+      {
+        "title": "Success Depends on Adherence",
+        "body": "I agree that the effectiveness of the nutrition plan depends largely on my commitment to following the recommendations and attending scheduled follow-up sessions."
+      },
+      {
+        "title": "Responsibility for Implementation",
+        "body": "I accept full responsibility for deciding whether and how to implement the recommendations provided."
+      },
+      {
+        "title": "Consequences of Non-Compliance",
+        "body": "I understand that failure to follow the plan, provide accurate information, disclose relevant health information, or attend follow-up sessions may limit or prevent the desired results."
+      },
+      {
+        "title": "Subscription Start Date",
+        "body": "I understand that my subscription period begins on the date the nutrition plan or service is first delivered, rather than on the date of payment."
+      },
+      {
+        "title": "Follow-Up Time and Missed Responses",
+        "body": "I agree to communicate and respond within the agreed follow-up schedule. Unused time, delayed responses, and missed follow-ups do not extend the subscription period unless expressly approved in writing."
+      },
+      {
+        "title": "Refund Policy",
+        "body": "I understand that all fees are non-refundable once the consultation has been completed or the personalized nutrition plan has been prepared and delivered."
+      },
+      {
+        "title": "Intellectual Property",
+        "body": "I agree not to copy, share, reproduce, distribute, resell, publish, or transfer the meal plan, reports, educational materials, recommendations, or any other content provided to me."
+      },
+      {
+        "title": "Consultation with My Physician",
+        "body": "I understand that if I have a medical condition, am pregnant, planning pregnancy, breastfeeding, recovering from surgery, or taking prescription medications, I should consult my physician before implementing any dietary or lifestyle changes."
+      },
+      {
+        "title": "Pregnancy and Breastfeeding Disclosure",
+        "body": "I agree to disclose immediately if I am pregnant, planning pregnancy, or breastfeeding. I understand that the dietitian may request medical clearance or may decline services if specialized medical supervision is required."
+      },
+      {
+        "title": "Conditions Outside Scope of Practice",
+        "body": "I understand that certain complex, unstable, severe, or medically high-risk conditions fall outside the scope of these services and may require direct physician supervision, hospital-based care, or specialized medical nutrition support."
+      },
+      {
+        "title": "Right to Decline or Discontinue Services",
+        "body": "I understand and agree that the dietitian and the company reserve the right to decline, postpone, suspend, or discontinue services at any time if my condition falls outside the scope of practice, if additional medical supervision is required, or if continuing services may compromise my safety."
+      },
+      {
+        "title": "Medical Clearance Requirement",
+        "body": "I understand that the dietitian may request recent laboratory results, medical reports, or written approval from my treating physician before beginning or continuing services."
+      },
+      {
+        "title": "Emergency Situations",
+        "body": "I understand that the dietitian and the company do not provide emergency medical services. If I experience urgent symptoms or a medical emergency, I agree to seek immediate medical attention."
+      },
+      {
+        "title": "Limitation of Liability",
+        "body": "I acknowledge that the dietitian and the company are not liable for any adverse outcomes resulting from inaccurate or incomplete information provided by me, failure to follow recommendations, independent implementation of the plan, delayed communication, technical issues, or circumstances beyond their reasonable control."
+      },
+      {
+        "title": "Maximum Liability",
+        "body": "If liability is established for any reason, the maximum aggregate liability of the dietitian and the company shall be limited to the amount I paid for the specific service giving rise to the claim."
+      },
+      {
+        "title": "Electronic Delivery",
+        "body": "I consent to receiving my nutrition plan, educational materials, invoices, receipts, and follow-up communications through electronic means, including email, website portals, and messaging applications."
+      },
+      {
+        "title": "Privacy and Data Storage",
+        "body": "I consent to the collection, secure storage, and processing of my personal and health information for the purpose of providing nutrition services and follow-up, in accordance with the Privacy Policy."
+      },
+      {
+        "title": "Confidentiality",
+        "body": "I understand that my information will be treated as confidential and may be shared only with trusted service providers or when required by law."
+      },
+      {
+        "title": "Electronic Communication Risks",
+        "body": "I understand that email, messaging applications, and online platforms involve inherent security and technical risks. I accept these risks."
+      },
+      {
+        "title": "Communication Response Times",
+        "body": "I understand that messages are answered within reasonable business hours and that immediate responses are not guaranteed."
+      },
+      {
+        "title": "Third-Party Platforms",
+        "body": "I understand that payment processors, scheduling systems, messaging applications, and other third-party platforms operate under their own terms and privacy policies."
+      },
+      {
+        "title": "Services for Minors",
+        "body": "If the client is under the age of legal consent, I confirm that I am the parent or legal guardian authorized to consent to these Terms and Conditions."
+      },
+      {
+        "title": "Force Majeure",
+        "body": "I understand that the dietitian and the company are not responsible for delays or interruptions caused by circumstances beyond their reasonable control, including internet outages, technical failures, natural disasters, or governmental actions."
+      },
+      {
+        "title": "Entire Agreement",
+        "body": "I understand that these Terms and Conditions, together with the Privacy Policy, constitute the entire agreement between me and the service provider regarding the nutrition services."
+      },
+      {
+        "title": "Severability",
+        "body": "If any provision of these Terms and Conditions is found unenforceable, the remaining provisions shall remain in full force and effect."
+      },
+      {
+        "title": "Governing Law",
+        "body": "I understand that these Terms and Conditions are governed by the laws applicable in the jurisdiction where the services are provided."
+      },
+      {
+        "title": "Opportunity to Ask Questions",
+        "body": "I confirm that I have had the opportunity to ask questions about the service and that my questions have been answered to my satisfaction."
+      },
+      {
+        "title": "Good Faith Provision",
+        "body": "I understand that the services are provided in good faith based on the information I submit and on the professional judgment of the dietitian."
+      },
+      {
+        "title": "Voluntary Participation",
+        "body": "I voluntarily choose to begin and participate in the nutrition service under these Terms and Conditions."
+      },
+      {
+        "title": "Acceptance of Privacy Policy",
+        "body": "I confirm that I have read and understood the Privacy Policy and agree to the collection, use, storage, and processing of my information as described therein."
+      },
+      {
+        "title": "Conditions We Do Not Currently Manage",
+        "body": "I understand that certain complex medical conditions may fall outside the scope of these services, including but not limited to active cancer, dialysis, advanced kidney disease, high-risk pregnancy, severe liver disease, heart failure, recent cardiac events, recent stroke, intensive care, tube feeding, parenteral nutrition, severe malnutrition, severe eating disorders, severe psychiatric conditions, advanced respiratory disease, acute pancreatitis, severe gastrointestinal disorders, unstable endocrine disorders, unstable diabetes, infants requiring pediatric nutrition care, severe blood disorders, active tuberculosis, sepsis, severe electrolyte disturbances, unexplained bleeding, recurrent fainting, and any serious condition that is not being monitored by a licensed physician."
+      }
     ]
   },
   "privacy": {
@@ -270,30 +384,168 @@
     "intro": "We respect your privacy and are committed to protecting your personal and health information. This Privacy Policy explains how we collect, use, store, process, and protect your information when you visit this website, submit your information, book a consultation, purchase any service, or participate in nutrition consultations and follow-up programs.",
     "acknowledgement": "By accessing this website, submitting your information, booking a consultation, purchasing any service, or using our services, you acknowledge that you have read and understood this Privacy Policy and that you agree to the practices described below.",
     "sections": [
-      { "title": "Information We Collect", "body": ["We may collect personal information, health-related information, and technical information that you voluntarily provide or that is automatically collected through your use of this website.", "This information may include your full name, email address, phone number, age, sex, height, weight, body measurements, nutrition goals, dietary preferences, food allergies, medical history, diagnoses, medications, supplements, laboratory results, uploaded reports, pregnancy status, breastfeeding status, lifestyle habits, payment and billing details, communication records, and any other information that you choose to provide.", "You are solely responsible for ensuring that all information you provide is accurate, complete, and current."] },
-      { "title": "How We Use Your Information", "body": "We may use your information to determine whether our services are appropriate for your situation, evaluate your nutritional status, create individualized nutrition plans, provide educational guidance, offer follow-up support, communicate with you, send reports and recommendations, process payments, maintain internal records, improve our services, analyze website performance, comply with legal obligations, and protect our legal rights." },
-      { "title": "Nature of Our Services", "body": ["The services provided through this website consist of nutrition consultations, meal planning, educational materials, and lifestyle guidance intended to support healthier eating habits and overall wellness.", "Our services are educational and supportive in nature. They are separate from medical diagnosis, medical treatment, emergency care, hospital services, psychological treatment, and any service that requires direct physician supervision.", "Any recommendations provided are based entirely on the information you submit and on your individual circumstances."] },
-      { "title": "Medical Disclaimer", "body": ["Nutrition recommendations may influence medication requirements, blood sugar levels, blood pressure, fluid balance, electrolyte status, and other aspects of health.", "You are responsible for consulting your physician or other qualified healthcare provider before implementing any dietary or lifestyle changes, especially if you have a medical condition, take prescription medications, are pregnant, are breastfeeding, or have abnormal laboratory findings.", "If you experience severe symptoms, chest pain, shortness of breath, fainting, unexplained bleeding, sudden swelling, severe abdominal pain, or any other urgent medical concern, you should seek immediate medical attention."] },
-      { "title": "Pregnancy and Breastfeeding", "body": ["If you are pregnant, planning pregnancy, or breastfeeding, you must disclose this information before beginning services.", "We provide general nutrition support only when the situation is medically stable and appropriate for outpatient nutrition counseling.", "Specialized medical supervision is required for high-risk pregnancies and related complications, including gestational diabetes, pregnancy-induced hypertension, preeclampsia, severe hyperemesis gravidarum, and pregnancies complicated by unstable medical conditions.", "We may request recent medical reports, laboratory results, or written approval from your physician before accepting or continuing services. We reserve the right to decline or discontinue services whenever specialized care is more appropriate."] },
-      { "title": "Conditions We Do Not Currently Manage", "body": ["To protect client safety and ensure that our services are appropriate for each individual, we reserve our nutrition services for medically stable situations that can be managed safely through outpatient counseling.", "Certain conditions require direct physician supervision, hospital-based care, highly specialized nutrition protocols, or coordination with a multidisciplinary medical team. In these situations, dietary changes may significantly affect medications, fluid balance, electrolyte levels, organ function, and overall medical stability.", "Accordingly, we may decline, postpone, suspend, or discontinue services for clients with complex, severe, unstable, or medically high-risk conditions.", "This includes, without limitation, active cancer and intensive cancer treatment; dialysis; advanced kidney disease; kidney disorders requiring precise control of protein, fluids, and electrolytes; organ transplantation; immunosuppressive therapy; severe autoimmune diseases; high-risk pregnancy and pregnancy complications; advanced liver disease; cirrhosis; liver failure; ascites; hepatic encephalopathy; portal hypertension; heart failure; cardiomyopathy; recent heart attack; unstable angina; recent cardiac surgery; newly placed stents; severe arrhythmias; advanced valvular heart disease; unstable hypertension; recent stroke; severe neurological disorders; swallowing disorders; paralysis; severe mobility limitations; pressure ulcers; long-term catheter use; intensive care; tube feeding; parenteral nutrition; severe burns; major trauma; complex fractures; emergency surgery; severe malnutrition; unexplained rapid weight loss; severe eating disorders such as anorexia nervosa and bulimia nervosa; severe psychiatric conditions; advanced respiratory disease; home oxygen therapy; acute pancreatitis; severe gastrointestinal disorders; bowel obstruction; short bowel syndrome; gastrointestinal bleeding; inherited metabolic disorders; rare diseases requiring specialized protocols; unstable endocrine disorders; pituitary tumors; adrenal disorders; unstable hyperthyroidism; severe uncontrolled hypothyroidism; unstable diabetes; diabetic ketoacidosis; recurrent severe hypoglycemia; diabetic foot ulcers; gangrene; infants and young children requiring pediatric dietetic care; severe frailty in older adults; complex blood disorders; leukemia; severe unexplained anemia; bleeding disorders; repeated blood transfusions; active tuberculosis; sepsis; severe infections; cystic fibrosis; severe electrolyte disturbances; unexplained swelling; unexplained bleeding; recurrent fainting; persistent pain of unknown origin; and any serious condition that is not being monitored by a licensed physician.", "The examples listed above are illustrative rather than exhaustive. In our professional judgment, any condition that requires a higher level of medical oversight may fall outside the scope of our services.", "We may request recent medical records, laboratory results, or written clearance from your treating physician before beginning or continuing any service."] },
-      { "title": "Client Responsibilities", "body": ["By using our services, you agree to provide accurate and complete information, disclose all relevant diagnoses, medications, supplements, allergies, pregnancy or breastfeeding status, and promptly inform us of any changes in your health.", "You are responsible for consulting your physician when appropriate and for deciding whether and how to implement the recommendations provided.", "You are also responsible for following instructions carefully and for using your personalized nutrition plan only for your own personal use."] },
-      { "title": "No Guarantee of Results", "body": ["Each individual responds differently to nutrition and lifestyle changes.", "We make no promise regarding weight loss, weight gain, symptom improvement, laboratory changes, disease remission, or any specific outcome within any period of time.", "Results depend on numerous factors, including medical conditions, medications, adherence, sleep, stress, activity level, genetics, and other individual differences."] },
-      { "title": "Confidentiality and Data Sharing", "body": ["We treat your personal and health information as confidential.", "We may share information with trusted service providers when necessary to operate the website and deliver services, including web hosting providers, payment processors, scheduling platforms, secure storage providers, analytics tools, email delivery services, legal advisors, accountants, and governmental authorities when required by law.", "Each third-party provider receives only the information reasonably necessary to perform its services."] },
-      { "title": "Data Security", "body": ["We use commercially reasonable administrative, technical, and organizational safeguards to protect your information against unauthorized access, disclosure, alteration, and destruction.", "Although we take data security seriously, no electronic transmission or storage system can provide an absolute guarantee of security."] },
-      { "title": "Data Retention", "body": "We may retain your information for as long as reasonably necessary to provide services, maintain records, comply with legal obligations, resolve disputes, enforce agreements, and protect our legal interests." },
-      { "title": "Cookies and Analytics", "body": ["This website may use cookies and similar technologies to improve your browsing experience, remember your preferences, and measure website performance.", "Your browser settings allow you to manage or disable cookies if you prefer."] },
-      { "title": "Payment Information", "body": ["Payments may be processed through third-party payment providers.", "Those providers handle payment information according to their own privacy and security practices.", "We generally store billing and transaction records rather than full payment card details."] },
-      { "title": "Electronic Communications", "body": "By using our services, you consent to receiving communications by email, telephone, text message, messaging applications, and website portals for scheduling, follow-up, educational materials, invoices, receipts, and service-related updates." },
-      { "title": "Third-Party Services and Links", "body": ["This website may include links to or integrations with third-party websites and services.", "Your interactions with those services are governed by their own terms and privacy policies."] },
-      { "title": "Services for Minors", "body": ["Services for individuals under the age of legal consent are provided only with the involvement and authorization of a parent or legal guardian.", "We reserve the right to decline services when specialized pediatric care is more appropriate."] },
-      { "title": "International Data Transfers", "body": ["Your information may be stored or processed in countries other than your country of residence.", "By using this website and our services, you consent to such transfers and processing."] },
-      { "title": "Your Rights", "body": ["Subject to applicable law, you may request access to your personal information, correction of inaccurate information, deletion of certain information, or restriction of specific processing activities.", "We may retain information when retention is necessary to comply with legal obligations or protect legitimate business interests."] },
-      { "title": "Limitation of Liability", "body": ["To the fullest extent permitted by law, our website, services, owners, employees, contractors, and affiliates shall have no liability for direct, indirect, incidental, consequential, special, or punitive damages arising from or related to the use of this website or our services.", "This includes claims related to inaccurate information provided by the client, incomplete disclosures, independent implementation of recommendations, communication delays, technical interruptions, third-party platforms, and circumstances beyond our reasonable control.", "If liability is established for any reason, the maximum aggregate liability shall be limited to the amount paid by you for the specific service giving rise to the claim."] },
-      { "title": "Suspension or Termination of Services", "body": "We reserve the right to refuse, suspend, postpone, or terminate services whenever we determine that a condition falls outside the scope of our practice, additional medical supervision is required, essential information has not been provided, or continued services may compromise safety." },
-      { "title": "Changes to This Privacy Policy", "body": ["We may revise this Privacy Policy from time to time.", "The updated version becomes effective immediately upon posting on this website.", "Your continued use of the website and services constitutes acceptance of the revised policy."] },
-      { "title": "Governing Law", "body": "This Privacy Policy shall be governed by and interpreted in accordance with the laws applicable in the jurisdiction where the services are provided, unless another law applies by mandatory legal requirement." },
-      { "title": "Contact Information", "body": "If you have any questions regarding this Privacy Policy or our handling of your information, please contact us using the contact details provided on this website." },
-      { "title": "Your Consent", "body": "By accessing this website, submitting your information, booking consultations, purchasing services, or continuing to use our services, you confirm that you have read and understood this Privacy Policy and that you consent to the collection, use, storage, processing, and disclosure of your information as described in this document." }
+      {
+        "title": "Information We Collect",
+        "body": [
+          "We may collect personal information, health-related information, and technical information that you voluntarily provide or that is automatically collected through your use of this website.",
+          "This information may include your full name, email address, phone number, age, sex, height, weight, body measurements, nutrition goals, dietary preferences, food allergies, medical history, diagnoses, medications, supplements, laboratory results, uploaded reports, pregnancy status, breastfeeding status, lifestyle habits, payment and billing details, communication records, and any other information that you choose to provide.",
+          "You are solely responsible for ensuring that all information you provide is accurate, complete, and current."
+        ]
+      },
+      {
+        "title": "How We Use Your Information",
+        "body": "We may use your information to determine whether our services are appropriate for your situation, evaluate your nutritional status, create individualized nutrition plans, provide educational guidance, offer follow-up support, communicate with you, send reports and recommendations, process payments, maintain internal records, improve our services, analyze website performance, comply with legal obligations, and protect our legal rights."
+      },
+      {
+        "title": "Nature of Our Services",
+        "body": [
+          "The services provided through this website consist of nutrition consultations, meal planning, educational materials, and lifestyle guidance intended to support healthier eating habits and overall wellness.",
+          "Our services are educational and supportive in nature. They are separate from medical diagnosis, medical treatment, emergency care, hospital services, psychological treatment, and any service that requires direct physician supervision.",
+          "Any recommendations provided are based entirely on the information you submit and on your individual circumstances."
+        ]
+      },
+      {
+        "title": "Medical Disclaimer",
+        "body": [
+          "Nutrition recommendations may influence medication requirements, blood sugar levels, blood pressure, fluid balance, electrolyte status, and other aspects of health.",
+          "You are responsible for consulting your physician or other qualified healthcare provider before implementing any dietary or lifestyle changes, especially if you have a medical condition, take prescription medications, are pregnant, are breastfeeding, or have abnormal laboratory findings.",
+          "If you experience severe symptoms, chest pain, shortness of breath, fainting, unexplained bleeding, sudden swelling, severe abdominal pain, or any other urgent medical concern, you should seek immediate medical attention."
+        ]
+      },
+      {
+        "title": "Pregnancy and Breastfeeding",
+        "body": [
+          "If you are pregnant, planning pregnancy, or breastfeeding, you must disclose this information before beginning services.",
+          "We provide general nutrition support only when the situation is medically stable and appropriate for outpatient nutrition counseling.",
+          "Specialized medical supervision is required for high-risk pregnancies and related complications, including gestational diabetes, pregnancy-induced hypertension, preeclampsia, severe hyperemesis gravidarum, and pregnancies complicated by unstable medical conditions.",
+          "We may request recent medical reports, laboratory results, or written approval from your physician before accepting or continuing services. We reserve the right to decline or discontinue services whenever specialized care is more appropriate."
+        ]
+      },
+      {
+        "title": "Conditions We Do Not Currently Manage",
+        "body": [
+          "To protect client safety and ensure that our services are appropriate for each individual, we reserve our nutrition services for medically stable situations that can be managed safely through outpatient counseling.",
+          "Certain conditions require direct physician supervision, hospital-based care, highly specialized nutrition protocols, or coordination with a multidisciplinary medical team. In these situations, dietary changes may significantly affect medications, fluid balance, electrolyte levels, organ function, and overall medical stability.",
+          "Accordingly, we may decline, postpone, suspend, or discontinue services for clients with complex, severe, unstable, or medically high-risk conditions.",
+          "This includes, without limitation, active cancer and intensive cancer treatment; dialysis; advanced kidney disease; kidney disorders requiring precise control of protein, fluids, and electrolytes; organ transplantation; immunosuppressive therapy; severe autoimmune diseases; high-risk pregnancy and pregnancy complications; advanced liver disease; cirrhosis; liver failure; ascites; hepatic encephalopathy; portal hypertension; heart failure; cardiomyopathy; recent heart attack; unstable angina; recent cardiac surgery; newly placed stents; severe arrhythmias; advanced valvular heart disease; unstable hypertension; recent stroke; severe neurological disorders; swallowing disorders; paralysis; severe mobility limitations; pressure ulcers; long-term catheter use; intensive care; tube feeding; parenteral nutrition; severe burns; major trauma; complex fractures; emergency surgery; severe malnutrition; unexplained rapid weight loss; severe eating disorders such as anorexia nervosa and bulimia nervosa; severe psychiatric conditions; advanced respiratory disease; home oxygen therapy; acute pancreatitis; severe gastrointestinal disorders; bowel obstruction; short bowel syndrome; gastrointestinal bleeding; inherited metabolic disorders; rare diseases requiring specialized protocols; unstable endocrine disorders; pituitary tumors; adrenal disorders; unstable hyperthyroidism; severe uncontrolled hypothyroidism; unstable diabetes; diabetic ketoacidosis; recurrent severe hypoglycemia; diabetic foot ulcers; gangrene; infants and young children requiring pediatric dietetic care; severe frailty in older adults; complex blood disorders; leukemia; severe unexplained anemia; bleeding disorders; repeated blood transfusions; active tuberculosis; sepsis; severe infections; cystic fibrosis; severe electrolyte disturbances; unexplained swelling; unexplained bleeding; recurrent fainting; persistent pain of unknown origin; and any serious condition that is not being monitored by a licensed physician.",
+          "The examples listed above are illustrative rather than exhaustive. In our professional judgment, any condition that requires a higher level of medical oversight may fall outside the scope of our services.",
+          "We may request recent medical records, laboratory results, or written clearance from your treating physician before beginning or continuing any service."
+        ]
+      },
+      {
+        "title": "Client Responsibilities",
+        "body": [
+          "By using our services, you agree to provide accurate and complete information, disclose all relevant diagnoses, medications, supplements, allergies, pregnancy or breastfeeding status, and promptly inform us of any changes in your health.",
+          "You are responsible for consulting your physician when appropriate and for deciding whether and how to implement the recommendations provided.",
+          "You are also responsible for following instructions carefully and for using your personalized nutrition plan only for your own personal use."
+        ]
+      },
+      {
+        "title": "No Guarantee of Results",
+        "body": [
+          "Each individual responds differently to nutrition and lifestyle changes.",
+          "We make no promise regarding weight loss, weight gain, symptom improvement, laboratory changes, disease remission, or any specific outcome within any period of time.",
+          "Results depend on numerous factors, including medical conditions, medications, adherence, sleep, stress, activity level, genetics, and other individual differences."
+        ]
+      },
+      {
+        "title": "Confidentiality and Data Sharing",
+        "body": [
+          "We treat your personal and health information as confidential.",
+          "We may share information with trusted service providers when necessary to operate the website and deliver services, including web hosting providers, payment processors, scheduling platforms, secure storage providers, analytics tools, email delivery services, legal advisors, accountants, and governmental authorities when required by law.",
+          "Each third-party provider receives only the information reasonably necessary to perform its services."
+        ]
+      },
+      {
+        "title": "Data Security",
+        "body": [
+          "We use commercially reasonable administrative, technical, and organizational safeguards to protect your information against unauthorized access, disclosure, alteration, and destruction.",
+          "Although we take data security seriously, no electronic transmission or storage system can provide an absolute guarantee of security."
+        ]
+      },
+      {
+        "title": "Data Retention",
+        "body": "We may retain your information for as long as reasonably necessary to provide services, maintain records, comply with legal obligations, resolve disputes, enforce agreements, and protect our legal interests."
+      },
+      {
+        "title": "Cookies and Analytics",
+        "body": [
+          "This website may use cookies and similar technologies to improve your browsing experience, remember your preferences, and measure website performance.",
+          "Your browser settings allow you to manage or disable cookies if you prefer."
+        ]
+      },
+      {
+        "title": "Payment Information",
+        "body": [
+          "Payments may be processed through third-party payment providers.",
+          "Those providers handle payment information according to their own privacy and security practices.",
+          "We generally store billing and transaction records rather than full payment card details."
+        ]
+      },
+      {
+        "title": "Electronic Communications",
+        "body": "By using our services, you consent to receiving communications by email, telephone, text message, messaging applications, and website portals for scheduling, follow-up, educational materials, invoices, receipts, and service-related updates."
+      },
+      {
+        "title": "Third-Party Services and Links",
+        "body": [
+          "This website may include links to or integrations with third-party websites and services.",
+          "Your interactions with those services are governed by their own terms and privacy policies."
+        ]
+      },
+      {
+        "title": "Services for Minors",
+        "body": [
+          "Services for individuals under the age of legal consent are provided only with the involvement and authorization of a parent or legal guardian.",
+          "We reserve the right to decline services when specialized pediatric care is more appropriate."
+        ]
+      },
+      {
+        "title": "International Data Transfers",
+        "body": [
+          "Your information may be stored or processed in countries other than your country of residence.",
+          "By using this website and our services, you consent to such transfers and processing."
+        ]
+      },
+      {
+        "title": "Your Rights",
+        "body": [
+          "Subject to applicable law, you may request access to your personal information, correction of inaccurate information, deletion of certain information, or restriction of specific processing activities.",
+          "We may retain information when retention is necessary to comply with legal obligations or protect legitimate business interests."
+        ]
+      },
+      {
+        "title": "Limitation of Liability",
+        "body": [
+          "To the fullest extent permitted by law, our website, services, owners, employees, contractors, and affiliates shall have no liability for direct, indirect, incidental, consequential, special, or punitive damages arising from or related to the use of this website or our services.",
+          "This includes claims related to inaccurate information provided by the client, incomplete disclosures, independent implementation of recommendations, communication delays, technical interruptions, third-party platforms, and circumstances beyond our reasonable control.",
+          "If liability is established for any reason, the maximum aggregate liability shall be limited to the amount paid by you for the specific service giving rise to the claim."
+        ]
+      },
+      {
+        "title": "Suspension or Termination of Services",
+        "body": "We reserve the right to refuse, suspend, postpone, or terminate services whenever we determine that a condition falls outside the scope of our practice, additional medical supervision is required, essential information has not been provided, or continued services may compromise safety."
+      },
+      {
+        "title": "Changes to This Privacy Policy",
+        "body": [
+          "We may revise this Privacy Policy from time to time.",
+          "The updated version becomes effective immediately upon posting on this website.",
+          "Your continued use of the website and services constitutes acceptance of the revised policy."
+        ]
+      },
+      {
+        "title": "Governing Law",
+        "body": "This Privacy Policy shall be governed by and interpreted in accordance with the laws applicable in the jurisdiction where the services are provided, unless another law applies by mandatory legal requirement."
+      },
+      {
+        "title": "Contact Information",
+        "body": "If you have any questions regarding this Privacy Policy or our handling of your information, please contact us using the contact details provided on this website."
+      },
+      {
+        "title": "Your Consent",
+        "body": "By accessing this website, submitting your information, booking consultations, purchasing services, or continuing to use our services, you confirm that you have read and understood this Privacy Policy and that you consent to the collection, use, storage, processing, and disclosure of your information as described in this document."
+      }
     ]
   },
   "calculators": {
@@ -457,24 +709,44 @@
     "faqDescription": "A few quick answers about our approach, our plans, and what your journey can look like.",
     "faqs": [
       {
-        "question": "Are Diet & Wellness plans personalized?",
-        "answer": "Yes. Recommendations are shaped around your goals, lifestyle, eating habits, preferences, and relevant health information rather than a one-size-fits-all template."
+        "question": "Can I lose weight without changing all the food we eat at home?",
+        "answer": "Yes. Our goal is to help you reach a healthy weight while still enjoying the food you normally eat at home. We focus on managing portions and choosing meals that support your goals, so you can follow your plan as part of your everyday life without preparing separate meals every day."
       },
       {
-        "question": "Do I need to follow a strict diet?",
-        "answer": "No. Our approach focuses on balanced choices and gradual changes that work with real life, not extreme restrictions or short-term fixes."
+        "question": "Do I need to buy special diet foods or products?",
+        "answer": "No. Your plan is based as much as possible on foods that are available to you and that you enjoy. The goal is to help you understand what to eat, how much to eat, and how to organize your meals in a way that supports your goals."
       },
       {
-        "question": "Can you help with both weight loss and weight gain?",
-        "answer": "Yes. A healthy plan can support weight loss, weight gain, maintenance, or simply better eating habits, depending on your individual goal."
+        "question": "Will the plan fit my work schedule and daily routine?",
+        "answer": "Yes. Before creating your plan, we consider your daily schedule, activity level, sleep, appetite, and eating habits. A plan that fits your real life is much easier to follow and maintain."
       },
       {
-        "question": "How do I get started?",
-        "answer": "Begin with your nutrition assessment so we can understand your needs and give you a clearer, more personal starting point."
+        "question": "Is the plan personalized for me or is it a ready-made diet?",
+        "answer": "Your plan is created based on your personal information, goals, and individual needs. The recommendations you receive are personalized for your use based on the information you provide."
       },
       {
-        "question": "Does this replace medical advice?",
-        "answer": "No. Diet & Wellness supports healthy nutrition habits, but it does not replace diagnosis or treatment from your physician or another qualified healthcare professional."
+        "question": "Who will create my plan and follow up with me?",
+        "answer": "You'll be supported by a clinical nutrition specialist who reviews your assessment and information, identifies your nutritional needs, creates a plan that suits you, and follows your progress throughout the program."
+      },
+      {
+        "question": "What do you need to know about me before we start?",
+        "answer": "We look at the full picture, not just the number on the scale. Your assessment covers your goals, weight history, activity level, sleep, energy, appetite, eating habits, digestion, meal patterns, and your ability to maintain healthy changes over time."
+      },
+      {
+        "question": "Can I do everything from home?",
+        "answer": "Yes. You can start your journey from home and receive your plan and follow-up support online. This helps you apply changes within your real daily routine instead of having to completely reorganize your life around a diet."
+      },
+      {
+        "question": "What happens after I subscribe?",
+        "answer": "You'll start by providing the information we need to understand your situation. It will then be reviewed to identify your needs and prepare your plan. During follow-ups, we'll review your progress and any challenges you're facing and help you stay on track in a way that fits your circumstances."
+      },
+      {
+        "question": "How long will it take to reach my goal?",
+        "answer": "The time needed varies from person to person depending on factors such as your current weight, goal, health status, activity level, and consistency. That's why we don't promise unrealistic results or timelines. Instead, we focus on progress that is appropriate for you and that you can maintain. Results vary between individuals, and no specific outcome or timeframe can be guaranteed."
+      },
+      {
+        "question": "Why might this approach be easier to maintain?",
+        "answer": "Because we aim to make your plan part of your life rather than asking you to build a completely new life around losing weight. You can eat familiar foods, follow a plan that fits your day, and receive support from a clinical nutrition specialist—all with the goal of helping you reach a healthy weight through realistic changes you can maintain."
       }
     ]
   },

@@ -19,11 +19,23 @@ const PurposeIcon = ({ variant }: { variant: "mission" | "vision" }) =>
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-7">
       <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.8" />
       <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.8" />
-      <path d="m14.5 9.5 5-5M16 4.5h3.5V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="m14.5 9.5 5-5M16 4.5h3.5V8"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   ) : (
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-7">
-      <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       <circle cx="12" cy="12" r="2.8" stroke="currentColor" strokeWidth="1.8" />
     </svg>
   );
@@ -65,7 +77,7 @@ const PurposeSection = ({
           variants={reveal}
           className={`relative overflow-hidden rounded-[28px] border p-7 sm:p-9 ${
             item.variant === "mission"
-              ? "border-brand/15 bg-brand-ink text-brand-contrast"
+              ? "border-brand/15 bg-brand-softer text-content-contrast"
               : "border-accent/20 bg-accent-soft text-content-strong"
           }`}
         >
@@ -73,20 +85,14 @@ const PurposeSection = ({
           <span
             className={`mb-8 flex size-14 items-center justify-center rounded-2xl ${
               item.variant === "mission"
-                ? "bg-white/12 text-brand-contrast"
-                : "bg-surface-raised text-accent"
+                ? "bg-brand-soft text-brand"
+                : "bg-accent-softer text-accent"
             }`}
           >
             <PurposeIcon variant={item.variant} />
           </span>
           <h3 className="type-section-title font-extrabold">{item.title}</h3>
-          <p
-            className={`type-body-lg mt-5 max-w-xl ${
-              item.variant === "mission"
-                ? "text-brand-contrast/78"
-                : "text-content-muted"
-            }`}
-          >
+          <p className="type-body-lg mt-5 max-w-xl text-content-muted">
             {item.text}
           </p>
         </motion.article>

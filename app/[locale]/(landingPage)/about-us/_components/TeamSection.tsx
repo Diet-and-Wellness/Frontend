@@ -35,7 +35,7 @@ const TeamSection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, delay: index * 0.1 }}
-          className="group w-full overflow-hidden rounded-3xl border border-line bg-surface-raised shadow-[0_12px_36px_rgba(35,64,22,0.07)] transition-transform duration-300"
+          className="group w-full overflow-hidden rounded-3xl border border-line bg-surface-raised transition-transform duration-300"
         >
           <div className="relative aspect-[5/3.9] overflow-hidden bg-brand-soft">
             <Image
