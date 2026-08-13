@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import QuickLinks from "./footerComp/QuickLinks";
 import Socials from "./footerComp/Socials";
-import Subscribe from "./footerComp/Subscribe";
 import { AnimatePresence } from "framer-motion";
 import BMI from "../home/free-tools/BMI";
 import IBW from "../home/free-tools/IBW";
@@ -166,7 +165,6 @@ const LandingFooter = () => {
           <Socials />
           <QuickLinks title={t("footer.quickLinks")} linksList={quicklinks} />
           <QuickLinks title={t("footer.tools")} linksList={tools} />
-          {/* <Subscribe /> */}
         </div>
 
         <p className="text-center text-sm font-extralight text-footer-content-muted md:text-lg">

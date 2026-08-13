@@ -1,0 +1,17 @@
+export const Eye = ({className}: {className: string}) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="none"
+      viewBox="0 0 16 16"
+      className={className}
+    >
+      <path
+        fill="currentColor"
+        d="M14.017 8.645a.5.5 0 0 0 .48.355v-.005a.496.496 0 0 0 .48-.64C14.962 8.305 13.307 3 7.997 3 2.69 3 1.036 8.305 1.02 8.36a.502.502 0 0 0 .96.285C2.035 8.455 3.445 4 7.998 4s5.958 4.451 6.02 4.645M5 9a3 3 0 1 1 6 0 3 3 0 0 1-6 0"
+      />
+    </svg>
+  );
+};

@@ -1,8 +1,8 @@
 "use client";
 
+import { QuoteIcon } from "@/app/[locale]/components/icons/QuoteIcon";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type ReviewCardProps = {
@@ -18,13 +18,7 @@ const ReviewCard = ({
 }: ReviewCardProps) => (
   <div className="flex w-full max-w-130 flex-col justify-between gap-5 rounded-3xl border border-white/70 bg-surface-raised/30 p-5 shadow-xl backdrop-blur-2xl sm:p-6">
     <div className="flex flex-col gap-5">
-      <Image
-        src="/icons/quote.svg"
-        alt=""
-        width={45}
-        height={35}
-        aria-hidden="true"
-      />
+      <QuoteIcon />
       <p className="text-base font-medium leading-relaxed text-content/90">
         {reviewText}
       </p>

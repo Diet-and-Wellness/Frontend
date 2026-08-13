@@ -14,6 +14,7 @@ import ViewIcon from "@/app/[locale]/components/icons/ViewIcon";
 import { useBlogs } from "@/app/[locale]/hooks/useBlogs";
 import type { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
 import Blog from "@/app/[locale]/components/Blogs/Blog";
+import { Eye } from "../icons/Eye";
 
 const getRecommendationScore = (value: string) => {
   let score = 0;
@@ -73,14 +74,7 @@ const BlogDetailsClient = ({ slug, initialBlog }: BlogDetailsClientProps) => {
             </p>
 
             <div className="flex items-center justify-center gap-1 rounded-lg bg-accent px-2 py-1">
-              <Image
-                width={20}
-                height={20}
-                src="/icons/eye.svg"
-                alt=""
-                className="h-4 w-4 lg:h-5 lg:w-5"
-              />
-
+              <Eye className="h-4 w-4 lg:h-5 lg:w-5" />
               <p className="type-meta font-medium leading-3 text-accent-contrast">
                 {t("minutesRead", {
                   count: blog.estimatedReadTime,

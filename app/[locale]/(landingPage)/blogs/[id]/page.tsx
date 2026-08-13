@@ -14,6 +14,7 @@ import { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
 import Blog from "@/app/[locale]/components/Blogs/Blog";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { Eye } from "@/app/[locale]/components/icons/Eye";
 
 const getRecommendationScore = (value: string) => {
   let score = 0;
@@ -71,15 +72,8 @@ const BlogDetails = () => {
               </p>
 
               <div className="bg-accent rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
-                <Image
-                  width={20}
-                  height={20}
-                  src="/icons/eye.svg"
-                  alt="Eye icon"
-                  className="h-4 w-4 lg:h-5 lg:w-5"
-                />
-
-                <p className="type-meta font-medium leading-3 text-white">
+                <Eye className="h-3.5 w-3.5 lg:h-4.5 lg:w-4.5" />
+                <p className="type-meta font-medium leading-3">
                   {t("minutesRead", { count: blog.estimatedReadTime })}
                 </p>
               </div>

@@ -6,6 +6,7 @@ import { BlogResponse } from "../../api/types/blogs.types";
 import { formatDate } from "../../utils/formateDate";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { Eye } from "../icons/Eye";
 
 const Blog = ({
   type,
@@ -36,15 +37,9 @@ const Blog = ({
             <p className="type-label font-medium text-brand-dark">
               {formatDate(blog.createdAt)}
             </p>
-            <div className="bg-accent rounded-lg py-0.75 px-3 flex flex-row justify-center items-center gap-1">
-              <Image
-                width={16}
-                height={16}
-                src="/icons/eye.svg"
-                alt="Eye icon"
-                className="h-3 w-3 lg:h-4 lg:w-4"
-              />
-              <p className="type-meta font-medium leading-3 text-white">
+            <div className="bg-accent text- rounded-lg py-0.75 px-3 flex flex-row justify-center items-center gap-1">
+              <Eye className="h-3.5 w-3.5 lg:h-4.5 lg:w-4.5" />
+              <p className="type-meta font-medium leading-3">
                 {t("blogs.minutesRead", { count: blog.estimatedReadTime })}
               </p>
             </div>

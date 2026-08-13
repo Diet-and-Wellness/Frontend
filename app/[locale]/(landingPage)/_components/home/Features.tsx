@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Checkout } from "@/app/[locale]/components/icons/CheckoutIcon";
 import { ViewBlogsCta } from "./ViewBlogsCta";
+import { ArrowDown } from "@/app/[locale]/components/icons/ArrowDown";
 
 const Features = () => {
   const t = useTranslations("features");
@@ -73,15 +74,9 @@ const Features = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="max-w-fit mx-auto mt-7.5"
+          className="max-w-fit mx-auto mt-10"
         >
-          <Image
-            src="/icons/arrow-down.svg"
-            alt="arrow down"
-            width={84}
-            height={84}
-            className="w-15 h-15 lg:w-18 lg:h-18 xl:w-21 xl:h-21"
-          />
+          <ArrowDown />
         </motion.div>
       </motion.div>
 

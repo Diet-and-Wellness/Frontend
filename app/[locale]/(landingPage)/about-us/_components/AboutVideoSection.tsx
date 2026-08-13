@@ -39,9 +39,9 @@ const AboutVideoSection = ({
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.12, ease: "easeOut" }}
-      className="relative overflow-hidden rounded-[24px] border border-line bg-brand-ink p-1.5 shadow-[0_24px_70px_rgba(35,64,22,0.18)] sm:rounded-[36px] sm:p-2"
+      className="relative overflow-hidden rounded-3xl border border-line bg-brand-ink p-1.5 shadow-[0_24px_70px_rgba(35,64,22,0.18)] sm:rounded-[36px] sm:p-2"
     >
-      <div className="pointer-events-none absolute -start-16 -top-16 z-10 size-40 rounded-full bg-accent/25 blur-3xl" />
+      <div className="pointer-events-none absolute -inset-s-16 -top-16 z-10 size-40 rounded-full bg-accent/25 blur-3xl" />
       <iframe
         className="aspect-video w-full rounded-[19px] sm:rounded-[29px]"
         src={videoUrl}

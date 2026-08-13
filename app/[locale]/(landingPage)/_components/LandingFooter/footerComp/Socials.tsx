@@ -1,3 +1,6 @@
+import { FacebookIcon } from "@/app/[locale]/components/icons/FacebookIcon";
+import { InstaIcon } from "@/app/[locale]/components/icons/InstaIcon";
+import { LinkedinIcon } from "@/app/[locale]/components/icons/LinkedinIcon";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,16 +8,19 @@ import Link from "next/link";
 const socialLinks = [
   {
     href: "https://www.facebook.com/share/1AQvvZeg6o/?mibextid=wwXIfr",
-    icon: "/icons/facebook.svg",
+    icon: <FacebookIcon />,
     alt: "Facebook",
   },
-  // { href: "/", icon: "/icons/twitter.svg", alt: "Twitter" },
   {
     href: "https://www.instagram.com/diet_a_wellness?igsh=M2ZkeHc3OWNranQy",
-    icon: "/icons/insta.svg",
+    icon: <InstaIcon />,
     alt: "Instagram",
   },
-  // { href: "/", icon: "/icons/youtube.svg", alt: "YouTube" },
+  {
+    href: "https://www.linkedin.com/company/dietandwellness/",
+    icon: <LinkedinIcon />,
+    alt: "Linkedin",
+  },
 ];
 
 const Socials = () => {
@@ -57,15 +63,9 @@ const Socials = () => {
             aria-label={social.alt}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-transform duration-300 hover:scale-110 active:scale-95"
+            className="transition-transform duration-300 hover:scale-110 active:scale-95 bg-accent size-10 flex justify-center items-center rounded-full"
           >
-            <Image
-              src={social.icon}
-              alt={social.alt}
-              width={36}
-              height={36}
-              className="sm:w-10 md:w-11.25"
-            />
+            {social.icon}
           </Link>
         ))}
       </nav>

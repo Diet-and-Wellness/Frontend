@@ -262,7 +262,7 @@ const IbwResult = ({
         </p>
 
         <p className="text-3xl font-semibold text-brand sm:text-4xl">
-          {ibwResult?.idealWeightRange.min} — {ibwResult?.idealWeightRange.max}{" "}
+          {ibwResult?.idealWeightRange.min} - {ibwResult?.idealWeightRange.max}{" "}
           {t("kg")}
         </p>
 

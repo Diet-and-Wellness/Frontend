@@ -77,19 +77,12 @@ const AssessmentInsightCard = ({
         </div>
 
         <div
-          className="rounded-full px-3 py-1 flex items-center gap-2"
+          className="rounded-full px-5 py-1"
           style={{
             background: ui.bg,
             color: ui.color,
           }}
         >
-          <div
-            className="size-2.5 rounded-full"
-            style={{
-              background: ui.color,
-            }}
-          />
-
           <span className="type-meta font-semibold">{statusLabel}</span>
         </div>
       </div>

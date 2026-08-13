@@ -46,7 +46,7 @@ const StateComp = ({ state = "inactive" }: { state: string }) => {
       style={{
         background: currentState.bg,
       }}
-      className={`min-w-25 py-2 rounded-full flex justify-center items-center`}
+      className={`min-w-20 py-1.5 md:py-2 rounded-full flex justify-center items-center`}
     >
       <span
         style={{

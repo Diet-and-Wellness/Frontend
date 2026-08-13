@@ -286,7 +286,7 @@ const BmiResult = ({
         <div className="w-full rounded-2xl border border-brand px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-brand-soft">
           <p className="type-label font-medium">{t("healthyBmiRange")}</p>
           <p className="type-card-title font-semibold text-brand">
-            {HEALTHY_MIN} — {HEALTHY_MAX}{" "}
+            {HEALTHY_MIN} - {HEALTHY_MAX}{" "}
             <span className="type-label font-medium text-content-strong">
               kg/m²
             </span>
