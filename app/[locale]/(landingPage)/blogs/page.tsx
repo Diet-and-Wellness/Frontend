@@ -187,7 +187,11 @@ const BlogPage = () => {
       )}
 
       <div ref={bottomRef} className="flex justify-center items-center pt-15">
-        {hasNextPage && <Spinner spinnerSize={50} borderColor={"brannd"} />}
+        {hasNextPage ? (
+          <Spinner spinnerSize={50} borderColor={"brannd"} />
+        ) : (
+          <p className="text-xl">{t("blogs.endOfBlogs")}</p>
+        )}
       </div>
     </section>
   );
