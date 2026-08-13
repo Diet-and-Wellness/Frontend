@@ -78,7 +78,7 @@ const BlogDetails = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2.5">
               <p className="type-body font-medium text-content-muted">
                 {t("viewedBy", { count: blog.viewCount })}
               </p>

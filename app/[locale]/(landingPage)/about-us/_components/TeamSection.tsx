@@ -37,13 +37,13 @@ const TeamSection = ({
           transition={{ duration: 0.55, delay: index * 0.1 }}
           className="group w-full overflow-hidden rounded-3xl border border-line bg-surface-raised transition-transform duration-300"
         >
-          <div className="relative aspect-[5/3.9] overflow-hidden bg-brand-soft">
+          <div className="relative aspect-5/4.5 overflow-hidden bg-brand-soft">
             <Image
               src={member.image}
               alt={member.name}
               fill
               sizes="(max-width: 640px) 288px, (max-width: 1024px) 45vw, 288px"
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.035]"
+              className="object-cover object-top w-full h-auto transition-transform duration-500 group-hover:scale-[1.035]"
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-brand-ink/45 to-transparent" />
             <span className="absolute bottom-3 inset-s-3 rounded-full bg-surface-raised/90 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-brand-ink backdrop-blur-md">
