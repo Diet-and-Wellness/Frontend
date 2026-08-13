@@ -312,7 +312,7 @@ const SignupForm = () => {
             htmlFor="termsAccepted"
             className="type-label cursor-pointer text-content-muted"
           >
-            {t("auth.agreeToTermsPrefix")} {" "}
+            {t("auth.agreeToTermsPrefix")}{" "}
             <Link
               href="/terms-and-conditions"
               target="_blank"
@@ -321,8 +321,8 @@ const SignupForm = () => {
             >
               {t("auth.termsAndConditions")}
               <span className="sr-only"> {t("auth.opensInNewTab")}</span>
-            </Link>
-            {" "}{t("auth.andAcknowledge")} {" "}
+            </Link>{" "}
+            {t("auth.andAcknowledge")}{" "}
             <Link
               href="/privacy-policy"
               target="_blank"
