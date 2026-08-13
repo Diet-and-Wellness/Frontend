@@ -190,7 +190,7 @@ const BlogPage = () => {
         {hasNextPage ? (
           <Spinner spinnerSize={50} borderColor={"brannd"} />
         ) : (
-          <p className="text-xl">{t("blogs.endOfBlogs")}</p>
+          <p className="text-md md:text-xl">{t("blogs.endOfBlogs")}</p>
         )}
       </div>
     </section>
