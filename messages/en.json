@@ -680,16 +680,16 @@
     "teamDescription": "Different areas of expertise, one shared purpose: helping you build healthy habits that feel personal, practical, and sustainable.",
     "teamMembers": [
       {
-        "name": "Dt. Abdallh Abolila",
-        "role": "Clinical Dietitian",
-        "bio": "Clinical Dietitian specializing in sports nutrition, weight management, body composition, and performance nutrition. He provides personalized, evidence-based nutrition plans tailored to each client’s goals, lifestyle, and training needs. He supports fat loss, muscle gain, healthy weight gain, recovery, and sustainable lifestyle changes.",
-        "image": "/images/team-members/abdallah.webp"
-      },
-      {
         "name": "Dt. Ahmed Mahmoud",
         "role": "CEO and a Clinical Dietitian",
         "bio": "CEO of Diet & Wellness and Clinical Dietitian specializing in evidence-based nutrition and sustainable lifestyle change. He provides personalized nutrition plans, comprehensive assessments, and continuous follow-up tailored to each client’s goals. With certifications from institutions including Stanford University, he combines clinical expertise with the latest evidence-based practices to support long-term health and wellness.",
         "image": "/images/team-members/ahmed.webp"
+      },
+      {
+        "name": "Dt. Abdallh Abolila",
+        "role": "Clinical Dietitian",
+        "bio": "Clinical Dietitian specializing in sports nutrition, weight management, body composition, and performance nutrition. He provides personalized, evidence-based nutrition plans tailored to each client’s goals, lifestyle, and training needs. He supports fat loss, muscle gain, healthy weight gain, recovery, and sustainable lifestyle changes.",
+        "image": "/images/team-members/abdallah.webp"
       },
       {
         "name": "Dt. Amal Saber",

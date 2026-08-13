@@ -71,7 +71,7 @@ const BlogDetails = () => {
                 {formatDate(blog.createdAt)}
               </p>
 
-              <div className="bg-accent rounded-lg py-1 px-2 flex flex-row justify-center items-center gap-1">
+              <div className="bg-accent rounded-lg py-1.5 px-3 flex flex-row justify-center items-center gap-1">
                 <Eye className="h-3.5 w-3.5 lg:h-4.5 lg:w-4.5" />
                 <p className="type-meta font-medium leading-3">
                   {t("minutesRead", { count: blog.estimatedReadTime })}
