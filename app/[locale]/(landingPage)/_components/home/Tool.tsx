@@ -92,10 +92,10 @@ const Tool = ({
         className={`
             h-11
             md:h-12
-            border-2 ${isFree ? "border-brand" : "border-accent"}
+            border ${isFree ? "border-brand" : "border-accent"}
             rounded-full
             ${isFree ? "text-brand" : "text-accent"}
-            font-bold
+            font-semibold
             type-control
             transition-all duration-300
             group-hover:bg-surface-raised
