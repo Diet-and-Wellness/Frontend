@@ -14,13 +14,13 @@ const Hero = () => {
   const locale = useLocale();
 
   return (
-    <section className="relative overflow-hidden bg-surface md:pt-15 xl:pt-20">
+    <section className="relative overflow-hidden bg-surface pt-20 max-h-200 md:max-h-265">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeInOut" }}
-        className="relative w-full overflow-hidden aspect-780/1504 md:aspect-15.5/10"
+        className="relative w-full overflow-hidden aspect-1/1.5 md:aspect-13/10"
       >
         <div className="h-full md:hidden">
           <ImageComparison className="h-full w-full" enableHover>
