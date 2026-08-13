@@ -15,6 +15,8 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden bg-surface pt-20 max-h-260">
+      <div className="w-[50%] h-full bg-accent-soft/40 absolute blur-2xl left-0"></div>
+      <div className="w-[50%] h-full bg-brand-soft/40 absolute blur-2xl right-0"></div>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
