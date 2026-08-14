@@ -153,14 +153,12 @@ const FeatureCard = ({
         className={`
           relative
           origin-top
-          max-w-full
-          md:max-w-7xl
-          p-6 pb-8
+          p-7.5
           md:p-12
           lg:p-15
           rounded-3xl
           shadow-2xl
-          w-full
+          w-full lg:w-[95%]
           h-fit
           transform-gpu
           overflow-hidden

@@ -14,7 +14,7 @@ const Hero = () => {
   const locale = useLocale();
 
   return (
-    <section className="relative overflow-hidden bg-surface pt-15 md:pt-20 max-h-260">
+    <section className="relative overflow-hidden bg-surface pt-25 md:pt-20 max-h-260">
       <div className="absolute left-0 h-full w-[50%] bg-accent-soft/35 before:absolute before:-top-20 before:left-0 before:h-20 before:w-full before:bg-accent-soft/35" />
       <div className="absolute right-0 h-full w-[50%] bg-brand-soft/35 before:absolute before:-top-20 before:left-0 before:h-20 before:w-full before:bg-brand-soft/35" />
       <motion.div

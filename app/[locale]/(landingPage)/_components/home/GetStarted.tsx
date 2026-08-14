@@ -67,7 +67,7 @@ const GetStarted = () => {
             />
           </motion.div>
 
-          <div className="flex flex-col items-start justify-between gap-5 px-6 pb-0 pt-8 sm:px-7.5 md:py-12">
+          <div className="flex flex-col items-start justify-between gap-5 px-6 py-7.5 sm:px-7.5 md:py-12">
             <h3 className="max-w-120 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-[42px] xl:text-[48px]">
               {t("theOnlyThingYouWillLoseIsWeight")}
             </h3>
