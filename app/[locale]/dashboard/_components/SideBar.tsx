@@ -7,7 +7,6 @@ import DashboardIcon from "../../components/icons/DashboardIcon";
 import CustomersIcon from "../../components/icons/CustomersIcon";
 import SpecialistsIcon from "../../components/icons/SpecialistsIcon";
 import BlogsIcon from "../../components/icons/BlogsIcon";
-// import RecipesIcon from "../icons/RecipesIcon";
 import FeedbackIcon from "../../components/icons/FeedbackIcon";
 import SettingsIcon from "../../components/icons/SettingsIcon";
 import { usePathname } from "@/i18n/navigation";
@@ -77,16 +76,6 @@ const SideBar = ({
             href: "/dashboard/admin/blogs",
             isActive: pathname.startsWith("/dashboard/admin/blogs"),
           },
-          // {
-          //   label: "Recipes",
-          //   icon: (
-          //     <RecipesIcon
-          //       className={`${pathname === "/dashboard/admin/recipes" ? "text-accent" : "text-content"} group-hover:text-accent transition-colors duration-150`}
-          //     />
-          //   ),
-          //   href: "/dashboard/admin/recipes",
-          //   isActive: pathname === "/dashboard/admin/recipes",
-          // },
           {
             label: t("feedback"),
             icon: (
@@ -141,15 +130,17 @@ const SideBar = ({
       >
         <div className="flex max-h-17 items-center px-6 py-3">
           <div className="group relative h-12 w-full">
-            <Image
-              src="/icons/logo.svg"
-              alt="logo"
-              width={50}
-              height={50}
-              className={`absolute inset-s-0 top-1/2 -translate-y-1/2 transition-[opacity,transform] duration-200 ${
-                collapsed ? "group-hover:scale-75 group-hover:opacity-0" : ""
-              }`}
-            />
+            <Link href={"/"}>
+              <Image
+                src="/icons/logo.svg"
+                alt="logo"
+                width={50}
+                height={50}
+                className={`absolute inset-s-0 top-1/2 -translate-y-1/2 transition-[opacity,transform] duration-200 ${
+                  collapsed ? "group-hover:scale-75 group-hover:opacity-0" : ""
+                }`}
+              />
+            </Link>
             <motion.button
               type="button"
               onClick={toggleCollapse}
