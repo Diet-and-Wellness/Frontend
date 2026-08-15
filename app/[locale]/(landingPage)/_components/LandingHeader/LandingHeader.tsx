@@ -104,13 +104,13 @@ const LandingNavBar = ({
                 aria-expanded={showMenu}
                 aria-haspopup="menu"
                 aria-label={`${me.firstName} ${me.lastName}`.trim()}
-                className="cursor-pointer rounded-full border-2 border-accent-contrast bg-surface-muted transition-colors"
+                className="cursor-pointer rounded-full border-2 border-brand-contrast bg-surface-muted transition-colors"
               >
                 <ProfileAvatar
                   avatarUrl={me.avatarUrl}
                   firstName={me.firstName}
                   lastName={me.lastName}
-                  statusRingClassName="shadow-[0_0_0_2px_var(--color-accent-contrast)]"
+                  statusRingClassName="ring-2 ring-brand-contrast"
                 />
               </button>
             )}

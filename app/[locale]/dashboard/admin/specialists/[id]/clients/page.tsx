@@ -125,7 +125,7 @@ const SpecialistClientsPage = () => {
 
           <motion.div
             variants={item}
-            className="flex flex-col items-stretch gap-5 sm:flex-row sm:items-start sm:justify-between"
+            className="flex flex-col items-stretch gap-5 lg:flex-row sm:items-start sm:justify-between"
           >
             <div className="flex flex-col gap-5">
               <div className="flex flex-wrap items-center gap-2">
@@ -139,14 +139,14 @@ const SpecialistClientsPage = () => {
                   })}
                 </p>
               </div>
-              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+              <div className="flex flex-row items-center gap-5">
                 <h3 className="type-page-title font-bold">
                   {t("doctorName", {
                     name: `${specialist?.firstName} ${specialist?.lastName}`,
                   })}
                 </h3>
                 {!!specialist?.assignedCustomersCount && (
-                  <div className="px-4 py-2 rounded-2xl bg-accent-soft">
+                  <div className="px-4 py-1.5 md:py-2 rounded-2xl bg-accent-soft">
                     <p className="type-label font-semibold text-accent">
                       {t("totalClients", {
                         count: specialist.assignedCustomersCount,

@@ -100,7 +100,7 @@ const GetStarted = () => {
 const Step = ({ title, desc }: { title: string; desc: string }) => {
   return (
     <li>
-      <h4 className="type-card-title font-semibold text-content/60 mb-1.5">
+      <h4 className="type-card-title font-semibold text-content/80 mb-1.5">
         {title}
       </h4>
       <p className="type-body font-medium text-white">{desc}</p>

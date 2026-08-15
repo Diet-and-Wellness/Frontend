@@ -104,7 +104,7 @@ const AssessmentAnswersPage = () => {
 
   return (
     <main className="flex w-full flex-col gap-10 pb-10">
-      <header className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+      <header className="flex flex-col gap-5 lg:flex-row md:items-start md:justify-between">
         <div className="flex flex-col gap-3">
           <div className="type-meta flex items-center gap-2 text-content-subtle">
             <span>{t("customers")}</span>

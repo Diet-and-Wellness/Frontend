@@ -32,13 +32,7 @@ const ThemeSwitch = ({ className = "" }: { className?: string }) => {
   const locale = useLocale();
   const isDark = theme === "dark";
   const isRtl = locale === "ar";
-  const thumbOffset = isDark
-    ? isRtl
-      ? 0
-      : 32
-    : isRtl
-      ? 32
-      : 0;
+  const thumbOffset = isDark ? (isRtl ? 0 : 32) : isRtl ? 32 : 0;
 
   return (
     <button
@@ -48,7 +42,7 @@ const ThemeSwitch = ({ className = "" }: { className?: string }) => {
       aria-label={isDark ? "Use light mode" : "Use dark mode"}
       title={isDark ? "Light mode" : "Dark mode"}
       onClick={toggleTheme}
-      className={`relative flex h-9 w-17 shrink-0 cursor-pointer items-center rounded-full border border-line bg-surface-muted p-1 text-content-subtle transition-colors hover:border-brand ${className}`}
+      className={`relative flex h-9 w-17 shrink-0 cursor-pointer items-center rounded-full border border-line bg-surface-muted p-1 text-content-subtle transition-colors hover:border-brand hover:bg-brand-soft ${className}`}
     >
       <span className="absolute inset-0 flex items-center justify-between px-2">
         <SunIcon />

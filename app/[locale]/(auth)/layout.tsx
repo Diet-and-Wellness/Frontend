@@ -30,7 +30,11 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   }, [me, isLoading, pathname, router]);
 
   if (isLoading) {
-    return <LogoLoader />;
+    return (
+      <div className="absolute inset-0">
+        <LogoLoader />;
+      </div>
+    );
   }
 
   return (
