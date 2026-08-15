@@ -122,13 +122,13 @@ const GoogleAuthButton = ({
       <div
         aria-label={label}
         aria-busy={disabled || !isReady}
-        className={`relative h-12.5 w-full overflow-hidden rounded-full ${
+        className={`relative flex h-15 w-full items-center justify-center transition-opacity ${
           disabled ? "pointer-events-none opacity-60" : ""
         }`}
       >
         <div
           ref={containerRef}
-          className="google-auth-button h-full w-full overflow-hidden rounded-full"
+          className="google-auth-button flex w-full items-center justify-center"
         />
 
         {!isReady && (
