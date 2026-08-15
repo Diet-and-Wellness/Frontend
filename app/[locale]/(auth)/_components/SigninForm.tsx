@@ -54,14 +54,6 @@ const SigninForm = () => {
     },
     onSuccess: (me) => {
       queryClient.setQueryData(["me"], me);
-
-      if (me.role === "admin") {
-        router.replace("/dashboard/admin");
-      } else if (me.role === "specialist") {
-        router.replace("/dashboard/specialist");
-      } else {
-        router.replace("/");
-      }
     },
     onError: (error) => {
       const fieldErrors = getApiFieldErrors(error);

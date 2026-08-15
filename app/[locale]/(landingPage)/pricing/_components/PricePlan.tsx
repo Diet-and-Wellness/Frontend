@@ -10,6 +10,7 @@ import { subscriptionApi } from "@/app/[locale]/api/endpoints/subscription.api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
+import { useMe } from "@/app/[locale]/hooks/useMe";
 
 type PricePlanProps = {
   plan: SubscriptionPlanResponse;
@@ -22,13 +23,21 @@ const PricePlan = ({ plan }: PricePlanProps) => {
 
   const router = useRouter();
 
+  const { data: me } = useMe();
+
   const purchaseHandler = async () => {
     try {
-      setPreparing(true);
-      const { data } = await subscriptionApi.purchaseSubscription(plan.id);
-      const responseData = await data.data;
-      if (!!responseData.checkoutUrl) {
-        router.replace(responseData.checkoutUrl);
+      if (me) {
+        setPreparing(true);
+        const { data } = await subscriptionApi.purchaseSubscription(plan.id);
+        const responseData = await data.data;
+        if (!!responseData.checkoutUrl) {
+          router.push(responseData.checkoutUrl);
+          return;
+        }
+      } else {
+        router.push("/signin");
+        return;
       }
     } catch {
     } finally {

@@ -33,7 +33,6 @@ const AssessmentPage = () => {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [lastAnsweredSectionIndex, setLastAnsweredSectionIndex] = useState(0);
   const [answers, setAnswers] = useState<AssessmentAnswers>({});
-  const [isSavingPersonalData, setIsSavingPersonalData] = useState(false);
   const [isDraftRestored, setIsDraftRestored] = useState(false);
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
   const hasSubmittedAssessment = useRef(false);
@@ -152,8 +151,8 @@ const AssessmentPage = () => {
     },
     onSuccess: () => {
       hasSubmittedAssessment.current = true;
+      queryClient.invalidateQueries({ queryKey: ["completedAssessment"] });
       if (me?.id) clearAssessmentDraft(me.id);
-      router.replace("/nutrition-analysis/result");
       queryClient.removeQueries({ queryKey: ["section"] });
       queryClient.removeQueries({ queryKey: ["assessment"] });
     },
@@ -232,7 +231,7 @@ const AssessmentPage = () => {
     </AnimatePresence>
   );
 
-  if (isLoadingUser || isSavingPersonalData) {
+  if (isLoadingUser) {
     return <PersonalDataFormSkeleton />;
   }
 
@@ -244,18 +243,13 @@ const AssessmentPage = () => {
           closeLabel={t("analysis.exitAssessment")}
           onClose={() => setIsLeaveModalOpen(true)}
         />
-        <PersonalDataForm onSavingChange={setIsSavingPersonalData} />
+        <PersonalDataForm />
         {leaveModal}
       </div>
     );
   }
 
-  if (
-    assessmentIsLoading ||
-    sectionIsLoading ||
-    !isDraftRestored ||
-    submitFormMutation.isPending
-  ) {
+  if (assessmentIsLoading || sectionIsLoading || !isDraftRestored) {
     return <AssessmentQuestionsSkeleton />;
   }
 
@@ -285,6 +279,7 @@ const AssessmentPage = () => {
           nextBtnDisabled={!nextBtnEnabled}
           backBtnDisabled={currentSectionIndex === 0}
           isLastQuestion={isLastQuestion}
+          submitBtnLoading={submitFormMutation.isPending}
           onNext={nextHandler}
           onBack={backHandler}
         />

@@ -24,7 +24,9 @@ const LeaveAssessmentModal = ({
         role="dialog"
         className="relative flex max-h-[85dvh] w-[min(100%,30rem)] flex-col overflow-hidden rounded-2xl bg-surface shadow-2xl border border-line"
       >
-        <CloseBtn onClose={onClose} />
+        <div className="absolute inset-e-4 top-4">
+          <CloseBtn onClose={onClose} />
+        </div>
 
         <div className="flex min-h-0 flex-1 flex-col items-center gap-5 overflow-y-auto p-6 text-center overscroll-contain sm:p-7.5">
           <LeaveAssessmentIllustration />

@@ -70,9 +70,7 @@ const CustomersPage = () => {
   const debouncedSearch = useDebouncedValue(search.trim());
   const { data: subscriptionPlans = [], isLoading: arePlansLoading } =
     useAdminSubscriptionPlans();
-  const hasActiveFilters = Boolean(
-    search || status || subscriptionPlan,
-  );
+  const hasActiveFilters = Boolean(search || status || subscriptionPlan);
 
   const statusOptions: FilterOption[] = [
     { value: "", label: t("allStatuses") },
@@ -349,7 +347,8 @@ const CustomersPage = () => {
                   "phone",
                   "weightProgress",
                   "heightCm",
-                  "subscription",
+                  "subscriptionPlan",
+                  "subscriptionStatus",
                   "linkToAnswers",
                   "assignToSpecialist",
                 ].map((header) => (
@@ -460,10 +459,13 @@ const CustomerRow = ({
 
       {/* Subscription */}
       <TableCell>
-        <div className="flex min-w-36 flex-col items-start gap-1.5">
-          <span className="type-label font-medium text-content">
-            {customer.subscription?.displayName ?? t("noPlan")}
-          </span>
+        <span className="type-label font-medium text-content">
+          {customer.subscription?.displayName ?? t("noPlan")}
+        </span>
+      </TableCell>
+
+      <TableCell>
+        <div className="flex min-w-36 gap-1.5 justify-center items-center">
           <StateComp
             state={customer?.subscription?.active ? "active" : "inactive"}
           />

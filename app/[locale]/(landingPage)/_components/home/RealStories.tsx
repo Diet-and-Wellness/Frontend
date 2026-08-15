@@ -11,6 +11,8 @@ import FeedbackCarousel, {
   type FeedbackWithScreenshot,
 } from "./FeedbackCarousel";
 import { QuoteTop } from "@/app/[locale]/components/icons/QuoteTop";
+import { useMe } from "@/app/[locale]/hooks/useMe";
+import { useRouter } from "next/navigation";
 
 const getFeedbackScreenshots = async (): Promise<FeedbackWithScreenshot[]> => {
   const { data } = await feedbackApi.getAllActiveFeedbacks({
@@ -40,6 +42,8 @@ const RealStories = () => {
 
   const isArabic = useLocale() === "ar";
 
+  const router = useRouter();
+
   const {
     data: feedbacks = [],
     isLoading,
@@ -50,6 +54,20 @@ const RealStories = () => {
     staleTime: 5 * 60 * 1000,
     retry: 2,
   });
+
+  const { data: me, isLoading: isLoadingMe } = useMe();
+
+  const bookSpecialistHandler = () => {
+    if (isLoadingMe) return;
+
+    if (!me) {
+      router.push("/signin");
+      return;
+    }
+
+    router.push("/pricing");
+    return;
+  };
 
   return (
     <section
@@ -94,9 +112,9 @@ const RealStories = () => {
           bg-(--color-palette-c8dcbf)
           rounded-3xl md:rounded-[60px]
           px-8 pt-12 pb-3 md:p-12
-          flex flex-col-reverse md:flex-row
+          flex flex-col-reverse lg:flex-row
           justify-between
-          items-center md:items-start
+          items-center lg:items-start
           gap-8 md:gap-10
         "
         >
@@ -122,6 +140,7 @@ const RealStories = () => {
             {/* CTA */}
             <div className="w-full flex flex-col md:flex-row items-center gap-5 md:gap-7 lg:gap-10 mt-7">
               <button
+                onClick={bookSpecialistHandler}
                 className="
                 w-full
                 px-7 md:px-12 

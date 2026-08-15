@@ -105,7 +105,7 @@ const Tool = ({
         `}
       >
         {loading ? (
-          <Spinner spinnerSize={26} borderColor={"brannd"} />
+          <Spinner spinnerSize={26} />
         ) : (
           t("tools.tryNow")
         )}

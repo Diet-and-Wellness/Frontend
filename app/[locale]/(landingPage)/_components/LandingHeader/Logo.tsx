@@ -9,7 +9,7 @@ const Logo = ({ href }: { href: string }) => {
         alt="logo"
         width={45}
         height={45}
-        className="w-12 h-auto md:w-14 lg:w-15"
+        className="w-12.5 h-auto md:w-14 lg:w-15"
       />
     </Link>
   );

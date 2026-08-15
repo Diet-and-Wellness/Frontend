@@ -40,6 +40,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       if (me.role === "specialist" && pathname.startsWith("/dashboard/admin")) {
         notFound();
       }
+      return;
     }
   }, [me, isLoading, router]);
 

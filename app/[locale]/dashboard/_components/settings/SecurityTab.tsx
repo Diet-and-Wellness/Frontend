@@ -106,8 +106,6 @@ const SecurityTab = () => {
     },
   });
 
-  console.log(updateError);
-
   return (
     <motion.div
       variants={pageVariants}

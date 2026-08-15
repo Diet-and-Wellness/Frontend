@@ -78,7 +78,7 @@ const MobileMenu = ({
       animate={{ x: 0 }}
       exit={{ x: slideOffset }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 flex min-h-screen w-full flex-col items-center justify-center gap-7.5 overflow-y-auto bg-surface-raised pb-20 absolute inset-0 mt-14.5 md:mt-17 lg:mt-18"
+      className="-z-10 flex min-h-screen w-full flex-col items-center justify-center gap-7.5 overflow-y-auto bg-surface-raised pb-20 absolute inset-0 mt-[63.5px] md:mt-17.25 lg:mt-18.25"
     >
       <ul className="flex flex-col items-center self-center gap-3">
         {tabs.map((tab) => (
