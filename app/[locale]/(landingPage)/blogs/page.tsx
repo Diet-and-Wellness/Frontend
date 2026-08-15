@@ -87,7 +87,6 @@ const BlogPage = () => {
           !isLoading &&
           hasNextPage
         ) {
-          console.log("User reached the bottom of the blog section");
           fetchNextPage();
         }
       },
@@ -104,10 +103,7 @@ const BlogPage = () => {
   }, [fetchNextPage, hasNextPage, isFetchingNextPage, isLoading]);
 
   return (
-    <section
-      className="mb-20"
-      onScrollEndCapture={() => console.log("end of the blog page")}
-    >
+    <section className="mb-20">
       <motion.div
         variants={container}
         initial="hidden"
@@ -186,11 +182,16 @@ const BlogPage = () => {
         </div>
       )}
 
-      <div ref={bottomRef} className="flex justify-center items-center pt-15">
+      <div
+        ref={bottomRef}
+        className="flex justify-center items-center mt-15 w-[85%] mx-auto"
+      >
         {hasNextPage ? (
-          <Spinner spinnerSize={50} borderColor={"brannd"} />
+          <Spinner spinnerSize={50} />
         ) : (
-          <p className="text-md md:text-xl">{t("blogs.endOfBlogs")}</p>
+          <p className="text-md md:text-xl text-center">
+            {t("blogs.endOfBlogs")}
+          </p>
         )}
       </div>
     </section>

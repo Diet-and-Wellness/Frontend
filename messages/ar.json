@@ -865,8 +865,9 @@
     "noCustomersDescription": "سيظهر العملاء هنا بعد انضمامهم.",
     "selectSpecialist": "اختر أخصائيًا",
     "weightProgress": "تقدم الوزن (كجم)",
-    "heightCm": "الطول (سم)",
     "subscription": "الاشتراك",
+    "subscriptionStatus": "حالة الاشتراك",
+    "subscriptionPlan": "باقة الاشتراك",
     "linkToAnswers": "رابط الإجابات",
     "assignToSpecialist": "تعيين لأخصائي",
     "currentClients": "العملاء الحاليون: {count}",
@@ -1228,5 +1229,28 @@
     "mostPopularPlan": "الباقة الأكثر طلبًا",
     "responseTimePerDay": "مدة الاستجابة يوميًا: ",
     "forever": "مدى الحياة"
+  },
+  "paymentResult": {
+    "status": {
+      "success": {
+        "title": "تم الدفع بنجاح",
+        "message": "تم إتمام عملية الدفع بنجاح وتفعيل اشتراكك."
+      },
+      "pending": {
+        "title": "الدفع قيد المعالجة",
+        "message": "لا تزال عملية الدفع قيد المعالجة. سيتم تحديث اشتراكك بمجرد تأكيد الدفع."
+      },
+      "failed": {
+        "title": "فشلت عملية الدفع",
+        "message": "تعذر إتمام عملية الدفع. حاول مرة أخرى أو استخدم وسيلة دفع أخرى."
+      }
+    },
+    "orderId": "رقم الطلب",
+    "amount": "المبلغ",
+    "currency": "ج.م",
+    "actions": {
+      "continue": "متابعة",
+      "tryAgain": "إعادة المحاولة"
+    }
   }
 }

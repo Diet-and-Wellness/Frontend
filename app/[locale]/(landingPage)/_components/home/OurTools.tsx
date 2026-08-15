@@ -9,9 +9,7 @@ import IBW from "./free-tools/IBW";
 import CalCal from "./free-tools/CalCal";
 import BeforeStartAssessment from "./free-tools/BeforeStartAssessment";
 import { useRouter } from "next/navigation";
-import { assessmentApi } from "@/app/[locale]/api/endpoints/assessment.api";
 import { useMe } from "@/app/[locale]/hooks/useMe";
-import { hasAssessmentDraft } from "@/app/[locale]/utils/assessmentDraft";
 import BmiCalculatorIcon from "@/app/[locale]/components/icons/BmiCalculatorIcon";
 import IdealWeightIcon from "@/app/[locale]/components/icons/IdealWeightIcon";
 import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
@@ -28,7 +26,6 @@ const OurTools = () => {
   const [showCalCalModal, setShowCalCalModal] = useState(false);
   const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
     useState(false);
-  const [checkingAssessment, setCheckingAssessment] = useState(false);
 
   const tryBmiCalc = () => {
     setShowBmiModal(true);
@@ -64,30 +61,11 @@ const OurTools = () => {
     setShowCalCalModal(false);
   };
 
-  const redirectToAssessmentFlow = async (customerId: string) => {
-    try {
-      const { data } = await assessmentApi.getAssessmentsResult();
-
-      if (data?.data) {
-        router.push("/nutrition-analysis/result");
-        return;
-      }
-    } catch (error) {
-      console.error("Failed to get assessment result:", error);
-    }
-
-    const destination = hasAssessmentDraft(customerId)
-      ? "/nutrition-analysis/assessment"
-      : "/nutrition-analysis/assessment";
-
-    router.push(destination);
-  };
-
   const getFullAnalysis = async () => {
     closeCalculatorModals();
 
     if (!me) {
-      router.replace("/signin");
+      router.push("/signin");
       return;
     }
 
@@ -95,14 +73,8 @@ const OurTools = () => {
       return;
     }
 
-    try {
-      setCheckingAssessment(true);
-      await redirectToAssessmentFlow(me.id);
-    } catch (error) {
-      console.error("Failed to open full analysis:", error);
-    } finally {
-      setCheckingAssessment(false);
-    }
+    router.push("/nutrition-analysis/");
+    return;
   };
 
   const tryFullAssessment = () => {
@@ -141,7 +113,6 @@ const OurTools = () => {
       toolDesc: t("tools.nutritionAnalysis.description"),
       href: "/",
       onTry: tryFullAssessment,
-      loading: checkingAssessment,
     },
   ];
 
@@ -235,7 +206,6 @@ const OurTools = () => {
                 toolName={tool.toolName}
                 toolDesc={tool.toolDesc}
                 onTry={tool.onTry}
-                loading={tool?.loading ?? false}
               />
             ))}
           </ul>

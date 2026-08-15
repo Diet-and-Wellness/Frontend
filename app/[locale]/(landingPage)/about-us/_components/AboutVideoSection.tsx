@@ -54,6 +54,7 @@ const AboutVideoSection = ({
           relative
           flex
           min-h-125
+          py-10
           items-center
           justify-center
           overflow-hidden

@@ -867,10 +867,11 @@
     "weightProgress": "Weight Progress (kg)",
     "heightCm": "Height (cm)",
     "subscription": "Subscription",
+    "subscriptionStatus": "Subscription Status",
+    "subscriptionPlan": "Subscription Plan",
     "linkToAnswers": "Link To Answers",
     "assignToSpecialist": "Assign To Specialist",
     "currentClients": "Current Clients: {count}",
-    "backToSpecialists": "Back to Specialists",
     "manageBlogs": "Manage wellness blogs and content.",
     "addBlogBreadcrumb": "Add blog",
     "editBlogBreadcrumb": "Edit blog",
@@ -1092,5 +1093,28 @@
     "mostPopularPlan": "MOST POPULAR PLAN",
     "responseTimePerDay": "Response time per day: ",
     "forever": "Forever"
+  },
+  "paymentResult": {
+    "status": {
+      "success": {
+        "title": "Payment successful",
+        "message": "Your payment was completed successfully and your subscription has been activated."
+      },
+      "pending": {
+        "title": "Payment pending",
+        "message": "Your payment is still being processed. Your subscription will be updated once the payment is confirmed."
+      },
+      "failed": {
+        "title": "Payment failed",
+        "message": "We couldn't complete your payment. Please try again or choose another payment method."
+      }
+    },
+    "orderId": "Order ID",
+    "amount": "Amount",
+    "currency": "EGP",
+    "actions": {
+      "continue": "Continue",
+      "tryAgain": "Try Again"
+    }
   }
 }

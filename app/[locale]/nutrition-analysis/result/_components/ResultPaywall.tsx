@@ -3,6 +3,7 @@ import { NutritionInsightIcon } from "@/app/[locale]/components/icons/NutritionI
 import { CloseBtn } from "@/app/[locale]/components/Public/CloseBtn";
 import Spinner from "@/app/[locale]/components/Public/LoadingSpinner";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export function PersonalizedInsightCard() {
   const t = useTranslations("analysis");
@@ -29,9 +30,12 @@ export function PersonalizedInsightCard() {
           {t("personalizedInsightText")}
         </p>
 
-        <button className="type-control w-full cursor-pointer place-self-start rounded-full bg-surface-raised px-6 py-3 font-semibold text-brand sm:w-auto sm:px-15">
+        <Link
+          href={"/pricing"}
+          className="type-control w-full cursor-pointer place-self-start rounded-full bg-surface-raised px-6 py-3 font-semibold text-brand sm:w-auto sm:px-15"
+        >
           {t("bookSpecialist")}
-        </button>
+        </Link>
       </div>
     </div>
   );

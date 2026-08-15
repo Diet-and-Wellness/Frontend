@@ -9,10 +9,8 @@ import IBW from "../home/free-tools/IBW";
 import CalCal from "../home/free-tools/CalCal";
 import BeforeStartAssessment from "../home/free-tools/BeforeStartAssessment";
 import { useState } from "react";
-import { assessmentApi } from "@/app/[locale]/api/endpoints/assessment.api";
 import { useRouter } from "next/navigation";
 import { useMe } from "@/app/[locale]/hooks/useMe";
-import { hasAssessmentDraft } from "@/app/[locale]/utils/assessmentDraft";
 
 const LandingFooter = () => {
   const t = useTranslations();
@@ -26,7 +24,6 @@ const LandingFooter = () => {
   const [showCalCalModal, setShowCalCalModal] = useState(false);
   const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
     useState(false);
-  const [checkingAssessment, setCheckingAssessment] = useState(false);
 
   const tryBmiCalc = () => {
     setShowBmiModal(true);
@@ -62,30 +59,11 @@ const LandingFooter = () => {
     setShowCalCalModal(false);
   };
 
-  const redirectToAssessmentFlow = async (customerId: string) => {
-    try {
-      const { data } = await assessmentApi.getAssessmentsResult();
-
-      if (data?.data) {
-        router.push("/nutrition-analysis/result");
-        return;
-      }
-    } catch (error) {
-      console.error("Failed to get assessment result:", error);
-    }
-
-    const destination = hasAssessmentDraft(customerId)
-      ? "/nutrition-analysis/assessment"
-      : "/nutrition-analysis/assessment";
-
-    router.push(destination);
-  };
-
   const getFullAnalysis = async () => {
     closeCalculatorModals();
 
     if (!me) {
-      router.replace("/signin");
+      router.push("/signin");
       return;
     }
 
@@ -93,14 +71,8 @@ const LandingFooter = () => {
       return;
     }
 
-    try {
-      setCheckingAssessment(true);
-      await redirectToAssessmentFlow(me.id);
-    } catch (error) {
-      console.error("Failed to open full analysis:", error);
-    } finally {
-      setCheckingAssessment(false);
-    }
+    router.push("/nutrition-analysis/");
+    return;
   };
 
   const tryFullAssessment = () => {
@@ -127,7 +99,6 @@ const LandingFooter = () => {
     {
       onTry: tryFullAssessment,
       title: t("tools.nutritionAnalysis.name"),
-      loading: checkingAssessment,
     },
   ];
 

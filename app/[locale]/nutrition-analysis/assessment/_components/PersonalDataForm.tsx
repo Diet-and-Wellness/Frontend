@@ -26,11 +26,7 @@ const pageVariants = {
   },
 } as const;
 
-const PersonalDataForm = ({
-  onSavingChange,
-}: {
-  onSavingChange: (isSaving: boolean) => void;
-}) => {
+const PersonalDataForm = () => {
   const t = useTranslations();
   const [gender, setGender] = useState<Gender>("male");
   const [age, setAge] = useState(0);
@@ -55,12 +51,6 @@ const PersonalDataForm = ({
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["me"] });
-    },
-    onMutate: () => {
-      onSavingChange(true);
-    },
-    onSettled: () => {
-      onSavingChange(false);
     },
   });
 

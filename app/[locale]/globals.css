@@ -459,10 +459,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  .type-display {
-    font-size: 3rem;
-  }
-
   .type-section-title {
     font-size: 2.25rem;
   }
@@ -490,10 +486,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .type-display {
-    font-size: 3rem;
-  }
-
   .type-section-title {
     font-size: 3rem;
   }
@@ -749,9 +741,8 @@ button:disabled svg {
 .google-auth-button iframe,
 .google-auth-button [role="button"] {
   width: 100% !important;
-  max-width: 400px !important;
+  max-width: 1000px !important;
   min-width: 0 !important;
-  box-sizing: border-box;
 }
 
 .google-auth-button [role="button"] {
