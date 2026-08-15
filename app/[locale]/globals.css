@@ -741,7 +741,7 @@ button:disabled svg {
 .google-auth-button iframe,
 .google-auth-button [role="button"] {
   width: 100% !important;
-  max-width: 1000px !important;
+  max-width: 100% !important;
   min-width: 0 !important;
 }
 
