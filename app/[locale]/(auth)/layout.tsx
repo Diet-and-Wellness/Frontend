@@ -7,6 +7,7 @@ import { useMe } from "../hooks/useMe";
 import { LogoLoader } from "../components/Public/Skeletons";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { getRoleDestination } from "./_components/auth/authFlow";
+import { div } from "framer-motion/client";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -30,7 +31,11 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   }, [me, isLoading, pathname, router]);
 
   if (isLoading) {
-    return <LogoLoader />;
+    return (
+      <div className="absolute inset-0">
+        <LogoLoader />;
+      </div>
+    );
   }
 
   return (

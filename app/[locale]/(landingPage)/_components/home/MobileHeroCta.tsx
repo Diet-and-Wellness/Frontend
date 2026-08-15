@@ -1,11 +1,25 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { useMe } from "@/app/[locale]/hooks/useMe";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 export const MobileHeroCta = () => {
   const t = useTranslations("hero.mobileCta");
+
+  const { data: me } = useMe();
+  const router = useRouter();
+
+  const handleGetStart = () => {
+    if (me) {
+      router.push("/nutrition-analysis/");
+      return;
+    } else {
+      router.push("/signin");
+      return;
+    }
+  };
 
   return (
     <motion.div
@@ -27,8 +41,8 @@ export const MobileHeroCta = () => {
           {t("title")}
         </h1>
 
-        <Link
-          href="/nutrition-analysis/assessment"
+        <button
+          onClick={handleGetStart}
           className="type-control mt-4 flex min-h-12 w-full items-center justify-between rounded-full bg-accent px-5 font-bold text-accent-contrast shadow-[0_10px_24px_rgba(233,149,50,0.24)] transition-[background-color,transform] duration-200 hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-accent active:scale-[0.98]"
         >
           <span>{t("button")}</span>
@@ -50,7 +64,7 @@ export const MobileHeroCta = () => {
               />
             </svg>
           </span>
-        </Link>
+        </button>
       </div>
     </motion.div>
   );
