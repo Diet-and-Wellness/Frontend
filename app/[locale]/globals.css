@@ -390,7 +390,7 @@ body {
 }
 
 .type-page-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1.25;
 }
 
@@ -429,7 +429,7 @@ body {
 
   .type-section-title,
   .type-page-title {
-    font-size: 1.875rem;
+    font-size: 1.5rem;
   }
 
   .type-card-title {
@@ -464,7 +464,7 @@ body {
   }
 
   .type-page-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .type-card-title {
@@ -488,10 +488,6 @@ body {
 @media (min-width: 1024px) {
   .type-section-title {
     font-size: 3rem;
-  }
-
-  .type-page-title {
-    font-size: 2.25rem;
   }
 
   .type-card-title {

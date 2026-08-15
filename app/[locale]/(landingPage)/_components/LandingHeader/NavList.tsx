@@ -111,7 +111,7 @@ const NavList = ({ tabs }: { tabs: tabType[] }) => {
     if (pathname === "/") {
       e.preventDefault();
 
-      document.getElementById("our-tools")?.scrollIntoView({
+      document.getElementById("our-tools-container")?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });

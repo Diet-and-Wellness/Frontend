@@ -118,7 +118,7 @@ const OurTools = () => {
 
   return (
     <motion.section
-      id="our-tools"
+      id="our-tools-container"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -137,7 +137,10 @@ const OurTools = () => {
         <ViewFeedbackCta />
       </div>
 
-      <div className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-10">
+      <div
+        id="our-tools"
+        className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-10"
+      >
         <AnimatePresence mode="wait">
           {showBmiModal && (
             <BMI onClose={closeBmiModal} onGetFullAnalysis={getFullAnalysis} />

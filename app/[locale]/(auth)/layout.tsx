@@ -7,7 +7,6 @@ import { useMe } from "../hooks/useMe";
 import { LogoLoader } from "../components/Public/Skeletons";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { getRoleDestination } from "./_components/auth/authFlow";
-import { div } from "framer-motion/client";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();

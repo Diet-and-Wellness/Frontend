@@ -28,7 +28,7 @@ export const ViewFeedbackCta = () => {
           });
         }}
         whileTap={{ scale: 0.95 }}
-        className="type-control pointer-events-auto rounded-full border-2 border-accent px-10 py-2 font-bold text-accent transition-all duration-300 hover:bg-accent hover:text-accent-contrast cursor-pointer"
+        className="type-control pointer-events-auto rounded-full border-2 border-accent px-10 py-2.5 font-bold text-accent transition-all duration-300 hover:bg-accent hover:text-accent-contrast cursor-pointer"
       >
         {t("hero.viewFeedback")}
       </motion.button>

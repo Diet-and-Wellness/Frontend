@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
+import { useMe } from "@/app/[locale]/hooks/useMe";
 
 type tabType = { label: string; href: string };
 
@@ -25,12 +26,63 @@ const MobileMenu = ({
   const queryClient = useQueryClient();
 
   const t = useTranslations();
+
   const locale = useLocale();
+
   const slideOffset = locale === "ar" ? "-100%" : "100%";
 
   const pathname = getCleanPathname(pathnameWithLang);
 
   const isArabic = pathnameWithLang.startsWith("/ar");
+
+  const { data: me } = useMe();
+
+  const getCTA = () => {
+    if (!me) {
+      return {
+        href: "/signin",
+        label: t("getStarted.getStart"),
+      };
+    }
+
+    switch (me.role) {
+      case "customer":
+        return {
+          href: "/#our-tools",
+          label: t("tools.tryOurTools"),
+        };
+
+      case "specialist":
+        return {
+          href: "/dashboard/specialist",
+          label: t("dashboard.dashboard"),
+        };
+
+      case "admin":
+        return {
+          href: "/dashboard/admin",
+          label: t("dashboard.dashboard"),
+        };
+
+      default:
+        return {
+          href: "/signin",
+          label: t("getStarted.getStart"),
+        };
+    }
+  };
+
+  const handleCustomerTools = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    closeMenu();
+    if (pathname === "/") {
+      e.preventDefault();
+
+      document.getElementById("our-tools")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -72,6 +124,8 @@ const MobileMenu = ({
     setIsMenuVisible(false);
   };
 
+  const cta = getCTA();
+
   return (
     <motion.div
       initial={{ x: slideOffset }}
@@ -103,14 +157,16 @@ const MobileMenu = ({
       <ThemeSwitch />
 
       <Link
-        href={"/signin"}
+        href={cta.href}
+        onClick={me?.role === "customer" ? handleCustomerTools : undefined}
+        scroll
         className="
-            group border-2 border-(--color-palette-e88b60) px-10 py-2.5 cursor-pointer
-            lg:flex self-center rounded-full
-            transition-all duration-300 active:scale-95"
+          group flex min-h-12 cursor-pointer items-center self-center rounded-full
+          border border-line bg-surface-muted px-8 py-1.5
+          transition-all duration-200 hover:border-brand hover:bg-brand-soft active:scale-95"
       >
-        <span className="text-lg font-semibold text-(--color-palette-e88b60) transition-colors duration-300">
-          {t("getStarted.getStart")}
+        <span className="text-lg font-semibold text-brand transition-colors">
+          {cta.label}
         </span>
       </Link>
     </motion.div>

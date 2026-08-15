@@ -1,8 +1,7 @@
 "use client";
 
 import ArrowDownIcon from "../../components/icons/ArrowDownIcon";
-// import NotificationIcon from "../icons/NotificationIcon";
-// import SearchIcon from "../../components/icons/SearchIcon";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { useMe } from "../../hooks/useMe";
 import LogoutIcon from "../../components/icons/LogoutIcon";
@@ -17,6 +16,7 @@ import Image from "next/image";
 import { dashboardShellTransition } from "./SideBar";
 import ThemeSwitch from "../../components/Theme/ThemeSwitch";
 import ProfileAvatar from "../../components/Public/ProfileAvatar";
+import Link from "next/link";
 
 const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -95,14 +95,14 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
       transition={dashboardShellTransition}
       className="fixed inset-x-0 top-0 z-50 flex min-h-16 items-center justify-between border-b border-line bg-surface px-4 py-2.5 sm:px-5 md:px-7.5 max-md:inset-s-0!"
     >
-      <div className="md:hidden">
+      <Link href={"/"} className="md:hidden">
         <Image
           src="/icons/logo.svg"
           alt="Diet and Wellness"
           width={56}
           height={56}
         />
-      </div>
+      </Link>
 
       <AnimatePresence mode="wait">
         {showLogoutModal && (
@@ -118,23 +118,9 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
         )}
       </AnimatePresence>
 
-      {/* <div className="hidden w-95 items-center gap-3 rounded-xl border border-line bg-surface-muted px-4 py-2.5 sm:flex">
-        <SearchIcon className="text-content-muted" />
-        <input
-          type="text"
-          placeholder={t("searchClients")}
-          className="w-full text-base outline-none"
-        />
-      </div> */}
-
       <div className="flex items-center justify-end gap-3 sm:gap-5 w-full">
         <ThemeSwitch />
-        {/* <button className="relative cursor-pointer p-2.5">
-          <NotificationIcon className="text-content" />
-          <div className="bg-accent rounded-full size-5 flex justify-center items-center absolute -top-0.5 -end-1 text-surface text-[12px] font-bold">
-            2
-          </div>
-        </button> */}
+
         <button
           ref={profileButtonRef}
           type="button"
@@ -142,7 +128,7 @@ const DashboardHeader = ({ collapsed }: { collapsed: boolean }) => {
           aria-expanded={showMenu}
           aria-haspopup="menu"
           aria-label={`${me?.firstName ?? ""} ${me?.lastName ?? ""}`.trim()}
-          className="flex cursor-pointer items-center gap-2 rounded-xl border border-line bg-surface-muted px-2 py-2 sm:gap-3 transition-colors hover:border-brand"
+          className="flex cursor-pointer items-center gap-2 rounded-3xl sm:rounded-xl border border-line bg-surface-muted p-0 sm:p-2 sm:gap-3 transition-colors hover:border-brand"
         >
           <ProfileAvatar
             avatarUrl={me?.avatarUrl}
