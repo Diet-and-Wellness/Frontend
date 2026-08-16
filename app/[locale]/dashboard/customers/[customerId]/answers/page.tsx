@@ -9,7 +9,6 @@ import type {
 } from "@/app/[locale]/api/types/assessment.types";
 import type { Customer } from "@/app/[locale]/api/types/profile.types";
 import { Skeleton } from "@/app/[locale]/components/Public/Skeletons";
-import CheckIcon from "@/app/[locale]/components/icons/CheckIcon";
 import DateIcon from "@/app/[locale]/components/icons/Date";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import { formatDate } from "@/app/[locale]/utils/formateDate";
@@ -129,7 +128,7 @@ const AssessmentAnswersPage = () => {
       <section className="overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">
         <div className="flex flex-col gap-5 bg-linear-to-br from-brand-soft to-(--color-palette-fffaf4) p-4 sm:p-6 md:flex-row md:items-center md:justify-between md:p-7.5">
           <div className="flex items-center gap-4">
-            <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white ring-4 ring-white">
+            <div className="type-card-title flex size-16 shrink-0 items-center justify-center rounded-full bg-brand font-bold ring-4 ring-brand-contrast text-brand-contrast">
               {getInitials(customer?.firstName, customer?.lastName)}
             </div>
             <div>
@@ -142,7 +141,7 @@ const AssessmentAnswersPage = () => {
             </div>
           </div>
 
-          <div className="flex w-full items-center gap-3 rounded-2xl border border-white/90 bg-surface-raised/85 px-4 py-3 text-brand md:w-fit">
+          <div className="flex w-full items-center gap-3 rounded-2xl bg-surface-raised/85 px-4 py-3 text-brand md:w-fit">
             <DateIcon className="text-current" />
             <div className="flex flex-col gap-0.5">
               <span className="type-meta font-medium text-content-subtle">
@@ -231,7 +230,7 @@ const AssessmentSectionAnswers = ({
   return (
     <article className="overflow-hidden rounded-3xl border border-(--color-palette-e4eae1) bg-surface-raised">
       <header className="flex items-center gap-3 border-b border-(--color-palette-e4eae1) bg-linear-to-r from-(--color-palette-f6fbf4) to-surface-raised px-5 py-4 sm:px-6">
-        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-white">
+        <span className="type-label flex size-9 shrink-0 items-center justify-center rounded-full bg-brand font-bold text-brand-contrast">
           {sectionIndex + 1}
         </span>
         <h3 className="type-card-title font-semibold text-content-strong">
@@ -284,10 +283,12 @@ const QuestionAnswer = ({
           </p>
         </div>
       ) : (
-        <div className="ms-10 flex items-start gap-2.5 rounded-2xl border border-(--color-palette-dcecd6) bg-(--color-palette-f7fbf5) px-3.5 py-3">
-          <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-surface-raised">
-            <CheckIcon />
-          </span>
+        <div className="ms-10 flex items-center gap-2.5 rounded-2xl border border-(--color-palette-dcecd6) bg-(--color-palette-f7fbf5) px-3.5 py-3">
+          <div
+            className={`size-5 bg-brand rounded-full flex justify-center items-center`}
+          >
+            <div className="size-2 rounded-full bg-surface-raised" />
+          </div>
           <p className="type-label pt-0.5 font-semibold text-(--color-palette-2e641b)">
             {answerValue}
           </p>
