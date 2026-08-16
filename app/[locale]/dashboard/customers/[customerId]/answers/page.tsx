@@ -289,7 +289,7 @@ const QuestionAnswer = ({
           >
             <div className="size-2 rounded-full bg-surface-raised" />
           </div>
-          <p className="type-label pt-0.5 font-semibold text-(--color-palette-2e641b)">
+          <p className="type-label pt-0.5 font-semibold text-brand">
             {answerValue}
           </p>
         </div>
