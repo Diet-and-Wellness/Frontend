@@ -37,39 +37,39 @@ const slideVariants = {
 };
 
 const IPhoneFrame = ({ children }: { children: ReactNode }) => (
-  <div className="relative w-full max-w-[19.5rem] px-1.5">
+  <div className="relative w-full max-w-78 px-1.5">
     <span
       aria-hidden="true"
-      className="absolute start-0 top-[22%] h-10 w-1 rounded-s-full bg-neutral-800 shadow-sm"
+      className="absolute inset-s-0 top-[22%] h-10 w-1 rounded-s-full bg-neutral-800 shadow-sm"
     />
     <span
       aria-hidden="true"
-      className="absolute start-0 top-[31%] h-16 w-1 rounded-s-full bg-neutral-800 shadow-sm"
+      className="absolute inset-s-0 top-[31%] h-16 w-1 rounded-s-full bg-neutral-800 shadow-sm"
     />
     <span
       aria-hidden="true"
-      className="absolute end-0 top-[27%] h-20 w-1 rounded-e-full bg-neutral-800 shadow-sm"
+      className="absolute inset-e-0 top-[27%] h-20 w-1 rounded-e-full bg-neutral-800 shadow-sm"
     />
 
-    <div className="relative aspect-[12/25] overflow-hidden rounded-[52px] border-[5px] border-neutral-950 bg-neutral-950 p-1.5 shadow-[0_34px_75px_rgba(25,42,18,0.3),0_10px_24px_rgba(25,42,18,0.2)] ring-1 ring-white/25">
-      <div className="pointer-events-none absolute inset-[5px] z-40 rounded-[46px] ring-1 ring-inset ring-white/15" />
+    <div className="relative aspect-12/25 overflow-hidden rounded-[52px] border-[5px] border-neutral-950 bg-neutral-950 p-1.5 shadow-[0_34px_75px_rgba(25,42,18,0.3),0_10px_24px_rgba(25,42,18,0.2)] ring-1 ring-white/25">
+      <div className="pointer-events-none absolute inset-1.25 z-40 rounded-[46px] ring-1 ring-inset ring-white/15" />
 
       <div className="relative size-full overflow-hidden rounded-[44px] bg-white">
         {children}
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute start-1/2 top-2.5 z-40 flex h-7 w-24 -translate-x-1/2 items-center justify-end rounded-full bg-neutral-950 px-2.5 shadow-sm"
+          className="pointer-events-none absolute inset-s-1/2 top-2.5 z-40 flex h-7 w-24 -translate-x-1/2 items-center justify-end rounded-full bg-neutral-950 px-2.5 shadow-sm"
         >
           <span className="size-1.5 rounded-full bg-sky-950 ring-1 ring-sky-400/25" />
         </div>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-2.5 start-1/2 z-40 h-1 w-24 -translate-x-1/2 rounded-full bg-neutral-950/80"
+          className="pointer-events-none absolute bottom-2.5 inset-s-1/2 z-40 h-1 w-24 -translate-x-1/2 rounded-full bg-neutral-950/80"
         />
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 start-0 z-30 w-px bg-white/35"
+          className="pointer-events-none absolute inset-y-0 inset-s-0 z-30 w-px bg-white/35"
         />
       </div>
     </div>
@@ -106,7 +106,7 @@ const FeedbackScreenshot = ({
         sizes="(max-width: 768px) 78vw, 312px"
         className="pointer-events-none scale-125 object-cover blur-2xl brightness-75 saturate-75 select-none"
       />
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/18 via-black/8 to-black/24" />
+      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/18 via-black/8 to-black/24" />
       <div className="absolute inset-x-6 top-14 z-10 h-px bg-white/20" />
 
       <div
@@ -133,7 +133,13 @@ const CarouselArrow = ({ direction }: { direction: "previous" | "next" }) => (
     fill="none"
     className={`size-5 ${direction === "previous" ? "rtl:rotate-180" : "rotate-180 rtl:rotate-0"}`}
   >
-    <path d="m12.5 4.5-5.5 5.5 5.5 5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="m12.5 4.5-5.5 5.5 5.5 5.5"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -169,9 +175,7 @@ const FeedbackCarousel = ({
   const move = (nextDirection: number) => {
     if (total < 2) return;
     setDirection(nextDirection);
-    setActiveIndex((current) =>
-      (current + nextDirection + total) % total,
-    );
+    setActiveIndex((current) => (current + nextDirection + total) % total);
   };
 
   const select = (index: number) => {
@@ -198,9 +202,24 @@ const FeedbackCarousel = ({
     return (
       <div className="flex aspect-9/14 w-full max-w-76 flex-col items-center justify-center rounded-[28px] border border-white/50 bg-surface-raised/72 p-7 text-center shadow-[0_18px_45px_rgba(35,64,22,0.1)] backdrop-blur-sm">
         <span className="mb-5 flex size-14 items-center justify-center rounded-2xl bg-brand-soft text-brand">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-7">
-            <path d="M5 5.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4.5 3v-3H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-            <path d="M7.5 10h9M7.5 13.5h5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="size-7"
+          >
+            <path
+              d="M5 5.5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4.5 3v-3H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2Z"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M7.5 10h9M7.5 13.5h5.5"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
           </svg>
         </span>
         <p className="type-body font-semibold text-content-muted">
@@ -256,14 +275,14 @@ const FeedbackCarousel = ({
         </AnimatePresence>
       </IPhoneFrame>
 
-      <div className="flex w-full items-center justify-between gap-3">
+      <div className="flex w-full items-center justify-between gap-2">
         <motion.button
           type="button"
           whileTap={{ scale: 0.9 }}
           onClick={() => move(-1)}
           disabled={total < 2}
           aria-label={previousLabel}
-          className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-brand/15 bg-surface-raised text-brand shadow-sm transition-colors hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-40"
+          className="flex size-9 md:size-10 cursor-pointer items-center justify-center rounded-full border border-brand/15 bg-surface-raised text-brand shadow-sm transition-colors hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-40"
         >
           <CarouselArrow direction="previous" />
         </motion.button>
@@ -281,7 +300,9 @@ const FeedbackCarousel = ({
                 aria-label={positionLabel(index + 1, total)}
                 aria-current={index === safeActiveIndex ? "true" : undefined}
                 className={`h-2 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                  index === safeActiveIndex ? "w-7 bg-brand" : "w-2 bg-brand/25 hover:bg-brand/45"
+                  index === safeActiveIndex
+                    ? "w-5 bg-brand"
+                    : "w-2 bg-brand/25 hover:bg-brand/45"
                 }`}
               />
             ))}
@@ -294,7 +315,7 @@ const FeedbackCarousel = ({
           onClick={() => move(1)}
           disabled={total < 2}
           aria-label={nextLabel}
-          className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-brand/15 bg-surface-raised text-brand shadow-sm transition-colors hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-40"
+          className="flex size-9 md:size-10 cursor-pointer items-center justify-center rounded-full border border-brand/15 bg-surface-raised text-brand shadow-sm transition-colors hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-40"
         >
           <CarouselArrow direction="next" />
         </motion.button>

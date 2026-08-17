@@ -7,18 +7,18 @@ import {
   Skeleton,
   TableSkeleton,
 } from "@/app/[locale]/components/Public/Skeletons";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import NoteIcon from "@/app/[locale]/components/icons/NoteIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
-import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import ViewNoteModal from "./_components/ViewNoteModal";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Pagination from "../../../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 import { BackButton } from "../../../_components/BackToBtn";
+import { ViewAnswersLink } from "@/app/[locale]/dashboard/_components/ViewAnswersLink";
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,8 +51,6 @@ const item = {
 const SpecialistClientsPage = () => {
   const t = useTranslations("dashboard");
   const params = useParams();
-
-  const router = useRouter();
 
   const [page, setPage] = useState(1);
   const [note, setNote] = useState<LastNote | null>(null);
@@ -91,10 +89,6 @@ const SpecialistClientsPage = () => {
     placeholderData: (previousData) => previousData,
   });
   const customers = customersPage?.items ?? [];
-
-  const backToSpecialistHandler = () => {
-    router.replace("/dashboard/admin/specialists");
-  };
 
   const openNoteModalHandler = (note: LastNote) => {
     setNote(note);
@@ -156,10 +150,7 @@ const SpecialistClientsPage = () => {
                 )}
               </div>
             </div>
-            <BackButton
-              text={t("backToSpecialists")}
-              clickHandler={backToSpecialistHandler}
-            />
+            <BackButton text={t("backToSpecialists")} />
           </motion.div>
 
           {(customers?.length ?? 0) > 0 ? (
@@ -261,7 +252,9 @@ const CustomerRow = ({
   onViewNote: (note: LastNote) => void;
 }) => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
+
+  const hasAssessmentAnswers = !!customer?.assessment;
+
   return (
     <motion.tr
       layout
@@ -302,17 +295,10 @@ const CustomerRow = ({
       </TableCell>
 
       <TableCell>
-        <button
-          onClick={() =>
-            router.push(`/dashboard/customers/${customer.id}/answers`)
-          }
-          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
-        >
-          <div className="min-w-6">
-            <ViewLinkIcon className="text-accent" />
-          </div>
-          <span>{t("viewAnswers")}</span>
-        </button>
+        <ViewAnswersLink
+          disabled={!hasAssessmentAnswers}
+          customerId={customer.id}
+        />
       </TableCell>
 
       <TableCell>

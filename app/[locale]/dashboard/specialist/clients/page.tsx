@@ -3,16 +3,14 @@
 import { useQuery } from "@tanstack/react-query";
 import StateComp from "@/app/[locale]/dashboard/_components/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
-import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { Customer } from "@/app/[locale]/api/types/profile.types";
 import { TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Pagination from "../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
+import { ViewAnswersLink } from "../../_components/ViewAnswersLink";
 
 const TABLE_HEADERS = [
   "Name",
@@ -130,8 +128,8 @@ const FilterButton = ({ label }: { label: string }) => {
 };
 
 const CustomerRow = ({ customer }: { customer: Customer }) => {
-  const t = useTranslations("dashboard");
-  const router = useRouter();
+  const hasAssessmentAnswers = !!customer?.assessment;
+
   return (
     <tr className="type-table font-light text-content-muted transition-colors">
       {/* Name */}
@@ -173,17 +171,10 @@ const CustomerRow = ({ customer }: { customer: Customer }) => {
 
       {/* Answers */}
       <TableCell>
-        <button
-          onClick={() =>
-            router.push(`/dashboard/customers/${customer.id}/answers`)
-          }
-          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
-        >
-          <div className="min-w-6">
-            <ViewLinkIcon className="text-accent" />
-          </div>
-          <span>{t("viewAnswers")}</span>
-        </button>
+        <ViewAnswersLink
+          disabled={!hasAssessmentAnswers}
+          customerId={customer.id}
+        />
       </TableCell>
 
       {/* Specialist */}

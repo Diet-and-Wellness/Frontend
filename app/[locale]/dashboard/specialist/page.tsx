@@ -13,12 +13,11 @@ import { AnimatePresence } from "framer-motion";
 import UpdateWeightModal from "./_components/UpdateWeightModal";
 import PenIcon from "../../components/icons/Pen";
 import NoteIcon from "../../components/icons/NoteIcon";
-import ViewLinkIcon from "../../components/icons/ViewLinkIcon";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import Pagination from "../_components/Pagination";
 import { parsePaginatedResponse } from "../../utils/pagination";
 import { motion } from "framer-motion";
+import { ViewAnswersLink } from "../_components/ViewAnswersLink";
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,7 +50,6 @@ const tableContainer = {
 
 const SpecialistDashboardIndex = () => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
   const [page, setPage] = useState(1);
   const [noteModal, setNoteModal] = useState({
     isVisible: false,
@@ -231,11 +229,6 @@ const SpecialistDashboardIndex = () => {
                 <CustomerRow
                   key={customer.id}
                   customer={customer}
-                  onViewAnswers={() =>
-                    router.push(
-                      `/dashboard/customers/${customer.id}/answers?from=specialist-dashboard`,
-                    )
-                  }
                   onClickAddNote={(
                     customerId: string,
                     note: string,
@@ -283,16 +276,15 @@ const TableCell = ({ children }: { children: React.ReactNode }) => {
 
 const CustomerRow = ({
   customer,
-  onViewAnswers,
   onClickAddNote,
   onClickUpdateWeight,
 }: {
   customer: Customer;
-  onViewAnswers: () => void;
   onClickAddNote: (customerId: string, note: string, noteId: string) => void;
   onClickUpdateWeight: (customerId: string) => void;
 }) => {
-  const t = useTranslations("dashboard");
+  const hasAssessmentAnswers = !!customer?.assessment;
+
   return (
     <motion.tr
       layout
@@ -337,15 +329,10 @@ const CustomerRow = ({
       </TableCell>
 
       <TableCell>
-        <button
-          onClick={onViewAnswers}
-          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
-        >
-          <div className="min-w-6">
-            <ViewLinkIcon className="text-accent" />
-          </div>
-          <span>{t("viewAnswers")}</span>
-        </button>
+        <ViewAnswersLink
+          disabled={!hasAssessmentAnswers}
+          customerId={customer.id}
+        />
       </TableCell>
 
       <TableCell>

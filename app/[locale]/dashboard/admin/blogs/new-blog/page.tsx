@@ -3,7 +3,6 @@
 import BlogForm from "../_components/BlogForm";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { BackButton } from "../../_components/BackToBtn";
 
@@ -26,11 +25,6 @@ const item = {
 
 const AddNewBlogPage = () => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
-
-  const backToMainBlogsPage = () => {
-    router.replace("/dashboard/admin/blogs");
-  };
 
   return (
     <motion.div
@@ -52,10 +46,7 @@ const AddNewBlogPage = () => {
           <h3 className="type-page-title font-bold">{t("addNewBlog")}</h3>
           <p className="type-body-lg text-content-muted">{t("manageBlogs")}</p>
         </div>
-        <BackButton
-          text={t("backToBlogs")}
-          clickHandler={backToMainBlogsPage}
-        />
+        <BackButton text={t("backToBlogs")} />
       </motion.div>
 
       <BlogForm mood="new" />

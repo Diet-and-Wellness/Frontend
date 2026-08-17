@@ -28,20 +28,20 @@ const Features = () => {
       points: t.raw("personalizedPlan.points"),
       img: "/images/PrivateSpecialist.webp",
       checkPointIcon: (
-        <Checkout className="text-brand-contrast w-5 xl:w-7 h-auto" />
+        <Checkout className="text-white w-5 xl:w-7 h-auto" />
       ),
       imgStyle: "md:w-70 md:end-0 md:-top-25 lg:w-120 lg:end-0 lg:-top-30",
       bgStyle: "bg-feature-two",
-      textStyle: "text-brand-contrast",
+      textStyle: "text-white",
     },
     {
       title: t("ongoingSupport.title"),
       points: t.raw("ongoingSupport.points"),
       img: "/images/HelpAndSupport.webp",
-      checkPointIcon: <Checkout className="text-content w-5 xl:w-7 h-auto" />,
+      checkPointIcon: <Checkout className="text-white w-5 xl:w-7 h-auto" />,
       imgStyle: "md:w-50 md:end-0 md:-bottom-30 lg:w-80 lg:end-0 lg:-bottom-40",
       bgStyle: "bg-feature-three",
-      textStyle: "text-content",
+      textStyle: "text-white",
     },
   ];
 

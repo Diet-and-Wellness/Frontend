@@ -6,7 +6,7 @@ export const ArrowDown = () => {
       height="84"
       fill="none"
       viewBox="0 0 84 84"
-      className="w-15 h-15 lg:w-18 lg:h-18 xl:w-21 xl:h-21"
+      className="w-13 h-13 lg:w-18 lg:h-18 xl:w-21 xl:h-21"
     >
       <path
         stroke="#3a6b26"
