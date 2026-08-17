@@ -18,8 +18,8 @@ type FormData = {
   message: string;
 };
 
-const inputClassName =
-  "text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 focus:border-brand-hover transition";
+export const inputClassName =
+  "peer h-12.5 w-full rounded-xl border-2 border-line-strong bg-surface-raised px-3.5 text-base text-content outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-content-placeholder hover:border-brand/45 focus:border-brand focus:ring-4 focus:ring-brand/10 disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-content-subtle";
 
 const ContactusForm = () => {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -29,7 +29,7 @@ const ContactusForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>();
 
   const handleAutoGrow = () => {
@@ -73,6 +73,8 @@ const ContactusForm = () => {
         <input
           {...register("name", {
             required: "Full name is required",
+            validate: (value) =>
+              value.trim().length > 0 || "Full name is required",
           })}
           type="text"
           placeholder={t("placeholders.fullName")}
@@ -90,7 +92,7 @@ const ContactusForm = () => {
           {...register("email", {
             required: "Email is required",
             pattern: {
-              value: /\S+@\S+\.\S+/,
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Invalid email",
             },
           })}
@@ -108,8 +110,23 @@ const ContactusForm = () => {
           type="tel"
           {...register("phone", {
             required: "Phone number is required",
+            validate: (value) => {
+              const digits = value.replace(/\D/g, "");
+
+              if (digits.length < 7 || digits.length > 15) {
+                return "Please enter a valid phone number";
+              }
+
+              if (!/^\+?[\d\s()-]+$/.test(value.trim())) {
+                return "Please enter a valid phone number";
+              }
+
+              return true;
+            },
           })}
-          placeholder="+1 (555) 000-0000"
+          placeholder="+20 10 1234 5678"
+          autoComplete="tel"
+          inputMode="tel"
           className={inputClassName}
         />
 
@@ -121,16 +138,21 @@ const ContactusForm = () => {
 
         <textarea
           {...register("message", {
-            required: "Message is required",
+            required: "Message must be 10-2000 characters long",
+            validate: (value) =>
+              (value.trim().length >= 10 && value.trim().length <= 2000) ||
+              "Message is required",
           })}
           ref={(element) => {
             register("message").ref(element);
             textareaRef.current = element;
           }}
+          maxLength={2000}
+          minLength={10}
           rows={4}
           onInput={handleAutoGrow}
           placeholder={t("placeholders.leaveUsAMessage")}
-          className="text-base outline-none border-2 border-line-strong placeholder:text-content-placeholder rounded-xl p-3 resize-none overflow-hidden focus:border-brand-hover transition"
+          className={`${inputClassName} min-h-40 max-h-50 pt-3`}
         />
 
         {errors.message && <Error msg={errors.message.message} />}
@@ -138,7 +160,7 @@ const ContactusForm = () => {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || !isValid}
         className="type-control mt-4 flex h-12.5 items-center justify-center rounded-4xl bg-accent font-semibold text-white cursor-pointer"
       >
         {isSubmitting ? (
