@@ -5,7 +5,7 @@ import BlogForm from "../../_components/BlogForm";
 import RightArrowIcon from "@/app/[locale]/components/icons/RightArrowIcon";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { BlogFormSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { BackButton } from "../../../_components/BackToBtn";
@@ -29,12 +29,7 @@ const item = {
 
 const EditBlogPage = () => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
   const { id } = useParams<{ id: string }>();
-
-  const backToMainBlogsPage = () => {
-    router.replace("/dashboard/admin/blogs");
-  };
 
   const { data: blog, isLoading } = useQuery({
     queryKey: ["editedBlog", id],
@@ -66,10 +61,7 @@ const EditBlogPage = () => {
           <h3 className="type-page-title font-bold">{t("editBlog")}</h3>
           <p className="type-body-lg text-content-muted">{t("manageBlogs")}</p>
         </div>
-        <BackButton
-          text={t("backToBlogs")}
-          clickHandler={backToMainBlogsPage}
-        />
+        <BackButton text={t("backToBlogs")} />
       </motion.div>
       {isLoading ? (
         <BlogFormSkeleton />

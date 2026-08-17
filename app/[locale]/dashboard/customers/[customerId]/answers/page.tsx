@@ -57,10 +57,15 @@ const getLocalizedValue = (value: unknown, locale: string) => {
 
 const AssessmentAnswersPage = () => {
   const t = useTranslations("dashboard");
+
   const locale = useLocale();
+
   const router = useRouter();
+
   const { customerId } = useParams<{ customerId: string }>();
+
   const { data: me, isLoading: isMeLoading } = useMe();
+
   const canViewAnswers = me?.role === "admin" || me?.role === "specialist";
 
   useEffect(() => {
@@ -119,10 +124,7 @@ const AssessmentAnswersPage = () => {
             </p>
           </div>
         </div>
-        <BackButton
-          text={t("backToClients")}
-          clickHandler={() => router.back()}
-        />
+        <BackButton text={t("backToClients")} />
       </header>
 
       <section className="overflow-hidden rounded-3xl border border-(--color-palette-d9e9d2) bg-surface-raised">

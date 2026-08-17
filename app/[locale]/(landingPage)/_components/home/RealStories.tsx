@@ -111,7 +111,7 @@ const RealStories = () => {
           w-full
           bg-(--color-palette-c8dcbf)
           rounded-3xl md:rounded-[60px]
-          px-8 pt-12 pb-3 md:p-12
+          px-5 pt-12 pb-3 md:p-12
           flex flex-col-reverse lg:flex-row
           justify-between
           items-center lg:items-start

@@ -3,7 +3,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import StateComp from "../../_components/StateComp";
 import SearchIcon from "@/app/[locale]/components/icons/SearchIcon";
-import ViewLinkIcon from "@/app/[locale]/components/icons/ViewLinkIcon";
 import { profileApi } from "@/app/[locale]/api/endpoints/profile.api";
 import { Customer } from "@/app/[locale]/api/types/profile.types";
 import { TableSkeleton } from "@/app/[locale]/components/Public/Skeletons";
@@ -13,7 +12,6 @@ import ChevronDownIcon from "@/app/[locale]/components/icons/ChevronDownIcon";
 import { AnimatePresence, motion } from "framer-motion";
 import EmptyComp from "@/app/[locale]/components/Public/Empty";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import Pagination from "../../_components/Pagination";
 import { parsePaginatedResponse } from "@/app/[locale]/utils/pagination";
 import FilterSelect, {
@@ -26,6 +24,7 @@ import {
   paginateCustomers,
   type CustomerSubscriptionStatus,
 } from "./_components/customerFilters";
+import { ViewAnswersLink } from "../../_components/ViewAnswersLink";
 
 const CUSTOMER_PAGE_SIZE = 20;
 const CUSTOMER_FETCH_SIZE = 100;
@@ -417,7 +416,8 @@ const CustomerRow = ({
   assignSpecialistHandler: () => void;
 }) => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
+
+  const hasAssessmentAnswers = !!customer?.assessment;
 
   return (
     <motion.tr
@@ -474,17 +474,10 @@ const CustomerRow = ({
 
       {/* Answers */}
       <TableCell>
-        <button
-          onClick={() =>
-            router.push(`/dashboard/customers/${customer.id}/answers`)
-          }
-          className="flex cursor-pointer items-center gap-2 text-accent hover:underline"
-        >
-          <div className="min-w-6">
-            <ViewLinkIcon className="text-accent" />
-          </div>
-          <span>{t("viewAnswers")}</span>
-        </button>
+        <ViewAnswersLink
+          disabled={!hasAssessmentAnswers}
+          customerId={customer.id}
+        />
       </TableCell>
 
       {/* Specialist */}

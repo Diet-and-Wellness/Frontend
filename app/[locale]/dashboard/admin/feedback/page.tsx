@@ -25,7 +25,7 @@ type DeleteModalState = {
   selectedFeedbackId: string;
 };
 
-const MAX_FEEDBACKS_COUNT = 12;
+const MAX_FEEDBACKS_COUNT = 9;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -136,9 +136,14 @@ const FeedbackManagementPage = () => {
             )}
           </AnimatePresence>
 
-          <motion.div variants={itemVariants} className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"
+          >
             <div>
-              <h2 className="type-page-title mb-3 font-bold sm:mb-4">{t("feedbackManagement")}</h2>
+              <h2 className="type-page-title mb-3 font-bold sm:mb-4">
+                {t("feedbackManagement")}
+              </h2>
               <p className="type-body-lg font-light text-content-muted">
                 {t("feedbackDescription")}
               </p>
@@ -146,7 +151,10 @@ const FeedbackManagementPage = () => {
 
             <div className="w-full sm:w-52">
               <p className="type-card-title px-0 font-medium sm:px-7.5">
-                {t("slots", { used: feedbackList.length, total: MAX_FEEDBACKS_COUNT })}
+                {t("slots", {
+                  used: feedbackList.length,
+                  total: MAX_FEEDBACKS_COUNT,
+                })}
               </p>
 
               <div
