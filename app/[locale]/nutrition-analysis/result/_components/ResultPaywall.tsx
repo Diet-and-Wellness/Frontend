@@ -53,7 +53,7 @@ export function PayToAccessCard({
   const t = useTranslations("analysis.paywall");
 
   return (
-    <div className="sticky top-1/4 mt-40 flex max-w-110 flex-col items-center justify-between gap-4 place-self-center rounded-3xl bg-surface p-7.5 shadow-xs border border-line">
+    <div className="sticky top-1/4 mt-40 flex max-w-100 w-[92.5%] flex-col items-center justify-between gap-4 place-self-center rounded-3xl bg-surface p-7.5 shadow-xs border border-line">
       <div className="absolute inset-e-4 top-4 flex justify-end">
         <CloseBtn onClose={onClose} />
       </div>
