@@ -3,13 +3,27 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { cookies } from "next/headers";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cairo, Roboto } from "next/font/google";
 
 import ReactQueryProvider from "@/app/[locale]/lib/react-query-provider";
 import { ThemeProvider } from "@/app/[locale]/components/Theme/ThemeProvider";
 
 import "./globals.css";
+import ServiceWorkerRegistration from "./components/pwa/ServiceWorkerRegistration";
+
+export const viewport: Viewport = {
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "#ffffff",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "#0f172a",
+    },
+  ],
+};
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -61,7 +75,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const content = metadataContent[currentLocale];
 
   const pageUrl = `${baseUrl}/${currentLocale}`;
-
   const imageUrl = `${baseUrl}/images/social-preview.png`;
 
   return {
@@ -74,7 +87,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     description: content.description,
 
-    applicationName: "Diet and Wellness",
+    applicationName: "Diet & Wellness",
+
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: "default",
+      title: "Diet & Wellness",
+    },
+
+    formatDetection: {
+      telephone: false,
+    },
 
     alternates: {
       canonical: pageUrl,
@@ -111,7 +134,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: content.title,
       description: content.description,
-
       images: [
         {
           url: imageUrl,
@@ -159,6 +181,7 @@ export default async function IndexLayout({ children, params }: Props) {
           <NextIntlClientProvider locale={locale} messages={messages}>
             <ThemeProvider initialTheme={initialTheme}>
               {children}
+              <ServiceWorkerRegistration />
             </ThemeProvider>
           </NextIntlClientProvider>
         </ReactQueryProvider>
