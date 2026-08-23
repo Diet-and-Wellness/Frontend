@@ -11,6 +11,7 @@ import { ThemeProvider } from "@/app/[locale]/components/Theme/ThemeProvider";
 
 import "./globals.css";
 import ServiceWorkerRegistration from "./components/pwa/ServiceWorkerRegistration";
+import PwaInstallPrompt from "./components/pwa/PwaInstallPrompt";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -93,6 +94,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       capable: true,
       statusBarStyle: "default",
       title: "Diet & Wellness",
+    },
+
+    icons: {
+      icon: "/icon.png",
+      apple: "/icons/icon-192x192.png",
     },
 
     formatDetection: {
@@ -182,6 +188,7 @@ export default async function IndexLayout({ children, params }: Props) {
             <ThemeProvider initialTheme={initialTheme}>
               {children}
               <ServiceWorkerRegistration />
+              <PwaInstallPrompt />
             </ThemeProvider>
           </NextIntlClientProvider>
         </ReactQueryProvider>

@@ -6,7 +6,9 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Diet & Wellness",
     description:
       "Personalized nutrition, wellness assessments, health tools and expert guidance.",
+    id: "/",
     start_url: "/en",
+    scope: "/",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#ffffff",

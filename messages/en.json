@@ -1138,6 +1138,14 @@
     "responseTimePerDay": "Response time per day: ",
     "forever": "Forever"
   },
+  "pwaInstall": {
+    "title": "Install Diet & Wellness",
+    "iosInstructions": "On iPhone, tap Share in the browser toolbar, then choose Add to Home Screen.",
+    "iosAction": "Share → Add to Home Screen",
+    "androidDescription": "Install the app for faster access and a full-screen experience.",
+    "install": "Install app",
+    "dismiss": "Dismiss install instructions"
+  },
   "paymentResult": {
     "status": {
       "success": {
