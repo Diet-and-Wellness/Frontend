@@ -16,11 +16,20 @@ type PurposeSectionProps = {
 
 const PurposeIcon = ({ variant }: { variant: "mission" | "vision" }) =>
   variant === "mission" ? (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-7">
-      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-8">
+      <circle cx="10.5" cy="13.5" r="7.5" stroke="currentColor" strokeWidth="1.8" />
+
+      <circle cx="10.5" cy="13.5" r="3" stroke="currentColor" strokeWidth="1.8" />
+
       <path
-        d="m14.5 9.5 5-5M16 4.5h3.5V8"
+        d="m10.5 13.5 9-9"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+
+      <path
+        d="M16.5 4.5h3v3"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"
@@ -28,7 +37,7 @@ const PurposeIcon = ({ variant }: { variant: "mission" | "vision" }) =>
       />
     </svg>
   ) : (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-7">
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="size-8">
       <path
         d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"
         stroke="currentColor"

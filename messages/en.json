@@ -1,6 +1,6 @@
 {
   "hero": {
-    "clientsTrustUs": "Clients that trust us",
+    "clientsTrustUs": "Clients Who Trust Us",
     "viewFeedback": "View Feedback",
     "getToKnowMoreAboutYourBody": "Get to know more about your body..",
     "viewBlogs": "View Blogs",
@@ -621,25 +621,40 @@
     "startsWithBalancedNutrition": "Starts With Balanced Nutrition",
     "whatYouShouldKnowAboutDietAndWellness": "What you should know about Diet & Wellness",
     "storyParagraphs": [
-      "Founded in 2024, Diet & Wellness provides evidence-based clinical nutrition and health consultations designed to help individuals achieve their health goals in a practical and sustainable way. We believe nutrition is more than just a diet—it is a lifestyle built on science, awareness, and healthy habits.",
-      "Since our launch, we have helped 700+ clients improve their health and achieve their goals through personalized nutrition plans, professional consultations, and continuous follow-up tailored to each individual’s needs and lifestyle.",
-      "We also focus on nutrition education by sharing reliable, evidence-based content that helps correct common misconceptions and promote better health awareness, because we believe knowledge is the first step toward a healthier life."
+      "Diet & Wellness was founded in 2024 with a clear purpose: to make reliable nutrition guidance more accessible and practical for everyday life.",
+      "Since our launch, we have supported 700+ clients through personalized nutrition plans, professional nutrition consultations, and ongoing follow-up. Our approach considers each person's health goals, nutritional needs, food preferences, daily routine, and lifestyle.",
+      "Beyond individual consultations, nutrition education is an important part of what we do. We share reliable, evidence-based nutrition information to improve health awareness, address common nutrition misconceptions and help people make better-informed choices about food and wellbeing."
     ],
     "foundedValue": "2024",
-    "foundedLabel": "Year founded",
+    "foundedLabel": "Year Founded",
     "clientsValue": "700+",
-    "clientsLabel": "Clients supported",
-    "whyChooseTitle": "Why choose Diet & Wellness?",
+    "clientsLabel": "Clients Supported",
+    "whyChooseTitle": "Why Choose Diet & Wellness?",
     "whyChooseReasons": [
-      "Evidence-based nutrition plans and consultations",
-      "700+ clients supported in achieving their health goals",
-      "Personalized plans tailored to individual needs and lifestyles",
-      "Continuous follow-up for realistic and sustainable results",
-      "A focus on long-term healthy habits rather than temporary solutions"
+      {
+        "title": "Evidence-Based Nutrition",
+        "description": "Our nutrition guidance is informed by current scientific evidence and established nutrition principles, helping clients receive reliable and responsible recommendations."
+      },
+      {
+        "title": "Personalized Nutrition Plans",
+        "description": "Every individual has different goals, nutritional needs, preferences, routines, and challenges. Our personalized nutrition plans are developed with these differences in mind."
+      },
+      {
+        "title": "Professional Nutrition Consultations",
+        "description": "Our consultations provide individualized nutrition guidance and practical strategies to help clients understand their nutritional needs and make informed decisions about their diet and lifestyle."
+      },
+      {
+        "title": "Continuous Follow-Up",
+        "description": "Nutrition needs and circumstances can change over time. Continuous follow-up allows us to review progress, identify challenges, and adjust strategies when appropriate."
+      },
+      {
+        "title": "Sustainable Healthy Habits",
+        "description": "We focus on realistic changes that can become part of everyday life. Our goal is to help clients build healthy eating habits they can maintain over the long term instead of relying on restrictive or temporary approaches."
+      }
     ],
     "gradualChangesDescription": "At Diet & Wellness, we don’t believe in quick fixes or strict diets. Instead, we focus on gradual, lasting changes that help individuals reach their goals and maintain them.",
     "ourGoal": "Our goal is simple, to be a partner in our clients’ journey toward a healthier, more balanced life.",
-    "getStartedNow": "Get Started Now",
+    "bookNutritionConsultation": "Book a Nutrition Consultation",
     "eyebrow": "Our story",
     "videoTitle": "Wellness that fits real life",
     "videoDescription": "Discover how thoughtful nutrition can support your energy, focus, and everyday wellbeing.",
@@ -648,7 +663,7 @@
     "purposeTitle": "The future of care we are building",
     "purposeDescription": "Our direction is grounded in trusted clinical care, useful education, and healthier outcomes that last.",
     "missionTitle": "Our Mission",
-    "missionDescription": "To provide trusted, evidence-based nutrition care while empowering individuals to improve their health through clinical nutrition, education, and sustainable lifestyle changes that lead to better long-term well-being.",
+    "missionDescription": "Our mission is to help people improve their nutrition, build healthier habits, and achieve sustainable health goals through evidence-based care and practical strategies designed to fit into everyday life.",
     "visionTitle": "Our Vision",
     "visionDescription": "To become one of the leading nutrition and wellness providers in the region by delivering professional services, promoting nutrition awareness, and contributing to a healthier, more informed community.",
     "valuesEyebrow": "What guides us",
@@ -657,27 +672,27 @@
     "values": [
       {
         "title": "Science",
-        "description": "We rely on the latest research and scientific recommendations."
+        "description": "We believe quality nutrition care begins with reliable evidence. Our approach is guided by nutrition science, established professional principles, and current research."
       },
       {
         "title": "Trust",
-        "description": "We provide reliable information and services with our clients’ best interests at heart."
+        "description": "Clear and responsible communication is central to our work. We aim to provide reliable nutrition information and services while keeping our clients’ needs and interests at the center of their care."
       },
       {
         "title": "Care",
-        "description": "We recognize that every individual has unique needs and circumstances."
+        "description": "Every person brings a different health journey, lifestyle, and set of goals. We take the time to understand these individual circumstances when providing nutrition guidance."
       },
       {
         "title": "Sustainability",
-        "description": "We focus on building healthy habits that can be maintained for long-term results."
+        "description": "Healthy eating should be practical enough to continue beyond a short-term diet. We focus on building realistic nutrition and lifestyle habits that can support long-term health and wellbeing."
       }
     ],
     "journeyEyebrow": "Your next step",
-    "journeyTitle": "Start your health journey with us",
-    "journeyDescription": "Whether your goal is to improve your health, manage a medical condition, or achieve a healthy weight, the Diet & Wellness team is here to support you with evidence-based plans, professional care, and continuous guidance every step of the way.",
+    "journeyTitle": "Start Your Nutrition Journey",
+    "journeyDescription": "Better nutrition starts with understanding your needs and finding an approach that fits your life, with personalized, evidence-based support to help you build healthier habits and achieve sustainable health goals.",
     "teamEyebrow": "The people behind the plan",
-    "teamTitle": "Meet your wellness support circle",
-    "teamDescription": "Different areas of expertise, one shared purpose: helping you build healthy habits that feel personal, practical, and sustainable.",
+    "teamTitle": "Meet the Diet & Wellness Team",
+    "teamDescription": "Our team combines evidence-based nutrition with personalized guidance to help people build healthier lifestyles that fit their goals and daily lives.",
     "teamMembers": [
       {
         "name": "Dt. Ahmed Mahmoud",
@@ -769,19 +784,48 @@
   "contactUs": {
     "reviews": [
       {
-        "reviewText": "Great experience with the diet program! It was easy to follow, fit well into my routine, and helped me see positive results quickly. The meals were satisfying, and the support throughout was amazing. Highly recommend!",
-        "reviewerName": "Omar Khaled",
-        "reviewerAge": "23 Years"
+        "reviewText": "I lost 6 kg in around six weeks, but the biggest difference for me was in my measurements. My clothes became noticeably looser, especially around my waist, and I started feeling much more comfortable.",
+        "reviewerName": "Mona Adel"
       },
       {
-        "reviewText": "The plan felt personal from day one. I learned how to make better choices without giving up the foods I enjoy, and the regular follow-up kept me motivated and consistent.",
-        "reviewerName": "Mariam Adel",
-        "reviewerAge": "29 Years"
+        "reviewText": "I went from 88 kg to 85 kg, and I’m very happy with my progress. Having a clear nutrition plan made it much easier to stay consistent without making my daily routine complicated.",
+        "reviewerName": "Mohamed Khaled"
       },
       {
-        "reviewText": "I finally found an approach that works with my schedule. The guidance was practical, clear, and never restrictive. My energy improved and the results have been easy to maintain.",
-        "reviewerName": "Youssef Hassan",
-        "reviewerAge": "35 Years"
+        "reviewText": "I lost 3 kg while staying consistent with my gym training. The nutrition plan worked really well alongside my workouts and gave me a structure that was realistic enough to follow every day.",
+        "reviewerName": "Omar Hassan"
+      },
+      {
+        "reviewText": "Seeing 85.8 kg on the scale was such a rewarding moment for me. Watching my progress gradually build up kept me motivated, and the regular follow-up helped me stay accountable.",
+        "reviewerName": "Sara Ahmed"
+      },
+      {
+        "reviewText": "I was very happy to see a clear change in my follow-up laboratory results. My reported IgG result decreased from 4.9 to 0.8, while my IgE level decreased from 439.6 to 171. Seeing measurable changes in my results made the experience especially meaningful to me.",
+        "reviewerName": "Nesma Ahmed Ibrahim"
+      },
+      {
+        "reviewText": "I reached 122.2 kg after losing 2.75 kg during my first week. Seeing progress early in the program gave me a lot of motivation to stay committed and continue working toward my goal.",
+        "reviewerName": "Thanaa"
+      },
+      {
+        "reviewText": "I started at 95 kg and later reached 83 kg. Seeing such a big difference on the scale was incredibly motivating and encouraged me to keep taking my nutrition and daily habits seriously.",
+        "reviewerName": "Mahmoud Tarek"
+      },
+      {
+        "reviewText": "I went from 104 kg to 99.4 kg during my follow-up. I was especially impressed by the attention and quick responses whenever I needed guidance. I always felt that my progress was being followed closely.",
+        "reviewerName": "Rania Mostafa"
+      },
+      {
+        "reviewText": "I started at 88 kg and reached 81 kg. I’m really happy with the progress and how manageable the program felt. I could follow the plan without feeling that my entire daily routine had to change.",
+        "reviewerName": "Ahmed Samir"
+      },
+      {
+        "reviewText": "I went from 82 kg to 80 kg during my first week. Seeing progress on the scale gave me an extra push to stay consistent and continue with the program.",
+        "reviewerName": "Nour Mohamed"
+      },
+      {
+        "reviewText": "I started at 88 kg and reached 85 kg. I really appreciated having regular follow-up instead of simply receiving a diet plan and having to figure everything out by myself.",
+        "reviewerName": "Youssef Ali"
       }
     ],
     "reviewCarouselLabel": "Client testimonials",
@@ -968,9 +1012,9 @@
     "confirmMedicalConditions": "I confirm I reviewed the unsupported medical conditions.",
     "continueToAssessment": "Continue to Assessment",
     "noMatchingMedicalConditions": "No matching medical conditions found.",
-    "personalizedInsight": "Personalized Insight",
-    "personalizedInsightText": "The biggest opportunity for improvement is meal organization. Reducing long gaps between meals may help improve appetite regulation, reduce sugar cravings, and support better energy levels throughout the day.",
-    "bookSpecialist": "Book a Specialist",
+    "personalizedInsight": "Your Next Step with a Clinical Dietitian",
+    "personalizedInsightText": "Your results provide a clearer picture of your eating habits and the areas that could be improved. By working with a Clinical Dietitian, these insights can be turned into a personalized nutrition plan that fits your needs and daily routine, with ongoing follow-up and adjustments to help you progress toward a healthy weight that works for you.",
+    "bookSpecialist": "Start with a Clinical Dietitian",
     "back": "Back",
     "next": "Next",
     "submit": "Submit",
@@ -1034,9 +1078,9 @@
     "needsImprovementDescription": "Some of your eating habits may be limiting your progress. Focus on making consistent, healthier choices over time.",
     "needsAttentionDescription": "Your results suggest several nutrition habits that may require immediate attention. Consider reviewing your eating patterns and seeking guidance from a qualified nutrition professional if needed.",
     "paywall": {
-      "title": "Unlock Your Full Analysis",
-      "description": "Get detailed recommendations, complete results, and personalized insights based on your assessment.",
-      "unlockButton": "Unlock for {price} EGP"
+      "title": "Your Detailed Nutrition Assessment",
+      "description": "A personalized analysis of your eating habits and routine, with nutrition recommendations and practical next steps.",
+      "unlockButton": "Full Analysis for {price} EGP"
     }
   },
   "pricing": {

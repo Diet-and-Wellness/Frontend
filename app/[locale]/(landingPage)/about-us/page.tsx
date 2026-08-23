@@ -26,13 +26,12 @@ const AboutUsPage = () => {
         eyebrow={t("aboutUs.eyebrow")}
         title={t("aboutUs.whatYouShouldKnowAboutDietAndWellness")}
         paragraphs={t.raw("aboutUs.storyParagraphs") as string[]}
-        goal={t("aboutUs.ourGoal")}
         foundedValue={t("aboutUs.foundedValue")}
         foundedLabel={t("aboutUs.foundedLabel")}
         clientsValue={t("aboutUs.clientsValue")}
         clientsLabel={t("aboutUs.clientsLabel")}
         reasonsTitle={t("aboutUs.whyChooseTitle")}
-        reasons={t.raw("aboutUs.whyChooseReasons") as string[]}
+        reasons={t.raw("aboutUs.whyChooseReasons")}
         philosophy={t("aboutUs.gradualChangesDescription")}
       />
 
@@ -71,7 +70,7 @@ const AboutUsPage = () => {
         eyebrow={t("aboutUs.journeyEyebrow")}
         title={t("aboutUs.journeyTitle")}
         description={t("aboutUs.journeyDescription")}
-        buttonLabel={t("aboutUs.getStartedNow")}
+        buttonLabel={t("aboutUs.bookNutritionConsultation")}
       />
     </main>
   );

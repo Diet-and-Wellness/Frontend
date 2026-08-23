@@ -65,10 +65,10 @@ const FaqSection = ({
                 <motion.span
                   animate={{ rotate: isOpen ? 45 : 0 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="relative flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand"
+                  className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand"
                 >
-                  <span className="absolute h-0.5 w-3.5 rounded-full bg-current" />
-                  <span className="absolute h-3.5 w-0.5 rounded-full bg-current" />
+                  <span className="absolute h-0.5 w-4 rounded-full bg-current" />
+                  <span className="absolute h-4 w-0.5 rounded-full bg-current" />
                 </motion.span>
               </button>
 

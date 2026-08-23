@@ -65,7 +65,7 @@ const JourneyCtaSection = ({
                 aria-hidden="true"
                 viewBox="0 0 20 20"
                 fill="none"
-                className="ms-2 size-5 rtl:rotate-180"
+                className="ms-2 size-6 rtl:rotate-180"
               >
                 <path
                   d="M4 10h12m-4-4 4 4-4 4"

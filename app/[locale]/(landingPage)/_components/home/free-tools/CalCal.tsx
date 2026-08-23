@@ -169,7 +169,7 @@ const CalCalForm = ({
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="type-label font-medium">
+          <label htmlFor="" className="type-label font-medium text-content">
             {t("age")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
@@ -183,7 +183,7 @@ const CalCalForm = ({
                   e.preventDefault();
                 }
               }}
-              className="w-full outline-none"
+              className="w-full outline-none text-content"
               placeholder={t("enterAge")}
             />
             <p className="type-label text-content-muted">{t("year")}</p>
@@ -191,7 +191,7 @@ const CalCalForm = ({
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="type-label font-medium">
+          <label htmlFor="" className="type-label font-medium text-content">
             {t("height")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
@@ -208,7 +208,7 @@ const CalCalForm = ({
                   e.preventDefault();
                 }
               }}
-              className="w-full outline-none"
+              className="w-full outline-none text-content"
               placeholder={t("enterHeight")}
             />
             <p className="type-label text-content-muted">{t("cm")}</p>
@@ -216,7 +216,7 @@ const CalCalForm = ({
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="" className="type-label font-medium">
+          <label htmlFor="" className="type-label font-medium text-content">
             {t("weight")}
           </label>
           <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
@@ -233,7 +233,7 @@ const CalCalForm = ({
                   e.preventDefault();
                 }
               }}
-              className="w-full outline-none"
+              className="w-full outline-none text-content"
               placeholder={t("enterWeight")}
             />
             <p className="type-label text-content-muted">{t("kg")}</p>
