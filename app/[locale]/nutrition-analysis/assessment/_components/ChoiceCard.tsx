@@ -16,7 +16,7 @@ const ChoiceCard = ({
     className={`flex w-full items-center justify-start gap-3 rounded-2xl border px-4 py-3 text-start transition-all duration-300 sm:px-6 ${isSelected ? "border-brand bg-brand-soft" : "border-line"} cursor-pointer`}
   >
     <div
-      className={`size-5.5 ${isSelected ? "bg-brand" : "bg-surface-raised ring ring-line-strong"} rounded-full flex justify-center items-center`}
+      className={`size-5 shrink-0 ${isSelected ? "bg-brand" : "bg-surface-raised ring ring-line-strong"} rounded-full flex justify-center items-center`}
     >
       <div className="size-2 rounded-full bg-surface-raised" />
     </div>

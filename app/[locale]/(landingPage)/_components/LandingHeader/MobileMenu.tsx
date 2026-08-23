@@ -9,15 +9,20 @@ import LanguageIcon from "@/app/[locale]/components/icons/LanguageIcon";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ThemeSwitch from "@/app/[locale]/components/Theme/ThemeSwitch";
 import { useMe } from "@/app/[locale]/hooks/useMe";
+import LogoutIcon from "@/app/[locale]/components/icons/LogoutIcon";
 
 type tabType = { label: string; href: string };
 
 const MobileMenu = ({
   tabs,
   setIsMenuVisible,
+  onClickLogout,
+  isLoggingout,
 }: {
   tabs: tabType[];
   setIsMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  onClickLogout: () => void;
+  isLoggingout: boolean;
 }) => {
   const router = useRouter();
 
@@ -124,6 +129,11 @@ const MobileMenu = ({
     setIsMenuVisible(false);
   };
 
+  const handleLogout = () => {
+    closeMenu();
+    onClickLogout();
+  };
+
   const cta = getCTA();
 
   return (
@@ -132,7 +142,7 @@ const MobileMenu = ({
       animate={{ x: 0 }}
       exit={{ x: slideOffset }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="-z-10 flex min-h-screen w-full flex-col items-center justify-center gap-7.5 overflow-y-auto bg-surface-raised pb-20 absolute inset-0 mt-[63.5px] md:mt-17.25 lg:mt-18.25"
+      className="absolute inset-0 -z-10 mt-[63.5px] flex h-[calc(100dvh-63.5px)] w-full flex-col items-center justify-start gap-7.5 overflow-y-auto bg-surface-raised px-4 pt-6 pb-10 md:mt-17.25 md:h-[calc(100dvh-69px)] lg:mt-18.25 lg:h-[calc(100dvh-73px)]"
     >
       <ul className="flex flex-col items-center self-center gap-3">
         {tabs.map((tab) => (
@@ -169,6 +179,18 @@ const MobileMenu = ({
           {cta.label}
         </span>
       </Link>
+
+      {!!me && (
+        <button
+          type="button"
+          disabled={isLoggingout}
+          onClick={handleLogout}
+          className="flex min-h-12 cursor-pointer items-center gap-3 rounded-full px-8 py-2 text-danger transition-colors hover:bg-surface-neutral disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <LogoutIcon className="text-danger" />
+          <span className="text-lg font-semibold">{t("dashboard.logout")}</span>
+        </button>
+      )}
     </motion.div>
   );
 };
@@ -187,7 +209,7 @@ const Tab = ({
   return (
     <Link href={href} onClick={closeMenu} className="rounded-full">
       <li
-        className={`rounded-full cursor-pointer px-10 py-3 text-center text-[18px] font-semibold text-brand-hover sm:px-20 sm:text-[20px]
+        className={`rounded-full cursor-pointer px-7 py-2 text-center text-[18px] font-semibold text-brand-hover sm:px-20 sm:text-[20px]
            transition-all duration-300 ease-in-out
            hover:bg-brand-hover hover:text-brand-contrast
            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-hover focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${

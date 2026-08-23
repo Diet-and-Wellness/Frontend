@@ -27,15 +27,13 @@ export default function AssessmentSummary({
   return (
     <div className="mx-auto w-[calc(100%-2rem)] max-w-260 overflow-hidden rounded-3xl sm:w-[calc(100%-2.5rem)] sm:rounded-4xl">
       <GrainGradient
-        width="100%"
-        height="100%"
         colors={[visualColors.gradientOrange, visualColors.gradientPeach]}
         colorBack={visualColors.gradientGreen}
         softness={0.7}
         intensity={0.6}
         noise={0}
         speed={5}
-        className="flex justify-center items-center"
+        className="assessment-summary-gradient flex w-full items-center justify-center"
       >
         <div className="flex w-full flex-col items-center justify-center gap-2.5 bg-surface-raised/40 p-6 text-center backdrop-blur-xs sm:p-8 md:p-12">
           <h3 className="type-display font-bold">{t("summaryTitle")}</h3>

@@ -177,7 +177,12 @@ const LandingNavBar = ({
 
       <AnimatePresence>
         {isMenuVisible && (
-          <MobileMenu setIsMenuVisible={setIsMenuVisible} tabs={tabs} />
+          <MobileMenu
+            setIsMenuVisible={setIsMenuVisible}
+            tabs={tabs}
+            onClickLogout={onClickLogout}
+            isLoggingout={isLoggingout}
+          />
         )}
       </AnimatePresence>
     </nav>
