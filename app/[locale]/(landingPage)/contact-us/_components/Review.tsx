@@ -8,14 +8,9 @@ import { useEffect, useState } from "react";
 type ReviewCardProps = {
   reviewText: string;
   reviewerName: string;
-  reviewerAge: string;
 };
 
-const ReviewCard = ({
-  reviewText,
-  reviewerName,
-  reviewerAge,
-}: ReviewCardProps) => (
+const ReviewCard = ({ reviewText, reviewerName }: ReviewCardProps) => (
   <div className="flex w-full max-w-130 flex-col justify-between gap-5 rounded-3xl border border-white/70 bg-surface-raised/30 p-5 shadow-xl backdrop-blur-2xl sm:p-6">
     <div className="flex flex-col gap-5">
       <QuoteIcon />
@@ -26,7 +21,6 @@ const ReviewCard = ({
 
     <div>
       <p className="font-bold text-content-strong">{reviewerName}</p>
-      <p className="text-content mt-1.5">{reviewerAge}</p>
     </div>
   </div>
 );
@@ -122,7 +116,7 @@ const Review = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="relative z-10 flex items-center justify-center gap-2.5">
+      <div className="relative z-10 flex items-center justify-center gap-2.5 mt-2.5">
         {reviews.map((review, index) => (
           <motion.button
             key={review.id}
@@ -134,10 +128,10 @@ const Review = () => {
               total: reviews.length,
             })}
             aria-current={index === activeIndex ? "true" : undefined}
-            className={`h-2.5 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-contrast ${
+            className={`h-2 cursor-pointer rounded-full transition-[width,background-color] duration-300 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand-contrast ${
               index === activeIndex
-                ? "w-8 bg-brand-contrast"
-                : "w-2.5 bg-brand-contrast/40 hover:bg-brand-contrast/70"
+                ? "w-5 bg-brand-contrast"
+                : "w-2 bg-brand-contrast/40 hover:bg-brand-contrast/70"
             }`}
           />
         ))}

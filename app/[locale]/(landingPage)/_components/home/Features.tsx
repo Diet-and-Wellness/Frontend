@@ -27,9 +27,7 @@ const Features = () => {
       title: t("personalizedPlan.title"),
       points: t.raw("personalizedPlan.points"),
       img: "/images/PrivateSpecialist.webp",
-      checkPointIcon: (
-        <Checkout className="text-white w-5 xl:w-7 h-auto" />
-      ),
+      checkPointIcon: <Checkout className="text-white w-5 xl:w-7 h-auto" />,
       imgStyle: "md:w-70 md:end-0 md:-top-25 lg:w-120 lg:end-0 lg:-top-30",
       bgStyle: "bg-feature-two",
       textStyle: "text-white",
@@ -159,7 +157,7 @@ const FeatureCard = ({
           rounded-3xl
           shadow-2xl
           w-full lg:w-[95%]
-          h-fit
+          h-110
           transform-gpu
           overflow-hidden
           ${feature.bgStyle}

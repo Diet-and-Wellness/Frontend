@@ -15,7 +15,7 @@ const ToolModalHeader = ({
       <div className="flex size-13 shrink-0 items-center justify-center rounded-full bg-(--color-palette-c8dcbf)">
         {toolIcon}
       </div>
-      <p className="min-w-0 flex-1 text-center text-lg leading-snug font-semibold sm:text-xl">
+      <p className="min-w-0 flex-1 text-center text-lg leading-snug font-semibold sm:text-xl text-content">
         {toolName}
       </p>
       <CloseBtn onClose={onClose} />

@@ -32,9 +32,9 @@ export function PersonalizedInsightCard() {
 
         <Link
           href={"/pricing"}
-          className="type-control w-full cursor-pointer place-self-start rounded-full bg-surface-raised px-6 py-3 font-semibold text-brand sm:w-auto sm:px-15"
+          className="type-control w-full cursor-pointer place-self-start rounded-full bg-surface-raised px-6 py-3 font-medium text-brand sm:w-auto sm:px-15 text-center"
         >
-          {t("bookSpecialist")}
+          <span className="text-content-muted">{t("bookSpecialist")}</span>
         </Link>
       </div>
     </div>
