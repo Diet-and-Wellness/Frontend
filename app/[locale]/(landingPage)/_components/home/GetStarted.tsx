@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import GetStartedWave from "@/app/[locale]/components/illustrations/GetStartedWave";
 import { DecorativeArrow } from "@/app/[locale]/components/icons/DecorativeArrow";
+import manImage from "@/public/images/man.webp";
 
 const GetStarted = () => {
   const t = useTranslations("getStarted");
@@ -39,18 +40,17 @@ const GetStarted = () => {
         <GetStartedWave className="get-started-wave pointer-events-none absolute inset-s-0 top-0 z-0 hidden h-auto w-125 text-surface md:block lg:w-170 xl:w-193.75" />
 
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.95 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ y: 40, scale: 0.95 }}
+          whileInView={{ y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
-          className="self-center md:self-end max-w-55 sm:max-w-70 lg:max-w-100 xl:max-w-120"
+          className="w-55 shrink-0 self-center sm:w-70 md:self-end lg:w-100 xl:w-120"
         >
           <Image
-            src={"/images/man.webp"}
-            alt="man img"
-            width={4000}
-            height={715}
-            className="w-full"
+            src={manImage}
+            alt=""
+            sizes="(max-width: 639px) 220px, (max-width: 1023px) 280px, (max-width: 1279px) 400px, 480px"
+            className="h-auto w-full"
           />
         </motion.div>
 

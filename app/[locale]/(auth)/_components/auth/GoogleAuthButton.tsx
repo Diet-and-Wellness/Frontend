@@ -15,6 +15,7 @@ type GoogleAuthButtonProps = {
 };
 
 const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+const googleButtonMaxWidth = 400;
 
 const GoogleAuthButton = ({
   label,
@@ -52,7 +53,7 @@ const GoogleAuthButton = ({
     // Google Identity Services supports button widths up to 400px. Rendering
     // with the actual available width keeps the iframe from overflowing on
     // small screens while preserving the official button's proportions.
-    const width = Math.min(containerWidth, 400);
+    const width = Math.min(containerWidth, googleButtonMaxWidth);
 
     if (renderedWidthRef.current === width && container.childElementCount > 0) {
       return;
@@ -66,11 +67,12 @@ const GoogleAuthButton = ({
       shape: "pill",
       logo_alignment: "left",
       text: mode === "signup" ? "signup_with" : "signin_with",
+      locale,
       width,
     });
     renderedWidthRef.current = width;
     setIsReady(true);
-  }, [mode]);
+  }, [locale, mode]);
 
   const initializeGoogle = useCallback(() => {
     const googleIdentity = window.google?.accounts.id;
@@ -118,17 +120,17 @@ const GoogleAuthButton = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-5">
+    <div className="flex w-full max-w-[400px] self-center flex-col gap-5">
       <div
         aria-label={label}
         aria-busy={disabled || !isReady}
-        className={`relative flex h-15 w-full items-center justify-center transition-opacity ${
+        className={`relative flex h-11 w-full items-center justify-center transition-opacity ${
           disabled ? "pointer-events-none opacity-60" : ""
         }`}
       >
         <div
           ref={containerRef}
-          className="google-auth-button flex w-full items-center justify-center"
+          className="flex w-full items-center justify-center overflow-hidden rounded-full"
         />
 
         {!isReady && (

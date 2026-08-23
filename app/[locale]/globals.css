@@ -362,6 +362,25 @@ body {
     color 200ms ease;
 }
 
+/* Paper Shaders injects a nested canvas rule at runtime. Older iOS WebKit can
+   ignore that nested selector and leave the canvas in the flex layout. */
+.assessment-summary-gradient {
+  isolation: isolate;
+  position: relative;
+  min-width: 0;
+}
+
+.assessment-summary-gradient > canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  contain: strict;
+  border-radius: inherit;
+}
+
 /* ------------------------------
    Responsive type scale
 ------------------------------ */
@@ -731,17 +750,4 @@ button:disabled svg {
 
 [dir="rtl"] .get-started-wave {
   transform: scaleX(-1);
-}
-/* Keep the official Google Identity button responsive without stretching its iframe. */
-.google-auth-button > div,
-.google-auth-button iframe,
-.google-auth-button [role="button"] {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-}
-
-.google-auth-button [role="button"] {
-  min-height: 50px !important;
-  height: 50px !important;
 }
