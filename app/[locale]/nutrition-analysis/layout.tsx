@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { assessmentApi } from "../api/endpoints/assessment.api";
@@ -14,6 +15,7 @@ const NutritionAnalysisLayout = ({
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
 
   const { data: me, isLoading: isLoadingMe } = useMe();
 
@@ -32,18 +34,18 @@ const NutritionAnalysisLayout = ({
     if (isLoadingMe || isLoadingAssessment) return;
 
     if (!me) {
-      router.replace("/signin");
+      router.replace(`/${locale}/signin`);
       return;
     }
 
     if (me.role !== "customer") {
-      router.replace("/");
+      router.replace(`/${locale}`);
       return;
     }
 
     const targetPath = completedAssessment
-      ? "/nutrition-analysis/result"
-      : "/nutrition-analysis/assessment";
+      ? `/${locale}/nutrition-analysis/result`
+      : `/${locale}/nutrition-analysis/assessment`;
 
     if (pathname !== targetPath) {
       router.replace(targetPath);
@@ -55,6 +57,7 @@ const NutritionAnalysisLayout = ({
     isLoadingAssessment,
     pathname,
     router,
+    locale,
   ]);
 
   if (isLoadingMe || isLoadingAssessment) {
