@@ -44,7 +44,7 @@ const Socials = () => {
       <p
         className="
         text-sm sm:text-base md:text-lg lg:text-xl
-        leading-6 sm:leading-7
+        leading-7 sm:leading-8
         font-extralight text-white/90
         max-w-md
       "

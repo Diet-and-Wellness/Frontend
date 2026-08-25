@@ -1,8 +1,8 @@
 {
   "hero": {
     "clientsTrustUs": "Clients Who Trust Us",
-    "viewFeedback": "View Feedback",
-    "getToKnowMoreAboutYourBody": "Get to know more about your body..",
+    "viewFeedback": "View Client Feedback",
+    "getToKnowMoreAboutYourBody": "Learn more about clinical nutrition and your body",
     "viewBlogs": "View Blogs",
     "mobileCta": {
       "eyebrow": "Personalized nutrition",
@@ -11,35 +11,40 @@
     }
   },
   "tools": {
-    "empoweringYouOnTheJourneyOnWellness": "Empowering You On the Journey On Wellness",
-    "startWithOurFreeCalculators": "Start with our free calculators to get a baseline, or dive deep with our premium analysis.",
+    "empoweringYouOnTheJourneyOnWellness": "Smart Nutrition Tools to Support Your Health Goals",
+    "startWithOurFreeCalculators": "Start with our free nutrition calculators to better understand your current needs, then explore our advanced nutrition analysis for more personalized insights and guidance.",
     "tryOurTools": "Try Our Tools",
+    "exploreOurNutritionCalculators": "Explore Our Nutrition Calculators",
     "bmiCalculator": {
-      "name": "Body Mass Index (BMI) Calculator",
-      "description": "Calculate your body mass according to important factors, such as height and weight."
+      "name": "Body Mass Index Calculator",
+      "description": "Calculate your BMI to understand your weight category and support your health goals.",
+      "cta": "Calculate Your BMI"
     },
     "perfectWeightCalculator": {
-      "name": "Perfect Weight Calculator",
-      "description": "Calculate your body mass according to important factors, such as height and weight."
+      "name": "Healthy Weight Calculator",
+      "description": "Estimate your healthy weight range to set realistic nutrition and fitness goals.",
+      "cta": "Calculate Your Weight"
     },
     "calorieCalculator": {
-      "name": "Calorie Calculate",
-      "description": "Calculate your body mass according to important factors, such as height and weight."
+      "name": "Daily Calorie Calculator",
+      "description": "Estimate your daily calorie needs based on your body, lifestyle, and activity level.",
+      "cta": "Calculate Your Calories"
     },
     "nutritionAnalysis": {
       "name": "Nutrition Analysis",
-      "description": "Calculate your body mass according to important factors, such as height and weight."
+      "description": "Get a personalized analysis of your eating habits, lifestyle, goals, and nutritional needs.",
+      "cta": "Start Your Analysis"
     },
     "tryNow": "Try Now",
     "free": "FREE",
     "premium": "Premium"
   },
   "stories": {
-    "realResultsRealStories": "Real results. Real stories.",
-    "hearFromRealClients": "Hear from real clients who transformed their bodies with us, improved their relationship with food, and embraced a healthier, more balanced lifestyle that truly",
-    "realStoriesFromPeople": "These are real stories from people who booked sessions with our nutrition specialists and experienced life-changing transformations.",
+    "realResultsRealStories": "Real Nutrition Journeys From Real Clients",
+    "hearFromRealClients": "Discover how clients built healthier eating habits, achieved healthier weight goals, and improved their relationship with food through personalized nutrition support.",
+    "realStoriesFromPeople": "Read real feedback and transformation stories from clients who have worked with our nutrition specialists and followed plans designed around their individual lifestyles and health goals.",
     "beOneOfThemBookYourSession": "Be one of them — book your session with a nutrition expert today!",
-    "bookWithASpecialist": "Book with a Specialist",
+    "bookWithASpecialist": "Book with a Nutrition Specialist",
     "noFeedbackScreenshots": "Client screenshots will appear here as soon as they are published.",
     "feedbackLoadFailed": "We couldn’t load the client stories right now. Please try again later.",
     "previousStory": "Previous client story",
@@ -48,49 +53,49 @@
     "storyPosition": "Client story {position} of {total}"
   },
   "features": {
-    "exploreOurFeatures": "Explore Our Features",
-    "healthGuidanceDescription": "Find practical tips, expert advice, and easy guidance to help you improve your diet and live a healthier life.",
+    "exploreOurFeatures": "How We Help",
+    "healthGuidanceDescription": "Start with a nutrition assessment, then receive practical guidance designed around your health, lifestyle, preferences, and home meals.",
     "healthAssessment": {
-      "title": "Health Assessment",
+      "title": "Nutrition Assessment",
       "points": [
-        "We carefully review your data to understand your body and needs.",
-        "This includes your lifestyle, food preferences, and health details.",
-        "So we can identify your exact nutritional requirements."
+        "We assess your nutrition and lifestyle to understand your individual needs.",
+        "This includes your health, food preferences, routine, and challenges.",
+        "So your recommendations are built around your needs."
       ]
     },
     "personalizedPlan": {
       "title": "Personalized Plan",
       "points": [
-        "Get a meal plan tailored specifically for you within 24 hours.",
+        "Receive a personalized meal plan you can follow easily from home.",
         "Based on your health condition, lifestyle, and preferences.",
-        "Designed to be easy to follow and fit your daily routine."
+        "Designed around familiar home-cooked foods that naturally fit your daily routine."
       ]
     },
     "ongoingSupport": {
       "title": "Ongoing Support",
       "points": [
-        "We continuously track your progress and body changes.",
-        "Your plan is adjusted whenever needed to keep you on track.",
-        "With ongoing guidance and support throughout your journey."
+        "We track progress and adjust your nutrition plan.",
+        "Your plan evolves whenever needed to support steady, realistic weight progress.",
+        "With expert guidance throughout your journey from home."
       ]
     }
   },
   "getStarted": {
-    "theOnlyThingYouWillLoseIsWeight": "The Only Thing You’ll Lose is Weight",
-    "howToGetStarted": "How to get started?",
+    "theOnlyThingYouWillLoseIsWeight": "Reach Your Ideal Weight From Home, Simply",
+    "howToGetStarted": "How We Support You?",
     "getStart": "Get Started",
     "steps": {
       "fillAssessmentForm": {
-        "title": "Fill the Assessment Form",
-        "desc": "Complete a quick form to help us understand your lifestyle, preferences, and health."
+        "title": "Complete Your Nutrition Assessment",
+        "desc": "Share details so we understand your health, routine, preferences, goals and eating habits."
       },
       "getPersonalizedPlan": {
-        "title": "Get Your Personalized Plan",
-        "desc": "Receive a meal plan tailored to your routine and food preferences within 24 hours."
+        "title": "Receive Your Personalized Plan",
+        "desc": "Receive a practical meal plan tailored to your routine, home-cooked foods, preferences, and goals"
       },
       "followAndStayConsistent": {
-        "title": "Follow & Stay Consistent",
-        "desc": "Start your plan easily with a routine that fits your day, so you can stay consistent."
+        "title": "Follow, Progress, Stay Consistent",
+        "desc": "Follow your plan from home with familiar foods that fit your day and support steady progress."
       }
     }
   },
@@ -105,7 +110,7 @@
   },
   "footer": {
     "copyright": "© 2026 Diet & Wellness All rights reserved",
-    "footerMessage": "The proper footer at the proper time can help protect you. We assist you in moving everybody forward.",
+    "footerMessage": "Personalized nutrition guidance built around your health, lifestyle, and the food you already enjoy at home, helping you work toward a healthier weight without complicating your daily routine.",
     "tools": "Tools",
     "quickLinks": "Quick Links",
     "stayConnected": "Stay Connected",

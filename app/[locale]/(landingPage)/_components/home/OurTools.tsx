@@ -87,6 +87,7 @@ const OurTools = () => {
       ToolIcon: BmiCalculatorIcon,
       toolName: t("tools.bmiCalculator.name"),
       toolDesc: t("tools.bmiCalculator.description"),
+      cta: t("tools.bmiCalculator.cta"),
       href: "/",
       onTry: tryBmiCalc,
     },
@@ -95,6 +96,7 @@ const OurTools = () => {
       ToolIcon: IdealWeightIcon,
       toolName: t("tools.perfectWeightCalculator.name"),
       toolDesc: t("tools.perfectWeightCalculator.description"),
+      cta: t("tools.perfectWeightCalculator.cta"),
       href: "/",
       onTry: tryPerfectWeightCalc,
     },
@@ -103,6 +105,7 @@ const OurTools = () => {
       ToolIcon: CalorieCalculatorIcon,
       toolName: t("tools.calorieCalculator.name"),
       toolDesc: t("tools.calorieCalculator.description"),
+      cta: t("tools.calorieCalculator.cta"),
       href: "/",
       onTry: tryCalCal,
     },
@@ -111,6 +114,7 @@ const OurTools = () => {
       ToolIcon: NutritionAnalysisIcon,
       toolName: t("tools.nutritionAnalysis.name"),
       toolDesc: t("tools.nutritionAnalysis.description"),
+      cta: t("tools.nutritionAnalysis.cta"),
       href: "/",
       onTry: tryFullAssessment,
     },
@@ -174,7 +178,7 @@ const OurTools = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="max-w-2xl flex flex-col gap-4 md:gap-5"
+          className="max-w-xl flex flex-col gap-4 md:gap-5"
         >
           <p className="type-display font-bold text-accent">
             {t("tools.empoweringYouOnTheJourneyOnWellness")}
@@ -188,7 +192,7 @@ const OurTools = () => {
         {/* Tools */}
         <div className="flex flex-col gap-6 md:gap-8">
           <p className="type-section-title font-bold text-accent">
-            {t("tools.tryOurTools")}
+            {t("tools.exploreOurNutritionCalculators")}
           </p>
 
           <ul
@@ -208,6 +212,7 @@ const OurTools = () => {
                 ToolIcon={tool.ToolIcon}
                 toolName={tool.toolName}
                 toolDesc={tool.toolDesc}
+                cta={tool.cta}
                 onTry={tool.onTry}
               />
             ))}
