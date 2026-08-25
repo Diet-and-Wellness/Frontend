@@ -12,6 +12,7 @@ type toolPropsType = {
   ToolIcon: ComponentType<SVGProps<SVGSVGElement>>;
   toolName: string;
   toolDesc: string;
+  cta: string;
   onTry: () => void;
   loading?: boolean;
 };
@@ -21,6 +22,7 @@ const Tool = ({
   ToolIcon,
   toolName,
   toolDesc,
+  cta,
   onTry,
   loading,
 }: toolPropsType) => {
@@ -104,11 +106,7 @@ const Tool = ({
             flex justify-center items-center
         `}
       >
-        {loading ? (
-          <Spinner spinnerSize={26} />
-        ) : (
-          t("tools.tryNow")
-        )}
+        {loading ? <Spinner spinnerSize={26} /> : cta}
       </button>
     </motion.li>
   );

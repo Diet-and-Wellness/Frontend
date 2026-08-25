@@ -53,24 +53,20 @@ const IPhoneFrame = ({ children }: { children: ReactNode }) => (
 
     <div className="relative aspect-12/25 overflow-hidden rounded-[52px] border-[5px] border-neutral-950 bg-neutral-950 p-1.5 shadow-[0_34px_75px_rgba(25,42,18,0.3),0_10px_24px_rgba(25,42,18,0.2)] ring-1 ring-white/25">
       <div className="pointer-events-none absolute inset-1.25 z-40 rounded-[46px] ring-1 ring-inset ring-white/15" />
-
       <div className="relative size-full overflow-hidden rounded-[44px] bg-white">
         {children}
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-s-1/2 top-2.5 z-40 flex h-7 w-24 -translate-x-1/2 items-center justify-end rounded-full bg-neutral-950 px-2.5 shadow-sm"
-        >
-          <span className="size-1.5 rounded-full bg-sky-950 ring-1 ring-sky-400/25" />
+        <div className="pointer-events-none h-full w-full z-100 absolute inset-0 flex flex-col justify-between p-2.5 items-center">
+          <div
+            aria-hidden="true"
+            className="flex h-7 w-24 items-center justify-end rounded-full bg-neutral-950 px-2.5 shadow-sm"
+          >
+            <span className="size-1.5 rounded-full bg-sky-950 ring-1 ring-sky-400/25" />
+          </div>
+          <span
+            aria-hidden="true"
+            className="h-1 w-24 rounded-full bg-neutral-950/80"
+          />
         </div>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-2.5 inset-s-1/2 z-40 h-1 w-24 -translate-x-1/2 rounded-full bg-neutral-950/80"
-        />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 inset-s-0 z-30 w-px bg-white/35"
-        />
       </div>
     </div>
   </div>
