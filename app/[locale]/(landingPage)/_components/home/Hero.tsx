@@ -14,15 +14,15 @@ const Hero = () => {
   const locale = useLocale();
 
   return (
-    <section className="relative overflow-hidden bg-surface pt-25 md:pt-20 max-h-260">
-      <div className="absolute left-0 h-full w-[50%] bg-accent-soft/35 before:absolute before:-top-20 before:left-0 before:h-20 before:w-full before:bg-accent-soft/35" />
-      <div className="absolute right-0 h-full w-[50%] bg-brand-soft/35 before:absolute before:-top-20 before:left-0 before:h-20 before:w-full before:bg-brand-soft/35" />
+    <section className="relative overflow-hidden bg-surface pt-25">
+      <div className="absolute left-0 h-full w-[50%] bg-accent-soft/35 before:absolute before:-top-25 before:left-0 before:h-25 before:w-full before:bg-accent-soft/35" />
+      <div className="absolute right-0 h-full w-[50%] bg-brand-soft/35 before:absolute before:-top-25 before:left-0 before:h-25 before:w-full before:bg-brand-soft/35" />
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeInOut" }}
-        className="w-full overflow-hidden aspect-1/1.5 md:aspect-13/10"
+        className="w-full overflow-hidden aspect-1/1.5 md:aspect-14/10"
       >
         <div className="h-full md:hidden relative">
           <ImageComparison className="h-full w-full" enableHover>
@@ -75,7 +75,7 @@ const Hero = () => {
         flex-col items-stretch justify-between gap-8
         sm:gap-10
         md:flex md:flex-row md:items-center
-        xl:bottom-10
+        lg:bottom-25
        "
       >
         <ViewFeedbackCta />
