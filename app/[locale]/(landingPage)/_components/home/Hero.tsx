@@ -22,7 +22,7 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeInOut" }}
-        className="w-full overflow-hidden aspect-1/1.5 md:aspect-14/10"
+        className="w-full overflow-hidden aspect-1/1.5 md:aspect-14.5/10"
       >
         <div className="h-full md:hidden relative">
           <ImageComparison className="h-full w-full" enableHover>
