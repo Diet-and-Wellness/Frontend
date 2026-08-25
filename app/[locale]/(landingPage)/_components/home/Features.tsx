@@ -157,14 +157,14 @@ const FeatureCard = ({
           rounded-3xl
           shadow-2xl
           w-full lg:w-[95%]
-          h-135 md:h-120
+          h-115 md:h-100
           transform-gpu
           overflow-hidden
           ${feature.bgStyle}
         `}
       >
         {/* Content */}
-        <div className="feature-card-content relative z-10 flex max-w-4xl flex-col justify-center gap-7 md:max-w-[85%] lg:gap-10">
+        <div className="feature-card-content relative z-10 flex max-w-4xl flex-col justify-center gap-7 md:max-w-[75%] lg:gap-10">
           <h3 className={`type-display font-bold ${feature.textStyle}`}>
             {feature.title}
           </h3>
