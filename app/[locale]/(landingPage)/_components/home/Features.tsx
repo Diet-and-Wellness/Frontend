@@ -157,7 +157,7 @@ const FeatureCard = ({
           rounded-3xl
           shadow-2xl
           w-full lg:w-[95%]
-          h-115 md:h-100
+          h-120 md:h-110
           transform-gpu
           overflow-hidden
           ${feature.bgStyle}
