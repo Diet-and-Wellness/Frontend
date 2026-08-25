@@ -35,7 +35,9 @@ function isIosDevice() {
 
 function wasRecentlyDismissed() {
   const dismissedAt = Number(localStorage.getItem(DISMISSED_AT_KEY));
-  return Number.isFinite(dismissedAt) && Date.now() - dismissedAt < DISMISS_FOR_MS;
+  return (
+    Number.isFinite(dismissedAt) && Date.now() - dismissedAt < DISMISS_FOR_MS
+  );
 }
 
 export default function PwaInstallPrompt() {
