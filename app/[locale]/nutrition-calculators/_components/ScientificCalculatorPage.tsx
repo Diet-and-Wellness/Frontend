@@ -88,8 +88,8 @@ export default function ScientificCalculatorPage({
 
       <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 md:gap-10">
         <header className="max-w-2xl text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1.5 text-sm font-semibold text-brand">
-            <VerifiedIcon className="size-4" />
+          <span className="mb-2.5 inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1.5 leading-6 text-md font-semibold text-brand">
+            <VerifiedIcon className="size-6 md:size-7 " />
             {content.eyebrow}
           </span>
           <h1 className="text-[clamp(1.65rem,4vw,2.5rem)] leading-[1.2] font-bold text-content">

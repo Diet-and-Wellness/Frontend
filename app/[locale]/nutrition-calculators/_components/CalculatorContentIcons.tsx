@@ -104,9 +104,27 @@ export function BookOpenIcon(props: IconProps) {
 
 export function VerifiedIcon(props: IconProps) {
   return (
-    <svg {...iconDefaults} {...props}>
-      <path d="m12 2.8 2.2 1.5 2.7-.1.9 2.5 2.2 1.6-.8 2.6.8 2.6-2.2 1.6-.9 2.5-2.7-.1-2.2 1.5-2.2-1.5-2.7.1-.9-2.5-2.2-1.6.8-2.6-.8-2.6 2.2-1.6.9-2.5 2.7.1L12 2.8Z" />
-      <path d="m9 12 2 2 4-4" />
+    <svg
+      {...iconDefaults}
+      {...props}
+      viewBox="0 0 24 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 2.5L14.1 4L16.7 3.9L17.6 6.3L19.8 7.8L19 10.3L19.8 12.8L17.6 14.3L16.7 16.7L14.1 16.6L12 18.1L9.9 16.6L7.3 16.7L6.4 14.3L4.2 12.8L5 10.3L4.2 7.8L6.4 6.3L7.3 3.9L9.9 4L12 2.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+
+      <path
+        d="M8.7 10.5L11 12.8L15.4 8.6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
