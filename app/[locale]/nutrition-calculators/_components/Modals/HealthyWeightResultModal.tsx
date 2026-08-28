@@ -102,7 +102,7 @@ const HealthyWeightResultModal = ({
             </p>
           </div>
 
-          <div className="mb-5 w-full bg-accent-softer px-7.5 py-4 rounded-2xl border border-accent flex flex-col justify-center items-center gap-1.5">
+          <div className="mb-5 w-full bg-accent-softer p-4 md:px-7.5 rounded-2xl border border-accent flex flex-col justify-center items-center gap-1.5">
             <p className="type-body font-medium text-brand">
               {t("healthyWeightDifference", {
                 difference: ibwResult?.difference ?? 0,
