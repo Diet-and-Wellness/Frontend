@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description:
       "Personalized nutrition, wellness assessments, health tools and expert guidance.",
     id: "/",
-    start_url: "/en",
+    start_url: "/ar",
     scope: "/",
     display: "standalone",
     background_color: "#ffffff",

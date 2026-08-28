@@ -128,7 +128,7 @@ const DailyCaloriesPage = () => {
           <label htmlFor="" className="type-label font-medium text-content">
             {t("age")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
+          <div className="flex items-center gap-2 rounded-xl border border-line-strong px-3.5 py-2.5 transition-colors focus-within:border-brand">
             <input
               type="number"
               min={1}
@@ -150,7 +150,7 @@ const DailyCaloriesPage = () => {
           <label htmlFor="" className="type-label font-medium text-content">
             {t("height")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
+          <div className="flex items-center gap-2.5 rounded-xl border border-line-strong px-3.5 py-2.5 transition-colors focus-within:border-brand">
             <input
               type="number"
               inputMode="decimal"
@@ -175,7 +175,7 @@ const DailyCaloriesPage = () => {
           <label htmlFor="" className="type-label font-medium text-content">
             {t("weight")}
           </label>
-          <div className="px-3.5 py-2.5 flex items-center gap-2.5 ring ring-line-strong focus-within:ring-brand focus-within:ring-2 rounded-xl">
+          <div className="flex items-center gap-2.5 rounded-xl border border-line-strong px-3.5 py-2.5 transition-colors focus-within:border-brand">
             <input
               type="number"
               inputMode="decimal"

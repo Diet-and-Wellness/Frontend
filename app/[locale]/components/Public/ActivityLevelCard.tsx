@@ -40,17 +40,15 @@ const ActivityLevelCard = ({
       className={`
         flex min-h-16 w-full cursor-pointer items-center gap-2
         rounded-2xl px-3 py-1.5 text-start
-        ring-1 transition-all duration-150
-        focus-visible:outline-none
-        focus-visible:ring-2
-        focus-visible:ring-brand
-        focus-visible:ring-offset-2
-        focus-visible:ring-offset-surface
+        border transition-colors duration-150
+        focus-visible:outline-2
+        focus-visible:outline-offset-2
+        focus-visible:outline-brand
         sm:min-h-18
         ${
           isSelected
-            ? "bg-brand-soft ring-2 ring-brand"
-            : "bg-surface-raised ring-line-strong hover:bg-surface-muted hover:ring-brand"
+            ? "border-brand bg-brand-soft"
+            : "border-line-strong bg-surface-raised hover:border-brand/60 hover:bg-surface-muted"
         }
       `}
     >
