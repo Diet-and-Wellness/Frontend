@@ -62,7 +62,7 @@ const BmiResultModal = ({
   tryAgainHandler: () => void;
 }) => {
   const t = useTranslations("calculators");
-  
+
   const direction = bmiResult?.direction ?? "healthy";
   const action = bmiResult?.action ?? "Maintaining";
 
@@ -141,7 +141,7 @@ const BmiResultModal = ({
           </div>
 
           {bmiResult?.status === "Normal" || (
-            <div className="w-full rounded-2xl border border-accent px-7.5 py-3 flex flex-col justify-center items-center gap-1.5 bg-accent-softer">
+            <div className="w-full rounded-2xl border border-accent p-4 md:px-7.5 flex flex-col justify-center items-center gap-1.5 bg-accent-softer">
               <p className="type-label font-medium">
                 {t("bmiDifference", {
                   difference: bmiResult?.differenceFromHealthy ?? 0,
