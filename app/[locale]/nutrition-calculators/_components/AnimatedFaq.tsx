@@ -32,7 +32,7 @@ export default function AnimatedFaq({ faqs }: { faqs: Faq[] }) {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="group flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-start transition-colors hover:bg-surface-subtle focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-brand sm:px-5"
+                className="group flex w-full cursor-pointer items-center gap-4 px-4 py-4 text-start transition-colors hover:bg-surface-subtle focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand sm:px-5"
               >
                 <span className="type-body flex-1 font-semibold text-content">
                   {faq.question}
