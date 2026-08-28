@@ -8,12 +8,12 @@ const HEALTHY_MAX = 24.9;
 
 type BodyMetricsCardsProps = {
   bmi: ReturnType<typeof healthMetrics.calculateBMI>;
-  idealWeight: ReturnType<typeof healthMetrics.calculateIdealWeightResult>;
+  healthyWeight: ReturnType<typeof healthMetrics.calculateHealthyWeightResult>;
 };
 
 export default function BodyMetricsCards({
   bmi,
-  idealWeight,
+  healthyWeight,
 }: BodyMetricsCardsProps) {
   const t = useTranslations("analysis");
   const calculatorT = useTranslations("calculators");
@@ -25,8 +25,8 @@ export default function BodyMetricsCards({
     }[bmi.direction],
   );
   const bmiAction = calculatorT(`weightAction.${bmi.action}`);
-  const idealWeightStatus = calculatorT(`weightPosition.${idealWeight.status}`);
-  const idealWeightAction = calculatorT(`weightAction.${idealWeight.action}`);
+  const healthyWeightStatus = calculatorT(`weightPosition.${healthyWeight.status}`);
+  const healthyWeightAction = calculatorT(`weightAction.${healthyWeight.action}`);
 
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7.5 lg:gap-10">
@@ -69,21 +69,21 @@ export default function BodyMetricsCards({
 
       <div className="bg-surface-raised border border-line-soft p-5 rounded-2xl flex flex-col justify-between gap-2.5">
         <p className="type-meta font-medium text-content-muted">
-          {t("idealWeightRange")}
+          {t("healthyWeightRange")}
         </p>
         <div className="flex gap-2.5 justify-start items-baseline">
           <p className="text-2xl font-medium text-brand sm:text-3xl lg:text-[38px]">
-            {idealWeight.idealWeightRange.min} -{" "}
-            {idealWeight.idealWeightRange.max}{" "}
+            {healthyWeight.healthyWeightRange.min} -{" "}
+            {healthyWeight.healthyWeightRange.max}{" "}
             <span className="type-card-title font-light text-content-muted">kg</span>
           </p>
         </div>
 
         <div className="flex items-center justify-between gap-3 rounded-2xl bg-brand-soft px-4 py-2.5 sm:px-5 sm:py-1.5">
           <div>
-            <p>{t("idealWeight")}</p>
+            <p>{t("healthyWeight")}</p>
             <p className="text-xl font-semibold text-brand sm:text-2xl lg:text-[25px]">
-              {idealWeight.idealWeight}{" "}
+              {healthyWeight.healthyWeight}{" "}
               <span className="type-label font-medium">kg</span>
             </p>
           </div>
@@ -93,12 +93,12 @@ export default function BodyMetricsCards({
         </div>
 
         <p className="type-meta text-content-muted">
-          {idealWeight.difference === 0
-            ? t("idealWeightMessage")
-            : t("idealWeightDifference", {
-                difference: idealWeight.difference,
-                status: idealWeightStatus,
-                action: idealWeightAction,
+          {healthyWeight.difference === 0
+            ? t("healthyWeightMessage")
+            : t("healthyWeightDifference", {
+                difference: healthyWeight.difference,
+                status: healthyWeightStatus,
+                action: healthyWeightAction,
               })}
         </p>
       </div>

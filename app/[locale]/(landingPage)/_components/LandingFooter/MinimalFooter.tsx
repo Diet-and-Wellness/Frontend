@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-const AuthFooter = () => {
+const MinimalFooter = () => {
   const t = useTranslations();
 
   return (
@@ -16,4 +16,4 @@ const AuthFooter = () => {
   );
 };
 
-export default AuthFooter;
+export default MinimalFooter;

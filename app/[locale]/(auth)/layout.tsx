@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import AuthHeader from "./_components/AuthHeader";
-import AuthFooter from "./_components/AuthFooter";
+import MinimalFooter from "../(landingPage)/_components/LandingFooter/MinimalFooter";
 import { useMe } from "../hooks/useMe";
 import { LogoLoader } from "../components/Public/Skeletons";
 import { usePathname, useRouter } from "@/i18n/navigation";
@@ -41,7 +41,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="">
       <AuthHeader />
       {children}
-      <AuthFooter />
+      <MinimalFooter />
     </div>
   );
 };

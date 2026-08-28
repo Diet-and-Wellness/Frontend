@@ -13,8 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { authApi } from "../api/endpoints/auth.api";
 import { useMe } from "../hooks/useMe";
 import { LogoLoader } from "../components/Public/Skeletons";
-import AuthFooter from "../(auth)/_components/AuthFooter";
-import LegalHeader from "./_components/LandingHeader/LegalHeader";
+import MinimalFooter from "./_components/LandingFooter/MinimalFooter";
+import MinimalHeader from "./_components/LandingHeader/MinimalHeader";
 
 const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -59,7 +59,7 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="landingContainer">
       {isLegalPage ? (
-        <LegalHeader />
+        <MinimalHeader />
       ) : (
         <LandingHeader
           onClickLogout={openLogoutModalHandler}
@@ -69,7 +69,7 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
 
       {children}
 
-      {isLegalPage ? <AuthFooter /> : <LandingFooter />}
+      {isLegalPage ? <MinimalFooter /> : <LandingFooter />}
 
       <AnimatePresence mode="wait">
         {showLogoutModal && (
