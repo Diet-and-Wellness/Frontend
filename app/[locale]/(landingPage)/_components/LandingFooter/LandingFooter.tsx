@@ -3,12 +3,6 @@
 import { useTranslations } from "next-intl";
 import QuickLinks from "./footerComp/QuickLinks";
 import Socials from "./footerComp/Socials";
-import { AnimatePresence } from "framer-motion";
-import BMI from "../home/free-tools/BMI";
-import IBW from "../home/free-tools/IBW";
-import CalCal from "../home/free-tools/CalCal";
-import BeforeStartAssessment from "../home/free-tools/BeforeStartAssessment";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 
@@ -19,49 +13,19 @@ const LandingFooter = () => {
 
   const { data: me } = useMe();
 
-  const [showBmiModal, setShowBmiModal] = useState(false);
-  const [showIbwModal, setShowIbwModal] = useState(false);
-  const [showCalCalModal, setShowCalCalModal] = useState(false);
-  const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
-    useState(false);
-
   const tryBmiCalc = () => {
-    setShowBmiModal(true);
-  };
-
-  const closeBmiModal = () => {
-    setShowBmiModal(false);
+    router.push("/nutrition-calculators/bmi");
   };
 
   const tryPerfectWeightCalc = () => {
-    setShowIbwModal(true);
-  };
-
-  const closeIbwModal = () => {
-    setShowIbwModal(false);
+    router.push("/nutrition-calculators/healthy-weight");
   };
 
   const tryCalCal = () => {
-    setShowCalCalModal(true);
-  };
-
-  const closeCalCalModal = () => {
-    setShowCalCalModal(false);
-  };
-
-  const closeBeforeAssessmentModal = () => {
-    setShowBeforeStartAssessmentModal(false);
-  };
-
-  const closeCalculatorModals = () => {
-    setShowBmiModal(false);
-    setShowIbwModal(false);
-    setShowCalCalModal(false);
+    router.push("/nutrition-calculators/daily-calories");
   };
 
   const getFullAnalysis = async () => {
-    closeCalculatorModals();
-
     if (!me) {
       router.push("/signin");
       return;
@@ -104,33 +68,6 @@ const LandingFooter = () => {
 
   return (
     <footer className="w-full bg-footer py-12 text-footer-content">
-      <AnimatePresence mode="wait">
-        {showBmiModal && (
-          <BMI onClose={closeBmiModal} onGetFullAnalysis={getFullAnalysis} />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence mode="wait">
-        {showIbwModal && (
-          <IBW onClose={closeIbwModal} onGetFullAnalysis={getFullAnalysis} />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence mode="wait">
-        {showCalCalModal && (
-          <CalCal
-            onClose={closeCalCalModal}
-            onGetFullAnalysis={getFullAnalysis}
-          />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence mode="wait">
-        {showBeforeStartAssessmentModal && (
-          <BeforeStartAssessment onClose={closeBeforeAssessmentModal} />
-        )}
-      </AnimatePresence>
-
       <div className="mx-auto flex w-[90%] flex-col gap-12">
         <div className="flex flex-col gap-10 sm:flex-row sm:flex-wrap sm:justify-between">
           <Socials />

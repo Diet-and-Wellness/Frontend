@@ -17,9 +17,9 @@ interface BMIResult {
   action: "Losing" | "Gaining" | "Maintaining";
 }
 
-interface IdealWeightResult {
-  idealWeight: number;
-  idealWeightRange: {
+interface HealthyWeightResult {
+  healthyWeight: number;
+  healthyWeightRange: {
     min: number;
     max: number;
   };
@@ -101,11 +101,11 @@ export const healthMetrics = {
       differenceFromHealthy = bmi - HEALTHY_MAX;
 
       const maxWeight = HEALTHY_MAX * heightM * heightM;
-      const idealWeight = 22 * heightM * heightM;
+      const healthyWeight = 22 * heightM * heightM;
 
       weightRange = {
         from: Math.ceil(weightKg - maxWeight),
-        to: Math.ceil(weightKg - idealWeight),
+        to: Math.ceil(weightKg - healthyWeight),
       };
 
       direction = "above";
@@ -116,11 +116,11 @@ export const healthMetrics = {
       differenceFromHealthy = bmi - HEALTHY_MAX;
 
       const maxWeight = HEALTHY_MAX * heightM * heightM;
-      const idealWeight = 22 * heightM * heightM;
+      const healthyWeight = 22 * heightM * heightM;
 
       weightRange = {
         from: Math.ceil(weightKg - maxWeight),
-        to: Math.ceil(weightKg - idealWeight),
+        to: Math.ceil(weightKg - healthyWeight),
       };
 
       direction = "above";
@@ -137,7 +137,7 @@ export const healthMetrics = {
     };
   },
 
-  calculateIdealWeightResult: ({
+  calculateHealthyWeightResult: ({
     heightCm,
     weightKg,
     gender,
@@ -149,30 +149,30 @@ export const healthMetrics = {
     const heightInches = heightCm / 2.54;
     const inchesOverFiveFeet = Math.max(0, heightInches - 60);
 
-    const idealWeight =
+    const healthyWeight =
       (gender === "male" ? 50 : 45.5) + inchesOverFiveFeet * 2.3;
 
-    const roundedIdeal = Number(idealWeight.toFixed(1));
+    const roundedHealthy = Number(healthyWeight.toFixed(1));
 
-    const difference = Number(Math.abs(weightKg - roundedIdeal).toFixed(1));
+    const difference = Number(Math.abs(weightKg - roundedHealthy).toFixed(1));
 
-    let action: IdealWeightResult["action"] = "Maintaining";
-    let status: IdealWeightResult["status"] = "healthy";
+    let action: HealthyWeightResult["action"] = "Maintaining";
+    let status: HealthyWeightResult["status"] = "healthy";
 
-    if (weightKg > roundedIdeal) {
+    if (weightKg > roundedHealthy) {
       action = "Losing";
       status = "above";
-    } else if (weightKg < roundedIdeal) {
+    } else if (weightKg < roundedHealthy) {
       action = "Gaining";
       status = "below";
     }
 
     return {
-      idealWeight: roundedIdeal,
+      healthyWeight: roundedHealthy,
 
-      idealWeightRange: {
-        min: Number((roundedIdeal - 2).toFixed(1)),
-        max: Number((roundedIdeal + 2).toFixed(1)),
+      healthyWeightRange: {
+        min: Number((roundedHealthy - 2).toFixed(1)),
+        max: Number((roundedHealthy + 2).toFixed(1)),
       },
 
       difference,

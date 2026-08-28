@@ -1,17 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Tool from "./Tool";
 import { useTranslations } from "next-intl";
-import BMI from "./free-tools/BMI";
-import { useState } from "react";
-import IBW from "./free-tools/IBW";
-import CalCal from "./free-tools/CalCal";
-import BeforeStartAssessment from "./free-tools/BeforeStartAssessment";
 import { useRouter } from "next/navigation";
 import { useMe } from "@/app/[locale]/hooks/useMe";
 import BmiCalculatorIcon from "@/app/[locale]/components/icons/BmiCalculatorIcon";
-import IdealWeightIcon from "@/app/[locale]/components/icons/IdealWeightIcon";
+import HealthyWeightIcon from "@/app/[locale]/components/icons/HealthyWeightIcon";
 import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
 import NutritionAnalysisIcon from "@/app/[locale]/components/icons/NutritionAnalysisIcon";
 import { ViewFeedbackCta } from "./ViewFeedbackCta";
@@ -21,49 +16,19 @@ const OurTools = () => {
   const router = useRouter();
   const { data: me } = useMe();
 
-  const [showBmiModal, setShowBmiModal] = useState(false);
-  const [showIbwModal, setShowIbwModal] = useState(false);
-  const [showCalCalModal, setShowCalCalModal] = useState(false);
-  const [showBeforeStartAssessmentModal, setShowBeforeStartAssessmentModal] =
-    useState(false);
-
   const tryBmiCalc = () => {
-    setShowBmiModal(true);
-  };
-
-  const closeBmiModal = () => {
-    setShowBmiModal(false);
+    router.push("/nutrition-calculators/bmi");
   };
 
   const tryPerfectWeightCalc = () => {
-    setShowIbwModal(true);
-  };
-
-  const closeIbwModal = () => {
-    setShowIbwModal(false);
+    router.push("/nutrition-calculators/healthy-weight");
   };
 
   const tryCalCal = () => {
-    setShowCalCalModal(true);
-  };
-
-  const closeCalCalModal = () => {
-    setShowCalCalModal(false);
-  };
-
-  const closeBeforeAssessmentModal = () => {
-    setShowBeforeStartAssessmentModal(false);
-  };
-
-  const closeCalculatorModals = () => {
-    setShowBmiModal(false);
-    setShowIbwModal(false);
-    setShowCalCalModal(false);
+    router.push("/nutrition-calculators/daily-calories");
   };
 
   const getFullAnalysis = async () => {
-    closeCalculatorModals();
-
     if (!me) {
       router.push("/signin");
       return;
@@ -88,16 +53,14 @@ const OurTools = () => {
       toolName: t("tools.bmiCalculator.name"),
       toolDesc: t("tools.bmiCalculator.description"),
       cta: t("tools.bmiCalculator.cta"),
-      href: "/",
       onTry: tryBmiCalc,
     },
     {
       isFree: true,
-      ToolIcon: IdealWeightIcon,
+      ToolIcon: HealthyWeightIcon,
       toolName: t("tools.perfectWeightCalculator.name"),
       toolDesc: t("tools.perfectWeightCalculator.description"),
       cta: t("tools.perfectWeightCalculator.cta"),
-      href: "/",
       onTry: tryPerfectWeightCalc,
     },
     {
@@ -106,7 +69,6 @@ const OurTools = () => {
       toolName: t("tools.calorieCalculator.name"),
       toolDesc: t("tools.calorieCalculator.description"),
       cta: t("tools.calorieCalculator.cta"),
-      href: "/",
       onTry: tryCalCal,
     },
     {
@@ -115,7 +77,6 @@ const OurTools = () => {
       toolName: t("tools.nutritionAnalysis.name"),
       toolDesc: t("tools.nutritionAnalysis.description"),
       cta: t("tools.nutritionAnalysis.cta"),
-      href: "/",
       onTry: tryFullAssessment,
     },
   ];
@@ -145,33 +106,6 @@ const OurTools = () => {
         id="our-tools"
         className="w-[90%] mx-auto flex flex-col gap-7.5 md:gap-10"
       >
-        <AnimatePresence mode="wait">
-          {showBmiModal && (
-            <BMI onClose={closeBmiModal} onGetFullAnalysis={getFullAnalysis} />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          {showIbwModal && (
-            <IBW onClose={closeIbwModal} onGetFullAnalysis={getFullAnalysis} />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          {showCalCalModal && (
-            <CalCal
-              onClose={closeCalCalModal}
-              onGetFullAnalysis={getFullAnalysis}
-            />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          {showBeforeStartAssessmentModal && (
-            <BeforeStartAssessment onClose={closeBeforeAssessmentModal} />
-          )}
-        </AnimatePresence>
-
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

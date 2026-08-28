@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Logo from "./Logo";
 
-const LegalHeader = () => {
+const MinimalHeader = () => {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -33,9 +33,7 @@ const LegalHeader = () => {
             type="button"
             onClick={switchLanguage}
             aria-label={
-              targetLocale === "ar"
-                ? t("switchToArabic")
-                : t("switchToEnglish")
+              targetLocale === "ar" ? t("switchToArabic") : t("switchToEnglish")
             }
             className="flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-line bg-surface-muted px-4 text-content-muted transition-colors hover:border-brand hover:bg-brand-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:px-5"
           >
@@ -52,4 +50,4 @@ const LegalHeader = () => {
   );
 };
 
-export default LegalHeader;
+export default MinimalHeader;

@@ -511,9 +511,9 @@ export default function ResultPage() {
     [me],
   );
 
-  const idealWeight = useMemo(
+  const healthyWeight = useMemo(
     () =>
-      healthMetrics.calculateIdealWeightResult({
+      healthMetrics.calculateHealthyWeightResult({
         heightCm: me?.profile?.height,
         weightKg: me?.profile?.currentWeight,
         gender: me?.profile?.gender,
@@ -596,7 +596,7 @@ export default function ResultPage() {
           )}
 
           <div className="mx-auto flex w-full max-w-260 flex-col gap-10 px-4 pb-16 sm:gap-15 sm:px-5 sm:pb-20">
-            <BodyMetricsCards bmi={bmi} idealWeight={idealWeight} />
+            <BodyMetricsCards bmi={bmi} healthyWeight={healthyWeight} />
 
             <CalorieTargets
               calories={calories}

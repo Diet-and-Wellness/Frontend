@@ -1,15 +1,10 @@
 "use client";
 
-import ModalWrapper from "@/app/[locale]/components/Public/ModalWrapper";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import GenderCard from "@/app/[locale]/components/Public/GenderCard";
 import ActivityLevelCard from "@/app/[locale]/components/Public/ActivityLevelCard";
-import CaloriesCard from "@/app/[locale]/components/Public/CaloriesCard";
-import BarsIcon from "@/app/[locale]/components/icons/BarsIcon";
-import CTA from "./CTAFreeToolsResult";
-import ToolModalHeader from "./ToolModalHeader";
-import CalorieCalculatorIcon from "@/app/[locale]/components/icons/CalorieCalculatorIcon";
+import ToolModalHeader from "../_components/ToolModalHeader";
 import { healthMetrics } from "@/app/[locale]/utils/healthMetrics";
 import {
   ActivityLevel,
@@ -17,17 +12,14 @@ import {
   Gender,
 } from "@/app/[locale]/api/types/assessment.types";
 import { useTranslations } from "next-intl";
+import DailyCaloriesResultModal from "../_components/Modals/DailyCaloriesResultModal";
 
 const pageVariants = {
   hidden: {
     opacity: 0,
-    scale: 0.97,
-    y: 90,
   },
   visible: {
     opacity: 1,
-    scale: 1,
-    y: 0,
     transition: {
       type: "spring",
       stiffness: 220,
@@ -36,8 +28,6 @@ const pageVariants = {
   },
   exit: {
     opacity: 0,
-    scale: 0.97,
-    y: 90,
     transition: {
       duration: 0.25,
       ease: "easeIn",
@@ -45,16 +35,15 @@ const pageVariants = {
   },
 } as const;
 
-const CalCal = ({
-  onClose,
-  onGetFullAnalysis,
-}: {
-  onClose: () => void;
-  onGetFullAnalysis: () => void;
-}) => {
+const DailyCaloriesPage = () => {
   const [showResult, setShowResult] = useState(false);
   const [calcalResult, setCalcalResult] =
     useState<CalorieCalculatorResult | null>(null);
+  const [gender, setGender] = useState<Gender>("male");
+  const [age, setAge] = useState(0);
+  const [heightCm, setHeightCm] = useState(0);
+  const [weightKg, setWeightKg] = useState(0);
+  const [activityLevel, setActivityLevel] = useState<ActivityLevel>("low");
 
   const showResultHandler = (calcalResult: CalorieCalculatorResult) => {
     setCalcalResult(calcalResult);
@@ -65,46 +54,7 @@ const CalCal = ({
     setShowResult(false);
   };
 
-  return (
-    <ModalWrapper>
-      <div
-        className={`flex flex-col gap-5 ${showResult ? "w-[92vw] md:w-220" : "w-[92vw] md:w-140"}`}
-      >
-        <AnimatePresence mode="wait">
-          {showResult ? (
-            <CalCalResult
-              key="result"
-              calcalResult={calcalResult}
-              tryAgainHandler={tryAgainHandler}
-              onGetFullAnalysis={onGetFullAnalysis}
-              onClose={onClose}
-            />
-          ) : (
-            <CalCalForm
-              key="form"
-              showResultHandler={showResultHandler}
-              onClose={onClose}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    </ModalWrapper>
-  );
-};
-
-const CalCalForm = ({
-  showResultHandler,
-  onClose,
-}: {
-  showResultHandler: (calcalResult: CalorieCalculatorResult) => void;
-  onClose: () => void;
-}) => {
   const t = useTranslations("calculators");
-  const [gender, setGender] = useState<Gender>("male");
-  const [age, setAge] = useState(0);
-  const [heightCm, setHeightCm] = useState(0);
-  const [weightKg, setWeightKg] = useState(0);
-  const [activityLevel, setActivityLevel] = useState<ActivityLevel>("low");
 
   const ageChangeHandler = (value: number) => {
     if (value < 0 || value > 150) {
@@ -146,15 +96,21 @@ const CalCalForm = ({
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="flex max-h-[85dvh] min-h-0 flex-col overflow-hidden rounded-2xl bg-surface border border-line"
+      className="flex w-[min(100%,40rem)] flex-col overflow-hidden rounded-2xl bg-surface border border-line"
     >
-      <ToolModalHeader
-        toolName={t("calorieTitle")}
-        toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
-        onClose={onClose}
-      />
+      <AnimatePresence mode="wait">
+        {showResult && (
+          <DailyCaloriesResultModal
+            key="result"
+            calcalResult={calcalResult}
+            tryAgainHandler={tryAgainHandler}
+          />
+        )}
+      </AnimatePresence>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
+      <ToolModalHeader toolName={t("calorieTitle")} />
+
+      <div className="flex flex-1 flex-col gap-4 p-5 overscroll-contain sm:p-7.5">
         <div className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
           <GenderCard
             selectGenderHandler={() => setGender("male")}
@@ -298,70 +254,4 @@ const CalCalForm = ({
   );
 };
 
-const CalCalResult = ({
-  calcalResult,
-  tryAgainHandler,
-  onGetFullAnalysis,
-  onClose,
-}: {
-  calcalResult: CalorieCalculatorResult | null;
-  tryAgainHandler: () => void;
-  onGetFullAnalysis: () => void;
-  onClose: () => void;
-}) => {
-  const t = useTranslations("calculators");
-  return (
-    <motion.div
-      variants={pageVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      className="flex max-h-[85dvh] min-h-0 w-full flex-col overflow-hidden rounded-2xl bg-surface border border-line"
-    >
-      <ToolModalHeader
-        toolName={t("calorieTitle")}
-        toolIcon={<CalorieCalculatorIcon className="size-7.5 text-content" />}
-        onClose={onClose}
-      />
-
-      <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5 overscroll-contain sm:p-7.5">
-        <div className="flex justify-center items-center gap-5">
-          <div className="p-2.5 bg-(--color-palette-f2f7f0) rounded-full flex justify-center items-center">
-            <BarsIcon />
-          </div>
-          <p className="type-card-title text-center font-medium text-brand-dark">
-            {t("dailyCalorieNeeds")}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
-          <CaloriesCard
-            type="maintenance"
-            calories={calcalResult?.maintenanceCalories ?? 0}
-          />
-          <CaloriesCard
-            type="loss"
-            calories={calcalResult?.fatLossCalories ?? 0}
-          />
-          <CaloriesCard
-            type="gain"
-            calories={calcalResult?.muscleGainCalories ?? 0}
-          />
-        </div>
-
-        <p className="type-label rounded-xl bg-brand-softer px-5 py-3 text-center font-medium text-content-muted">
-          {t("estimatedValues")}
-        </p>
-      </div>
-
-      <div className="shrink-0 border-t border-line bg-surface p-5 sm:px-7.5">
-        <CTA
-          tryAgainHanlder={tryAgainHandler}
-          getFullAssessment={onGetFullAnalysis}
-        />
-      </div>
-    </motion.div>
-  );
-};
-
-export default CalCal;
+export default DailyCaloriesPage;

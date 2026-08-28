@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-const IdealWeightIcon = (props: SVGProps<SVGSVGElement>) => (
+const HealthyWeightIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 40 38"
     fill="none"
@@ -21,4 +21,4 @@ const IdealWeightIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default IdealWeightIcon;
+export default HealthyWeightIcon;
