@@ -22,6 +22,7 @@ import {
 } from "./_components/ResultPaywall";
 import { useLocale, useTranslations } from "next-intl";
 import { subscriptionApi } from "../../api/endpoints/subscription.api";
+import { RetestCTA } from "./_components/RetestCTA";
 
 const visibleCategories = [
   "Excellent",
@@ -395,7 +396,8 @@ export default function ResultPage() {
 
   const t = useTranslations("analysis");
 
-  const isArabic = useLocale() === "ar";
+  const locale = useLocale();
+  const isArabic = locale === "ar";
 
   const router = useRouter();
 
@@ -595,7 +597,7 @@ export default function ResultPage() {
             </div>
           )}
 
-          <div className="mx-auto flex w-full max-w-260 flex-col gap-10 px-4 pb-16 sm:gap-15 sm:px-5 sm:pb-20">
+          <div className="mx-auto flex w-full max-w-260 flex-col gap-10 px-4 pb-16 pt-10 sm:gap-15 sm:px-5 sm:pb-20">
             <BodyMetricsCards bmi={bmi} healthyWeight={healthyWeight} />
 
             <CalorieTargets
@@ -635,6 +637,8 @@ export default function ResultPage() {
                 />
               );
             })}
+
+            <RetestCTA />
 
             <PersonalizedInsightCard />
           </div>

@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { assessmentApi } from "../api/endpoints/assessment.api";
 import { LogoLoader } from "../components/Public/Skeletons";
 import { useMe } from "../hooks/useMe";
 
-const NutritionAnalysisLayout = ({
+const NutritionAnalysisGuard = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const locale = useLocale();
 
   const { data: me, isLoading: isLoadingMe } = useMe();
@@ -43,12 +44,21 @@ const NutritionAnalysisLayout = ({
       return;
     }
 
-    const targetPath = completedAssessment
-      ? `/${locale}/nutrition-analysis/result`
-      : `/${locale}/nutrition-analysis/assessment`;
+    const resultPath = `/${locale}/nutrition-analysis/result`;
+    const assessmentPath = `/${locale}/nutrition-analysis/assessment`;
+    const isRetest = searchParams.get("retest") === "true";
 
-    if (pathname !== targetPath) {
-      router.replace(targetPath);
+    if (completedAssessment) {
+      const canTakeRetest = pathname === assessmentPath && isRetest;
+
+      if (pathname !== resultPath && !canTakeRetest) {
+        router.replace(resultPath);
+      }
+      return;
+    }
+
+    if (pathname !== assessmentPath) {
+      router.replace(assessmentPath);
     }
   }, [
     me,
@@ -56,6 +66,7 @@ const NutritionAnalysisLayout = ({
     isLoadingMe,
     isLoadingAssessment,
     pathname,
+    searchParams,
     router,
     locale,
   ]);
@@ -66,5 +77,15 @@ const NutritionAnalysisLayout = ({
 
   return <div className="w-full">{children}</div>;
 };
+
+const NutritionAnalysisLayout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <Suspense fallback={<LogoLoader />}>
+    <NutritionAnalysisGuard>{children}</NutritionAnalysisGuard>
+  </Suspense>
+);
 
 export default NutritionAnalysisLayout;

@@ -19,7 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import AssessmentHeader from "../_components/AssessmentHeader";
 import AssessmentActions from "./_components/AssessmentActions";
 import AssessmentProgress from "./_components/AssessmentProgress";
@@ -29,6 +29,7 @@ import PersonalDataForm from "./_components/PersonalDataForm";
 
 const AssessmentPage = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const router = useRouter();
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [lastAnsweredSectionIndex, setLastAnsweredSectionIndex] = useState(0);
@@ -155,6 +156,9 @@ const AssessmentPage = () => {
       if (me?.id) clearAssessmentDraft(me.id);
       queryClient.removeQueries({ queryKey: ["section"] });
       queryClient.removeQueries({ queryKey: ["assessment"] });
+      queryClient.removeQueries({ queryKey: ["assessment-result"] });
+      queryClient.removeQueries({ queryKey: ["result-accessability"] });
+      router.replace(`/${locale}/nutrition-analysis/result`);
     },
   });
 
