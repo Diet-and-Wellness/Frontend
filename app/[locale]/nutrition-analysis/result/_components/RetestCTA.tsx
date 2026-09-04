@@ -11,7 +11,7 @@ export const RetestCTA = () => {
   };
 
   return (
-    <section className="flex flex-col gap-4 rounded-3xl border border-line bg-surface-raised p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:p-7.5">
+    <section className="flex flex-col gap-5 rounded-3xl border border-line bg-surface-raised p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:p-7.5">
       <div className="space-y-1.5">
         <h2 className="type-card-title font-bold text-content">
           {t("retestTitle")}
