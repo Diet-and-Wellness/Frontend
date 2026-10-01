@@ -42,7 +42,7 @@ const TeamSection = ({
               src={member.image}
               alt={member.name}
               fill
-              sizes="(max-width: 640px) 288px, (max-width: 1024px) 45vw, 288px"
+              unoptimized
               className="object-cover object-top w-full h-auto transition-transform duration-500 group-hover:scale-[1.035]"
             />
             <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-brand-ink/45 to-transparent" />
