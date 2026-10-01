@@ -4,6 +4,7 @@ import PenIcon from "../icons/Pen";
 import TrashIcon from "../icons/TrashIcon";
 import { BlogResponse } from "../../api/types/blogs.types";
 import { formatDate } from "../../utils/formateDate";
+import { getImageSrc } from "../../utils/getImageSrc";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Eye } from "../icons/Eye";
@@ -18,17 +19,22 @@ const Blog = ({
   showDeleteBlogModal?: () => void;
 }) => {
   const t = useTranslations();
+  const imageSrc = getImageSrc(blog.imageUrl);
 
   return (
     <div className="flex max-w-full h-fit flex-col overflow-hidden rounded-4xl border border-line-soft transition-shadow duration-200 hover:shadow-lg bg-surface">
       <div className="overflow-hidden w-full">
-        <Image
-          width={400}
-          height={60}
-          src={blog.imageUrl}
-          alt="blog image"
-          className="max-h-60 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
-        />
+        {imageSrc ? (
+          <Image
+            width={400}
+            height={60}
+            src={imageSrc}
+            alt="blog image"
+            className="max-h-60 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
+          />
+        ) : (
+          <div className="h-60 w-full bg-(--color-palette-f4f4f2)" />
+        )}
       </div>
 
       <div className="flex flex-col items-start gap-2.5 p-5">

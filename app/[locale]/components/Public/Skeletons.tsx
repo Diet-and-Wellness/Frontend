@@ -573,7 +573,7 @@ export const LogoLoader = () => (
       alt=""
       width={61}
       height={58}
-      priority
+      preload
       className="dashboard-logo-loader size-32 md:size-40"
     />
   </div>

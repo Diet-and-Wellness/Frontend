@@ -33,7 +33,8 @@ const ProfileAvatar = ({
             fill
             src={avatarUrl!}
             alt=""
-            sizes="36px"
+            unoptimized
+            referrerPolicy="no-referrer"
             className="object-cover"
             onError={() => setFailedUrl(avatarUrl ?? null)}
           />

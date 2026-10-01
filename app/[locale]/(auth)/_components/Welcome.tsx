@@ -10,8 +10,9 @@ const Welcome = ({ msg }: { msg: string }) => {
         alt="Welcome illustration"
         width={445}
         height={145}
+        unoptimized
         className="w-55 sm:w-75 md:w-95 lg:w-111.25 h-auto"
-        priority
+        preload
       />
 
       <h4
