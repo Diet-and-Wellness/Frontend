@@ -5,6 +5,7 @@ import TrashIcon from "../icons/TrashIcon";
 import { BlogResponse } from "../../api/types/blogs.types";
 import { formatDate } from "../../utils/formateDate";
 import { getImageSrc } from "../../utils/getImageSrc";
+import { getImageLoader } from "../../utils/cloudinaryLoader";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Eye } from "../icons/Eye";
@@ -29,6 +30,7 @@ const Blog = ({
             width={400}
             height={60}
             src={imageSrc}
+            loader={getImageLoader(imageSrc)}
             alt="blog image"
             className="max-h-60 w-full object-cover object-top transition-transform duration-300 hover:scale-105"
           />

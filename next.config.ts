@@ -7,23 +7,14 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: /.*/,
 
   images: {
-    // Every cache miss is a billable transformation on Vercel. Files in
-    // /public are served with `max-age=0`, so without this the 4-hour
-    // default re-optimizes them several times a day.
-    minimumCacheTTL: 2678400, // 31 days
+    // Nothing uses Vercel Image Optimization: local assets are `unoptimized`
+    // and Cloudinary images are resized by Cloudinary (utils/cloudinaryLoader).
+    // An empty allow-list keeps /_next/image from proxying remote hosts.
+    remotePatterns: [],
 
-    // Default minus 3840: the largest optimized image (blog detail at 2x) needs
-    // 2048, and `fill` images put the largest width in `src`, which crawlers fetch.
+    // Default minus 3840. These widths still drive the Cloudinary srcset; the
+    // largest image (blog detail) needs at most 2048.
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-
-    remotePatterns: [
-      {
-        // Blog images and feedback screenshots uploaded by the backend.
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-        pathname: "/qnw66mx6/image/upload/**",
-      },
-    ],
   },
 };
 

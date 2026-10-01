@@ -20,6 +20,7 @@ import AddFeedbackModal from "./_components/AddFeedbackModal";
 import { FeedbackManagementSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { useTranslations } from "next-intl";
 import { getImageSrc } from "@/app/[locale]/utils/getImageSrc";
+import { getImageLoader } from "@/app/[locale]/utils/cloudinaryLoader";
 
 type DeleteModalState = {
   isOpen: boolean;
@@ -262,6 +263,7 @@ const FeedbackCard = ({
           {imageSrc && (
             <Image
               src={imageSrc}
+              loader={getImageLoader(imageSrc)}
               alt="feedback"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"

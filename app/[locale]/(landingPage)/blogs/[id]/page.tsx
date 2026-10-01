@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname } from "@/i18n/navigation";
 import { formatDate } from "@/app/[locale]/utils/formateDate";
 import { getImageSrc } from "@/app/[locale]/utils/getImageSrc";
+import { getImageLoader } from "@/app/[locale]/utils/cloudinaryLoader";
 import {
   BlogDetailsSkeleton,
   CardGridSkeleton,
@@ -56,6 +57,7 @@ const BlogDetails = () => {
         <Image
           alt=""
           src={imageSrc}
+          loader={getImageLoader(imageSrc)}
           width={1000}
           height={1000}
           sizes="(min-width: 768px) 75vw, 92.5vw"

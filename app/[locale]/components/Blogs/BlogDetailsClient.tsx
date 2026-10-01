@@ -15,6 +15,7 @@ import { useBlogs } from "@/app/[locale]/hooks/useBlogs";
 import type { BlogResponse } from "@/app/[locale]/api/types/blogs.types";
 import Blog from "@/app/[locale]/components/Blogs/Blog";
 import { Eye } from "../icons/Eye";
+import { getImageLoader } from "../../utils/cloudinaryLoader";
 
 const getRecommendationScore = (value: string) => {
   let score = 0;
@@ -59,6 +60,7 @@ const BlogDetailsClient = ({ slug, initialBlog }: BlogDetailsClientProps) => {
       <Image
         alt={blog.title}
         src={blog.imageUrl}
+        loader={getImageLoader(blog.imageUrl)}
         width={1200}
         height={630}
         quality={100}

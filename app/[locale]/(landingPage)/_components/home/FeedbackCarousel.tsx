@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import type { FeedbackResponse } from "../../../api/types/feedback.types";
+import { getImageLoader } from "@/app/[locale]/utils/cloudinaryLoader";
 
 export type FeedbackWithScreenshot = FeedbackResponse & {
   attachmentUrl: string;
@@ -85,6 +86,7 @@ const FeedbackScreenshot = ({
     return (
       <Image
         src={feedback.attachmentUrl}
+        loader={getImageLoader(feedback.attachmentUrl)}
         alt={alt}
         fill
         sizes="(max-width: 768px) 78vw, 312px"
@@ -97,6 +99,7 @@ const FeedbackScreenshot = ({
     <div className="absolute inset-0 isolate flex items-center justify-center overflow-hidden">
       <Image
         src={feedback.attachmentUrl}
+        loader={getImageLoader(feedback.attachmentUrl)}
         alt=""
         fill
         sizes="(max-width: 768px) 78vw, 312px"
@@ -112,6 +115,7 @@ const FeedbackScreenshot = ({
       >
         <Image
           src={feedback.attachmentUrl}
+          loader={getImageLoader(feedback.attachmentUrl)}
           alt={alt}
           fill
           sizes="(max-width: 768px) 68vw, 268px"
