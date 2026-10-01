@@ -196,6 +196,7 @@ const FeatureCard = ({
             alt="feature"
             width={400}
             height={200}
+            unoptimized
             className={`
               mx-auto
               md:absolute

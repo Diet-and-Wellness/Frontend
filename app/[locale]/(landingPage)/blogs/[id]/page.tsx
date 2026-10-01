@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { usePathname } from "@/i18n/navigation";
 import { formatDate } from "@/app/[locale]/utils/formateDate";
+import { getImageSrc } from "@/app/[locale]/utils/getImageSrc";
 import {
   BlogDetailsSkeleton,
   CardGridSkeleton,
@@ -33,6 +34,7 @@ const BlogDetails = () => {
   const slug = splittedPathname[splittedPathname.length - 1];
 
   const { data: blog, isLoading } = useBlog(slug);
+  const imageSrc = getImageSrc(blog?.imageUrl);
 
   const { data: blogs, isLoading: isBlogsLoading } = useBlogs();
 
@@ -50,13 +52,15 @@ const BlogDetails = () => {
 
   return (
     <section className="min-h-screen min-w-full">
-      {blog && (
+      {imageSrc && (
         <Image
           alt=""
-          src={blog?.imageUrl}
+          src={imageSrc}
           width={1000}
           height={1000}
-          quality={100}
+          sizes="(min-width: 768px) 75vw, 92.5vw"
+          loading="eager"
+          fetchPriority="high"
           className="mx-auto mt-20 min-h-80 max-h-170 w-[92.5%] max-w-[92.5%] rounded-4xl bg-(--color-palette-f4f4f2) object-cover md:min-h-120 md:w-[75%] lg:mt-25 lg:min-h-140"
         />
       )}

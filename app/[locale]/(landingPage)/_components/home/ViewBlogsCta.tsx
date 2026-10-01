@@ -20,6 +20,7 @@ export const ViewBlogsCta = () => {
         alt="Card Header"
         width={233}
         height={88}
+        unoptimized
         className="rounded-xl w-full"
       />
 

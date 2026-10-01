@@ -135,6 +135,7 @@ export default function PwaInstallPrompt() {
           src="/icons/icon-192x192.png"
           width={56}
           height={56}
+          unoptimized
           alt=""
           className="size-14 shrink-0 rounded-xl"
         />

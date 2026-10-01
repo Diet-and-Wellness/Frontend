@@ -12,6 +12,7 @@ import FeedbackCarousel, {
 } from "./FeedbackCarousel";
 import { QuoteTop } from "@/app/[locale]/components/icons/QuoteTop";
 import { useMe } from "@/app/[locale]/hooks/useMe";
+import { getImageSrc } from "@/app/[locale]/utils/getImageSrc";
 import { useRouter } from "next/navigation";
 
 const getFeedbackScreenshots = async (): Promise<FeedbackWithScreenshot[]> => {
@@ -27,8 +28,7 @@ const getFeedbackScreenshots = async (): Promise<FeedbackWithScreenshot[]> => {
     .filter(
       (feedback): feedback is FeedbackWithScreenshot =>
         !feedback.isHidden &&
-        typeof feedback.attachmentUrl === "string" &&
-        feedback.attachmentUrl.length > 0,
+        getImageSrc(feedback.attachmentUrl) !== null,
     )
     .sort((first, second) => {
       const orderDifference = first.order - second.order;

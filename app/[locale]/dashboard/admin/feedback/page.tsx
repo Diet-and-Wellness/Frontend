@@ -19,6 +19,7 @@ import { useState } from "react";
 import AddFeedbackModal from "./_components/AddFeedbackModal";
 import { FeedbackManagementSkeleton } from "@/app/[locale]/components/Public/Skeletons";
 import { useTranslations } from "next-intl";
+import { getImageSrc } from "@/app/[locale]/utils/getImageSrc";
 
 type DeleteModalState = {
   isOpen: boolean;
@@ -227,6 +228,7 @@ const FeedbackCard = ({
 }) => {
   const t = useTranslations("dashboard");
   const queryClient = useQueryClient();
+  const imageSrc = getImageSrc(feedback.attachmentUrl);
 
   const feedbackShownStatusMutation = useMutation({
     mutationFn: async () => {
@@ -257,12 +259,15 @@ const FeedbackCard = ({
     >
       <div className="relative">
         <div className="relative h-85 w-full overflow-hidden sm:h-110">
-          <Image
-            src={feedback.attachmentUrl}
-            alt="feedback"
-            fill
-            className="object-cover object-top"
-          />
+          {imageSrc && (
+            <Image
+              src={imageSrc}
+              alt="feedback"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover object-top"
+            />
+          )}
         </div>
 
         <motion.div

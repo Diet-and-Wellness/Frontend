@@ -49,7 +49,7 @@ const GetStarted = () => {
           <Image
             src={manImage}
             alt=""
-            sizes="(max-width: 639px) 220px, (max-width: 1023px) 280px, (max-width: 1279px) 400px, 480px"
+            unoptimized
             className="h-auto w-full"
           />
         </motion.div>
